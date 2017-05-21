@@ -73,26 +73,22 @@
 
 		</script>
 
+        <!-- IF DEBUG. Use un-minified version -->
+        <script type="text/javascript" src="js/src/init.js"></script>
+        <script type="text/javascript" src="js/src/markers.js"></script>
+        <script type="text/javascript" src="js/src/objects.js"></script>
+        <script type="text/javascript" src="js/src/utils.js"></script>
+        <script type="text/javascript" src="js/src/map.js"></script>
+        <script type="text/javascript" src="js/src/socket.js"></script>
+
+        <!-- IF PRODUCTION. Use minified version -->
+        <!--
         <script type="text/javascript" src="js/init.js"></script>
         <script type="text/javascript" src="js/markers.min.js"></script>
         <script type="text/javascript" src="js/objects.js"></script>
         <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" src="js/map.js"></script>
         <script type="text/javascript" src="js/socket.js"></script>
-
-        <!--
-
-        <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/28/11/intl/en_gb/common.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/28/11/intl/en_gb/map.js"></script>
-
-        <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/28/11/intl/en_gb/util.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/28/11/intl/en_gb/marker.js"></script>
-
-        <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/28/11/intl/en_gb/onion.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/28/11/intl/en_gb/controls.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/28/11/intl/en_gb/infowindow.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/28/11/intl/en_gb/stats.js"></script>
-
         -->
 
         <script>
