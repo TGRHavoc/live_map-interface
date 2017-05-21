@@ -145,7 +145,7 @@ function mapInit(elementID) {
                 });
                 break
         }
-    })
+    });
 }
 
 function createMarker(animated, draggable, objectRef, title) {
