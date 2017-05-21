@@ -1,8 +1,45 @@
 var _MAP_currentMarker;
 var _MAP_markerStore;
+
+var bounds = {
+	3: 2,
+	4: 5,
+	5: 10,
+	6: 21,
+	7: 42
+};
+function getNormalizedCoord(coord, zoom) {
+  	var y = coord.y;
+  	var x = coord.x;
+
+  	// tile range in one direction range is dependent on zoom level
+  	// 0 = 1 tile, 1 = 2 tiles, 2 = 4 tiles, 3 = 8 tiles, etc
+  	var tileRange = 1 << zoom;
+
+  	// don't repeat across y-axis (vertically)
+  	if (y < 0 || y >= tileRange) {
+		return null;
+  	}
+
+  	// repeat across x-axis
+  	if (x < 0 || x >= tileRange) {
+    	x = (x % tileRange + tileRange) % tileRange;
+  	}
+
+  	return {
+    	x: x,
+    	y: y
+  	};
+}
+
+
 var mapAtlasOptions = {
     getTileUrl: function(coord, zoom) {
-        return _MAP_tileURL + "atlas/" + zoom + "_" + coord.x + "_" + coord.y + ".png"
+        var normalizedCoord = getNormalizedCoord(coord, zoom);
+        if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
+            return null;
+        }
+        return _MAP_tileURL + 'atlas/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
@@ -13,7 +50,11 @@ var mapAtlas = new google.maps.ImageMapType(mapAtlasOptions);
 mapAtlas.projection = new EuclideanProjection();
 var mapSatelliteOptions = {
     getTileUrl: function(coord, zoom) {
-        return _MAP_tileURL + "satellite/" + zoom + "_" + coord.x + "_" + coord.y + ".png"
+        var normalizedCoord = getNormalizedCoord(coord, zoom);
+        if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
+            return null;
+        }
+        return _MAP_tileURL + 'satellite/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
@@ -24,7 +65,11 @@ var mapSatellite = new google.maps.ImageMapType(mapSatelliteOptions);
 mapSatellite.projection = new EuclideanProjection();
 var mapRoadOptions = {
     getTileUrl: function(coord, zoom) {
-        return _MAP_tileURL + "road/" + zoom + "_" + coord.x + "_" + coord.y + ".png"
+        var normalizedCoord = getNormalizedCoord(coord, zoom);
+        if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
+            return null;
+        }
+        return _MAP_tileURL + 'road/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
@@ -35,7 +80,11 @@ var mapRoad = new google.maps.ImageMapType(mapRoadOptions);
 mapRoad.projection = new EuclideanProjection();
 var mapUVInvOptions = {
     getTileUrl: function(coord, zoom) {
-        return _MAP_tileURL + "uv-invert/" + zoom + "_" + coord.x + "_" + coord.y + ".png"
+        var normalizedCoord = getNormalizedCoord(coord, zoom);
+        if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
+            return null;
+        }
+        return _MAP_tileURL + 'uv-invert/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
