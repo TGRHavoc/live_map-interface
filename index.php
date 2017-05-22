@@ -143,6 +143,8 @@
                 </ul>
 
             </div>
+            
+            <p style="color: black; text-align: center;">This was originaly created for <a href="https://identityrp.co.uk">IdentityRP</a></p>
         </div>
     </div>
 </body>
