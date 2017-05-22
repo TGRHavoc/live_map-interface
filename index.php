@@ -71,7 +71,7 @@
     // Set to the IP of the GTA V server running "live_map"
     //var _SETTINGS_queryIp = "http://identity/map-api";
 
-    var _SETTINGS_socketUrl = "wss://identityrp.co.uk:30121"
+    var _SETTINGS_socketUrl = "ws://localhost:30121"
 
     </script>
 

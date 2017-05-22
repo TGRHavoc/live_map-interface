@@ -578,5 +578,12 @@ var MarkerTypes = {
         origin: new google.maps.Point( customImageWidth * 4, customImageHeight * 13 ),
         anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
         scaledSize: new google.maps.Size( 1024/2,1024/2 )
+    },
+    jerryCan : {
+        icon: "blips_texturesheet.png",
+        size: new google.maps.Size( customImageWidth, customImageHeight ),
+        origin: new google.maps.Point( customImageWidth * 8, customImageHeight * 9 ),
+        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
+        scaledSize: new google.maps.Size( 1024/2,1024/2 )
     }
 };
