@@ -33,7 +33,7 @@
     <link type="text/css" rel="stylesheet" href="style/bootstrap.css">
     <link type="text/css" rel="stylesheet" href="style/style.css">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/app.min.js"></script>
 
     <!-- Change the key below -->
