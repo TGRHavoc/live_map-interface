@@ -35,6 +35,7 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/app.min.js"></script>
+
     <!-- Change the key below -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbYDZMGkewhRTGRJS4wwSVuBipYlYf-SU"></script>
 
@@ -69,30 +70,29 @@
     // Set "false" to not show map
     var _MAP_UVInvMap = false;
 
-    // Set to the IP of the GTA V server running "live_map"
-    //var _SETTINGS_queryIp = "http://identity/map-api";
-
+    // Set to the IP of the GTA server running "live_map" and change the port to the
+    // number that is in the "server.lua" file
     var _SETTINGS_socketUrl = "wss://identityrp.co.uk:30121"
 
     </script>
 
     <!-- IF DEBUG. Use un-minified version -->
+    <!--
     <script type="text/javascript" src="js/src/init.js"></script>
     <script type="text/javascript" src="js/src/markers.js"></script>
     <script type="text/javascript" src="js/src/objects.js"></script>
     <script type="text/javascript" src="js/src/utils.js"></script>
     <script type="text/javascript" src="js/src/map.js"></script>
     <script type="text/javascript" src="js/src/socket.js"></script>
-
+    -->
     <!-- IF PRODUCTION. Use minified version -->
-    <!--
+
     <script type="text/javascript" src="js/init.min.js"></script>
     <script type="text/javascript" src="js/markers.min.js"></script>
     <script type="text/javascript" src="js/objects.min.js"></script>
     <script type="text/javascript" src="js/utils.min.js"></script>
     <script type="text/javascript" src="js/map.min.js"></script>
     <script type="text/javascript" src="js/socket.min.js"></script>
-    -->
 
     <script>
     function startMarkers(){
@@ -126,11 +126,22 @@
                 <ul class="nav nav-list">
                   <li class="nav-header">Controls</li>
 
-                  <li><a id="refreshBlips" href="#">Refresh Blips</a></li>
+                  <li>
+                      <a id="refreshBlips" href="#">Refresh Blips</a>
+                  </li>
 
-                  <li><a id="toggleLive" href="#">Live update <span id="live_enabled" class="label label-danger pull-right">off</span></a></li>
+                  <li>
+                      <a id="showBlips" href="#">Show Blips <span id="blips_enabled" class="label label-success pull-right">on</span></a>
+                  </li>
 
-                  <li><a id="reconnect" href="#">Connect <span id="connection" class="label label-danger pull-right">disconnected</span></a></li>
+                  <li>
+                      <a id="toggleLive" href="#">Live update <span id="live_enabled" class="label label-danger pull-right">off</span></a>
+                  </li>
+
+                  <li>
+                      <a id="reconnect" href="#">Connect <span id="connection" class="label label-danger pull-right">disconnected</span></a>
+                  </li>
+
                   <li id="socket_error" class="label label-danger"></li>
 
                 </ul>
@@ -152,6 +163,7 @@
 <script>
 var _invervalId;
 var _isLive = false;
+var _showBlips = true;
 
 $(document).ready(function(){
     globalInit();
@@ -160,6 +172,18 @@ $(document).ready(function(){
     $("#refreshBlips").click(function(e){
         e.preventDefault();
         webSocket.send("getBlips");
+    });
+
+    $("#showBlips").click(function(e){
+        e.preventDefault();
+
+        _showBlips = !_showBlips;
+        
+        webSocket.send("getBlips");
+
+        $("#blips_enabled").removeClass("label-success").removeClass("label-danger")
+            .addClass( _showBlips ? "label-success" : "label-danger")
+            .text(_showBlips ? "on" : "off")
     });
 
     $("#reconnect").click(function(e){
@@ -176,7 +200,7 @@ $(document).ready(function(){
 
         $("#live_enabled").removeClass("label-success").removeClass("label-danger")
             .addClass( _isLive ? "label-success" : "label-danger")
-            .text(_isLive ? "on" : "off")
+            .text(_isLive ? "on" : "off");
 
         if (_isLive){
             _invervalId = setInterval(function(){ webSocket.send("getLocations"); }, 250);
