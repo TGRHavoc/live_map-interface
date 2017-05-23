@@ -35,6 +35,7 @@
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/app.min.js"></script>
+    <!-- Change the key below -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbYDZMGkewhRTGRJS4wwSVuBipYlYf-SU"></script>
 
     <script>
@@ -71,7 +72,7 @@
     // Set to the IP of the GTA V server running "live_map"
     //var _SETTINGS_queryIp = "http://identity/map-api";
 
-    var _SETTINGS_socketUrl = "ws://localhost:30121"
+    var _SETTINGS_socketUrl = "wss://identityrp.co.uk:30121"
 
     </script>
 
@@ -141,9 +142,8 @@
 
                   <li><a>Online players <span id="player_count" class="label label-info pull-right">0</span></a></li>
                 </ul>
-
             </div>
-            
+
             <p style="color: black; text-align: center;">This was originaly created for <a href="https://identityrp.co.uk">IdentityRP</a></p>
         </div>
     </div>
