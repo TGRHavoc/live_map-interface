@@ -72,7 +72,7 @@
 
     // Set to the IP of the GTA server running "live_map" and change the port to the
     // number that is in the "server.lua" file
-    var _SETTINGS_socketUrl = "ws://localhost:30121"
+    var _SETTINGS_socketUrl = "wss://identityrp.co.uk:30121"
 
     </script>
 
