@@ -21,8 +21,11 @@ function connect(){
 }
 
 function onOpen(e){
+    _isConnected = true;
+    console.log("_isConnected: " + _isConnected);
     // Get blips?
     webSocket.send("getBlips");
+    webSocket.send("getLocations"); // Get any players connected to the server
 
     $("#connection").removeClass("label-danger")
         .removeClass("label-warning")
@@ -82,7 +85,7 @@ function onError(e){
     else if(event.code == 1015)
         reason = "The connection was closed due to a failure to perform a TLS handshake (e.g., the server certificate can't be verified).";
     else
-        reason = "Unknown reason";
+        reason = "Unknown reason (Server is probably down)";
 
     $("#socket_error").text(reason);
 
@@ -96,27 +99,35 @@ function onClose(e){
         .removeClass("label-warning")
         .addClass("label-danger").text("disconnected");
 
+    _isConnected = false;
     if (_isLive){
         clearInterval(_invervalId);
     }
 
 }
 
+function addBlip(blip, bool){
+    //_blipCount++;
+}
+
 function initBlips(blips){
-    var count = 0;
+    _blipCount = 0;
+    _blips = [];
     clearAllMarkers();
 
     if (_showBlips){
         blips.forEach(function(blip){
             var desc = blip.description == undefined ? "" : blip.description;
             var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], desc, "", "");
+
+            _blips[_blipCount++] = blip;
+
             createMarker(false, false, obj, "");
-            count++;
         });
     }
 
-    console.log(count + " blips created");
-    $("#blip_count").text(count);
+    console.log(_blipCount + " blips created");
+    $("#blip_count").text(_blipCount);
 }
 
 var localCache = {};
@@ -126,6 +137,10 @@ function playerLeft(playerName){
         clearMarker(localCache[playerName].marker);
         localCache[playerName].marker = null;
     }
+
+    if ($("#playerSelect option[value='" + playerName + "']").length > 0){
+        $("#playerSelect option[value='" + playerName + "']").remove();
+    }
 }
 
 function doPlayerUpdate(players){
@@ -133,6 +148,13 @@ function doPlayerUpdate(players){
     players.forEach(function(plr){
         playerCount ++;
         if (plr == null) return;
+
+        if ($("#playerSelect option[value='" + plr.id + "']").length <= 0){
+            $("#playerSelect").append($("<option>", {
+                value: plr.id,
+                text: plr.name
+            }));
+        }
 
         if (plr.id in localCache){
 
