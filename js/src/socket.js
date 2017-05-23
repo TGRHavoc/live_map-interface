@@ -134,24 +134,24 @@ function doPlayerUpdate(players){
         playerCount ++;
         if (plr == null) return;
 
-        if (plr.name in localCache){
+        if (plr.id in localCache){
 
             //console.log(JSON.stringify(plr));
             //console.log(JSON.stringify(localCache[plr.name]));
 
-            if (plr.x == localCache[plr.name].player.x
-                && plr.y == localCache[plr.name].player.y
-                && plr.z == localCache[plr.name].player.z){
+            if (plr.x == localCache[plr.id].player.x
+                && plr.y == localCache[plr.id].player.y
+                && plr.z == localCache[plr.id].player.z){
                     //Don't update position.. Player hasn't moved
                     console.log("Player " + plr.name + " hasn't moved");
             }else{
                 console.log("updated local cache for " + plr.name);
                 //console.log(JSON.stringify(plr));
-                localCache[plr.name].player = plr;
+                localCache[plr.id].player = plr;
 
-                if (localCache[plr.name].marker != null || localCache[plr.name].marker != undefined){
+                if (localCache[plr.id].marker != null || localCache[plr.id].marker != undefined){
                     //update postion
-                    _MAP_markerStore[localCache[plr.name].marker].setPosition( convertToMapGMAP(plr.x, plr.y) );
+                    _MAP_markerStore[localCache[plr.id].marker].setPosition( convertToMapGMAP(plr.x, plr.y) );
 
                     //update popup
                     var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.x.toFixed(4) + "} Y {" + plr.y.toFixed(4) + "} Z {" + plr.z.toFixed(4) + "}</div>";
@@ -159,17 +159,17 @@ function doPlayerUpdate(players){
                     var infoBox = new google.maps.InfoWindow({
                         content: infoContent
                     });
-                    _MAP_markerStore[localCache[plr.name].marker].popup.setContent(infoContent);
+                    _MAP_markerStore[localCache[plr.id].marker].popup.setContent(infoContent);
                 }
             }
 
         }else{
-            localCache[plr.name] = {};
-            localCache[plr.name].player = plr;
+            localCache[plr.id] = {};
+            localCache[plr.id].player = plr;
             var obj = new MarkerObject(plr.name, new Coordinates(plr.x, plr.y, plr.z), MarkerTypes.normal, "A player", "", "");
             createMarker(false, false, obj, plr.name);
 
-            localCache[plr.name].marker = _MAP_markerStore.length - 1;
+            localCache[plr.id].marker = _MAP_markerStore.length - 1;
         }
     });
 
