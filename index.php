@@ -72,7 +72,7 @@
 
     // Set to the IP of the GTA server running "live_map" and change the port to the
     // number that is in the "server.lua" file
-    var _SETTINGS_socketUrl = "wss://identityrp.co.uk:30121"
+    var _SETTINGS_socketUrl = "ws://localhost:30121"
 
     </script>
 
@@ -144,6 +144,14 @@
 
                   <li id="socket_error" class="label label-danger"></li>
 
+                  <li style="height: 50px;">
+                      <a>
+                          Track Player
+                          <select id="playerSelect" class="input-large form-control pull-right" style="width: 65%">
+                              <option></option>
+                          </select>
+                  </li>
+
                 </ul>
 
                 <ul class="nav nav-list" style="margin-top: 10px;">
@@ -163,7 +171,24 @@
 <script>
 var _invervalId;
 var _isLive = false;
+var _blips = [];
+var _blipCount = 0;
 var _showBlips = true;
+var _isConnected = false;
+var _trackPlayer = null;
+
+function toggleBlips(){
+    console.log("showing local blips");
+    if (_showBlips){
+        _blips.forEach(function(blip){
+            var desc = blip.description == undefined ? "" : blip.description;
+            var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], desc, "", "");
+            createMarker(false, false, obj, "");
+        });
+    }else{
+        clearAllMarkers();
+    }
+}
 
 $(document).ready(function(){
     globalInit();
@@ -179,7 +204,8 @@ $(document).ready(function(){
 
         _showBlips = !_showBlips;
 
-        webSocket.send("getBlips");
+        //webSocket.send("getBlips");
+        toggleBlips();
 
         $("#blips_enabled").removeClass("label-success").removeClass("label-danger")
             .addClass( _showBlips ? "label-success" : "label-danger")
@@ -195,6 +221,10 @@ $(document).ready(function(){
 
     $("#toggleLive").click(function(e){
         e.preventDefault();
+        if(!_isConnected){
+            // Not connected
+            return;
+        }
 
         _isLive = !_isLive;
 
@@ -209,7 +239,6 @@ $(document).ready(function(){
         }
 
     });
-
 });
 </script>
 </html>
