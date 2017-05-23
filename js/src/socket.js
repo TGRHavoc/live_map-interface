@@ -87,8 +87,8 @@ function onError(e){
     else
         reason = "Unknown reason (Server is probably down)";
 
-    $("#socket_error").text(reason);
-
+    //$("#socket_error").text(reason);
+    console.log("Socket error: " + reason);
     if (_isLive){
         clearInterval(_invervalId);
     }
@@ -154,6 +154,10 @@ function doPlayerUpdate(players){
                 value: plr.id,
                 text: plr.name
             }));
+        }
+
+        if (_trackPlayer != null && _trackPlayer == plr.id){
+            map.panTo(convertToMapGMAP(plr.x, plr.y));
         }
 
         if (plr.id in localCache){
