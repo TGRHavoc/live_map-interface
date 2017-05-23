@@ -556,8 +556,7 @@ var MarkerTypes = {
         anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
         scaledSize: new google.maps.Size( 1024/2,1024/2 )
     },
-
-    // Other basic icon
+    // Other basic icons
     package: {
         icon: "blips_texturesheet.png",
         size: new google.maps.Size( customImageWidth, customImageHeight ),

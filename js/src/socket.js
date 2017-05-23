@@ -105,12 +105,16 @@ function onClose(e){
 function initBlips(blips){
     var count = 0;
     clearAllMarkers();
-    blips.forEach(function(blip){
-        var desc = blip.description == undefined ? "" : blip.description;
-        var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], desc, "", "");
-        createMarker(false, false, obj, "");
-        count++;
-    });
+
+    if (_showBlips){
+        blips.forEach(function(blip){
+            var desc = blip.description == undefined ? "" : blip.description;
+            var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], desc, "", "");
+            createMarker(false, false, obj, "");
+            count++;
+        });
+    }
+
     console.log(count + " blips created");
     $("#blip_count").text(count);
 }
