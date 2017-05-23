@@ -468,6 +468,13 @@ var MarkerTypes = {
         anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
         scaledSize: new google.maps.Size( 1024/2,1024/2 )
     },
+    cab: {
+        icon: "blips_texturesheet.png",
+        size: new google.maps.Size( customImageWidth, customImageHeight ),
+        origin: new google.maps.Point( customImageWidth * 13, customImageHeight * 5 ),
+        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
+        scaledSize: new google.maps.Size( 1024/2,1024/2 )
+    },
     therapy: {
         icon: "blips_texturesheet.png",
         size: new google.maps.Size( customImageWidth, customImageHeight ),
@@ -491,10 +498,31 @@ var MarkerTypes = {
         anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
         scaledSize: new google.maps.Size( 1024/2,1024/2 )
     },
-    cab: {
+    personalBike: {
+        icon: "blips_texturesheet.png",
+        size: new google.maps.Size( customImageWidth, customImageHeight ),
+        origin: new google.maps.Point( customImageWidth *6, customImageHeight * 6 ),
+        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
+        scaledSize: new google.maps.Size( 1024/2,1024/2 )
+    },
+    personalCar: {
         icon: "blips_texturesheet.png",
         size: new google.maps.Size( customImageWidth, customImageHeight ),
         origin: new google.maps.Point( customImageWidth *7, customImageHeight * 6 ),
+        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
+        scaledSize: new google.maps.Size( 1024/2,1024/2 )
+    },
+    armsTraffickingAir:{
+        icon: "blips_texturesheet.png",
+        size: new google.maps.Size( customImageWidth, customImageHeight ),
+        origin: new google.maps.Point( customImageWidth *11, customImageHeight * 6 ),
+        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
+        scaledSize: new google.maps.Size( 1024/2,1024/2 )
+    },
+    fairground: {
+        icon: "blips_texturesheet.png",
+        size: new google.maps.Size( customImageWidth, customImageHeight ),
+        origin: new google.maps.Point( customImageWidth * 15, customImageHeight * 6 ),
         anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
         scaledSize: new google.maps.Size( 1024/2,1024/2 )
     },
@@ -557,6 +585,13 @@ var MarkerTypes = {
         scaledSize: new google.maps.Size( 1024/2,1024/2 )
     },
     // Other basic icons
+    dead: {
+        icon: "blips_texturesheet.png",
+        size: new google.maps.Size( customImageWidth, customImageHeight ),
+        origin: new google.maps.Point( customImageWidth * 4, customImageHeight * 8 ),
+        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
+        scaledSize: new google.maps.Size( 1024/2,1024/2 )
+    },
     package: {
         icon: "blips_texturesheet.png",
         size: new google.maps.Size( customImageWidth, customImageHeight ),
