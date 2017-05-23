@@ -1,0 +1,5 @@
+Install minifier (nmp install -g minifier)
+
+Run the command
+
+minify --template ..\{{filename}}.min.{{ext}} js\src\
