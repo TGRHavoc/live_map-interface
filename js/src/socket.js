@@ -155,6 +155,10 @@ function doPlayerUpdate(players){
                 text: plr.name
             }));
         }
+        
+        if (_trackPlayer != null && _trackPlayer == plr.id){
+            map.panTo(convertToMapGMAP(plr.x, plr.y));
+        }
 
         if (plr.id in localCache){
 

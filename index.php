@@ -194,6 +194,16 @@ $(document).ready(function(){
     globalInit();
     connect();
 
+    $("#playerSelect").on("change", function(){
+        if (this.value == ""){
+            _trackPlayer = null;
+            return;
+        }
+
+        map.setZoom(7);// zoom in!
+        _trackPlayer = this.value;
+    });
+
     $("#refreshBlips").click(function(e){
         e.preventDefault();
         webSocket.send("getBlips");
