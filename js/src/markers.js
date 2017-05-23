@@ -487,7 +487,7 @@ var MarkerTypes = {
     jail2: {
         icon: "blips_texturesheet.png",
         size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 11, customImageHeight * 6 ),
+        origin: new google.maps.Point( customImageWidth * 10, customImageHeight * 6 ),
         anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
         scaledSize: new google.maps.Size( 1024/2,1024/2 )
     },
