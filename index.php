@@ -33,7 +33,7 @@
     <link type="text/css" rel="stylesheet" href="style/bootstrap.css">
     <link type="text/css" rel="stylesheet" href="style/style.css">
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="js/app.min.js"></script>
 
     <!-- Change the key below -->
@@ -50,24 +50,16 @@
     // Set relative icon directory
     var _MAP_iconURL = "images/icons/";
 
-    // Set if to show Atlas map (WARNING: REQUIRES ATLAS MAP TILE DIRECTORY)
-    // Set "true" to show map
-    // Set "false" to not show map
+    // Set if to show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
     var _MAP_atlasMap = true;
 
-    // Set if to show Satellite map (WARNING: REQUIRES SATELLITE MAP TILE DIRECTORY)
-    // Set "true" to show map
-    // Set "false" to not show map
+    // Set if to show Satellite map (WARNING: REQUIRES "satellite" TILE DIRECTORY)
     var _MAP_satelliteMap = true;
 
-    // Set if to show Road map (WARNING: REQUIRES ROAD MAP TILE DIRECTORY)
-    // Set "true" to show map
-    // Set "false" to not show map
+    // Set if to show Road map (WARNING: REQUIRES "road" TILE DIRECTORY)
     var _MAP_roadMap = true;
 
-    // Set if to show UV Invert map (WARNING: REQUIRES UV INVERT MAP TILE DIRECTORY)
-    // Set "true" to show map
-    // Set "false" to not show map
+    // Set if to show UV Invert map (WARNING: REQUIRES "uv-invert" TILE DIRECTORY)
     var _MAP_UVInvMap = false;
 
     // Set to the IP of the GTA server running "live_map" and change the port to the
@@ -168,87 +160,5 @@
     </div>
 </body>
 
-<script>
-var _invervalId;
-var _isLive = false;
-var _blips = [];
-var _blipCount = 0;
-var _showBlips = true;
-var _isConnected = false;
-var _trackPlayer = null;
-
-function toggleBlips(){
-    console.log("showing local blips");
-    if (_showBlips){
-        _blips.forEach(function(blip){
-            var desc = blip.description == undefined ? "" : blip.description;
-            var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], desc, "", "");
-            createMarker(false, false, obj, "");
-        });
-    }else{
-        clearAllMarkers();
-    }
-}
-
-$(document).ready(function(){
-    globalInit();
-    connect();
-
-    $("#playerSelect").on("change", function(){
-        if (this.value == ""){
-            _trackPlayer = null;
-            return;
-        }
-
-        map.setZoom(7);// zoom in!
-        _trackPlayer = this.value;
-    });
-
-    $("#refreshBlips").click(function(e){
-        e.preventDefault();
-        webSocket.send("getBlips");
-    });
-
-    $("#showBlips").click(function(e){
-        e.preventDefault();
-
-        _showBlips = !_showBlips;
-
-        //webSocket.send("getBlips");
-        toggleBlips();
-
-        $("#blips_enabled").removeClass("label-success").removeClass("label-danger")
-            .addClass( _showBlips ? "label-success" : "label-danger")
-            .text(_showBlips ? "on" : "off")
-    });
-
-    $("#reconnect").click(function(e){
-        e.preventDefault();
-
-        $("#connection").removeClass("label-success").removeClass("label-danger").addClass("label-warning").text("reconnecting");
-        connect();
-    });
-
-    $("#toggleLive").click(function(e){
-        e.preventDefault();
-        if(!_isConnected){
-            // Not connected
-            return;
-        }
-
-        _isLive = !_isLive;
-
-        $("#live_enabled").removeClass("label-success").removeClass("label-danger")
-            .addClass( _isLive ? "label-success" : "label-danger")
-            .text(_isLive ? "on" : "off");
-
-        if (_isLive){
-            _invervalId = setInterval(function(){ webSocket.send("getLocations"); }, 250);
-        }else{
-            clearInterval(_invervalId);
-        }
-
-    });
-});
-</script>
+<script src="js/controls.min.js"></script>
 </html>

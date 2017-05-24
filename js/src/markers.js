@@ -1,6 +1,6 @@
-// divide by 2 since we want to make make like 32x32 images
-var customImageWidth = 64 / 2; // sheetWidth / 16
-var customImageHeight = 64 / 2; // sheetHeight / 16
+// divide by 2 since we want to make icons 32x32 images
+var customImageWidth = 64 / 2; // 64 =  sheetWidth / 16
+var customImageHeight = 64 / 2; // 64 = sheetHeight / 16
 
 var MarkerTypes = {
     none: {
