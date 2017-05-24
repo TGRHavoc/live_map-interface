@@ -141,6 +141,7 @@
                           <select id="playerSelect" class="input-large form-control pull-right" style="width: 65%">
                               <option></option>
                           </select>
+                      </a>
                   </li>
 
                 </ul>
@@ -157,7 +158,7 @@
             <p style="color: black; text-align: center;">This was originaly created for <a href="https://identityrp.co.uk">IdentityRP</a></p>
         </div>
     </div>
+    <script src="js/controls.min.js"></script>
 </body>
 
-<script src="js/controls.min.js"></script>
 </html>
