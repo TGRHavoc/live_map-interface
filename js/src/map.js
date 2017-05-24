@@ -257,13 +257,7 @@ function clearAllMarkers() {
     _MAP_markerStore.length = 0;
     // Re-do player markers
     for(var id in localCache){
-        var plr = localCache[id].player;
-        //console.log("redoing marker for ");
-        //console.log(plr);
-        var obj = new MarkerObject(plr.name, new Coordinates(plr.x, plr.y, plr.z), MarkerTypes.normal, "A player", "", "");
-        createMarker(false, false, obj, plr.name);
-
-        localCache[plr.id].marker = _MAP_markerStore.length - 1;
+        localCache[id].marker = null;
     }
 }
 
