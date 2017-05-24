@@ -30,11 +30,10 @@
     </style>
 
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link type="text/css" rel="stylesheet" href="style/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="style/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="style/style.css">
 
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/app.min.js"></script>
 
     <!-- Change the key below -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbYDZMGkewhRTGRJS4wwSVuBipYlYf-SU"></script>
