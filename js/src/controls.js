@@ -1,4 +1,4 @@
-var _invervalId; //
+var _invervalId;
 var _isLive = false;
 var _blips = [];
 var _blipCount = 0;

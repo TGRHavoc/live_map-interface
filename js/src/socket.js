@@ -173,6 +173,18 @@ function doPlayerUpdate(players){
             }else{
                 console.log("updated local cache for " + plr.name);
                 //console.log(JSON.stringify(plr));
+                if (localCache[plr.id].marker != null && plr.vehicle && plr.vehicle != localCache[plr.id].player.vehicle){
+                    // They've changed vehicle
+                    var t = MarkerTypes[plr.vehicle];
+                    _MAP_markerStore[localCache[plr.id].marker].setIcon({
+                        url: _MAP_iconURL + t.icon,
+                        size: t.size,
+                        origin: t.origin,
+                        anchor: t.anchor,
+                        scaledSize: t.scaledSize
+                    });
+                }
+
                 localCache[plr.id].player = plr;
 
                 if (localCache[plr.id].marker != null || localCache[plr.id].marker != undefined){
@@ -180,12 +192,21 @@ function doPlayerUpdate(players){
                     _MAP_markerStore[localCache[plr.id].marker].setPosition( convertToMapGMAP(plr.x, plr.y) );
 
                     //update popup
-                    var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.x.toFixed(4) + "} Y {" + plr.y.toFixed(4) + "} Z {" + plr.z.toFixed(4) + "}</div>";
+                    var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.x.toFixed(4) + "} Y {" + plr.y.toFixed(4) + "} Z {" + plr.z.toFixed(4) + "}</div>"
+
+                    if (plr.vehicle && plr.vehicle != "normal")
+                        html += '<div class="row info-body-row"><strong>Vehicle:</strong>&nbsp;' + plr.vehicle_name + '</div>';
+
                     var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
                     var infoBox = new google.maps.InfoWindow({
                         content: infoContent
                     });
                     _MAP_markerStore[localCache[plr.id].marker].popup.setContent(infoContent);
+                }else{
+                    var obj = new MarkerObject(plr.name, new Coordinates(plr.x, plr.y, plr.z), MarkerTypes.normal, "A player", "", "");
+                    createMarker(false, false, obj, plr.name);
+
+                    localCache[plr.id].marker = _MAP_markerStore.length - 1;
                 }
             }
 
