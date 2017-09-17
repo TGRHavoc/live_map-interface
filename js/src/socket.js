@@ -207,7 +207,7 @@ function doPlayerUpdate(players){
             //update popup with the information we have been sent
             var html = getPlayerInfoHtml(plr);
 
-            var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
+            var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
             var infoBox = new google.maps.InfoWindow({
                 content: infoContent
             });

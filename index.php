@@ -115,13 +115,6 @@
         printFirstJs($debug);
     ?>
 
-    <script>
-    function startMarkers(){
-        initMarkers(true);
-        //initMarkers(false);
-    }
-    </script>
-
 </head>
 <body>
 
