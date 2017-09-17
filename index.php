@@ -79,6 +79,9 @@
     // number that is set
     var _SETTINGS_socketUrl = "ws://localhost:30121"
 
+    // Set to false if you don't want to show the player's identifiers (this may be their IP)
+    var _SETTINGS_showIdentifiers = true;
+
     // Do not remove unless you know what you're doing (and you have a google api key)
     // Hack from https://stackoverflow.com/questions/38148097/google-maps-api-without-key/38809129#38809129
     // hack Google Maps to bypass API v3 key (needed since 22 June 2016 http://googlegeodevelopers.blogspot.com.es/2016/06/building-for-scale-updates-to-google.html)
