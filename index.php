@@ -1,8 +1,18 @@
 <!DOCTYPE html>
+
+<?php
+
+    require_once("utils/minifier.php");
+
+    // Set to false to enable the miinified versions of JS and CSS files
+    // that should speed up content delivery on production websites
+    $debug = true;
+?>
+
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Live map</title>
+    <title>Havoc's Live map</title>
 
     <link href="https://identityrp.co.uk/assets/favicon-79hd8bjv.png" rel="shortcut icon">
 
@@ -30,8 +40,11 @@
     </style>
 
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link type="text/css" rel="stylesheet" href="style/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="style/style.css">
+    <?php
+
+        printCss($debug);
+
+    ?>
 
     <script src="js/jquery-3.2.1.min.js"></script>
 
@@ -63,27 +76,14 @@
 
     // Set to the IP of the GTA server running "live_map" and change the port to the
     // number that is in the "server.lua" file
-    var _SETTINGS_socketUrl = "wss://identityrp.co.uk:30121"
+    var _SETTINGS_socketUrl = "ws://localhost:30121"
 
     </script>
 
-    <!-- IF DEBUG. Use un-minified version -->
-    <!--
-    <script type="text/javascript" src="js/src/init.js"></script>
-    <script type="text/javascript" src="js/src/markers.js"></script>
-    <script type="text/javascript" src="js/src/objects.js"></script>
-    <script type="text/javascript" src="js/src/utils.js"></script>
-    <script type="text/javascript" src="js/src/map.js"></script>
-    <script type="text/javascript" src="js/src/socket.js"></script>
-    -->
-    <!-- IF PRODUCTION. Use minified version -->
 
-    <script type="text/javascript" src="js/init.min.js"></script>
-    <script type="text/javascript" src="js/markers.min.js"></script>
-    <script type="text/javascript" src="js/objects.min.js"></script>
-    <script type="text/javascript" src="js/utils.min.js"></script>
-    <script type="text/javascript" src="js/map.min.js"></script>
-    <script type="text/javascript" src="js/socket.min.js"></script>
+    <?php
+        printFirstJs($debug);
+    ?>
 
     <script>
     function startMarkers(){
@@ -158,7 +158,11 @@
             <p style="color: black; text-align: center;">This was originaly created for <a href="https://identityrp.co.uk">IdentityRP</a></p>
         </div>
     </div>
-    <script src="js/controls.min.js"></script>
+
+    <?php
+        printLastJs($debug);
+    ?>
+
 </body>
 
 </html>
