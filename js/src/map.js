@@ -149,25 +149,7 @@ function mapInit(elementID) {
 }
 
 function createMarker(animated, draggable, objectRef, title) {
-    if (title != "") {
-        var splitTitle = title.split(" - ");
-        if (splitTitle.length >= 4) {
-            var posSplit = splitTitle[1].split(" ");
-            var x1 = posSplit[0].replace("X{", "");
-            var xResult = x1.replace("}", "");
-            var y1 = posSplit[1].replace("Y{", "");
-            var yResult = y1.replace("}", "");
-            var z1 = posSplit[2].replace("Z{", "");
-            var zResult = z1.replace("}", "");
-            objectRef.position = new Coordinates(xResult, yResult, zResult);
-            var noSpaceHash = splitTitle[2].replace(/\s+/g, "");
-            var hash = noSpaceHash.replace("Hash:", "");
-            objectRef.hash = hash;
-            var noSpaceModel = splitTitle[3].replace(/\s+/g, "");
-            var model = noSpaceModel.replace("ModelName:", "");
-            objectRef.modelname = model
-        }
-    }
+
     var name = objectRef.reference;
     if (name == "@DEBUG@@Locator") {
         name = "@Locator"
@@ -179,12 +161,6 @@ function createMarker(animated, draggable, objectRef, title) {
     //console.log(JSON.stringify(locationType));
 
     var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + objectRef.position.x.toFixed(4) + "} Y {" + objectRef.position.y.toFixed(4) + "} Z {" + objectRef.position.z.toFixed(4) + "}</div>";
-    if (objectRef.hash != "") {
-        html += '<div class="row info-body-row"><strong>Hash:</strong>&nbsp;' + objectRef.hash + "</div>"
-    }
-    if (objectRef.modelname != "") {
-        html += '<div class="row info-body-row"><strong>Model Name:</strong>&nbsp;' + objectRef.modelname + "</div>"
-    }
 
     if (objectRef.description != ""){
         html += '<div class="row info-body-row"><strong>Description:</strong>&nbsp;' + objectRef.description + "</div>"

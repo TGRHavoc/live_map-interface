@@ -24,8 +24,9 @@ function onOpen(e){
     _isConnected = true;
     console.log("_isConnected: " + _isConnected);
     // Get blips?
-    webSocket.send("getBlips");
-    webSocket.send("getLocations"); // Get any players connected to the server
+    //TODO: Ajax request the blips
+
+    webSocket.send("getPlayerData"); // Get any players connected to the server
 
     $("#connection").removeClass("label-danger")
         .removeClass("label-warning")
@@ -38,14 +39,13 @@ function onMessage(e){
     var byteSize = e.data.length + (m ? m.length : 0);
 
     console.log("recieved message (" + byteSize/1024 + " kB)");
+    console.log("data: " + e.data);
     var data = JSON.parse(e.data);
 
     if(data.type == "blips"){
-        console.log("creating blips");
-        initBlips(data.payload);
 
-    }else if (data.type == "players") {
-        console.log("updating players");
+    }else if (data.type == "playerData") {
+        console.log("updating players: " + JSON.stringify(data));
         doPlayerUpdate(data.payload);
 
     }else if(data.type == "playerLeft"){
@@ -143,32 +143,56 @@ function playerLeft(playerName){
     }
 }
 
+function getPlayerInfoHtml(plr){
+    var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(4) + "} Y {" + plr.pos.y.toFixed(4) + "} Z {" + plr.pos.z.toFixed(4) + "}</div>"
+    for(var key in plr){
+        console.log("found key: "+ key);
+        if (key == "name" || key == "pos" || key == "icon"){ // I should probably turn this into a array or something
+            continue; // We're already displaying this info
+        }
+        if(_SETTINGS_showIdentifiers && key == "identifer"){
+            html += '<div class="row info-body-row"><strong>Identifer:</strong>&nbsp;' + plr[key] + '</div>';
+        }else{
+            // some other info.. Show it
+            html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
+        }
+    }
+
+    return html;
+}
+
 function doPlayerUpdate(players){
+    console.log(players);
     var playerCount = 0;
     players.forEach(function(plr){
         playerCount ++;
         if (plr == null) return;
 
-        if ( !(plr.id in localCache) ){
-            localCache[plr.id] = { marker: null };
+        if ( !(plr.identifer in localCache) ){
+            // "localCache" literally just keeps track of the marker.. I should rename it
+            //TODO: Rename "localCache" to something better
+            localCache[plr.identifer] = { marker: null };
         }
 
-        if ($("#playerSelect option[value='" + plr.id + "']").length <= 0){
+        if ($("#playerSelect option[value='" + plr.identifer + "']").length <= 0){
+            // Ooo look, we have players. Let's add them to the "tracker" drop-down
             $("#playerSelect").append($("<option>", {
-                value: plr.id,
-                text: plr.name
+                value: plr.identifer, // Should be unique
+                text: plr.name // Their name.. Might not be unique?
             }));
         }
 
-        if (_trackPlayer != null && _trackPlayer == plr.id){
-            map.panTo(convertToMapGMAP(plr.x, plr.y));
+        if (_trackPlayer != null && _trackPlayer == plr.identifer){
+            // If we're tracking a player, make sure we center them
+            map.panTo(convertToMapGMAP(plr.pos.x, plr.pos.y));
         }
 
-        if (localCache[plr.id].marker != null || localCache[plr.id].marker != undefined){
-
-            if (plr.vehicle){
-                var t = MarkerTypes[plr.vehicle];
-                _MAP_markerStore[localCache[plr.id].marker].setIcon({
+        if (localCache[plr.identifer].marker != null || localCache[plr.identifer].marker != undefined){
+            // If we have a custom icon (we should) use it!!
+            if (plr.icon){
+                var t = MarkerTypes[plr.icon];
+                console.log("Got icon of :" + plr.icon);
+                _MAP_markerStore[localCache[plr.identifer].marker].setIcon({
                     url: _MAP_iconURL + t.icon,
                     size: t.size,
                     origin: t.origin,
@@ -177,26 +201,31 @@ function doPlayerUpdate(players){
                 });
             }
 
-            _MAP_markerStore[localCache[plr.id].marker].setPosition( convertToMapGMAP(plr.x, plr.y) );
+            // Update the player's location on the map :)
+            _MAP_markerStore[localCache[plr.identifer].marker].setPosition( convertToMapGMAP(plr.pos.x, plr.pos.y) );
 
-            //update popup
-            var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.x.toFixed(4) + "} Y {" + plr.y.toFixed(4) + "} Z {" + plr.z.toFixed(4) + "}</div>"
-
-            if (plr.vehicle && plr.vehicle != "normal")
-                html += '<div class="row info-body-row"><strong>Vehicle:</strong>&nbsp;' + plr.vehicle_name + '</div>';
+            //update popup with the information we have been sent
+            var html = getPlayerInfoHtml(plr);
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
             var infoBox = new google.maps.InfoWindow({
                 content: infoContent
             });
-            _MAP_markerStore[localCache[plr.id].marker].popup.setContent(infoContent);
-
+            _MAP_markerStore[localCache[plr.identifer].marker].popup.setContent(infoContent);
 
         }else{
-            var obj = new MarkerObject(plr.name, new Coordinates(plr.x, plr.y, plr.z), MarkerTypes.normal, "A player", "", "");
-            createMarker(false, false, obj, plr.name);
 
-            localCache[plr.id].marker = _MAP_markerStore.length - 1;
+            var obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), MarkerTypes[6], "", "", "");
+            var m = localCache[plr.identifer].marker = createMarker(false, false, obj, plr.name) - 1;
+
+            var html = getPlayerInfoHtml(plr);
+
+            var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
+            var infoBox = new google.maps.InfoWindow({
+                content: infoContent
+            });
+            _MAP_markerStore[m].popup.setContent(infoContent);
+
         }
 
     });

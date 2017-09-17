@@ -3,19 +3,20 @@ var customImageWidth = 64 / 2; // 64 =  sheetWidth / 16
 var customImageHeight = 64 / 2; // 64 = sheetHeight / 16
 
 var MarkerTypes = {
-    none: {
+    0: {
         icon: "blank.png",
         size: new google.maps.Size(0, 0),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(0, 0)
     },
-    debug: {
+    999: {
         icon: "debug.png",
         size: new google.maps.Size(23, 32),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(11.5, 32)
     },
-    normal: {
+    // Apparently players have an icon of "6" so, might as well make normal that
+    6: {
         icon: "normal.png",
         size: new google.maps.Size(22, 32),
         origin: new google.maps.Point(0, 0),
