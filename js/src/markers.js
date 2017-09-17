@@ -20,604 +20,215 @@ var MarkerTypes = {
         size: new google.maps.Size(22, 32),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(11, 32)
-    },
-
-    // Custom markers
-
-    // 1st row of the spritemap
-    waypoint: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( 0,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 ) // spritemap /2
-    },
-    jet: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    lift: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 2,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    race: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 3,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    safehouse: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 4,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    helicopter: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 5,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    speech: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 6,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    garage: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 7,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    pill: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 8,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    shop: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 9,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    policeCar: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 10,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    // 11 = shop.. again
-    policeStation: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 12,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    hospital: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 13,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    // 14 = helecopter again
-    question: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 15,0 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-
-    // ROW 2
-    moneyTuck: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( 0, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    towTruck: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 1, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    sissors: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 2, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    losSantosCustoms: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 3, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    clothes: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 4, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    tattoo: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 5, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    simeon: { // the letter A
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 6, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    lester: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 7, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    michael: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 8, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    trevor: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 9, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    heist: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 10, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    deathmatch: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 11, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    vinewoodTours: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 12, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    franklin: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 13, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    // 14 = franklin
-    chinese: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 15, customImageHeight ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-
-    //ROW 3
-    airport: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( 0, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    bar: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 1, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    parachute: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 2, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    carWash: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 4, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    comedyClub: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 5, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    darts: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 6, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    // 7 & 8 = H
-    fib: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 9, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    // 10 = H
-    dollarSign: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 11, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    golf: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 12, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    ammuNation: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 13, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    exile: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 14, customImageHeight * 2 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    // 15 = H
-
-    // ROW 4
-    gunRange: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 1, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    solomon: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 2, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    stripClub: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 3, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    tennis: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 4, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    sprint: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 7, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    atvRace: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 8, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    key: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 10, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    movieTheater: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 11, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    music: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 12, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    fireStation: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 13, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    marijuana: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 14, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    animal: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 15, customImageHeight * 3 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-
-    // ROW 5
-    armsTraffickingGround: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( 0, customImageHeight * 4 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    // CBA doing weapons (won't be shown anyways..)
-    pointOfInterest: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 13, customImageHeight * 4 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    gtaPassive: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 14, customImageHeight * 4 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    gtaUsingMenu: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 15, customImageHeight * 4 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    // ROW 6
-    armour: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 2, customImageHeight * 5 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    castle: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 3, customImageHeight * 5 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    camera: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 7, customImageHeight * 5 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    cuffs: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 10, customImageHeight * 5 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    yoga: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 12, customImageHeight * 5 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    cab: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 13, customImageHeight * 5 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    therapy: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 14, customImageHeight * 5 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    epsilon: {// some fucked up F
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 15, customImageHeight * 5 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-
-    //ROW 7. Not much here we need really.
-    jail2: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 10, customImageHeight * 6 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    personalBike: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth *6, customImageHeight * 6 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    personalCar: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth *7, customImageHeight * 6 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    armsTraffickingAir:{
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth *11, customImageHeight * 6 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    fairground: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 15, customImageHeight * 6 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-
-    // ROW 8
-    propertyManagement: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( 0, customImageHeight * 7 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    alturist: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 1, customImageHeight * 7 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    dollarSign2: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 4, customImageHeight * 7 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    hooker: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 7, customImageHeight * 7 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    jail: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 9, customImageHeight * 7 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    garage: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 10, customImageHeight * 7 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    gtaMission: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 14, customImageHeight * 7 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    gtaSurvival: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 15, customImageHeight * 7 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    // Other basic icons
-    dead: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 4, customImageHeight * 8 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    package: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 9, customImageHeight * 11 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    garageForSale: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 3, customImageHeight * 10 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    boat: {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 4, customImageHeight * 13 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
-    },
-    jerryCan : {
-        icon: "blips_texturesheet.png",
-        size: new google.maps.Size( customImageWidth, customImageHeight ),
-        origin: new google.maps.Point( customImageWidth * 8, customImageHeight * 9 ),
-        anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-        scaledSize: new google.maps.Size( 1024/2,1024/2 )
     }
+    // Custom markers are generated and added below
 };
+
+
+// FUCK ME, GTA HAS A LOT OF FUCKING BLIPS
+var types = {
+    Standard: {id: 1, x: 0, y: 0},
+    Jet: {id: 16},
+    Lift: {id: 36},
+    RaceFinish : {id: 38},
+    Safehouse : {id: 40},
+    PoliceHelicopter: {id: 43},
+    ChatBubble : {id: 47},
+    Garage2 : {id: 50},
+    Drugs : {},
+    Store : {},
+    PoliceCar : {id: 56},
+    PoliceStation : {id: 60, x : 12, y: 0},
+    Hospital : {},
+    Helicopter : {id: 64},
+    StrangersAndFreaks : {},
+
+    ArmoredTruck : { x : 0, y:1 },
+    TowTruck : {id: 68},
+    Barber : {id: 71},
+    LosSantosCustoms : {},
+    Clothes : {},
+    TattooParlor : {id: 75},
+    Simeon : {},
+    Lester : {},
+    Michael : {},
+    Trevor : {},
+    Rampage : {id: 84, x : 11},
+    VinewoodTours : {},
+    Lamar : {},
+    Franklin : {id: 88},
+    Chinese : {},
+
+    Airport : {x : 0, y: 2},
+    Bar : {id: 93},
+    BaseJump : {},
+    CarWash : {id: 100, x: 4},
+    ComedyClub : {id: 102},
+    Dart : {},
+    FIB : {id: 106, x: 9},
+    DollarSign : {id: 108, x: 11},
+    Golf : {},
+    AmmuNation : {},
+    Exile : {id: 112},
+
+    ShootingRange : {id: 119, x: 1, y: 3},
+    Solomon : {},
+    StripClub : {},
+    Tennis : {},
+    Triathlon : {id: 126, x: 7},
+    OffRoadRaceFinish : {},
+    Key : {id: 134, x: 10},
+    MovieTheater : {},
+    Music : {},
+    Marijuana : {id: 140},
+    Hunting : {},
+
+    ArmsTraffickingGround : {id: 147, y: 4, x: 0},
+    Nigel : {id: 149},
+    AssaultRifle : {},
+    Bat : {},
+    Grenade : {},
+    Health : {},
+    Knife : {},
+    Molotov : {},
+    Pistol : {},
+    RPG : {},
+    Shotgun : {},
+    SMG : {},
+    Sniper : {},
+    PointOfInterest: {id: 162},
+    GTAOPassive : {},
+    GTAOUsingMenu : {},
+
+    Minigun : {id: 173, x:0, y: 5},
+    GrenadeLauncher : {},
+    Armor : {},
+    Castle : {},
+    Camera : {id: 184, x: 7},
+    Handcuffs : {id: 188, x: 11},
+    Yoga : {id: 197},
+    Cab : {},
+    Shrink: {id: 205},
+    Epsilon : {},
+
+    PersonalVehicleCar : {id: 225, x: 5, y: 6},
+    PersonalVehicleBike : {},
+    Custody : {id: 237, x:10},
+    ArmsTraffickingAir : {id: 251},
+    Fairground : {id: 266, x: 15},
+
+    PropertyManagement : {x: 0, y: 7},
+    Altruist : {id: 269},
+    Chop : {id: 273, x: 3},
+    Hooker : {id: 279, x: 7},
+    Friend : {},
+    GTAOMission: {id: 304, x: 14},
+    GTAOSurvival : {},
+
+    CrateDrop : { x:0, y:8},
+    PlaneDrop : {},
+    Sub : {},
+    Race : {},
+    Deathmatch : {},
+    ArmWrestling : {},
+    AmmuNationShootingRange : {id: 313},
+    RaceAir : {},
+    RaceCar : {},
+    RaceSea : {},
+    GarbageTruck : {id: 318, x:11},
+    SafehouseForSale : {id: 350, x:14},
+    Package : {},
+
+    MartinMadrazo: {x:0, y: 9},
+    Boost: {id: 354},
+    Devin : {},
+    Marina : {},
+    Garage : {},
+    GolfFlag : {},
+    Hangar : {},
+    Helipad : {},
+    JerryCan : {},
+    Masks : {},
+    HeistSetup : {},
+    PickupSpawn : {id: 365},
+    BoilerSuit : {},
+    Completed : {},
+    Rockets : {},
+    GarageForSale : {},
+
+    HelipadForSale : {x: 0, y: 10},
+    MarinaForSale : {},
+    HangarForSale : {},
+    Business : {id: 374},
+    BusinessForSale : {},
+    RaceBike : {},
+    Parachute : {},
+    TeamDeathmatch : {},
+    RaceFoot : {},
+    VehicleDeathmatch : {},
+    Barry : {},
+    Dom : {},
+    MaryAnn : {},
+    Cletus : {},
+    Josh : {},
+    Minute : {},
+
+    Omega:  {x:0, y:11},
+    Tonya : {},
+    Paparazzo : {},
+    Abigail : {id: 400},
+    Blimp : {},
+    Repair : {},
+    Testosterone : {},
+    Dinghy : {},
+    Fanatic : {},
+    CaptureBriefcase : {id: 408},
+    LastTeamStanding : {},
+    Boat : {},
+    CaptureHouse : {},
+    JerryCan2 : {id: 415,  x: 14},
+    CaptureAmericanFlag : {id: 419},
+
+    CaptureFlag : {x:0, y: 12},
+    Tank : {},
+    GunCar : {id: 426, x: 3},
+    Speedboat : {},
+    Heist : {},
+    Stopwatch : {id: 430},
+    DollarSignCircled : {},
+    Crosshair2 : {},
+    DollarSignSquared : {id: 434}
+}
+
+function generateBlipShit(){
+    var currentX = 0, currentY = 0, currentId = 0;
+    for(var blipName in types){
+        var blip = types[blipName];
+
+        if(typeof(blip.id) != 'undefined'){
+            currentId = blip.id;
+        }else{
+            currentId ++;
+        }
+
+        if(typeof(blip.x) != 'undefined'){
+            currentX = blip.x;
+        }else{
+            currentX ++;
+        }
+
+        if(typeof(blip.y) != 'undefined'){
+            currentY = blip.y;
+        }
+
+        MarkerTypes[currentId] = {
+            icon: "blips_texturesheet.png",
+            size: new google.maps.Size( customImageWidth, customImageHeight ),
+            anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
+            scaledSize: new google.maps.Size( 1024/2,1024/2 ),
+            origin: new google.maps.Point( customImageWidth * currentX , customImageHeight * currentY ),
+        }
+    }
+}
+
+generateBlipShit();
