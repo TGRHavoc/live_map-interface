@@ -1,6 +1,5 @@
 function globalInit() {
     mapInit("map-canvas");
-    startMarkers();
     initPage()
 }
 
