@@ -72,7 +72,7 @@ $(document).ready(function(){
             .text(_isLive ? "on" : "off");
 
         if (_isLive){
-            _invervalId = setInterval(function(){ webSocket.send("getLocations"); }, 250);
+            _invervalId = setInterval(function(){ webSocket.send("getPlayerData"); }, 250);
         }else{
             clearInterval(_invervalId);
         }
