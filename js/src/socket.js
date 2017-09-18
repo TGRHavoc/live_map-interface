@@ -23,8 +23,6 @@ function connect(){
 function onOpen(e){
     _isConnected = true;
     console.log("_isConnected: " + _isConnected);
-    // Get blips?
-    //TODO: Ajax request the blips
 
     webSocket.send("getPlayerData"); // Get any players connected to the server
 
@@ -103,31 +101,6 @@ function onClose(e){
     if (_isLive){
         clearInterval(_invervalId);
     }
-
-}
-
-function addBlip(blip, bool){
-    //_blipCount++;
-}
-
-function initBlips(blips){
-    _blipCount = 0;
-    _blips = [];
-    clearAllMarkers();
-
-    if (_showBlips){
-        blips.forEach(function(blip){
-            var desc = blip.description == undefined ? "" : blip.description;
-            var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], desc, "", "");
-
-            _blips[_blipCount++] = blip;
-
-            createMarker(false, false, obj, "");
-        });
-    }
-
-    console.log(_blipCount + " blips created");
-    $("#blip_count").text(_blipCount);
 }
 
 var localCache = {};
