@@ -66,8 +66,8 @@ var types = {
     CarWash : {id: 100, x: 4},
     ComedyClub : {id: 102},
     Dart : {},
-    FIB : {id: 106, x: 9},
-    DollarSign : {id: 108, x: 11},
+    Fib : {id: 106, x: 9},
+    Bank : {id: 108, x: 11}, // These are generally "banks". Original: DollarSign
     Golf : {},
     AmmuNation : {},
     Exile : {id: 112},
@@ -81,7 +81,7 @@ var types = {
     Key : {id: 134, x: 10},
     MovieTheater : {},
     Music : {},
-    Marijuana : {id: 140},
+    Marijuana : {id: 140, x:14 },
     Hunting : {},
 
     ArmsTraffickingGround : {id: 147, y: 4, x: 0},
@@ -93,13 +93,13 @@ var types = {
     Knife : {},
     Molotov : {},
     Pistol : {},
-    RPG : {},
+    Rpg : {},
     Shotgun : {},
-    SMG : {},
+    Smg : {},
     Sniper : {},
     PointOfInterest: {id: 162},
-    GTAOPassive : {},
-    GTAOUsingMenu : {},
+    GtaOPassive : {},
+    GtaOUsingMenu : {},
 
     Minigun : {id: 173, x:0, y: 5},
     GrenadeLauncher : {},
@@ -123,8 +123,8 @@ var types = {
     Chop : {id: 273, x: 3},
     Hooker : {id: 279, x: 7},
     Friend : {},
-    GTAOMission: {id: 304, x: 14},
-    GTAOSurvival : {},
+    GtaOMission: {id: 304, x: 14},
+    GtaOSurvival : {},
 
     CrateDrop : { x:0, y:8},
     PlaneDrop : {},
@@ -223,6 +223,7 @@ function generateBlipShit(){
         }
 
         MarkerTypes[currentId] = {
+            name: blipName.replace(/([A-Z0-9])/g, ' $1').trim(),
             icon: "blips_texturesheet.png",
             size: new google.maps.Size( customImageWidth, customImageHeight ),
             anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
