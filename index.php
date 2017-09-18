@@ -7,6 +7,16 @@
     // Set to false to enable the miinified versions of JS and CSS files
     // that should speed up content delivery on production websites
     $debug = true;
+
+    // Set to the IP of the GTA server that has live_map. Make sure it has the trailing slash (/)
+    $gtaServer = "http://127.0.0.1:30120/";
+
+    // Set tpo the name of "live_map".
+    // Note: If you change the folder name on the GTA server you NEED to change this
+    $liveMapName = "live_map";
+
+    // Builds the url that we need to use in ajax requests to get the blips
+    $blipUrl = $gtaServer . $liveMapName . "/blips.json";
 ?>
 
 <html>
@@ -81,6 +91,10 @@
 
     // Set to false if you don't want to show the player's identifiers (this may be their IP)
     var _SETTINGS_showIdentifiers = true;
+
+    <?php
+        echo "var _SETTINGS_blipUrl = \"$blipUrl\";"
+    ?>
 
     // Do not remove unless you know what you're doing (and you have a google api key)
     // Hack from https://stackoverflow.com/questions/38148097/google-maps-api-without-key/38809129#38809129

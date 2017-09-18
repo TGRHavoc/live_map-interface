@@ -1,10 +1,3 @@
-var _invervalId;
-var _isLive = false;
-var _blips = [];
-var _blipCount = 0;
-var _showBlips = true;
-var _isConnected = false;
-var _trackPlayer = null;
 
 function toggleBlips(){
     console.log("showing local blips");
