@@ -5,6 +5,7 @@ var _blipCount = 0;
 var _showBlips = true;
 var _isConnected = false;
 var _trackPlayer = null;
+var playerCount = 0;
 
 function globalInit() {
     mapInit("map-canvas");
