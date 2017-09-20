@@ -28,7 +28,10 @@ $(document).ready(function(){
 
     $("#refreshBlips").click(function(e){
         e.preventDefault();
-        webSocket.send("getBlips");
+        if (_showBlips){
+            clearAllMarkers();
+            initBlips();
+        }
     });
 
     $("#showBlips").click(function(e){
@@ -49,26 +52,5 @@ $(document).ready(function(){
 
         $("#connection").removeClass("label-success").removeClass("label-danger").addClass("label-warning").text("reconnecting");
         connect();
-    });
-
-    $("#toggleLive").click(function(e){
-        e.preventDefault();
-        if(!_isConnected){
-            // Not connected
-            return;
-        }
-
-        _isLive = !_isLive;
-
-        $("#live_enabled").removeClass("label-success").removeClass("label-danger")
-            .addClass( _isLive ? "label-success" : "label-danger")
-            .text(_isLive ? "on" : "off");
-
-        if (_isLive){
-            _invervalId = setInterval(function(){ webSocket.send("getPlayerData"); }, 250);
-        }else{
-            clearInterval(_invervalId);
-        }
-
     });
 });

@@ -24,7 +24,8 @@ function onOpen(e){
     _isConnected = true;
     console.log("_isConnected: " + _isConnected);
 
-    webSocket.send("getPlayerData"); // Get any players connected to the server
+    // New websocket server doesn't need to recieve this
+    //webSocket.send("getPlayerData"); // Get any players connected to the server
 
     $("#connection").removeClass("label-danger")
         .removeClass("label-warning")
@@ -87,10 +88,6 @@ function onError(e){
 
     //$("#socket_error").text(reason);
     console.log("Socket error: " + reason);
-    if (_isLive){
-        clearInterval(_invervalId);
-    }
-
 }
 function onClose(e){
     $("#connection").removeClass("label-success")
@@ -98,9 +95,6 @@ function onClose(e){
         .addClass("label-danger").text("disconnected");
 
     _isConnected = false;
-    if (_isLive){
-        clearInterval(_invervalId);
-    }
 }
 
 var localCache = {};
@@ -114,12 +108,15 @@ function playerLeft(playerName){
     if ($("#playerSelect option[value='" + playerName + "']").length > 0){
         $("#playerSelect option[value='" + playerName + "']").remove();
     }
+
+    playerCount --;
+    $("#player_count").text(playerCount);
 }
 
 function getPlayerInfoHtml(plr){
     var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(4) + "} Y {" + plr.pos.y.toFixed(4) + "} Z {" + plr.pos.z.toFixed(4) + "}</div>"
     for(var key in plr){
-        console.log("found key: "+ key);
+        //console.log("found key: "+ key);
         if (key == "name" || key == "pos" || key == "icon"){ // I should probably turn this into a array or something
             continue; // We're already displaying this info
         }
@@ -136,10 +133,10 @@ function getPlayerInfoHtml(plr){
 
 function doPlayerUpdate(players){
     console.log(players);
-    var playerCount = 0;
+    var _pc = 0;
     players.forEach(function(plr){
-        playerCount ++;
-        if (plr == null) return;
+        _pc ++;
+        if (plr == null || plr.name == undefined || plr.name == "") return;
 
         if ( !(plr.identifer in localCache) ){
             // "localCache" literally just keeps track of the marker.. I should rename it
@@ -164,7 +161,7 @@ function doPlayerUpdate(players){
             // If we have a custom icon (we should) use it!!
             if (plr.icon){
                 var t = MarkerTypes[plr.icon];
-                console.log("Got icon of :" + plr.icon);
+                //console.log("Got icon of :" + plr.icon);
                 _MAP_markerStore[localCache[plr.identifer].marker].setIcon({
                     url: _MAP_iconURL + t.icon,
                     size: t.size,
@@ -203,6 +200,7 @@ function doPlayerUpdate(players){
 
     });
 
-    console.log("Playercount: " + playerCount);
-    $("#player_count").text(playerCount);
+    console.log("Playercount: " + _pc);
+    $("#player_count").text(_pc);
+    playerCount = _pc;
 }

@@ -162,10 +162,12 @@
                       <a id="showBlips" href="#">Show Blips <span id="blips_enabled" class="label label-success pull-right">on</span></a>
                   </li>
 
+                  <!--
                   <li>
                       <a id="toggleLive" href="#">Live update <span id="live_enabled" class="label label-danger pull-right">off</span></a>
                   </li>
-
+                  -->
+                  
                   <li>
                       <a id="reconnect" href="#">Connect <span id="connection" class="label label-danger pull-right">disconnected</span></a>
                   </li>
