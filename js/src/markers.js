@@ -199,7 +199,7 @@ var types = {
     DollarSignCircled : {},
     Crosshair2 : {},
     DollarSignSquared : {id: 434}
-}
+};
 
 function generateBlipShit(){
     var currentX = 0, currentY = 0, currentId = 0;
@@ -229,7 +229,7 @@ function generateBlipShit(){
             anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
             scaledSize: new google.maps.Size( 1024/2,1024/2 ),
             origin: new google.maps.Point( customImageWidth * currentX , customImageHeight * currentY ),
-        }
+        };
     }
 }
 
