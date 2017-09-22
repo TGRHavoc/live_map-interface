@@ -102,19 +102,21 @@ var localCache = {};
 function playerLeft(playerName){
     if (localCache[playerName].marker != null || localCache[playerName].marker != undefined){
         clearMarker(localCache[playerName].marker);
-        localCache[playerName].marker = null;
+        delete localCache[playerName];
     }
 
     if ($("#playerSelect option[value='" + playerName + "']").length > 0){
         $("#playerSelect option[value='" + playerName + "']").remove();
     }
 
-    playerCount --;
+
+    playerCount = Object.keys(localCache).length;
+    console.log("Playerleft playercount: " + playerCount);
     $("#player_count").text(playerCount);
 }
 
 function getPlayerInfoHtml(plr){
-    var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(4) + "} Y {" + plr.pos.y.toFixed(4) + "} Z {" + plr.pos.z.toFixed(4) + "}</div>"
+    var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(4) + "} Y {" + plr.pos.y.toFixed(4) + "} Z {" + plr.pos.z.toFixed(4) + "}</div>";
     for(var key in plr){
         //console.log("found key: "+ key);
         if (key == "name" || key == "pos" || key == "icon"){ // I should probably turn this into a array or something
@@ -133,9 +135,9 @@ function getPlayerInfoHtml(plr){
 
 function doPlayerUpdate(players){
     console.log(players);
-    var _pc = 0;
+
     players.forEach(function(plr){
-        _pc ++;
+
         if (plr == null || plr.name == undefined || plr.name == "") return;
 
         if ( !(plr.identifer in localCache) ){
@@ -200,7 +202,7 @@ function doPlayerUpdate(players){
 
     });
 
-    console.log("Playercount: " + _pc);
-    $("#player_count").text(_pc);
-    playerCount = _pc;
+    playerCount = Object.keys(localCache).length;
+    console.log("Playercount: " + playerCount);
+    $("#player_count").text(playerCount);
 }
