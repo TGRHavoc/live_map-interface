@@ -6,7 +6,7 @@
 
     // Set to false to enable the miinified versions of JS and CSS files
     // that should speed up content delivery on production websites
-    $debug = true;
+    $debug = false;
 
     // Set to the IP of the GTA server that has live_map. Make sure it has the trailing slash (/)
     $gtaServer = "http://127.0.0.1:30120/";
@@ -167,7 +167,7 @@
                       <a id="toggleLive" href="#">Live update <span id="live_enabled" class="label label-danger pull-right">off</span></a>
                   </li>
                   -->
-                  
+
                   <li>
                       <a id="reconnect" href="#">Connect <span id="connection" class="label label-danger pull-right">disconnected</span></a>
                   </li>
