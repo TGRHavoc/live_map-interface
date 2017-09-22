@@ -15,7 +15,7 @@ function globalInit() {
 
 function initPage() {
 	$(window).on("load resize", function() {
-		$(".map-tab-content").height((($("#tab-content").height() - $(".page-title-1").height()) - ($("#map-overlay-global-controls").height() * 4.2)))
+		$(".map-tab-content").height((($("#tab-content").height() - $(".page-title-1").height()) - ($("#map-overlay-global-controls").height() * 4.2)));
 	});
 }
 

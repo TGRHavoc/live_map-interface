@@ -44,7 +44,7 @@ $(document).ready(function(){
 
 		$("#blips_enabled").removeClass("label-success").removeClass("label-danger")
 			.addClass( _showBlips ? "label-success" : "label-danger")
-			.text(_showBlips ? "on" : "off")
+			.text(_showBlips ? "on" : "off");
 	});
 
 	$("#reconnect").click(function(e){

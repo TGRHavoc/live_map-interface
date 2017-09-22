@@ -152,7 +152,7 @@ function createMarker(animated, draggable, objectRef, title) {
 
 	var name = objectRef.reference;
 	if (name == "@DEBUG@@Locator") {
-		name = "@Locator"
+		name = "@Locator";
 	}
 	objectRef.position = stringCoordToFloat(objectRef.position);
 	var coord = convertToMapGMAP(objectRef.position.x, objectRef.position.y);
@@ -163,7 +163,7 @@ function createMarker(animated, draggable, objectRef, title) {
 	var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + objectRef.position.x.toFixed(4) + "} Y {" + objectRef.position.y.toFixed(4) + "} Z {" + objectRef.position.z.toFixed(4) + "}</div>";
 
 	if (objectRef.description != ""){
-		html += '<div class="row info-body-row"><strong>Description:</strong>&nbsp;' + objectRef.description + "</div>"
+		html += '<div class="row info-body-row"><strong>Description:</strong>&nbsp;' + objectRef.description + "</div>";
 	}
 
 	var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
@@ -191,10 +191,10 @@ function createMarker(animated, draggable, objectRef, title) {
 	});
 	google.maps.event.addListener(marker, "click", function() {
 		if (_MAP_currentMarker) {
-			_MAP_currentMarker.popup.close()
+			_MAP_currentMarker.popup.close();
 		}
 		_MAP_currentMarker = marker;
-		marker.popup.open(map, this)
+		marker.popup.open(map, this);
 	});
 	google.maps.event.addListener(marker, "drag", function() {
 		var posConverted = convertToGame(marker.position.lat(), marker.position.lng());
@@ -202,13 +202,13 @@ function createMarker(animated, draggable, objectRef, title) {
 		objectRef.position.y = posConverted.y;
 		if (objectRef.reference == "@DEBUG@@Locator") {
 			$("#locator_x").val(posConverted.x);
-			$("#locator_y").val(posConverted.y)
+			$("#locator_y").val(posConverted.y);
 		}
 	});
 	if (name == "@DEBUG@@Locator") {
-		$("#marker-list").append('<div id="marker_' + marker.id + '" data-id="' + marker.id + '" class="marker-item"><div class="marker-desc"><span class="marker_name">@Locator</span></div><div class="marker-options"><a href="#" class="marker_view" title="View"><img src="images/icons/view.png" alt="View" height="16" width="16" /></a> </div></div><div class="clear"></div>')
+		$("#marker-list").append('<div id="marker_' + marker.id + '" data-id="' + marker.id + '" class="marker-item"><div class="marker-desc"><span class="marker_name">@Locator</span></div><div class="marker-options"><a href="#" class="marker_view" title="View"><img src="images/icons/view.png" alt="View" height="16" width="16" /></a> </div></div><div class="clear"></div>');
 	} else {
-		$("#marker-list").append('<div id="marker_' + marker.id + '" data-id="' + marker.id + '" class="marker-item"><div class="marker-desc"><span class="marker_name">' + name + '</span></div><div class="marker-options"><a href="#" class="marker_view" title="View"><img src="images/icons/view.png" alt="View" height="16" width="16" /></a> / <a href="#" class="marker_delete" title="Delete"><img src="images/icons/delete.png" alt="Delete" height="16" width="16" /></a></div></div><div class="clear"></div>')
+		$("#marker-list").append('<div id="marker_' + marker.id + '" data-id="' + marker.id + '" class="marker-item"><div class="marker-desc"><span class="marker_name">' + name + '</span></div><div class="marker-options"><a href="#" class="marker_view" title="View"><img src="images/icons/view.png" alt="View" height="16" width="16" /></a> / <a href="#" class="marker_delete" title="Delete"><img src="images/icons/delete.png" alt="Delete" height="16" width="16" /></a></div></div><div class="clear"></div>');
 	}
 	_MAP_markerStore.push(marker);
 	return _MAP_markerStore.length;
@@ -216,18 +216,18 @@ function createMarker(animated, draggable, objectRef, title) {
 
 function setMapCenter(lat, lng) {
 	map.setCenter(new google.maps.LatLng(lat, lng));
-	map.setZoom(6)
+	map.setZoom(6);
 }
 
 function setMapCenterGMAP(coord) {
 	map.setCenter(coord);
-	map.setZoom(6)
+	map.setZoom(6);
 }
 
 function clearAllMarkers() {
 	for (var i = 0; i < _MAP_markerStore.length; i++) {
 		if (_MAP_markerStore[i] != "NULL") {
-			_MAP_markerStore[i].setMap(null)
+			_MAP_markerStore[i].setMap(null);
 		}
 	}
 	_MAP_markerStore.length = 0;
@@ -241,12 +241,12 @@ function clearMarker(id) {
 	if (_MAP_markerStore[id] != "NULL") {
 		_MAP_markerStore[id].setMap(null);
 		_MAP_markerStore[id] = "NULL";
-		$("#marker_" + id).remove()
+		$("#marker_" + id).remove();
 	}
 }
 
 function getMarker(id) {
 	if (_MAP_markerStore[id] != "NULL") {
-		return _MAP_markerStore[id]
+		return _MAP_markerStore[id];
 	}
 };
