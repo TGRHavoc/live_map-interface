@@ -6,7 +6,7 @@ function EuclideanProjection() {
     this.scaleLat = 2;
     this.scaleLng = 2;
     this.offsetLat = 0;
-    this.offsetLng = 0
+    this.offsetLng = 0;
 }
 
 EuclideanProjection.prototype.fromLatLngToPoint = function(latLng, opt_point) {
@@ -14,7 +14,7 @@ EuclideanProjection.prototype.fromLatLngToPoint = function(latLng, opt_point) {
     var origin = this.pixelOrigin_;
     point.x = (origin.x + (latLng.lng() + this.offsetLng) * this.scaleLng * this.pixelsPerLonDegree_);
     point.y = (origin.y + (-1 * latLng.lat() + this.offsetLat) * this.scaleLat * this.pixelsPerLonDegree_);
-    return point
+    return point;
 };
 
 EuclideanProjection.prototype.fromPointToLatLng = function(point) {
@@ -22,13 +22,13 @@ EuclideanProjection.prototype.fromPointToLatLng = function(point) {
     var origin = me.pixelOrigin_;
     var lng = (((point.x - origin.x) / me.pixelsPerLonDegree_) / this.scaleLng) - this.offsetLng;
     var lat = ((-1 * (point.y - origin.y) / me.pixelsPerLonDegree_) / this.scaleLat) - this.offsetLat;
-    return new google.maps.LatLng(lat, lng, true)
+    return new google.maps.LatLng(lat, lng, true);
 };
 
 function Coordinates(x, y, z) {
     this.x = x;
     this.y = y;
-    this.z = z
+    this.z = z;
 }
 
 function MarkerObject(reference, position, type, description, data) {

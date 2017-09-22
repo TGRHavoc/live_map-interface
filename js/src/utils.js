@@ -16,7 +16,7 @@ function convertToGame(lat, lng) {
     return result = {
         x: rX,
         y: rY
-    }
+    };
 }
 
 function convertToGameCoord(lat, lng) {
@@ -26,7 +26,7 @@ function convertToGameCoord(lat, lng) {
         x: rX,
         y: rY,
         z: 0
-    }
+    };
 }
 
 function convertToMap(x, y) {
@@ -35,19 +35,19 @@ function convertToMap(x, y) {
     return result = {
         lat: rLat,
         lng: rLng
-    }
+    };
 }
 
 function convertToMapGMAP(x, y) {
     var rLng = map_1_lng + (x - game_1_x) * (map_1_lng - map_2_lng) / (game_1_x - game_2_x);
     var rLat = map_1_lat + (y - game_1_y) * (map_1_lat - map_2_lat) / (game_1_y - game_2_y);
-    return new google.maps.LatLng(rLat, rLng)
+    return new google.maps.LatLng(rLat, rLng);
 }
 
 function convertToMapGMAPcoord(coord) {
     var rLng = map_1_lng + (coord.x - game_1_x) * (map_1_lng - map_2_lng) / (game_1_x - game_2_x);
     var rLat = map_1_lat + (coord.y - game_1_y) * (map_1_lat - map_2_lat) / (game_1_y - game_2_y);
-    return new google.maps.LatLng(rLat, rLng)
+    return new google.maps.LatLng(rLat, rLng);
 }
 
 function stringCoordToFloat(coord) {
@@ -55,5 +55,5 @@ function stringCoordToFloat(coord) {
         x: parseFloat(coord.x),
         y: parseFloat(coord.y),
         z: parseFloat(coord.z),
-    }
+    };
 };
