@@ -3,20 +3,7 @@
 <?php
 
 	require_once("utils/minifier.php");
-
-	// Set to false to enable the miinified versions of JS and CSS files
-	// that should speed up content delivery on production websites
-	$debug = true;
-
-	// Set to the IP of the GTA server that has live_map. Make sure it has the trailing slash (/)
-	$gtaServer = "http://127.0.0.1:30120/";
-
-	// Set tpo the name of "live_map".
-	// Note: If you change the folder name on the GTA server you NEED to change this
-	$liveMapName = "live_map";
-
-	// Builds the url that we need to use in ajax requests to get the blips
-	$blipUrl = $gtaServer . $liveMapName . "/blips.json";
+	require_once("utils/config.php");
 ?>
 
 <html>
@@ -51,9 +38,8 @@
 
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 	<?php
-
+		// Print the CSS stuff for the webapp. This will either print the minfied version or, links to the CSS filees
 		printCss($debug);
-
 	?>
 
 	<script src="js/jquery-3.2.1.min.js"></script>
@@ -64,37 +50,35 @@
 	<script>
 
 	///////////////////////////////////////////////////////////////////////////
-	// CONFIGURATION STARTS HERE
+	// PLEASE CHNAGE THE VAUES INSIDE THE CONFIG FILE
 	///////////////////////////////////////////////////////////////////////////
 
 	// Set relative tile directory
-	var _MAP_tileURL = "images/map/";
+	var _MAP_tileURL = "<?php echo $mapTileUrl; ?>";
 
 	// Set relative icon directory
-	var _MAP_iconURL = "images/icons/";
+	var _MAP_iconURL = "<?php echo $mapIconUrl; ?>";
 
 	// Set if to show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
-	var _MAP_atlasMap = true;
+	var _MAP_atlasMap = <?php echo $atlasEnabled; ?>;
 
 	// Set if to show Satellite map (WARNING: REQUIRES "satellite" TILE DIRECTORY)
-	var _MAP_satelliteMap = true;
+	var _MAP_satelliteMap = <?php echo $satelliteEnabled; ?>;
 
 	// Set if to show Road map (WARNING: REQUIRES "road" TILE DIRECTORY)
-	var _MAP_roadMap = true;
+	var _MAP_roadMap = <?php echo $roadEnabled; ?>;
 
 	// Set if to show UV Invert map (WARNING: REQUIRES "uv-invert" TILE DIRECTORY)
-	var _MAP_UVInvMap = false;
+	var _MAP_UVInvMap = <?php echo $uvInveredEnabled; ?>;
 
 	// Set to the IP of the GTA server running "live_map" and change the port to the
 	// number that is set
-	var _SETTINGS_socketUrl = "ws://localhost:30121"
+	var _SETTINGS_socketUrl = "<?php echo $socketUrl ?>";
 
 	// Set to false if you don't want to show the player's identifiers (this may be their IP)
-	var _SETTINGS_showIdentifiers = true;
+	var _SETTINGS_showIdentifiers = <?php echo $showIdentifiers; ?>;
 
-	<?php
-		echo "var _SETTINGS_blipUrl = \"$blipUrl\";"
-	?>
+	var _SETTINGS_blipUrl = "<?php echo $blipUrl; ?>";
 
 	// Do not remove unless you know what you're doing (and you have a google api key)
 	// Hack from https://stackoverflow.com/questions/38148097/google-maps-api-without-key/38809129#38809129
