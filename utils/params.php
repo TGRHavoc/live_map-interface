@@ -32,7 +32,7 @@ $getParams = array(
             "zoom" => "int",
             "_js" => "map.setZoom(%d);"
         ),
-    
+
 );
 
 $javascriptToPrint = array();
@@ -42,7 +42,6 @@ $javascriptToPrint = array();
 foreach ($getParams as $key => $parameters) {
 
     if (isset($_GET[$key])){
-        echo "$key is set<br/>";
         $gotParams = array();
         $javascript = "";
 
@@ -51,7 +50,6 @@ foreach ($getParams as $key => $parameters) {
                 $javascript = $type;
                 continue;
             }
-            echo "Checking $paramName<br/>";
             if(isset($_GET[$paramName])){ // Been set, check it and add it
 
                 $val = $_GET[$paramName];
