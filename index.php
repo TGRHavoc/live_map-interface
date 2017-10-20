@@ -29,6 +29,7 @@
 
 	$config = Config::getConfig();
 	$parser = ParamParser::getParser();
+	// Test
 ?>
 
 <html>
