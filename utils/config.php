@@ -1,4 +1,22 @@
 <?php
+// ************************************************************************** //
+//			LiveMap Interface - The web interface for the livemap
+//					Copyright (C) 2017  Jordan Dalton
+//
+//	  This program is free software: you can redistribute it and/or modify
+//	  it under the terms of the GNU General Public License as published by
+//	  the Free Software Foundation, either version 3 of the License, or
+//	  (at your option) any later version.
+//
+//	  This program is distributed in the hope that it will be useful,
+//	  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//	  GNU General Public License for more details.
+//
+//	  You should have received a copy of the GNU General Public License
+//	  along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
+// ************************************************************************** //
+
 /*
     This is the config for the webapp.
     Please change the values to make it work.
@@ -8,7 +26,7 @@
 
 // Set to false to enable the miinified versions of JS and CSS files
 // that should speed up content delivery on production websites
-$debug = true;
+$debug = false;
 
 // Set to the IP of your FiveM server (public address).
 $fivemIP = "127.0.0.1";
