@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
 <?php
-
 	require_once("utils/minifier.php");
 	require_once("utils/config.php");
+	require_once("utils/params.php");
 ?>
 
 <html>
@@ -52,11 +52,7 @@
 	///////////////////////////////////////////////////////////////////////////
 	// PLEASE CHNAGE THE VAUES INSIDE THE CONFIG FILE
 	///////////////////////////////////////////////////////////////////////////
-
-	// Set relative tile directory
 	var _MAP_tileURL = "<?php echo $mapTileUrl; ?>";
-
-	// Set relative icon directory
 	var _MAP_iconURL = "<?php echo $mapIconUrl; ?>";
 
 	// Set if to show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
@@ -151,7 +147,7 @@
 					  <a id="toggleLive" href="#">Live update <span id="live_enabled" class="label label-danger pull-right">off</span></a>
 				  </li>
 				  -->
-										  <li>
+				  <li>
 					  <a id="reconnect" href="#">Connect <span id="connection" class="label label-danger pull-right">disconnected</span></a>
 				  </li>
 
@@ -183,6 +179,7 @@
 
 <?php
 	printLastJs($debug);
+	printJsForParams();
 ?>
 
 </body>
