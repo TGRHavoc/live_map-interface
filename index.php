@@ -25,6 +25,7 @@
 	require_once("utils/minifier.php");
 	require_once("utils/config.php");
 	require_once("utils/params.php");
+	require_once("utils/update_checker.php");
 
 	$config = Config::getConfig();
 	$parser = ParamParser::getParser();
@@ -137,11 +138,13 @@
 <body>
 
 	<nav class="navbar navbar-default-invert navbar-static-top" style="margin: 0;">
+		<!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo -->
 		<div class="container-fluid">
 			<div class="container">
 				<div class="navbar-brand" style="padding: 10px 15px">
-					<a href="https://identityrp.co.uk">
-						<img src="https://identityrp.co.uk/assets/logo-pmx43bj0.png" style="max-height: 30px" >
+					<!-- You can change this shit -->
+					<a href="https://github.com/TGRHavoc/">
+						<img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
 					</a>
 				</div>
 			</div>
@@ -197,7 +200,17 @@
 				</ul>
 			</div>
 
-			<p style="color: black; text-align: center;">This was originaly created for <a href="https://identityrp.co.uk">IdentityRP</a></p>
+			<p style="color: black; text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
+
+			<?php
+				if (!Update::latestVersion()){
+					// If not the latest version, tell them
+			?>
+				<p style="color: red; text-align: center; font-weight: 700;">An update is available, please download it <a href="https://github.com/TGRHavoc/live_map-interface">HERE</a></p>
+			<?php
+				}
+			?>
+
 		</div>
 	</div>
 
