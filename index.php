@@ -27,6 +27,8 @@
 	require_once("utils/params.php");
 	require_once("utils/update_checker.php");
 
+    Update::getCurrentVersion();
+
 	$config = Config::getConfig();
 	$parser = ParamParser::getParser();
 ?>
