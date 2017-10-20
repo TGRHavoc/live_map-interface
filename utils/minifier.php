@@ -17,97 +17,104 @@
 //	  along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
+/*
+	Class used to minify CSS and JS files if needed.
+	Mainly used to print minified versions if $debug is true in the config.
+*/
+class Minifier{
 
-/**
- * Concatenate an array of files into a string
- *
- * @param $files
- * @return string
- */
-function concatenateFiles($files) {
-	$buffer = '';
+	/**
+	 * Concatenate an array of files into a string
+	 *
+	 * @param $files
+	 * @return string
+	 */
+	private static function concatenateFiles($files) {
+		$buffer = '';
 
-	foreach($files as $file) {
-		$buffer .= file_get_contents($file);
-	}
-
-	return $buffer;
-}
-
-/**
- * @param $files
- * @return mixed|string
- */
-function minifyCSS($files) {
-	$buffer = concatenateFiles($files);
-
-	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
-	$buffer = str_replace(["\r\n","\r","\n","\t",'  ','    ','     '], '', $buffer);
-	$buffer = preg_replace(['(( )+{)','({( )+)'], '{', $buffer);
-	$buffer = preg_replace(['(( )+})','(}( )+)','(;( )*})'], '}', $buffer);
-	$buffer = preg_replace(['(;( )+)','(( )+;)'], ';', $buffer);
-
-	return $buffer;
-}
-
-/**
- * @param $files
- * @return mixed|string
- */
-function minifyJS($files) {
-	$buffer = concatenateFiles($files);
-
-	$buffer = preg_replace("/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/", "", $buffer);
-	$buffer = str_replace(["\r\n","\r","\t","\n",'  ','    ','     '], '', $buffer);
-	$buffer = preg_replace(['(( )+\))','(\)( )+)'], ')', $buffer);
-
-	return $buffer;
-}
-
-function printCss($debug){
-	$cssFiles = array("style/src/bootstrap.css",
-						"style/src/bootstrap-theme.css",
-						"style/src/style.css");
-	if($debug){
-		foreach($cssFiles as $fname){
-			echo "<link type=\"text/css\" rel=\"stylesheet\" href=\"$fname\">";
+		foreach($files as $file) {
+			$buffer .= file_get_contents($file);
 		}
-	}else{
-		echo "<style>";
-		echo minifyCSS($cssFiles);
-		echo "</style>";
+
+		return $buffer;
 	}
-}
 
-function printFirstJs($debug){
-	$jsFiles = array("js/src/objects.js", "js/src/utils.js",
-					"js/src/map.js", "js/src/markers.js",
-					"js/src/init.js", "js/src/socket.js");
+	/**
+	 * @param $files
+	 * @return mixed|string
+	 */
+	private static function minifyCSS($files) {
+		$buffer = Minifier::concatenateFiles($files);
 
-	if($debug){
-		foreach($jsFiles as $fname){
-			echo "<script type=\"text/javascript\" src=\"$fname\"></script>\n";
+		$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
+		$buffer = str_replace(["\r\n","\r","\n","\t",'  ','    ','     '], '', $buffer);
+		$buffer = preg_replace(['(( )+{)','({( )+)'], '{', $buffer);
+		$buffer = preg_replace(['(( )+})','(}( )+)','(;( )*})'], '}', $buffer);
+		$buffer = preg_replace(['(;( )+)','(( )+;)'], ';', $buffer);
+
+		return $buffer;
+	}
+
+	/**
+	 * @param $files
+	 * @return mixed|string
+	 */
+	private static function minifyJS($files) {
+		$buffer = Minifier::concatenateFiles($files);
+
+		$buffer = preg_replace("/((?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:\/\/.*))/", "", $buffer);
+		$buffer = str_replace(["\r\n","\r","\t","\n",'  ','    ','     '], '', $buffer);
+		$buffer = preg_replace(['(( )+\))','(\)( )+)'], ')', $buffer);
+
+		return $buffer;
+	}
+
+	public static function printCss($debug){
+		$cssFiles = array("style/src/bootstrap.css",
+							"style/src/bootstrap-theme.css",
+							"style/src/style.css");
+		if($debug){
+			foreach($cssFiles as $fname){
+				echo "<link type=\"text/css\" rel=\"stylesheet\" href=\"$fname\">";
+			}
+		}else{
+			echo "<style>";
+			echo Minifier::minifyCSS($cssFiles);
+			echo "</style>";
 		}
-	}else{
-		echo "<script>";
-		echo minifyJs($jsFiles);
-		echo "</script>";
 	}
-}
 
-function printLastJs($debug){
-	$jsFiles = array("js/src/controls.js");
+	public static function printFirstJs($debug){
+		$jsFiles = array("js/src/objects.js", "js/src/utils.js",
+						"js/src/map.js", "js/src/markers.js",
+						"js/src/init.js", "js/src/socket.js");
 
-	if($debug){
-		foreach($jsFiles as $fname){
-			echo "<script type=\"text/javascript\" src=\"$fname\"></script>\n";
+		if($debug){
+			foreach($jsFiles as $fname){
+				echo "<script type=\"text/javascript\" src=\"$fname\"></script>\n";
+			}
+		}else{
+			echo "<script>";
+			echo Minifier::minifyJs($jsFiles);
+			echo "</script>";
 		}
-	}else{
-		echo "<script>";
-		echo minifyJs($jsFiles);
-		echo "</script>";
+	}
+
+	public static function printLastJs($debug){
+		$jsFiles = array("js/src/controls.js");
+
+		if($debug){
+			foreach($jsFiles as $fname){
+				echo "<script type=\"text/javascript\" src=\"$fname\"></script>\n";
+			}
+		}else{
+			echo "<script>";
+			echo Minifier::minifyJs($jsFiles);
+			echo "</script>";
+		}
 	}
 }
+
 
 
 ?>

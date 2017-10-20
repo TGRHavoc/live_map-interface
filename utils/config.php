@@ -17,66 +17,92 @@
 //	  along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
-/*
-    This is the config for the webapp.
-    Please change the values to make it work.
+class Config{
 
-    DO NOT CHANGE ANY VARIABLE THAT SAYS NOT TO CHANGE.
-*/
+    /*
+        This is the config for the webapp.
+        Please change the values to make it work.
 
-// Set to false to enable the miinified versions of JS and CSS files
-// that should speed up content delivery on production websites
-$debug = false;
+        DO NOT CHANGE ANY VARIABLE THAT SAYS NOT TO CHANGE.
+    */
 
-// Set to the IP of your FiveM server (public address).
-$fivemIP = "127.0.0.1";
+    // Set to false to enable the miinified versions of JS and CSS files
+    // that should speed up content delivery on production websites
+    public $debug = false;
 
-// Set to the port your FiveM server is using (needs to be reachable from the internet)
-$fivemPort = "30120";
+    // Set to the IP of your FiveM server (public address).
+    public $fivemIP = "127.0.0.1";
 
-// Set to the port that you set in the "socket_port" convar.
-// If you haven't set this in the config, don't change this.
-$socketPort = "30121";
+    // Set to the port your FiveM server is using (needs to be reachable from the internet)
+    public $fivemPort = "30120";
 
-// Set to the name of the "live_map" resourcee that is added to the FiveM server.
-// Note: If you change the folder name on the GTA server you NEED to change this
-$liveMapName = "live_map";
+    // Set to the port that you set in the "socket_port" convar.
+    // If you haven't set this in the config, don't change this.
+    public $socketPort = "30121";
 
-// These will be injected into the JS code to configure how the map works
+    // Set to the name of the "live_map" resourcee that is added to the FiveM server.
+    // Note: If you change the folder name on the GTA server you NEED to change this
+    public $liveMapName = "live_map";
 
-// The directory that contains the folders for the map tiles. Can be relative or, full URL..
-// Make sure it has the trailing slash
-$mapTileUrl = "images/map/";
+    // These will be injected into the JS code to configure how the map works
 
-// The directory that contains the folders for the map icons. Can be relative or a URL.
-// Make sure it has the trailing slash.
-$mapIconUrl = "images/icons/";
+    // The directory that contains the folders for the map tiles. Can be relative or, full URL..
+    // Make sure it has the trailing slash
+    public $mapTileUrl = "images/map/";
 
-// Controls whether the atlas map is enabled or not
-// (WARNING: REQUIRES "atlas" TILE DIRECTORY INSIDE "mapTileUrl")
-$atlasEnabled = true;
-// Controls whether the satellite map is enabled or not
-// (WARNING: REQUIRES "satellite" TILE DIRECTORY INSIDE "mapTileUrl")
-$satelliteEnabled = true;
-// Controls whether the road map is enabled or not
-// (WARNING: REQUIRES "road" TILE DIRECTORY INSIDE "mapTileUrl")
-$roadEnabled = true;
-// Controls whether the uv-invert map is enabled or not
-// (WARNING: REQUIRES "uv-invert" TILE DIRECTORY INSIDE "mapTileUrl"
-$uvInveredEnabled = true;
+    // The directory that contains the folders for the map icons. Can be relative or a URL.
+    // Make sure it has the trailing slash.
+    public $mapIconUrl = "images/icons/";
 
-// Do you want to show the player's identifiers on the map?
-// Note: THIS MAY BE THE PLAYER'S IP ADDRESS
-$showIdentifiers = true;
+    // Controls whether the atlas map is enabled or not
+    // (WARNING: REQUIRES "atlas" TILE DIRECTORY INSIDE "mapTileUrl")
+    public $atlasEnabled = true;
+    // Controls whether the satellite map is enabled or not
+    // (WARNING: REQUIRES "satellite" TILE DIRECTORY INSIDE "mapTileUrl")
+    public $satelliteEnabled = true;
+    // Controls whether the road map is enabled or not
+    // (WARNING: REQUIRES "road" TILE DIRECTORY INSIDE "mapTileUrl")
+    public $roadEnabled = true;
+    // Controls whether the uv-invert map is enabled or not
+    // (WARNING: REQUIRES "uv-invert" TILE DIRECTORY INSIDE "mapTileUrl"
+    public $uvInveredEnabled = true;
 
-// DO NOT CHANGE
-$gtaServer = "http://$fivemIP:$fivemPort/";
-// DO NOT CHANGE
-$socketUrl = "ws://$fivemIP:$socketPort/";
+    // Do you want to show the player's identifiers on the map?
+    // Note: THIS MAY BE THE PLAYER'S IP ADDRESS
+    public $showIdentifiers = true;
 
-// Builds the url that we need to use in ajax requests to get the blips
-// DO NOT CHANGE
-$blipUrl = $gtaServer . $liveMapName . "/blips.json";
+    public function gtaServer(){
+        return "http://$this->fivemIP:$this->fivemPort/";
+    }
+
+    public function socketUrl(){
+        return "ws://$this->fivemIP:$this->socketPort/";
+    }
+
+    public function blipUrl(){
+        return $this->gtaServer() . $this->liveMapName . "/blips.json";
+    }
+
+    /*
+    // DO NOT CHANGE
+    public $gtaServer = "http://$this->fivemIP:$this->fivemPort/";
+    // DO NOT CHANGE
+    public $socketUrl = "ws://$this->fivemIP:$this->socketPort/";
+
+    // Builds the url that we need to use in ajax requests to get the blips
+    // DO NOT CHANGE
+    public $blipUrl = $this->gtaServer . $this->liveMapName . "/blips.json";
+    */
+
+    private static $instance = NULL;
+
+    public static function getConfig(){
+        if (is_null(self::$instance)){
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+}
 
 
 ?>
