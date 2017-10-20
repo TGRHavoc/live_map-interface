@@ -2,8 +2,8 @@
 
 class Update{
 
-    private static $version = "2.1.2";
-    private static $url = "https://gist.githubusercontent.com/TGRHavoc/581ec66730b7abafe49ab616db87b0bb/raw/f27c6f2573dd1df0692f97c78a73f5687d20f791/live_map.versions";
+    private static $version = "2.1.3";
+    private static $url = "https://raw.githubusercontent.com/TGRHavoc/live_map-interface/master/version.json";
 
     public static function latestVersion(){
         $data = file_get_contents(self::$url);
