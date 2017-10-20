@@ -81,23 +81,23 @@
 	var _MAP_iconURL = "<?php echo $config->mapIconUrl; ?>";
 
 	// Set if to show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
-	var _MAP_atlasMap = <?php echo $config->atlasEnabled; ?>;
+	var _MAP_atlasMap = <?php echo $config->atlasEnabled? 'true' : 'false'; ?>;
 
 	// Set if to show Satellite map (WARNING: REQUIRES "satellite" TILE DIRECTORY)
-	var _MAP_satelliteMap = <?php echo $config->satelliteEnabled; ?>;
+	var _MAP_satelliteMap = <?php echo $config->satelliteEnabled? 'true' : 'false'; ?>;
 
 	// Set if to show Road map (WARNING: REQUIRES "road" TILE DIRECTORY)
-	var _MAP_roadMap = <?php echo $config->roadEnabled; ?>;
+	var _MAP_roadMap = <?php echo $config->roadEnabled? 'true' : 'false'; ?>;
 
 	// Set if to show UV Invert map (WARNING: REQUIRES "uv-invert" TILE DIRECTORY)
-	var _MAP_UVInvMap = <?php echo $config->uvInveredEnabled; ?>;
+	var _MAP_UVInvMap = <?php echo $config->uvInveredEnabled? 'true' : 'false'; ?>;
 
 	// Set to the IP of the GTA server running "live_map" and change the port to the
 	// number that is set
 	var _SETTINGS_socketUrl = "<?php echo $config->socketUrl() ?>";
 
 	// Set to false if you don't want to show the player's identifiers (this may be their IP)
-	var _SETTINGS_showIdentifiers = <?php echo $config->showIdentifiers; ?>;
+	var _SETTINGS_showIdentifiers = <?php echo $config->showIdentifiers? 'true' : 'false'; ?>;
 
 	var _SETTINGS_blipUrl = "<?php echo $config->blipUrl(); ?>";
 
