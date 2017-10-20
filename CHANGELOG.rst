@@ -4,6 +4,15 @@ Changelog
 
 v2.1.1 (20-10-2017)
 -------------------
+- Add README. [Jordan Dalton]
+
+  Added a README to hopefully help new users figure out how to use this.
+- Add update_checker. [Jordan Dalton]
+
+  If an update is available, then some nice, red text appears to tell the user.
+- Add changelog. [Jordan Dalton]
+
+  Added a changelog
 - Add classes. [Jordan Dalton]
 
   Pretty much everything is in a class now..
