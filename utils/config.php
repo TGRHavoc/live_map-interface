@@ -71,31 +71,35 @@ class Config{
     // Note: THIS MAY BE THE PLAYER'S IP ADDRESS
     public $showIdentifiers = true;
 
+    /**
+    * Gets the URL for the GTA server.
+    *
+    * @return string The URL for the GTA server (e.g. "http://127.0.0.1:30120")
+    */
     public function gtaServer(){
         return "http://$this->fivemIP:$this->fivemPort/";
     }
 
+    /**
+    * Gets the WebSocket URL for the "livemap" addon
+    *
+    * @return string The URL used to connect to the websocket server (e.g. "ws://127.0.0.1:30121")
+    */
     public function socketUrl(){
         return "ws://$this->fivemIP:$this->socketPort/";
     }
 
+    /**
+    * Get the public URL for the "blips.json" file.
+    *
+    * @return string The URL you can use to get the blips file (e.g. "http://127.0.0.1:30120/live_map/blips.json")
+    */
     public function blipUrl(){
         return $this->gtaServer() . $this->liveMapName . "/blips.json";
     }
 
-    /*
-    // DO NOT CHANGE
-    public $gtaServer = "http://$this->fivemIP:$this->fivemPort/";
-    // DO NOT CHANGE
-    public $socketUrl = "ws://$this->fivemIP:$this->socketPort/";
-
-    // Builds the url that we need to use in ajax requests to get the blips
-    // DO NOT CHANGE
-    public $blipUrl = $this->gtaServer . $this->liveMapName . "/blips.json";
-    */
-
     private static $instance = NULL;
-
+    
     public static function getConfig(){
         if (is_null(self::$instance)){
             self::$instance = new self();
