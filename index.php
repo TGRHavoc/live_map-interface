@@ -25,6 +25,9 @@
 	require_once("utils/minifier.php");
 	require_once("utils/config.php");
 	require_once("utils/params.php");
+
+	$config = Config::getConfig();
+	$parser = ParamParser::getParser();
 ?>
 
 <html>
@@ -60,7 +63,7 @@
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 	<?php
 		// Print the CSS stuff for the webapp. This will either print the minfied version or, links to the CSS filees
-		printCss($debug);
+		Minifier::printCss($config->debug);
 	?>
 
 	<script src="js/jquery-3.2.1.min.js"></script>
@@ -73,29 +76,29 @@
 	///////////////////////////////////////////////////////////////////////////
 	// PLEASE CHNAGE THE VAUES INSIDE THE CONFIG FILE
 	///////////////////////////////////////////////////////////////////////////
-	var _MAP_tileURL = "<?php echo $mapTileUrl; ?>";
-	var _MAP_iconURL = "<?php echo $mapIconUrl; ?>";
+	var _MAP_tileURL = "<?php echo $config->mapTileUrl; ?>";
+	var _MAP_iconURL = "<?php echo $config->mapIconUrl; ?>";
 
 	// Set if to show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
-	var _MAP_atlasMap = <?php echo $atlasEnabled; ?>;
+	var _MAP_atlasMap = <?php echo $config->atlasEnabled; ?>;
 
 	// Set if to show Satellite map (WARNING: REQUIRES "satellite" TILE DIRECTORY)
-	var _MAP_satelliteMap = <?php echo $satelliteEnabled; ?>;
+	var _MAP_satelliteMap = <?php echo $config->satelliteEnabled; ?>;
 
 	// Set if to show Road map (WARNING: REQUIRES "road" TILE DIRECTORY)
-	var _MAP_roadMap = <?php echo $roadEnabled; ?>;
+	var _MAP_roadMap = <?php echo $config->roadEnabled; ?>;
 
 	// Set if to show UV Invert map (WARNING: REQUIRES "uv-invert" TILE DIRECTORY)
-	var _MAP_UVInvMap = <?php echo $uvInveredEnabled; ?>;
+	var _MAP_UVInvMap = <?php echo $config->uvInveredEnabled; ?>;
 
 	// Set to the IP of the GTA server running "live_map" and change the port to the
 	// number that is set
-	var _SETTINGS_socketUrl = "<?php echo $socketUrl ?>";
+	var _SETTINGS_socketUrl = "<?php echo $config->socketUrl() ?>";
 
 	// Set to false if you don't want to show the player's identifiers (this may be their IP)
-	var _SETTINGS_showIdentifiers = <?php echo $showIdentifiers; ?>;
+	var _SETTINGS_showIdentifiers = <?php echo $config->showIdentifiers; ?>;
 
-	var _SETTINGS_blipUrl = "<?php echo $blipUrl; ?>";
+	var _SETTINGS_blipUrl = "<?php echo $config->blipUrl(); ?>";
 
 	// Do not remove unless you know what you're doing (and you have a google api key)
 	// Hack from https://stackoverflow.com/questions/38148097/google-maps-api-without-key/38809129#38809129
@@ -127,7 +130,7 @@
 	</script>
 
 	<?php
-		printFirstJs($debug);
+		Minifier::printFirstJs($config->debug);
 	?>
 
 </head>
@@ -199,8 +202,8 @@
 	</div>
 
 <?php
-	printLastJs($debug);
-	printJsForParams();
+	Minifier::printLastJs($config->debug);
+	$parser->printJsForParams();
 ?>
 
 </body>
