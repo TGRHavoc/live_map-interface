@@ -1,9 +1,34 @@
+<!--
+
+// ************************************************************************** //
+//			LiveMap Interface - The web interface for the livemap
+//					Copyright (C) 2017  Jordan Dalton
+//
+//	  This program is free software: you can redistribute it and/or modify
+//	  it under the terms of the GNU General Public License as published by
+//	  the Free Software Foundation, either version 3 of the License, or
+//	  (at your option) any later version.
+//
+//	  This program is distributed in the hope that it will be useful,
+//	  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//	  GNU General Public License for more details.
+//
+//	  You should have received a copy of the GNU General Public License
+//	  along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
+// ************************************************************************** //
+
+-->
 <!DOCTYPE html>
 
 <?php
 	require_once("utils/minifier.php");
 	require_once("utils/config.php");
 	require_once("utils/params.php");
+	require_once("utils/update_checker.php");
+
+	$config = Config::getConfig();
+	$parser = ParamParser::getParser();
 ?>
 
 <html>
@@ -39,7 +64,7 @@
 	<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 	<?php
 		// Print the CSS stuff for the webapp. This will either print the minfied version or, links to the CSS filees
-		printCss($debug);
+		Minifier::printCss($config->debug);
 	?>
 
 	<script src="js/jquery-3.2.1.min.js"></script>
@@ -52,29 +77,29 @@
 	///////////////////////////////////////////////////////////////////////////
 	// PLEASE CHNAGE THE VAUES INSIDE THE CONFIG FILE
 	///////////////////////////////////////////////////////////////////////////
-	var _MAP_tileURL = "<?php echo $mapTileUrl; ?>";
-	var _MAP_iconURL = "<?php echo $mapIconUrl; ?>";
+	var _MAP_tileURL = "<?php echo $config->mapTileUrl; ?>";
+	var _MAP_iconURL = "<?php echo $config->mapIconUrl; ?>";
 
 	// Set if to show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
-	var _MAP_atlasMap = <?php echo $atlasEnabled; ?>;
+	var _MAP_atlasMap = <?php echo $config->atlasEnabled; ?>;
 
 	// Set if to show Satellite map (WARNING: REQUIRES "satellite" TILE DIRECTORY)
-	var _MAP_satelliteMap = <?php echo $satelliteEnabled; ?>;
+	var _MAP_satelliteMap = <?php echo $config->satelliteEnabled; ?>;
 
 	// Set if to show Road map (WARNING: REQUIRES "road" TILE DIRECTORY)
-	var _MAP_roadMap = <?php echo $roadEnabled; ?>;
+	var _MAP_roadMap = <?php echo $config->roadEnabled; ?>;
 
 	// Set if to show UV Invert map (WARNING: REQUIRES "uv-invert" TILE DIRECTORY)
-	var _MAP_UVInvMap = <?php echo $uvInveredEnabled; ?>;
+	var _MAP_UVInvMap = <?php echo $config->uvInveredEnabled; ?>;
 
 	// Set to the IP of the GTA server running "live_map" and change the port to the
 	// number that is set
-	var _SETTINGS_socketUrl = "<?php echo $socketUrl ?>";
+	var _SETTINGS_socketUrl = "<?php echo $config->socketUrl() ?>";
 
 	// Set to false if you don't want to show the player's identifiers (this may be their IP)
-	var _SETTINGS_showIdentifiers = <?php echo $showIdentifiers; ?>;
+	var _SETTINGS_showIdentifiers = <?php echo $config->showIdentifiers; ?>;
 
-	var _SETTINGS_blipUrl = "<?php echo $blipUrl; ?>";
+	var _SETTINGS_blipUrl = "<?php echo $config->blipUrl(); ?>";
 
 	// Do not remove unless you know what you're doing (and you have a google api key)
 	// Hack from https://stackoverflow.com/questions/38148097/google-maps-api-without-key/38809129#38809129
@@ -106,18 +131,20 @@
 	</script>
 
 	<?php
-		printFirstJs($debug);
+		Minifier::printFirstJs($config->debug);
 	?>
 
 </head>
 <body>
 
 	<nav class="navbar navbar-default-invert navbar-static-top" style="margin: 0;">
+		<!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo -->
 		<div class="container-fluid">
 			<div class="container">
 				<div class="navbar-brand" style="padding: 10px 15px">
-					<a href="https://identityrp.co.uk">
-						<img src="https://identityrp.co.uk/assets/logo-pmx43bj0.png" style="max-height: 30px" >
+					<!-- You can change this shit -->
+					<a href="https://github.com/TGRHavoc/">
+						<img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
 					</a>
 				</div>
 			</div>
@@ -173,13 +200,23 @@
 				</ul>
 			</div>
 
-			<p style="color: black; text-align: center;">This was originaly created for <a href="https://identityrp.co.uk">IdentityRP</a></p>
+			<p style="color: black; text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
+
+			<?php
+				if (!Update::latestVersion()){
+					// If not the latest version, tell them
+			?>
+				<p style="color: red; text-align: center; font-weight: 700;">An update is available, please download it <a href="https://github.com/TGRHavoc/live_map-interface">HERE</a></p>
+			<?php
+				}
+			?>
+
 		</div>
 	</div>
 
 <?php
-	printLastJs($debug);
-	printJsForParams();
+	Minifier::printLastJs($config->debug);
+	$parser->printJsForParams();
 ?>
 
 </body>
