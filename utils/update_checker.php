@@ -11,6 +11,14 @@ class Update{
 
         return $data->interface == self::$version;
     }
+
+    public static function getCurrentVersion(){
+        $ver = file_get_contents("version.json") or die("Please contact the web admin. \"version.json\" doesn't exist! How am I supposed to check for updates?");
+        $ver = json_decode($ver);
+
+        self::$version = $ver->interface;
+    }
+
 }
 
 ?>
