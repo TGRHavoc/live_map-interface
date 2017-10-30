@@ -1,73 +1,73 @@
 // ************************************************************************** //
-//			LiveMap Interface - The web interface for the livemap
-//					Copyright (C) 2017  Jordan Dalton
+//            LiveMap Interface - The web interface for the livemap
+//                    Copyright (C) 2017  Jordan Dalton
 //
-//	  This program is free software: you can redistribute it and/or modify
-//	  it under the terms of the GNU General Public License as published by
-//	  the Free Software Foundation, either version 3 of the License, or
-//	  (at your option) any later version.
+//      This program is free software: you can redistribute it and/or modify
+//      it under the terms of the GNU General Public License as published by
+//      the Free Software Foundation, either version 3 of the License, or
+//      (at your option) any later version.
 //
-//	  This program is distributed in the hope that it will be useful,
-//	  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	  GNU General Public License for more details.
+//      This program is distributed in the hope that it will be useful,
+//      but WITHOUT ANY WARRANTY; without even the implied warranty of
+//      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//      GNU General Public License for more details.
 //
-//	  You should have received a copy of the GNU General Public License
-//	  along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
+//      You should have received a copy of the GNU General Public License
+//      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
 function toggleBlips(){
-	console.log("showing local blips");
-	if (_showBlips){
-		_blips.forEach(function(blip){
-			var desc = blip.description == undefined ? "" : blip.description;
-			var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], desc, "", "");
-			createMarker(false, false, obj, "");
-		});
-	}else{
-		clearAllMarkers();
-	}
+    console.log("showing local blips");
+    if (_showBlips){
+        _blips.forEach(function(blip){
+            var desc = blip.description == undefined ? "" : blip.description;
+            var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], desc, "", "");
+            createMarker(false, false, obj, "");
+        });
+    }else{
+        clearAllMarkers();
+    }
 }
 
 $(document).ready(function(){
-	globalInit();
-	connect();
+    globalInit();
+    connect();
 
-	$("#playerSelect").on("change", function(){
-		if (this.value == ""){
-			_trackPlayer = null;
-			return;
-		}
+    $("#playerSelect").on("change", function(){
+        if (this.value == ""){
+            _trackPlayer = null;
+            return;
+        }
 
-		map.setZoom(7);// zoom in!
-		_trackPlayer = this.value;
-	});
+        map.setZoom(7);// zoom in!
+        _trackPlayer = this.value;
+    });
 
-	$("#refreshBlips").click(function(e){
-		e.preventDefault();
-		if (_showBlips){
-			clearAllMarkers();
-			initBlips();
-		}
-	});
+    $("#refreshBlips").click(function(e){
+        e.preventDefault();
+        if (_showBlips){
+            clearAllMarkers();
+            initBlips();
+        }
+    });
 
-	$("#showBlips").click(function(e){
-		e.preventDefault();
+    $("#showBlips").click(function(e){
+        e.preventDefault();
 
-		_showBlips = !_showBlips;
+        _showBlips = !_showBlips;
 
-		//webSocket.send("getBlips");
-		toggleBlips();
+        //webSocket.send("getBlips");
+        toggleBlips();
 
-		$("#blips_enabled").removeClass("label-success").removeClass("label-danger")
-			.addClass( _showBlips ? "label-success" : "label-danger")
-			.text(_showBlips ? "on" : "off");
-	});
+        $("#blips_enabled").removeClass("label-success").removeClass("label-danger")
+            .addClass( _showBlips ? "label-success" : "label-danger")
+            .text(_showBlips ? "on" : "off");
+    });
 
-	$("#reconnect").click(function(e){
-		e.preventDefault();
+    $("#reconnect").click(function(e){
+        e.preventDefault();
 
-		$("#connection").removeClass("label-success").removeClass("label-danger").addClass("label-warning").text("reconnecting");
-		connect();
-	});
+        $("#connection").removeClass("label-success").removeClass("label-danger").addClass("label-warning").text("reconnecting");
+        connect();
+    });
 });

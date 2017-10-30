@@ -50,9 +50,9 @@ function Coordinates(x, y, z) {
 }
 
 function MarkerObject(reference, position, type, description, data) {
-	this.reference = reference;
-	this.position = position;
-	this.type = type;
-	this.description = description;
-	this.data = data;
+    this.reference = reference;
+    this.position = position;
+    this.type = type;
+    this.description = description;
+    this.data = data;
 };

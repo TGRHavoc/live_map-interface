@@ -1,19 +1,19 @@
 // ************************************************************************** //
-//			LiveMap Interface - The web interface for the livemap
-//					Copyright (C) 2017  Jordan Dalton
+//            LiveMap Interface - The web interface for the livemap
+//                    Copyright (C) 2017  Jordan Dalton
 //
-//	  This program is free software: you can redistribute it and/or modify
-//	  it under the terms of the GNU General Public License as published by
-//	  the Free Software Foundation, either version 3 of the License, or
-//	  (at your option) any later version.
+//      This program is free software: you can redistribute it and/or modify
+//      it under the terms of the GNU General Public License as published by
+//      the Free Software Foundation, either version 3 of the License, or
+//      (at your option) any later version.
 //
-//	  This program is distributed in the hope that it will be useful,
-//	  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	  GNU General Public License for more details.
+//      This program is distributed in the hope that it will be useful,
+//      but WITHOUT ANY WARRANTY; without even the implied warranty of
+//      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//      GNU General Public License for more details.
 //
-//	  You should have received a copy of the GNU General Public License
-//	  along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
+//      You should have received a copy of the GNU General Public License
+//      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
 // divide by 2 since we want to make icons 32x32 images
@@ -21,26 +21,26 @@ var customImageWidth = 64 / 2; // 64 =  sheetWidth / 16
 var customImageHeight = 64 / 2; // 64 = sheetHeight / 16
 
 var MarkerTypes = {
-	0: {
-		icon: "blank.png",
-		size: new google.maps.Size(0, 0),
-		origin: new google.maps.Point(0, 0),
-		anchor: new google.maps.Point(0, 0)
-	},
-	999: {
-		icon: "debug.png",
-		size: new google.maps.Size(23, 32),
-		origin: new google.maps.Point(0, 0),
-		anchor: new google.maps.Point(11.5, 32)
-	},
-	// Apparently players have an icon of "6" so, might as well make normal that
-	6: {
-		icon: "normal.png",
-		size: new google.maps.Size(22, 32),
-		origin: new google.maps.Point(0, 0),
-		anchor: new google.maps.Point(11, 32)
-	}
-	// Custom markers are generated and added below
+    0: {
+        icon: "blank.png",
+        size: new google.maps.Size(0, 0),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(0, 0)
+    },
+    999: {
+        icon: "debug.png",
+        size: new google.maps.Size(23, 32),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(11.5, 32)
+    },
+    // Apparently players have an icon of "6" so, might as well make normal that
+    6: {
+        icon: "normal.png",
+        size: new google.maps.Size(22, 32),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(11, 32)
+    }
+    // Custom markers are generated and added below
 };
 
 
