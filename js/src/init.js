@@ -37,12 +37,55 @@ function initPage() {
 	});
 }
 
+function getBlipMarkerId(blip){
+    if(_blips[blip.type] == null){
+        return -1;
+    }
+
+    var blipArrayForType = _blips[blip.type];
+
+    for(var b in blipArrayForType){
+        var blp = blipArrayForType[b];
+
+        if (blp.x == blip.x && blp.y == blip.y && blp.z == blip.z){
+            return blp.markerId;
+        }
+    }
+
+    // Couldn't find it..
+    return -1;
+}
+
+function getBlipIndex(blip){
+    if (_blips[blip.type] == null){
+        return -1;
+    }
+
+    var blipArrayForType = _blips[blip.type];
+
+    for(var b in blipArrayForType){
+        var blp = blipArrayForType[b];
+
+        if (blp.x == blip.x && blp.y == blip.y && blp.z == blip.z){
+            return b;
+        }
+    }
+
+    // Couldn't find it..
+    return -1;
+}
+
 function createBlip(blip){
 	var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], blip.description, "", "");
 
-	_blips[_blipCount++] = blip;
+    if (_blips[blip.type] == null){
+        _blips[blip.type] = [];
+    }
 
-	createMarker(false, false, obj, "");
+    blip.markerId = createMarker(false, false, obj, "") - 1;
+
+	_blips[blip.type].push(blip);
+    _blipCount++;
 }
 
 function blipSuccess(data, textStatus){
