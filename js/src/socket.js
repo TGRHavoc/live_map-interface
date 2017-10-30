@@ -262,7 +262,7 @@ function playerLeft(playerName){
 }
 
 function getPlayerInfoHtml(plr){
-	var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(4) + "} Y {" + plr.pos.y.toFixed(4) + "} Z {" + plr.pos.z.toFixed(4) + "}</div>";
+	var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(2) + "} Y {" + plr.pos.y.toFixed(2) + "} Z {" + plr.pos.z.toFixed(2) + "}</div>";
 	for(var key in plr){
 		//console.log("found key: "+ key);
 		if (key == "name" || key == "pos" || key == "icon"){ // I should probably turn this into a array or something
@@ -348,6 +348,6 @@ function doPlayerUpdate(players){
 	});
 
 	playerCount = Object.keys(localCache).length;
-	console.log("Playerleft playercount: " + playerCount);
+	console.log("playercount: " + playerCount);
 	$("#player_count").text(playerCount);
 }
