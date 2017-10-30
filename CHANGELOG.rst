@@ -2,8 +2,85 @@ Changelog
 =========
 
 
+v2.2.0 (30-10-2017)
+-------------------
+
+Changes
+~~~~~~~
+- Update coordinates to 2dp. [Jordan Dalton]
+
+  Player coordinates are now 2dp like other markers.
+- Update init.js. [Jordan Dalton]
+
+  Mainly changed Tabs to spaces.
+
+  The blip structure has now been changed to include a "pos" object inside of the blip that contains the position. Makes stuff a bit nicer.
+- Update tabs to spaces. [Jordan Dalton]
+
+  Yea... I don't like having Tabs in Atom so, I've replaced them all with spaces >:)
+  Also, changed the coordinates of the markers to 2dp instead of 4.
+- Update _blips array. [Jordan Dalton]
+
+  The blips array now reflects the structure of the blips that is in the resource.
+- Update update_checker. [Jordan Dalton]
+
+  Update checker now uses the local version.json file for checks.. Seems nicer this way.
+- Update index.php. [Jordan Dalton]
+
+Other
+~~~~~
+- Add blip socket commands. [Jordan Dalton]
+
+  Blips can now be added/updated and removed from the map from the socket server.
+- Revert "Update index.php" [Jordan Dalton]
+
+  This reverts commit c156139761328f13f472d0fbc3631e8f872d485a.
+
+
+v2.1.3 (20-10-2017)
+-------------------
+
+Changes
+~~~~~~~
+- Update update_checker. [Jordan Dalton]
+
+  Using the repo instead of Gist.. Hopefully this is better.
+
+Other
+~~~~~
+- Create version.json. [Jordan Dalton]
+
+
+v2.1.2 (20-10-2017)
+-------------------
+
+Changes
+~~~~~~~
+- Update update_checker. [Jordan Dalton]
+
+Fix
+~~~
+- Fixed false values in config error. [Jordan Dalton]
+
+  Setting a variable to false in the config would screw up the interface... I hate PHP
+
+Other
+~~~~~
+- Changed readme extension. [Jordan Dalton]
+
+  Github wouldn't render it correctly without it.
+
+
 v2.1.1 (20-10-2017)
 -------------------
+
+Changes
+~~~~~~~
+- Update changelog. [Jordan Dalton]
+
+Other
+~~~~~
+- Merge branch 'feature/documentation' into develop. [Jordan Dalton]
 - Add README. [Jordan Dalton]
 
   Added a README to hopefully help new users figure out how to use this.
