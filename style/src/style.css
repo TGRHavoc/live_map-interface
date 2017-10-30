@@ -1,19 +1,19 @@
 /* ************************************************************************** //
-//			LiveMap Interface - The web interface for the livemap
-//					Copyright (C) 2017  Jordan Dalton
+//            LiveMap Interface - The web interface for the livemap
+//                    Copyright (C) 2017  Jordan Dalton
 //
-//	  This program is free software: you can redistribute it and/or modify
-//	  it under the terms of the GNU General Public License as published by
-//	  the Free Software Foundation, either version 3 of the License, or
-//	  (at your option) any later version.
+//      This program is free software: you can redistribute it and/or modify
+//      it under the terms of the GNU General Public License as published by
+//      the Free Software Foundation, either version 3 of the License, or
+//      (at your option) any later version.
 //
-//	  This program is distributed in the hope that it will be useful,
-//	  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	  GNU General Public License for more details.
+//      This program is distributed in the hope that it will be useful,
+//      but WITHOUT ANY WARRANTY; without even the implied warranty of
+//      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//      GNU General Public License for more details.
 //
-//	  You should have received a copy of the GNU General Public License
-//	  along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
+//      You should have received a copy of the GNU General Public License
+//      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** */
 
 /* General/Typography ---------------------- */
@@ -136,24 +136,24 @@ input[type=text] {display:inline;}
 
 /* SIDEBAR */
 #side-bar {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 350px;
-	height: 100%;
-	background-color: #f1f1f1;
-	-moz-box-shadow:    2px 0 3px 0 #888;
-	-webkit-box-shadow: 2px 0 3px 0 #888;
-	box-shadow:         2px 0 3px 0 #888;
-	z-index:101;
-	-webkit-transition:	all 0.3s linear;
-	-moz-transition:	all 0.3s linear;
-	-o-transition:		all 0.3s linear;
-	transition:			all 0.3s linear;
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility:    hidden;
-	-ms-backface-visibility:     hidden;
-	backface-visibility:    	 hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100%;
+    background-color: #f1f1f1;
+    -moz-box-shadow:    2px 0 3px 0 #888;
+    -webkit-box-shadow: 2px 0 3px 0 #888;
+    box-shadow:         2px 0 3px 0 #888;
+    z-index:101;
+    -webkit-transition:    all 0.3s linear;
+    -moz-transition:    all 0.3s linear;
+    -o-transition:        all 0.3s linear;
+    transition:            all 0.3s linear;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility:    hidden;
+    -ms-backface-visibility:     hidden;
+    backface-visibility:         hidden;
 }
 
 .sidebar-nav .label {

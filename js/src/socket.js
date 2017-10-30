@@ -59,7 +59,25 @@ function onMessage(e){
 	console.log("data: " + e.data);
 	var data = JSON.parse(e.data);
 
-	if(data.type == "blips"){
+    if(data.type == "addBlip" || data.type == "updateBlip" || data.type == "removeBlip"){
+        // BACKWARDS COMPATABILITY!!
+        if(!data.payload.hasOwnProperty("pos")){
+            data.payload.pos = { x: data.payload.x, y: data.payload.y, z: data.payload.z };
+
+            delete data.payload.x;
+            delete data.payload.y;
+            delete data.payload.z;
+        }
+    }
+
+	if(data.type == "addBlip"){
+        addBlip(data.payload);
+
+    }else if(data.type == "removeBlip"){
+        removeBlip(data.payload);
+
+    }else if(data.type == "updateBlip"){
+        updateBlip(data.payload);
 
 	}else if (data.type == "playerData") {
 		console.log("updating players: " + JSON.stringify(data));
@@ -119,6 +137,115 @@ function onClose(e){
 
 var localCache = {};
 
+function doesBlipExist(blip){
+    if (_blips[blip.type] == null){
+        return false;
+    }
+
+    var blipArrayForType = _blips[blip.type];
+
+    for(var b in blipArrayForType){
+        var blp = blipArrayForType[b];
+
+        if (blp.pos.x == blip.pos.x && blp.pos.y == blip.pos.y && blp.pos.z == blip.pos.z){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function addBlip(blipObj){
+    if (doesBlipExist(blipObj)){
+        return; // Meh, it already exists.. Just don't add it
+    }
+
+    if(!blipObj.hasOwnProperty("name")){ // Doesn't have a name
+        if(MarkerTypes[spriteId] == null || MarkerTypes[spriteId].name == undefined){
+            // No stored name, make one up
+            blipObj.name = "Dynamic Marker";
+        }else{
+            blipObj.name = MarkerTypes[spriteId].name;
+        }
+    }
+
+    if(!blipObj.hasOwnProperty("description")){ // Doesn't have a description
+        blipObj.description = "";
+    }
+
+    createBlip(blipObj);
+}
+
+function removeBlip(blipObj){
+    if (doesBlipExist(blipObj)){
+        // Remove it
+
+        var markerId = getBlipMarkerId(blipObj);
+        var index = getBlipIndex(blipObj);
+        clearMarker(markerId);
+
+        _blips[blipObj.type].splice(index,1);
+
+        if(_blips[blipObj.type].length == 0){
+            delete _blips[blipObj.type];
+        }
+
+        _blipCount--;
+        $("#blip_count").text(_blipCount);
+    }
+}
+
+function updateBlip(blipObj){
+    if(doesBlipExist(blipObj)){
+        // Can update it
+        var markerId = getBlipMarkerId(blipObj);
+        var blipIndex = getBlipIndex(blipObj);
+
+        var marker = _MAP_markerStore[markerId];
+
+        if (blipObj.hasOwnProperty("new_pos")){
+            // Blips are supposed to be static so, why this would even be fucking needed it beyond me
+            // Still, better to prepare for the inevitability that someone wants this fucking feature
+            marker.setPosition( convertToMapGMAP(blipObj.new_pos.x, blipObj.new_pos.y, blipObj.new_pos.z) );
+            blipObj.pos = blipObj.new_pos;
+            delete blipObj.new_pos;
+        }
+
+        var name = "No name blip..";
+        var html = "";
+
+        if (blipObj.hasOwnProperty("name")){
+            name = blipObj.name;
+        }else{
+            // No name given, might as well use the default one... If it exists...
+            if(MarkerTypes[blipObj.type] != undefined && MarkerTypes[blipObj.type].name != undefined){
+                name = MarkerTypes[blipObj.type].name;
+            }
+        }
+
+        for(var key in blipObj){
+
+            if (key == "name" || key == "type"){
+                continue; // Name is already shown
+            }
+
+            if(key == "pos"){
+                html += '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + blipObj.pos.x.toFixed(2) + "} Y {" + blipObj.pos.y.toFixed(2) + "} Z {" + blipObj.pos.z.toFixed(2) + "}</div>";
+            }else{
+                // Make sure the first letter of the key is capitalised
+                key[0] = key[0].toUpperCase();
+                html += '<div class="row info-body-row"><strong>' + key + ":</strong>&nbsp;" + blipObj[key] + "</div>";
+            }
+        }
+
+        var info = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
+
+        marker.popup.setContent(info);
+
+        _blips[blipObj.type][blipIndex] = blipObj;
+    }
+}
+
 function playerLeft(playerName){
 	if (localCache[playerName].marker != null || localCache[playerName].marker != undefined){
 		clearMarker(localCache[playerName].marker);
@@ -135,7 +262,7 @@ function playerLeft(playerName){
 }
 
 function getPlayerInfoHtml(plr){
-	var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(4) + "} Y {" + plr.pos.y.toFixed(4) + "} Z {" + plr.pos.z.toFixed(4) + "}</div>";
+	var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(2) + "} Y {" + plr.pos.y.toFixed(2) + "} Z {" + plr.pos.z.toFixed(2) + "}</div>";
 	for(var key in plr){
 		//console.log("found key: "+ key);
 		if (key == "name" || key == "pos" || key == "icon"){ // I should probably turn this into a array or something
@@ -221,6 +348,6 @@ function doPlayerUpdate(players){
 	});
 
 	playerCount = Object.keys(localCache).length;
-	console.log("Playerleft playercount: " + playerCount);
+	console.log("playercount: " + playerCount);
 	$("#player_count").text(playerCount);
 }
