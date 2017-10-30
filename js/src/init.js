@@ -1,19 +1,19 @@
 // ************************************************************************** //
-//			LiveMap Interface - The web interface for the livemap
-//					Copyright (C) 2017  Jordan Dalton
+//            LiveMap Interface - The web interface for the livemap
+//                    Copyright (C) 2017  Jordan Dalton
 //
-//	  This program is free software: you can redistribute it and/or modify
-//	  it under the terms of the GNU General Public License as published by
-//	  the Free Software Foundation, either version 3 of the License, or
-//	  (at your option) any later version.
+//      This program is free software: you can redistribute it and/or modify
+//      it under the terms of the GNU General Public License as published by
+//      the Free Software Foundation, either version 3 of the License, or
+//      (at your option) any later version.
 //
-//	  This program is distributed in the hope that it will be useful,
-//	  but WITHOUT ANY WARRANTY; without even the implied warranty of
-//	  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//	  GNU General Public License for more details.
+//      This program is distributed in the hope that it will be useful,
+//      but WITHOUT ANY WARRANTY; without even the implied warranty of
+//      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//      GNU General Public License for more details.
 //
-//	  You should have received a copy of the GNU General Public License
-//	  along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
+//      You should have received a copy of the GNU General Public License
+//      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
 var _invervalId;
@@ -26,15 +26,15 @@ var _trackPlayer = null;
 var playerCount = 0;
 
 function globalInit() {
-	mapInit("map-canvas");
-	initPage();
-	initBlips();
+    mapInit("map-canvas");
+    initPage();
+    initBlips();
 }
 
 function initPage() {
-	$(window).on("load resize", function() {
-		$(".map-tab-content").height((($("#tab-content").height() - $(".page-title-1").height()) - ($("#map-overlay-global-controls").height() * 4.2)));
-	});
+    $(window).on("load resize", function() {
+        $(".map-tab-content").height((($("#tab-content").height() - $(".page-title-1").height()) - ($("#map-overlay-global-controls").height() * 4.2)));
+    });
 }
 
 function getBlipMarkerId(blip){
@@ -47,7 +47,7 @@ function getBlipMarkerId(blip){
     for(var b in blipArrayForType){
         var blp = blipArrayForType[b];
 
-        if (blp.x == blip.x && blp.y == blip.y && blp.z == blip.z){
+        if (blp.pos.x == blip.pos.x && blp.pos.y == blip.pos.y && blp.pos.z == blip.pos.z){
             return blp.markerId;
         }
     }
@@ -66,7 +66,7 @@ function getBlipIndex(blip){
     for(var b in blipArrayForType){
         var blp = blipArrayForType[b];
 
-        if (blp.x == blip.x && blp.y == blip.y && blp.z == blip.z){
+        if (blp.pos.x == blip.pos.x && blp.pos.y == blip.pos.y && blp.pos.z == blip.pos.z){
             return b;
         }
     }
@@ -76,7 +76,17 @@ function getBlipIndex(blip){
 }
 
 function createBlip(blip){
-	var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], blip.description, "", "");
+    if (!blip.hasOwnProperty("pos")){
+        // BACKWARDS COMPATABILITY!!
+        blip.pos = { x: blip.x, y: blip.y, z: blip.z};
+
+        //Delete the old shit.. It's nicly wrapped in the pos object now
+        delete blip.x;
+        delete blip.y;
+        delete blip.z;
+    }
+
+    var obj = new MarkerObject(blip.name, new Coordinates(blip.pos.x, blip.pos.y, blip.pos.z), MarkerTypes[blip.type], blip.description, "", "");
 
     if (_blips[blip.type] == null){
         _blips[blip.type] = [];
@@ -84,60 +94,62 @@ function createBlip(blip){
 
     blip.markerId = createMarker(false, false, obj, "") - 1;
 
-	_blips[blip.type].push(blip);
+    _blips[blip.type].push(blip);
     _blipCount++;
 }
 
 function blipSuccess(data, textStatus){
-	if (data.error){
-		//Do something about the error i guess.
-		console.error("Error: " + data.error);
-		return;
-	}
+    if (data.error){
+        //Do something about the error i guess.
+        console.error("Error: " + data.error);
+        return;
+    }
 
-	for (var spriteId in data) {
-		if (data.hasOwnProperty(spriteId)) {
-			// data[spriteId] == array of blips for that type
-			var blipArray = data[spriteId];
+    for (var spriteId in data) {
+        if (data.hasOwnProperty(spriteId)) {
+            // data[spriteId] == array of blips for that type
+            var blipArray = data[spriteId];
 
-			for (var i in blipArray) {
-				var blip = blipArray[i];
-				blip.name = (blip.hasOwnProperty("name") || blip.name != undefined) ? blip.name : MarkerTypes[spriteId].name;
-				blip.description = (blip.hasOwnProperty("description") || blip.description != undefined) ? blip.description : "";
+            for (var i in blipArray) {
+                var blip = blipArray[i];
+                var fallbackName = (MarkerTypes[spriteId] != undefined && MarkerTypes[spriteId].hasOwnProperty("name")) ? MarkerTypes[spriteId].name : "Unknown Name... Please make sure the sprite exists.";
+                
+                blip.name = (blip.hasOwnProperty("name") || blip.name != null) ? blip.name : fallbackName;
+                blip.description = (blip.hasOwnProperty("description") || blip.description != null) ? blip.description : "";
 
-				blip.type = spriteId;
+                blip.type = spriteId;
 
-				createBlip(blip);
-			}
-		}
-	}
+                createBlip(blip);
+            }
+        }
+    }
 
-	console.log(_blipCount + " blips created");
-	$("#blip_count").text(_blipCount);
+    console.log(_blipCount + " blips created");
+    $("#blip_count").text(_blipCount);
 
 }
 
 function blipError( textStatus, errorThrown){
-	console.error("Error \"" + textStatus + "\": " + errorThrown);
+    console.error("Error \"" + textStatus + "\": " + errorThrown);
 }
 
 function initBlips(){
-	_blipCount = 0;
-	_blips = [];
+    _blipCount = 0;
+    _blips = [];
 
-	console.log("Sending ajax request to " + _SETTINGS_blipUrl);
-	$.ajax(_SETTINGS_blipUrl, {
-		error: blipError,
-		dataType: "json",
-		success: blipSuccess
-	});
+    console.log("Sending ajax request to " + _SETTINGS_blipUrl);
+    $.ajax(_SETTINGS_blipUrl, {
+        error: blipError,
+        dataType: "json",
+        success: blipSuccess
+    });
 }
 
 function initMarkers(debugOnly) {
-	if (debugOnly) {
-		createMarker(false, true, new MarkerObject("@DEBUG@@Locator", new Coordinates(0, 500, 0), MarkerTypes[999], "", ""), "");
-		console.log("MarkerType: " + MarkerTypes[999]);
-	} else {
-		createMarker(false, false, new MarkerObject("True Map Center", new Coordinates(0, 0, 0), MarkerTypes[6], "", ""), "");
-	}
+    if (debugOnly) {
+        createMarker(false, true, new MarkerObject("@DEBUG@@Locator", new Coordinates(0, 500, 0), MarkerTypes[999], "", ""), "");
+        console.log("MarkerType: " + MarkerTypes[999]);
+    } else {
+        createMarker(false, false, new MarkerObject("True Map Center", new Coordinates(0, 0, 0), MarkerTypes[6], "", ""), "");
+    }
 }
