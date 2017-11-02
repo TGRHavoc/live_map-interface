@@ -19,11 +19,19 @@
 function toggleBlips(){
     console.log("showing local blips");
     if (_showBlips){
-        _blips.forEach(function(blip){
-            var desc = blip.description == undefined ? "" : blip.description;
-            var obj = new MarkerObject(blip.name, new Coordinates(blip.x, blip.y, blip.z), MarkerTypes[blip.type], desc, "", "");
-            createMarker(false, false, obj, "");
-        });
+
+        for(var spriteId in _blips){
+            var blipArray = _blips[spriteId];
+
+            for(var i in blipArray){
+                var blip = blipArray[i];
+
+                var obj = new MarkerObject(blip.name, new Coordinates(blip.pos.x, blip.pos.y, blip.pos.z), MarkerTypes[blip.type], blip.description, "", "");
+                blip.markerId = createMarker(false, false, obj, "") - 1;
+
+            }
+        }
+
     }else{
         clearAllMarkers();
     }
