@@ -2,11 +2,23 @@ Changelog
 =========
 
 
+v2.2.1 (02-11-2017)
+-------------------
+- Fix #8 "Show blips toggle breaks" [Jordan Dalton]
+
+  The toggle was using the old structure for the blips, forgot to update it. Now it works :)
+- Merge branch 'develop' [Jordan Dalton]
+
+
 v2.2.0 (30-10-2017)
 -------------------
 
 Changes
 ~~~~~~~
+- Update version.json. [Jordan Dalton]
+
+  Don't know why socket.js is in here but, apparently I foorgot to commit some changes.
+- Update changelog. [Jordan Dalton]
 - Update coordinates to 2dp. [Jordan Dalton]
 
   Player coordinates are now 2dp like other markers.
@@ -29,6 +41,7 @@ Changes
 
 Other
 ~~~~~
+- Merge branch 'feature/live_blips' into develop. [Jordan Dalton]
 - Add blip socket commands. [Jordan Dalton]
 
   Blips can now be added/updated and removed from the map from the socket server.

@@ -80,11 +80,11 @@ function onMessage(e){
         updateBlip(data.payload);
 
     }else if (data.type == "playerData") {
-        console.log("updating players: " + JSON.stringify(data));
+        //console.log("updating players: " + JSON.stringify(data));
         doPlayerUpdate(data.payload);
 
     }else if(data.type == "playerLeft"){
-        console.log("player left:" + data.payload);
+        //console.log("player left:" + data.payload);
         playerLeft(data.payload);
     }
 }
