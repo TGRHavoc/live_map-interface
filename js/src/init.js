@@ -93,7 +93,7 @@ function createBlip(blip){
     }
 
     blip.markerId = createMarker(false, false, obj, "") - 1;
-
+    
     _blips[blip.type].push(blip);
     _blipCount++;
 }
@@ -113,7 +113,7 @@ function blipSuccess(data, textStatus){
             for (var i in blipArray) {
                 var blip = blipArray[i];
                 var fallbackName = (MarkerTypes[spriteId] != undefined && MarkerTypes[spriteId].hasOwnProperty("name")) ? MarkerTypes[spriteId].name : "Unknown Name... Please make sure the sprite exists.";
-                
+
                 blip.name = (blip.hasOwnProperty("name") || blip.name != null) ? blip.name : fallbackName;
                 blip.description = (blip.hasOwnProperty("description") || blip.description != null) ? blip.description : "";
 
