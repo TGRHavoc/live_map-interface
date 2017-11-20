@@ -2,12 +2,26 @@ Changelog
 =========
 
 
+v2.2.2 (20-11-2017)
+-------------------
+- Added debug setting. [Antony Cook]
+- Identifying information is no longer displayed to the client when set
+  to false. [Antony Cook]
+- Changes boolean checks to use json_encode. [Antony Cook]
+
+
 v2.2.1 (02-11-2017)
 -------------------
+
+Changes
+~~~~~~~
+- Update changelog. [Jordan Dalton]
+
+Other
+~~~~~
 - Fix #8 "Show blips toggle breaks" [Jordan Dalton]
 
   The toggle was using the old structure for the blips, forgot to update it. Now it works :)
-- Merge branch 'develop' [Jordan Dalton]
 
 
 v2.2.0 (30-10-2017)
@@ -41,7 +55,6 @@ Changes
 
 Other
 ~~~~~
-- Merge branch 'feature/live_blips' into develop. [Jordan Dalton]
 - Add blip socket commands. [Jordan Dalton]
 
   Blips can now be added/updated and removed from the map from the socket server.
@@ -93,7 +106,6 @@ Changes
 
 Other
 ~~~~~
-- Merge branch 'feature/documentation' into develop. [Jordan Dalton]
 - Add README. [Jordan Dalton]
 
   Added a README to hopefully help new users figure out how to use this.
@@ -127,7 +139,6 @@ Changes
 
 Other
 ~~~~~
-- Merge branch 'feature/php-params' into develop. [Jordan Dalton]
 - Added parameter parsing. [Jordan Dalton]
 
   The interface now has parameters!!! Woo 🎊🎊
