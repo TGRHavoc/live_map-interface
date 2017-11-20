@@ -18,29 +18,31 @@
 
 var socketUrl = _SETTINGS_socketUrl;
 
-function connect(){
+function connect() {
     webSocket = new WebSocket(socketUrl);
 
     webSocket.onopen = function (e) {
-        onOpen (e);
+        onOpen(e);
     };
 
     webSocket.onmessage = function (e) {
-        onMessage (e);
+        onMessage(e);
     };
 
     webSocket.onerror = function (e) {
-        onError (e);
+        onError(e);
     };
 
     webSocket.onclose = function (e) {
-        onClose (e);
+        onClose(e);
     };
 }
 
-function onOpen(e){
+function onOpen(e) {
     _isConnected = true;
-    console.log("_isConnected: " + _isConnected);
+    if (_SETTINGS_debug) {
+        console.debug("_isConnected: " + _isConnected);
+    }
 
     // New websocket server doesn't need to recieve this
     //webSocket.send("getPlayerData"); // Get any players connected to the server
@@ -51,17 +53,20 @@ function onOpen(e){
     $("#socket_error").text("");
 
 }
-function onMessage(e){
+function onMessage(e) {
     var m = encodeURIComponent(e.data).match(/%[89ABab]/g);
     var byteSize = e.data.length + (m ? m.length : 0);
 
-    console.log("recieved message (" + byteSize/1024 + " kB)");
-    console.log("data: " + e.data);
+    if (_SETTINGS_debug) {
+        console.debug("recieved message (" + byteSize / 1024 + " kB)");
+        console.debug("data: " + e.data);
+    }
+
     var data = JSON.parse(e.data);
 
-    if(data.type == "addBlip" || data.type == "updateBlip" || data.type == "removeBlip"){
+    if (data.type == "addBlip" || data.type == "updateBlip" || data.type == "removeBlip") {
         // BACKWARDS COMPATABILITY!!
-        if(!data.payload.hasOwnProperty("pos")){
+        if (!data.payload.hasOwnProperty("pos")) {
             data.payload.pos = { x: data.payload.x, y: data.payload.y, z: data.payload.z };
 
             delete data.payload.x;
@@ -70,64 +75,64 @@ function onMessage(e){
         }
     }
 
-    if(data.type == "addBlip"){
+    if (data.type == "addBlip") {
         addBlip(data.payload);
 
-    }else if(data.type == "removeBlip"){
+    } else if (data.type == "removeBlip") {
         removeBlip(data.payload);
 
-    }else if(data.type == "updateBlip"){
+    } else if (data.type == "updateBlip") {
         updateBlip(data.payload);
 
-    }else if (data.type == "playerData") {
+    } else if (data.type == "playerData") {
         //console.log("updating players: " + JSON.stringify(data));
         doPlayerUpdate(data.payload);
 
-    }else if(data.type == "playerLeft"){
+    } else if (data.type == "playerLeft") {
         //console.log("player left:" + data.payload);
         playerLeft(data.payload);
     }
 }
 
-function onError(e){
+function onError(e) {
     // from http://stackoverflow.com/a/28396165
     var reason;
     // See http://tools.ietf.org/html/rfc6455#section-7.4.1
-    if (event.code == 1000){
+    if (event.code == 1000) {
         reason = "Normal closure, meaning that the purpose for which the connection was established has been fulfilled.";
-    }else if(event.code == 1001){
+    } else if (event.code == 1001) {
         reason = "Server is going down or a browser having navigated away from a page.";
-    }else if(event.code == 1002){
+    } else if (event.code == 1002) {
         reason = "An endpoint is terminating the connection due to a protocol error";
-    }else if(event.code == 1003){
+    } else if (event.code == 1003) {
         reason = "Wrong data type recieved by the server";
-    }else if(event.code == 1004){
+    } else if (event.code == 1004) {
         reason = "Reserved. The specific meaning might be defined in the future.";
-    }else if(event.code == 1005){
+    } else if (event.code == 1005) {
         reason = "No status code was actually present.";
-    }else if(event.code == 1006){
-       reason = "The connection was closed abnormally, e.g., without sending or receiving a Close control frame";
-    }else if(event.code == 1007){
+    } else if (event.code == 1006) {
+        reason = "The connection was closed abnormally, e.g., without sending or receiving a Close control frame";
+    } else if (event.code == 1007) {
         reason = "Server has received data within a message that was not consistent with the type of the message.";
-    }else if(event.code == 1008){
+    } else if (event.code == 1008) {
         reason = "Server has received a message that 'violates its policy'.";
-    }else if(event.code == 1009){
-       reason = "Server received a message that is too big for it to process.";
-    }else if(event.code == 1010){ // Note that this status code is not used by the server, because it can fail the WebSocket handshake instead.
+    } else if (event.code == 1009) {
+        reason = "Server received a message that is too big for it to process.";
+    } else if (event.code == 1010) { // Note that this status code is not used by the server, because it can fail the WebSocket handshake instead.
         reason = "Client expected the server to negotiate one or more extension, but the server didn't return them in the response message of the WebSocket handshake.\n Specifically, the extensions that are needed are: " + event.reason;
-    }else if(event.code == 1011){
+    } else if (event.code == 1011) {
         reason = "Server encountered an unexpected condition that prevented it from fulfilling the request.";
-    }else if(event.code == 1015){
+    } else if (event.code == 1015) {
         reason = "The connection was closed due to a failure to perform a TLS handshake (e.g., the server certificate can't be verified).";
-    }else{
+    } else {
         reason = "Unknown reason (Server is probably down)";
     }
 
     //$("#socket_error").text(reason);
-    console.log("Socket error: " + reason);
+    console.error("Socket error: " + reason);
 }
 
-function onClose(e){
+function onClose(e) {
     $("#connection").removeClass("label-success")
         .removeClass("label-warning")
         .addClass("label-danger").text("disconnected");
@@ -137,17 +142,17 @@ function onClose(e){
 
 var localCache = {};
 
-function doesBlipExist(blip){
-    if (_blips[blip.type] == null){
+function doesBlipExist(blip) {
+    if (_blips[blip.type] == null) {
         return false;
     }
 
     var blipArrayForType = _blips[blip.type];
 
-    for(var b in blipArrayForType){
+    for (var b in blipArrayForType) {
         var blp = blipArrayForType[b];
 
-        if (blp.pos.x == blip.pos.x && blp.pos.y == blip.pos.y && blp.pos.z == blip.pos.z){
+        if (blp.pos.x == blip.pos.x && blp.pos.y == blip.pos.y && blp.pos.z == blip.pos.z) {
             return true;
         }
     }
@@ -155,38 +160,38 @@ function doesBlipExist(blip){
     return false;
 }
 
-function addBlip(blipObj){
-    if (doesBlipExist(blipObj)){
+function addBlip(blipObj) {
+    if (doesBlipExist(blipObj)) {
         return; // Meh, it already exists.. Just don't add it
     }
 
-    if(!blipObj.hasOwnProperty("name")){ // Doesn't have a name
-        if(MarkerTypes[spriteId] == null || MarkerTypes[spriteId].name == undefined){
+    if (!blipObj.hasOwnProperty("name")) { // Doesn't have a name
+        if (MarkerTypes[spriteId] == null || MarkerTypes[spriteId].name == undefined) {
             // No stored name, make one up
             blipObj.name = "Dynamic Marker";
-        }else{
+        } else {
             blipObj.name = MarkerTypes[spriteId].name;
         }
     }
 
-    if(!blipObj.hasOwnProperty("description")){ // Doesn't have a description
+    if (!blipObj.hasOwnProperty("description")) { // Doesn't have a description
         blipObj.description = "";
     }
 
     createBlip(blipObj);
 }
 
-function removeBlip(blipObj){
-    if (doesBlipExist(blipObj)){
+function removeBlip(blipObj) {
+    if (doesBlipExist(blipObj)) {
         // Remove it
 
         var markerId = getBlipMarkerId(blipObj);
         var index = getBlipIndex(blipObj);
         clearMarker(markerId);
 
-        _blips[blipObj.type].splice(index,1);
+        _blips[blipObj.type].splice(index, 1);
 
-        if(_blips[blipObj.type].length == 0){
+        if (_blips[blipObj.type].length == 0) {
             delete _blips[blipObj.type];
         }
 
@@ -195,18 +200,18 @@ function removeBlip(blipObj){
     }
 }
 
-function updateBlip(blipObj){
-    if(doesBlipExist(blipObj)){
+function updateBlip(blipObj) {
+    if (doesBlipExist(blipObj)) {
         // Can update it
         var markerId = getBlipMarkerId(blipObj);
         var blipIndex = getBlipIndex(blipObj);
 
         var marker = _MAP_markerStore[markerId];
 
-        if (blipObj.hasOwnProperty("new_pos")){
+        if (blipObj.hasOwnProperty("new_pos")) {
             // Blips are supposed to be static so, why this would even be fucking needed it beyond me
             // Still, better to prepare for the inevitability that someone wants this fucking feature
-            marker.setPosition( convertToMapGMAP(blipObj.new_pos.x, blipObj.new_pos.y, blipObj.new_pos.z) );
+            marker.setPosition(convertToMapGMAP(blipObj.new_pos.x, blipObj.new_pos.y, blipObj.new_pos.z));
             blipObj.pos = blipObj.new_pos;
             delete blipObj.new_pos;
         }
@@ -214,24 +219,24 @@ function updateBlip(blipObj){
         var name = "No name blip..";
         var html = "";
 
-        if (blipObj.hasOwnProperty("name")){
+        if (blipObj.hasOwnProperty("name")) {
             name = blipObj.name;
-        }else{
+        } else {
             // No name given, might as well use the default one... If it exists...
-            if(MarkerTypes[blipObj.type] != undefined && MarkerTypes[blipObj.type].name != undefined){
+            if (MarkerTypes[blipObj.type] != undefined && MarkerTypes[blipObj.type].name != undefined) {
                 name = MarkerTypes[blipObj.type].name;
             }
         }
 
-        for(var key in blipObj){
+        for (var key in blipObj) {
 
-            if (key == "name" || key == "type"){
+            if (key == "name" || key == "type") {
                 continue; // Name is already shown
             }
 
-            if(key == "pos"){
+            if (key == "pos") {
                 html += '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + blipObj.pos.x.toFixed(2) + "} Y {" + blipObj.pos.y.toFixed(2) + "} Z {" + blipObj.pos.z.toFixed(2) + "}</div>";
-            }else{
+            } else {
                 // Make sure the first letter of the key is capitalised
                 key[0] = key[0].toUpperCase();
                 html += '<div class="row info-body-row"><strong>' + key + ":</strong>&nbsp;" + blipObj[key] + "</div>";
@@ -246,32 +251,38 @@ function updateBlip(blipObj){
     }
 }
 
-function playerLeft(playerName){
-    if (localCache[playerName].marker != null || localCache[playerName].marker != undefined){
+function playerLeft(playerName) {
+    if (localCache[playerName].marker != null || localCache[playerName].marker != undefined) {
         clearMarker(localCache[playerName].marker);
         delete localCache[playerName];
     }
 
-    if ($("#playerSelect option[value='" + playerName + "']").length > 0){
+    if ($("#playerSelect option[value='" + playerName + "']").length > 0) {
         $("#playerSelect option[value='" + playerName + "']").remove();
     }
 
     playerCount = Object.keys(localCache).length;
-    console.log("Playerleft playercount: " + playerCount);
+    if (_SETTINGS_debug) {
+        console.debug("Playerleft playercount: " + playerCount);
+    }
     $("#player_count").text(playerCount);
 }
 
-function getPlayerInfoHtml(plr){
+function getPlayerInfoHtml(plr) {
     var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(2) + "} Y {" + plr.pos.y.toFixed(2) + "} Z {" + plr.pos.z.toFixed(2) + "}</div>";
-    for(var key in plr){
+    for (var key in plr) {
         //console.log("found key: "+ key);
-        if (key == "name" || key == "pos" || key == "icon"){ // I should probably turn this into a array or something
+        if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
             continue; // We're already displaying this info
         }
-        if(_SETTINGS_showIdentifiers && key == "identifer"){
+
+        if (_SETTINGS_showIdentifiers && key == "identifer") {
             html += '<div class="row info-body-row"><strong>Identifer:</strong>&nbsp;' + plr[key] + '</div>';
-        }else{
-            // some other info.. Show it
+        } else {
+            continue;
+        }
+
+        if (!(key == "identifer")) {
             html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
         }
     }
@@ -279,19 +290,22 @@ function getPlayerInfoHtml(plr){
     return html;
 }
 
-function doPlayerUpdate(players){
-    console.log(players);
+function doPlayerUpdate(players) {
 
-    players.forEach(function(plr){
+    if (_SETTINGS_debug) {
+        console.debug(players);
+    }
+
+    players.forEach(function (plr) {
         if (plr == null || plr.name == undefined || plr.name == "") return;
 
-        if ( !(plr.identifer in localCache) ){
+        if (!(plr.identifer in localCache)) {
             // "localCache" literally just keeps track of the marker.. I should rename it
             //TODO: Rename "localCache" to something better
             localCache[plr.identifer] = { marker: null };
         }
 
-        if ($("#playerSelect option[value='" + plr.identifer + "']").length <= 0){
+        if ($("#playerSelect option[value='" + plr.identifer + "']").length <= 0) {
             // Ooo look, we have players. Let's add them to the "tracker" drop-down
             $("#playerSelect").append($("<option>", {
                 value: plr.identifer, // Should be unique
@@ -299,14 +313,14 @@ function doPlayerUpdate(players){
             }));
         }
 
-        if (_trackPlayer != null && _trackPlayer == plr.identifer){
+        if (_trackPlayer != null && _trackPlayer == plr.identifer) {
             // If we're tracking a player, make sure we center them
             map.panTo(convertToMapGMAP(plr.pos.x, plr.pos.y));
         }
 
-        if (localCache[plr.identifer].marker != null || localCache[plr.identifer].marker != undefined){
+        if (localCache[plr.identifer].marker != null || localCache[plr.identifer].marker != undefined) {
             // If we have a custom icon (we should) use it!!
-            if (plr.icon){
+            if (plr.icon) {
                 var t = MarkerTypes[plr.icon];
                 //console.log("Got icon of :" + plr.icon);
                 _MAP_markerStore[localCache[plr.identifer].marker].setIcon({
@@ -319,7 +333,7 @@ function doPlayerUpdate(players){
             }
 
             // Update the player's location on the map :)
-            _MAP_markerStore[localCache[plr.identifer].marker].setPosition( convertToMapGMAP(plr.pos.x, plr.pos.y) );
+            _MAP_markerStore[localCache[plr.identifer].marker].setPosition(convertToMapGMAP(plr.pos.x, plr.pos.y));
 
             //update popup with the information we have been sent
             var html = getPlayerInfoHtml(plr);
@@ -330,7 +344,7 @@ function doPlayerUpdate(players){
             });
             _MAP_markerStore[localCache[plr.identifer].marker].popup.setContent(infoContent);
 
-        }else{
+        } else {
 
             var obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), MarkerTypes[6], "", "", "");
             var m = localCache[plr.identifer].marker = createMarker(false, false, obj, plr.name) - 1;
@@ -348,6 +362,8 @@ function doPlayerUpdate(players){
     });
 
     playerCount = Object.keys(localCache).length;
-    console.log("playercount: " + playerCount);
+    if (_SETTINGS_debug) {
+        console.log("playercount: " + playerCount);
+    }
     $("#player_count").text(playerCount);
 }
