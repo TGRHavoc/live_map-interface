@@ -276,14 +276,12 @@ function getPlayerInfoHtml(plr) {
             continue; // We're already displaying this info
         }
 
-        if (_SETTINGS_showIdentifiers && key == "identifer") {
+        if (!(key === "identifer")) {
+            html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
+        } else if (_SETTINGS_showIdentifiers && key == "identifer") {
             html += '<div class="row info-body-row"><strong>Identifer:</strong>&nbsp;' + plr[key] + '</div>';
         } else {
             continue;
-        }
-
-        if (!(key == "identifer")) {
-            html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
         }
     }
 
