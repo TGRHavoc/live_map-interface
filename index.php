@@ -101,6 +101,9 @@
 	// Set to false if you don't want to show the player's identifiers (this may be their IP)
 	var _SETTINGS_showIdentifiers = <?php echo json_encode($config->showIdentifiers); ?>;
 
+	// show debug information in the console
+	var _SETTINGS_debug = <?php echo json_encode($config->debug); ?>;
+
 	var _SETTINGS_blipUrl = "<?php echo $config->blipUrl(); ?>";
 
 	// Do not remove unless you know what you're doing (and you have a google api key)
