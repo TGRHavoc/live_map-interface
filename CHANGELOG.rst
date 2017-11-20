@@ -2,8 +2,21 @@ Changelog
 =========
 
 
+v2.2.3 (20-11-2017)
+-------------------
+- Corrected logic order of getPlayerInfoHtml to show additional keys.
+  [Antony Cook]
+
+
 v2.2.2 (20-11-2017)
 -------------------
+
+Changes
+~~~~~~~
+- Update to v2.2.2. [Jordan Dalton]
+
+Other
+~~~~~
 - Added debug setting. [Antony Cook]
 - Identifying information is no longer displayed to the client when set
   to false. [Antony Cook]
