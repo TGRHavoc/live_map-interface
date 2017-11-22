@@ -76,6 +76,11 @@ $(document).ready(function(){
         e.preventDefault();
 
         $("#connection").removeClass("label-success").removeClass("label-danger").addClass("label-warning").text("reconnecting");
+
+        if(webSocket != undefined || webSocket != null){
+            webSocket.close();
+        }
+
         connect();
     });
 });
