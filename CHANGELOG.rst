@@ -2,8 +2,27 @@ Changelog
 =========
 
 
+v2.2.4 (22-11-2017)
+-------------------
+
+Fix
+~~~
+- Fixed socket not closing when reconnecting. [Jordan Dalton]
+
+  When users clicked the reconnect button when connected, the old socket wasn't being closed.
+
+
 v2.2.3 (20-11-2017)
 -------------------
+
+Changes
+~~~~~~~
+- Update to v2.2.3. [Jordan Dalton]
+
+  Corrected logic order of getPlayerInfoHtml to show additional keys.
+
+Other
+~~~~~
 - Corrected logic order of getPlayerInfoHtml to show additional keys.
   [Antony Cook]
 
