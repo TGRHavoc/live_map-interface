@@ -51,8 +51,15 @@ function onOpen(e) {
         .removeClass("label-warning")
         .addClass("label-success").text("connected");
     $("#socket_error").text("");
-
 }
+
+function sorter(plr1, plr2){
+    var str1 = plr1["name"];
+    var str2 = plr2["name"];
+    
+    return (str1 < str2) ? -1 : (str1 > str2) ? 1 : 0;
+}
+
 function onMessage(e) {
     var m = encodeURIComponent(e.data).match(/%[89ABab]/g);
     var byteSize = e.data.length + (m ? m.length : 0);
@@ -85,7 +92,8 @@ function onMessage(e) {
         updateBlip(data.payload);
 
     } else if (data.type == "playerData") {
-        //console.log("updating players: " + JSON.stringify(data));
+        //console.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
+        var sortedPlayers = data.payload.sort(sorter);
         doPlayerUpdate(data.payload);
 
     } else if (data.type == "playerLeft") {
@@ -289,6 +297,9 @@ function getPlayerInfoHtml(plr) {
 }
 
 function doPlayerUpdate(players) {
+
+    //Quickly sort the names, alphabetical order
+    players.sort();
 
     if (_SETTINGS_debug) {
         console.debug(players);
