@@ -2,8 +2,19 @@ Changelog
 =========
 
 
+v2.2.5 (23-11-2017)
+-------------------
+- Add player names now sorted. [Jordan Dalton]
+
+  Player names are now sorted in the drop down menu by their "name" attribute. This mean "aaa" will appear at the top and, "zzz" will appear at the bottom (woo).
+
+
 v2.2.4 (22-11-2017)
 -------------------
+
+Changes
+~~~~~~~
+- Update to v2.2.4. [Jordan Dalton]
 
 Fix
 ~~~
