@@ -22,13 +22,12 @@ function toggleBlips(){
 
         for(var spriteId in _blips){
             var blipArray = _blips[spriteId];
-
+            
             for(var i in blipArray){
                 var blip = blipArray[i];
 
                 var obj = new MarkerObject(blip.name, new Coordinates(blip.pos.x, blip.pos.y, blip.pos.z), MarkerTypes[blip.type], blip.description, "", "");
                 blip.markerId = createMarker(false, false, obj, "") - 1;
-
             }
         }
 
