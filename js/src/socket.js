@@ -41,7 +41,7 @@ function connect() {
 function onOpen(e) {
     _isConnected = true;
     if (_SETTINGS_debug) {
-        console.debug("_isConnected: " + _isConnected);
+        console.log("_isConnected: " + _isConnected);
     }
 
     // New websocket server doesn't need to recieve this
@@ -65,8 +65,8 @@ function onMessage(e) {
     var byteSize = e.data.length + (m ? m.length : 0);
 
     if (_SETTINGS_debug) {
-        console.debug("recieved message (" + byteSize / 1024 + " kB)");
-        console.debug("data: " + e.data);
+        console.log("recieved message (" + byteSize / 1024 + " kB)");
+        console.log("data: " + e.data);
     }
 
     var data = JSON.parse(e.data);
@@ -94,7 +94,7 @@ function onMessage(e) {
     } else if (data.type == "playerData") {
         //console.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
         var sortedPlayers = data.payload.sort(sorter);
-        doPlayerUpdate(data.payload);
+        doPlayerUpdate(sortedPlayers);
 
     } else if (data.type == "playerLeft") {
         //console.log("player left:" + data.payload);
@@ -271,7 +271,7 @@ function playerLeft(playerName) {
 
     playerCount = Object.keys(localCache).length;
     if (_SETTINGS_debug) {
-        console.debug("Playerleft playercount: " + playerCount);
+        console.log("Playerleft playercount: " + playerCount);
     }
     $("#player_count").text(playerCount);
 }
@@ -302,7 +302,7 @@ function doPlayerUpdate(players) {
     players.sort();
 
     if (_SETTINGS_debug) {
-        console.debug(players);
+        console.log(players);
     }
 
     players.forEach(function (plr) {
