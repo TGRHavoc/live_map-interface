@@ -85,9 +85,9 @@ class Minifier{
     }
 
     public static function printFirstJs($debug){
-        $jsFiles = array("js/src/objects.js", "js/src/utils.js",
-                        "js/src/map.js", "js/src/markers.js",
-                        "js/src/init.js", "js/src/socket.js");
+        $jsFiles = array("js/src/alerter.js", "js/src/objects.js",
+                        "js/src/utils.js", "js/src/map.js",
+                        "js/src/markers.js", "js/src/init.js", "js/src/socket.js");
 
         if($debug){
             foreach($jsFiles as $fname){
