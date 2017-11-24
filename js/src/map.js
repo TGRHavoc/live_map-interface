@@ -50,7 +50,7 @@ function getNormalizedCoord(coord, zoom) {
     };
 }
 
-
+// Start atlas
 var mapAtlasOptions = {
     getTileUrl: function(coord, zoom) {
         var normalizedCoord = getNormalizedCoord(coord, zoom);
@@ -66,6 +66,9 @@ var mapAtlasOptions = {
 };
 var mapAtlas = new google.maps.ImageMapType(mapAtlasOptions);
 mapAtlas.projection = new EuclideanProjection();
+//End atlas
+
+//Start satellite
 var mapSatelliteOptions = {
     getTileUrl: function(coord, zoom) {
         var normalizedCoord = getNormalizedCoord(coord, zoom);
@@ -81,6 +84,9 @@ var mapSatelliteOptions = {
 };
 var mapSatellite = new google.maps.ImageMapType(mapSatelliteOptions);
 mapSatellite.projection = new EuclideanProjection();
+//end satellite
+
+//start road
 var mapRoadOptions = {
     getTileUrl: function(coord, zoom) {
         var normalizedCoord = getNormalizedCoord(coord, zoom);
@@ -96,6 +102,9 @@ var mapRoadOptions = {
 };
 var mapRoad = new google.maps.ImageMapType(mapRoadOptions);
 mapRoad.projection = new EuclideanProjection();
+//end road
+
+//start UV
 var mapUVInvOptions = {
     getTileUrl: function(coord, zoom) {
         var normalizedCoord = getNormalizedCoord(coord, zoom);
@@ -111,6 +120,25 @@ var mapUVInvOptions = {
 };
 var mapUVInv = new google.maps.ImageMapType(mapUVInvOptions);
 mapUVInv.projection = new EuclideanProjection();
+//end uv
+
+// Postcode map
+var mapPostcodeOptions = {
+    getTileUrl: function(coord, zoom) {
+        var normalizedCoord = getNormalizedCoord(coord, zoom);
+        if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
+            return null;
+        }
+        return _MAP_tileURL + 'postcode/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
+    },
+    tileSize: new google.maps.Size(256, 256),
+    maxZoom: 7,
+    name: "Postcode",
+    alt: "GTA V Postcode Map"
+};
+var mapPostcode = new google.maps.ImageMapType(mapPostcodeOptions);
+mapPostcode.projection = new EuclideanProjection();
+//end postcode
 
 function mapInit(elementID) {
     _MAP_markerStore = [];
@@ -120,6 +148,7 @@ function mapInit(elementID) {
     _MAP_satelliteMap ? mapID.push("Satellite") : null;
     _MAP_roadMap ? mapID.push("Road") : null;
     _MAP_UVInvMap ? mapID.push("UV Invert") : null;
+    _MAP_PostcodeMap ? mapID.push("Postcode") : null;
     var mapOptions = {
         backgroundColor: "#0fa8d2",
         minZoom: 3,
@@ -138,6 +167,7 @@ function mapInit(elementID) {
     _MAP_satelliteMap ? map.mapTypes.set("Satellite", mapSatellite) : null;
     _MAP_roadMap ? map.mapTypes.set("Road", mapRoad) : null;
     _MAP_UVInvMap ? map.mapTypes.set("UV Invert", mapUVInv) : null;
+    _MAP_PostcodeMap ? map.mapTypes.set("Postcode", mapPostcode) : null;
     map.setMapTypeId("Atlas");
     google.maps.event.addListener(map, "maptypeid_changed", function() {
         var type = map.getMapTypeId();
@@ -162,6 +192,11 @@ function mapInit(elementID) {
                     "background-color": "#f2f0b6"
                 });
                 break
+            default:
+                $("#" + elementID).css({
+                    "background-color": "#0fa8d2"
+                });
+                break;
         }
     });
 }
