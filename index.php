@@ -27,7 +27,7 @@
 	require_once("utils/params.php");
 	require_once("utils/update_checker.php");
 
-    Update::getCurrentVersion();
+	Update::getCurrentVersion();
 
 	$config = Config::getConfig();
 	$parser = ParamParser::getParser();
@@ -70,6 +70,7 @@
 	?>
 
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 
 	<!-- Change the key below -->
 	<script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
@@ -141,7 +142,6 @@
 
 </head>
 <body>
-
 	<nav class="navbar navbar-default-invert navbar-static-top" style="margin: 0;">
 		<!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo -->
 		<div class="container-fluid">
@@ -207,14 +207,8 @@
 
 			<p style="color: black; text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
 
-			<?php
-				if (!Update::latestVersion()){
-					// If not the latest version, tell them
-			?>
-				<p style="color: red; text-align: center; font-weight: 700;">An update is available, please download it <a href="https://github.com/TGRHavoc/live_map-interface">HERE</a></p>
-			<?php
-				}
-			?>
+			<div id="alert-holder" class="position: absolute; width: 80%; z-index: 1">
+			</div>
 
 		</div>
 	</div>
@@ -222,6 +216,10 @@
 <?php
 	Minifier::printLastJs($config->debug);
 	$parser->printJsForParams();
+
+	if(!Update::latestVersion()){
+		echo Update::alertJs();
+	}
 ?>
 
 </body>
