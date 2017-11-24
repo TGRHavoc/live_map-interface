@@ -2,8 +2,47 @@ Changelog
 =========
 
 
+v2.2.6 (24-11-2017)
+-------------------
+
+Changes
+~~~~~~~
+- Update stuff to use new alerts. [Jordan Dalton]
+
+  Socket errors are now displayed in a alert (if debug is abled).
+
+  If the interface gets an error when trying to get blips, it's shown in an error.
+- Update update system. [Jordan Dalton]
+
+  Update system now uses the new alert system. I think it looks nicer.
+
+Other
+~~~~~
+- Added map type for postcode map. [Jordan Dalton]
+
+  As soon as davwheat sends me the map, I will upload the images. This update just gets the interface for said images.
+- Change console.debug to console.log. [Jordan Dalton]
+
+  debug doesn't seem to want to work for me so, I've reverted them to logs.
+- Add "alerter" [Jordan Dalton]
+
+  A JavaScript file to help easily create alerts from Bootstrap.
+  Update minifier and add bootstrap lib
+
+  Minifer adds the new alerter file.
+
+  Bootstrap lib has been added to allow for alerts.
+
+
 v2.2.5 (23-11-2017)
 -------------------
+
+Changes
+~~~~~~~
+- Update to v2.2.5. [Jordan Dalton]
+
+Other
+~~~~~
 - Add player names now sorted. [Jordan Dalton]
 
   Player names are now sorted in the drop down menu by their "name" attribute. This mean "aaa" will appear at the top and, "zzz" will appear at the bottom (woo).
