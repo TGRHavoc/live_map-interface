@@ -56,7 +56,7 @@ function onOpen(e) {
 function sorter(plr1, plr2){
     var str1 = plr1["name"];
     var str2 = plr2["name"];
-    
+
     return (str1 < str2) ? -1 : (str1 > str2) ? 1 : 0;
 }
 
@@ -138,6 +138,9 @@ function onError(e) {
 
     //$("#socket_error").text(reason);
     console.error("Socket error: " + reason);
+    if(_SETTINGS_debug){
+        createAlert("warning", "Socket error", ["There was an error with the socket connnection", reason], 2);
+    }
 }
 
 function onClose(e) {

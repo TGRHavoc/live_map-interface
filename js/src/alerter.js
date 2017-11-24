@@ -90,9 +90,9 @@ function createAlert(type, title, message, fadeOut){
 
     $("#alert-holder").append(html);
 
-    if(fadeOut){
+    if(fadeOut != false){
         // Auto-close the alert after 10 seconds
-        $("#"+ id).slideDown("slow").delay(10000).fadeOut(1000, function(){
+        $("#"+ id).slideDown("slow").delay(fadeOut * 1000).fadeOut(1000, function(){
             $(this).remove();
         });
     }

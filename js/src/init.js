@@ -93,7 +93,7 @@ function createBlip(blip){
     }
 
     blip.markerId = createMarker(false, false, obj, "") - 1;
-    
+
     _blips[blip.type].push(blip);
     _blipCount++;
 }
@@ -102,6 +102,7 @@ function blipSuccess(data, textStatus){
     if (data.error){
         //Do something about the error i guess.
         console.error("Error: " + data.error);
+        createAlert("warning", "Error getting blips!", data.error);
         return;
     }
 
@@ -130,7 +131,7 @@ function blipSuccess(data, textStatus){
 }
 
 function blipError( textStatus, errorThrown){
-    console.error("Error \"" + textStatus + "\": " + errorThrown);
+    console.error("Error \"" + JSON.stringify(textStatus) + "\": " + errorThrown);
 }
 
 function initBlips(){
