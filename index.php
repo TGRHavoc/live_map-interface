@@ -71,10 +71,8 @@
 
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-
-	<!-- Change the key below -->
 	<script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
-
+	
 	<script>
 
 	///////////////////////////////////////////////////////////////////////////
@@ -83,17 +81,20 @@
 	var _MAP_tileURL = "<?php echo $config->mapTileUrl; ?>";
 	var _MAP_iconURL = "<?php echo $config->mapIconUrl; ?>";
 
-	// Set if to show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
+	// Sets whether it should showSets whether it should show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
 	var _MAP_atlasMap = <?php echo json_encode($config->atlasEnabled); ?>;
 
-	// Set if to show Satellite map (WARNING: REQUIRES "satellite" TILE DIRECTORY)
+	// Sets whether it should show Satellite map (WARNING: REQUIRES "satellite" TILE DIRECTORY)
 	var _MAP_satelliteMap = <?php echo json_encode($config->satelliteEnabled); ?>;
 
-	// Set if to show Road map (WARNING: REQUIRES "road" TILE DIRECTORY)
+	// Sets whether it should show Road map (WARNING: REQUIRES "road" TILE DIRECTORY)
 	var _MAP_roadMap = <?php echo json_encode($config->roadEnabled); ?>;
 
-	// Set if to show UV Invert map (WARNING: REQUIRES "uv-invert" TILE DIRECTORY)
+	// Sets whether it should show UV Invert map (WARNING: REQUIRES "uv-invert" TILE DIRECTORY)
 	var _MAP_UVInvMap = <?php echo json_encode($config->uvInveredEnabled); ?>;
+
+	// Sets whether it should show Postcode map (WARNING: REQUIRES "postcode" TILE DIRECTORY)
+	var _MAP_PostcodeMap = <?php echo json_encode($config->postcodeEnabled); ?>;
 
 	// Set to the IP of the GTA server running "live_map" and change the port to the
 	// number that is set

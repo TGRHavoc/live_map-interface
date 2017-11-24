@@ -66,6 +66,9 @@ class Config{
     // Controls whether the uv-invert map is enabled or not
     // (WARNING: REQUIRES "uv-invert" TILE DIRECTORY INSIDE "mapTileUrl"
     public $uvInveredEnabled = true;
+    // Controls whether the post-code map is enabled or not
+    // (WARNING: REQUIRES "postcode" TILE DIRECTORY INSIDE "mapTileUrl"
+    public $postcodeEnabled = false;
 
     // Do you want to show the player's identifiers on the map?
     // Note: THIS MAY BE THE PLAYER'S IP ADDRESS
@@ -99,7 +102,7 @@ class Config{
     }
 
     private static $instance = NULL;
-    
+
     public static function getConfig(){
         if (is_null(self::$instance)){
             self::$instance = new self();
