@@ -97,6 +97,7 @@ var mapRoadOptions = {
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
+    minZoom: 5,
     name: "Road",
     alt: "GTA V Road Map"
 };
