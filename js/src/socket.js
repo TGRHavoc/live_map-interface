@@ -49,7 +49,7 @@ function onOpen(e) {
 
     $("#connection").removeClass("label-danger")
         .removeClass("label-warning")
-        .addClass("label-success").text("connected");
+        .addClass("badge-success").text("connected");
     $("#socket_error").text("");
 }
 
@@ -144,9 +144,9 @@ function onError(e) {
 }
 
 function onClose(e) {
-    $("#connection").removeClass("label-success")
-        .removeClass("label-warning")
-        .addClass("label-danger").text("disconnected");
+    $("#connection").removeClass("badge-success")
+        .removeClass("badge-warning")
+        .addClass("badge-danger").text("disconnected");
 
     _isConnected = false;
 }

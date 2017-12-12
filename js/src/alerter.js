@@ -74,7 +74,7 @@ function createAlert(type, title, message, fadeOut){
     // Create the alert
     // Set the type
     var id = makeid(5);
-    var html = "<div id=\""+id+"\" class=\"alert alert-"+type+" alert-dismissible fade in\" role=\"alert\">";
+    var html = "<div id=\""+id+"\" class=\"alert alert-"+type+" alert-dismissible fade show\" role=\"alert\">";
 
     //Add the button
     html += "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
