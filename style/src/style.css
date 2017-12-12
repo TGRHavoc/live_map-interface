@@ -134,6 +134,40 @@ input[type=text] {display:inline;}
 /* UI/Overides --------------------- */
 #cookieChoiceInfo { background-color: #333!important; }
 
+/*************
+    Alerts
+*************/
+.alert {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .2);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 1px 2px rgba(0, 0, 0, .05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 1px 2px rgba(0, 0, 0, .05);
+  color: #fff;
+}
+.alert-success {
+    border-color: #19B99A;
+    background: #20A286;
+}
+.alert-info {
+    border-color: #B4E1E4;
+    background: #81c7e1;
+}
+.alert-warning {
+    border-color: #bd6900;
+    background: #ff8e00;
+}
+.alert-danger {
+    border-color: #B63E5A;
+    background: #E26868;
+}
+.alert-alt {
+    border-color: #694D9F;
+    background: #694D9F;
+}
+
+
+/**********************
+    Sidebar
+***********************/
 .nav-header {
     font-size: 25px;
     text-align: center;
