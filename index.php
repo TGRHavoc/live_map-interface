@@ -148,20 +148,24 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-default-invert navbar-static-top" style="margin: 0;">
+	<nav class="navbar navbar-dark navbar-expand-md">
 		<!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo -->
-		<div class="container-fluid">
-			<div class="container">
-				<div class="navbar-brand" style="padding: 10px 15px">
-					<!-- You can change this shit -->
-					<a href="https://github.com/TGRHavoc/">
-						<img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
-						Live Map
-					</a>
-				</div>
-
+		<div class="container">
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand" href="https://github.com/TGRHavoc/">
+					<img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
+					Live Map
+			</a>
+			
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<!-- TODO: Dynamically generate links? -->
+				</ul>
 			</div>
 		</div>
+
 	</nav>
 
 	<div id="wrapper" class="container-fluid">

@@ -70,9 +70,8 @@ class Minifier{
     }
 
     public static function printCss($debug){
-        $cssFiles = array("style/src/bootstrap.css", "style/src/bootstrap-grid.css", "style/src/bootstrap-grid.css",
-                            "style/src/bootstrap-theme.css",
-                            "style/src/style.css");
+        $cssFiles = array("style/src/bootstrap.css", "style/src/bootstrap-grid.css",
+             "style/src/bootstrap-grid.css", "style/src/style.css");
         if($debug){
             foreach($cssFiles as $fname){
                 echo "<link type=\"text/css\" rel=\"stylesheet\" href=\"$fname\">";
