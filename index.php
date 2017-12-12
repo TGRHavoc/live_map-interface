@@ -70,9 +70,13 @@
 	?>
 
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
+	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+
 	<script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
-	
+
 	<script>
 
 	///////////////////////////////////////////////////////////////////////////
@@ -143,6 +147,7 @@
 
 </head>
 <body>
+
 	<nav class="navbar navbar-default-invert navbar-static-top" style="margin: 0;">
 		<!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo -->
 		<div class="container-fluid">
@@ -151,66 +156,72 @@
 					<!-- You can change this shit -->
 					<a href="https://github.com/TGRHavoc/">
 						<img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
+						Live Map
 					</a>
 				</div>
+
 			</div>
 		</div>
 	</nav>
 
-	<div id="wrapper" class="container">
-		<div id="map-holder" style="position: absolute">
-			<div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);"></div>
-		</div>
+	<div id="wrapper" class="container-fluid">
+		<div class="row">
+			<div id="sidebar" class="col-2 float-left width show">
+				<div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
 
-		<div id="side-bar" class="sidebar-nav">
-			<div class="well" style="padding: 8px 0;">
-				<ul class="nav nav-list">
-				  <li class="nav-header">Controls</li>
+					<a class="nav-header">Controls</a>
 
-				  <li>
-					  <a id="refreshBlips" href="#">Refresh Blips</a>
-				  </li>
+					<a class="list-group-item d-inline-block collapsed" id="refreshBlips" href="#">
+						<span class="d-none d-md-inline">Refresh Blips</span>
+					</a>
 
-				  <li>
-					  <a id="showBlips" href="#">Show Blips <span id="blips_enabled" class="label label-success pull-right">on</span></a>
-				  </li>
+					<a id="showBlips" href="#" class="list-group-item d-inline-block collapsed">
+						<span class="d-none d-md-inline">Show Blips</span>
+						<span id="blips_enabled" class="badge badge-pill badge-success pull-right">on</span>
+					</a>
 
-				  <!--
-				  <li>
-					  <a id="toggleLive" href="#">Live update <span id="live_enabled" class="label label-danger pull-right">off</span></a>
-				  </li>
-				  -->
-				  <li>
-					  <a id="reconnect" href="#">Connect <span id="connection" class="label label-danger pull-right">disconnected</span></a>
-				  </li>
+					  <!--
+					  <li>
+						  <a id="toggleLive" href="#">Live update <span id="live_enabled" class="badge badge-danger pull-right">off</span></a>
+					  </li>
+					  -->
+					<a id="reconnect" href="#" class="list-group-item d-inline-block collapsed">
+						<span class="d-none d-md-inline">Connect</span>
+						<span id="connection" class="badge badge-pill badge-danger pull-right">disconnected</span>
+					</a>
 
-				  <li id="socket_error" class="label label-danger"></li>
+					<a class="list-group-item d-inline-block collapsed">
+						<span class="d-none d-md-inline">Track Player</span>
 
-				  <li style="height: 50px;">
-					  <a>
-						  Track Player
-						  <select id="playerSelect" class="input-large form-control pull-right" style="width: 65%">
-							  <option></option>
-						  </select>
-					  </a>
-				  </li>
+						<select id="playerSelect" class="input-large form-control pull-right">
+							<option></option>
+						</select>
+					</a>
+				</div>
 
-				</ul>
+				<div class="list-group border-0 card text-center text-md-left" >
+					<a class="nav-header">Information</a>
 
-				<ul class="nav nav-list" style="margin-top: 10px;">
-				  <li class="nav-header">Information</li>
+					<a class="list-group-item d-inline-block collapsed">Blips loaded
+						<span id="blip_count" class="badge badge-pill badge-info pull-right">0</span>
+					</a>
 
-				  <li><a>Blips loaded <span id="blip_count" class="label label-info pull-right">0</span></a></li>
+					<a class="list-group-item d-inline-block collapsed">Online players
+						<span id="player_count" class="badge badge-pill badge-info pull-right">0</span>
+					</a>
+				</div>
 
-				  <li><a>Online players <span id="player_count" class="label label-info pull-right">0</span></a></li>
-				</ul>
+				<div class="list-group border-0 card text-center text-md-left" style="margin-top: 10px;">
+					<p style="text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
+
+					<div id="alert-holder" class="list-group-item d-inline-block collapsed" style="white-space: normal; border: none;">
+					</div>
+				</div>
 			</div>
 
-			<p style="color: black; text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
-
-			<div id="alert-holder" class="position: absolute; width: 80%; z-index: 1">
-			</div>
-
+			<main id="map-holder" class="col-10 main" >
+				<div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);"></div>
+			</main>
 		</div>
 	</div>
 
