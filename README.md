@@ -23,8 +23,97 @@ You will also need to install [live_map](https://github.com/TGRHavoc/live_map) o
 
 ## Configuration
 
+### utils/config.php
 Pretty much everything can be configured inside the `utils/config.php` file.
 The variables have a brief description so you can get an idea of what values need to be where.
+
+### utils/server.php
+So, this is a new file that you can configure to add more servers to the livemap.
+If you have 3 servers you want to show, this is your config file.
+
+The only thing you want to change is the `$servers` variable on line 32.
+I'll try and give a detailed description on how you can use this below, hopefully you'll understand :)
+
+This array follows a structure and you will need to follow the structure inorder to get multiple servers working.
+
+The first thing the array wants, is a `"name" => array()` added to it.
+"name" will be the name of the server shown to the user for easy identification.
+The `array()` will be another array containing the information of the server.
+If you don't supply any information (e.g. just use `array()`) then, it will default back to the values inside of the `utils/config.php` file.
+
+The `array()` for the server can contain four key-pairs.
+Below is a table showing what the array wants and a brief description of what the value should be.
+
+
+| Name        |  Description |
+| ----------- | ------------ |
+| ip          | This should be the public IP for the server. Defined in `utils/config.php` as `$fivemIP` |
+| fivemPort   | This should be the FiveM port for the server. Defined in `utils/config.php` as `$fivemPort` |
+| socketPort  | This should be the socket port for the server. Defined in `utils/config.php` as `$socketPort` |
+| liveMapName | This should be the name of the livemap resource on that server. Defined in `utils/config.php` as `$liveMapName` |
+
+#### Examples
+If you have 3 servers running on the default IP (defined in `utils/config.php`)
+```php
+private static $servers = array(
+    "Server 1" => array(
+        "fivemPort" => "30120",
+        "socketPort" => "30130",
+    ),
+    "Server 2" => array(
+        "fivemPort" => "30121",
+        "socketPort" => "30131",
+    ),
+    "Server 3" => array(
+        "fivemPort" => "30122",
+        "socketPort" => "30131",
+    )
+);
+```
+
+Or, if you have different servers on different IPs but, use the same ports
+```php
+private static $servers = array(
+    "Server 1" => array(
+        "ip" => "127.0.0.1"
+    ),
+    "Server 2" => array(
+        "ip" => "192.168.0.1"
+    ),
+    "Server 3" => array(
+        "ip" => "192.168.10.1"
+    )
+);
+```
+
+Or, a mix of both
+```php
+private static $servers = array(
+    "Server 1" => array(
+        "ip" => "127.0.0.1",
+        "fivemPort" => "30121",
+        "socketPort" => "4040"
+    ),
+    "Server 2" => array(
+        "ip" => "192.168.0.1"
+    ),
+    "Server 3" => array(
+        "ip" => "192.168.10.1",
+        "socketPort" => "20394",
+        "liveMapName" => "some_shit_map"
+    )
+);
+
+```
+
+Below is the code I have running on the [demo map](http://map.tgrhavoc.me)
+```php
+private static $servers = array(
+    "Havoc's Test server (tgrhavoc.me)" => array(),
+    "This is an example of another server (it doesn't exist)" => array()
+);
+```
+
 
 ## Thanks
 
