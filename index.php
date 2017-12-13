@@ -26,6 +26,9 @@
 	require_once("utils/config.php");
 	require_once("utils/params.php");
 	require_once("utils/update_checker.php");
+	require_once("utils/servers.php");
+
+	Servers::init();
 
 	Update::getCurrentVersion();
 
@@ -158,10 +161,24 @@
 					<img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
 					Live Map
 			</a>
-			
+
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
-					<!-- TODO: Dynamically generate links? -->
+					<!-- Servers -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Select a server
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<?php
+								$srvs = Servers::getServers();
+								foreach ($srvs as $key => $value) {
+									echo "<a class='dropdown-item' href='$value'>$key</a>";
+								}
+							?>
+						</div>
+					</li>
+
 				</ul>
 			</div>
 		</div>
@@ -205,6 +222,12 @@
 
 				<div class="list-group border-0 card text-center text-md-left" >
 					<a class="nav-header">Information</a>
+
+					<a class="list-group-item d-inline-block collapsed">Currently viewing:
+						<p id="server_name" style="white-space: normal; color: #17A2B8">
+							<?php echo $config->currentServer; ?>
+						</p>
+					</a>
 
 					<a class="list-group-item d-inline-block collapsed">Blips loaded
 						<span id="blip_count" class="badge badge-pill badge-info pull-right">0</span>
