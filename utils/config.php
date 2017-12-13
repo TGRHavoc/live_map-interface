@@ -74,6 +74,10 @@ class Config{
     // Note: THIS MAY BE THE PLAYER'S IP ADDRESS
     public $showIdentifiers = true;
 
+    // DO NOT CHANGE ANYTHING BELOW
+
+    public $currentServer = "";
+
     /**
     * Gets the URL for the GTA server.
     *
