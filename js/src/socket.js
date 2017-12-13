@@ -47,8 +47,8 @@ function onOpen(e) {
     // New websocket server doesn't need to recieve this
     //webSocket.send("getPlayerData"); // Get any players connected to the server
 
-    $("#connection").removeClass("label-danger")
-        .removeClass("label-warning")
+    $("#connection").removeClass("badge-danger")
+        .removeClass("badge-warning")
         .addClass("badge-success").text("connected");
     $("#socket_error").text("");
 }
