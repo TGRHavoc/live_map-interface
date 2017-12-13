@@ -2,11 +2,48 @@ Changelog
 =========
 
 
+v2.2.7 (13-12-2017)
+-------------------
+
+Changes
+~~~~~~~
+- Update readme. [Jordan Dalton]
+- Update navbar. [Jordan Dalton]
+
+  Navbar now has stuff in it... Well, it _will_ do when I add them.
+- Update style. [Jordan Dalton]
+
+  Bootstrap 4 was released so, I thought I'd give it a try. With this, I've had to update the style of the interface.
+
+  The interface is now fully dark. This means the navigation elements (mainly the sidebar and navbar) is now dark.
+
+  Labels have changed... Well, bootstrap have renamed them to "badges" so, I've been forced to call them the same.
+
+  I've re-done the sidebar so, it no longer uses lists. It's just plain 'ol links.
+
+  Alerts are now just a solid color instead of a gradient.. Ew, who likes gradients anyways?
+
+Fix
+~~~
+- Fixed socket label not using bootstrap 4. [Jordan Dalton]
+
+  Socket label was updated to "badge" as per the new bootstrap system.
+
+Other
+~~~~~
+- Add server selection. [Jordan Dalton]
+
+  Users can now select a server to view, if you have multiple servers to show.
+
+  I will update the readme to reflect these changes but, the easiest way to get this working is to add a empty array to the servers file with a name of your choice.
+
+
 v2.2.6 (24-11-2017)
 -------------------
 
 Changes
 ~~~~~~~
+- Update to v2.2.6. [Jordan Dalton]
 - Update stuff to use new alerts. [Jordan Dalton]
 
   Socket errors are now displayed in a alert (if debug is abled).
