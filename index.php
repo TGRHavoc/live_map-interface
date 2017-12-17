@@ -241,7 +241,7 @@
 				<div class="list-group border-0 card text-center text-md-left" style="margin-top: 10px;">
 					<p style="text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
 
-					<div id="alert-holder" class="list-group-item d-inline-block collapsed" style="white-space: normal; border: none;">
+					<div id="alert-holder" class="list-group-item d-inline-block collapsed" style="white-space: normal; border: none; overflow-y: scroll; max-height: 200px; width: 322px; /* Remove scroll bar */">
 					</div>
 				</div>
 			</div>
