@@ -301,9 +301,6 @@ function getPlayerInfoHtml(plr) {
 
 function doPlayerUpdate(players) {
 
-    //Quickly sort the names, alphabetical order
-    players.sort();
-
     if (_SETTINGS_debug) {
         console.log(players);
     }
