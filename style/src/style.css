@@ -192,6 +192,7 @@ input[type=text] {display:inline;}
     border-right: 0;
     border-color: #2c2c2c;
     white-space: nowrap;
+    max-width: 100%;
 }
 
 /* highlight active menu */
