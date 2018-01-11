@@ -88,6 +88,8 @@
 	var _MAP_tileURL = "<?php echo $config->mapTileUrl; ?>";
 	var _MAP_iconURL = "<?php echo $config->mapIconUrl; ?>";
 
+	var _MAP_currentUri = "<?php echo $_SERVER["REQUEST_URI"]; ?>";
+
 	// Sets whether it should showSets whether it should show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
 	var _MAP_atlasMap = <?php echo json_encode($config->atlasEnabled); ?>;
 
