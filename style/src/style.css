@@ -101,6 +101,15 @@ input[type=text] {display:inline;}
 .info-body {color:#333 !important;}
 .info-body-row {padding: 2px 0;color:#333 !important; margin: 0;}
 
+.dropdown-menu { background-color: #333; }
+.dropdown-item { color: #999999; }
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #fff;
+    background-color: #333;
+}
+
 /* UI/Div ---------------------- */
 #wrapper {position: relative;width:100%;height:100%;min-height:100%;position:relative;}
 #logo-box{background-color: #333439;padding: 5px; height: 104px; width: 104px;position:absolute;overflow:hidden;z-index: 99;bottom: 0;right: 0;border-radius:15px 0 0 0;}
