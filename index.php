@@ -182,6 +182,11 @@
 						</div>
 					</li>
 
+					<li class="nav-item">
+						<a class="nav-link" role="button" id="sidebarTooggle" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-label="Toggle sidebar" aria-expanded="false">
+							Hide/Show Controls
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -190,17 +195,17 @@
 
 	<div id="wrapper" class="container-fluid">
 		<div class="row">
-			<div id="sidebar" class="col-2 float-left width show">
+			<div id="sidebar" class="col-md-2 col-sm-6 col-xs-12 float-left collapse">
 				<div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
 
 					<a class="nav-header">Controls</a>
 
 					<a class="list-group-item d-inline-block collapsed" id="refreshBlips" href="#">
-						<span class="d-none d-md-inline">Refresh Blips</span>
+						<span class="d-md-inline">Refresh Blips</span>
 					</a>
 
 					<a id="showBlips" href="#" class="list-group-item d-inline-block collapsed">
-						<span class="d-none d-md-inline">Show Blips</span>
+						<span class="d-md-inline">Show Blips</span>
 						<span id="blips_enabled" class="badge badge-pill badge-success pull-right">on</span>
 					</a>
 
@@ -210,12 +215,12 @@
 					  </li>
 					  -->
 					<a id="reconnect" href="#" class="list-group-item d-inline-block collapsed">
-						<span class="d-none d-md-inline">Connect</span>
+						<span class="d-md-inline">Connect</span>
 						<span id="connection" class="badge badge-pill badge-danger pull-right">disconnected</span>
 					</a>
 
 					<a class="list-group-item d-inline-block collapsed">
-						<span class="d-none d-md-inline">Track Player</span>
+						<span class="d-md-inline">Track Player</span>
 
 						<select id="playerSelect" class="input-large form-control pull-right">
 							<option></option>
@@ -244,12 +249,12 @@
 				<div class="list-group border-0 card text-center text-md-left" style="margin-top: 10px;">
 					<p style="text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
 
-					<div id="alert-holder" class="list-group-item d-inline-block collapsed" style="white-space: normal; border: none; overflow-y: scroll; max-height: 200px; width: 322px; /* Remove scroll bar */">
+					<div id="alert-holder" class="list-group-item d-inline-block collapsed" style="white-space: normal; border: none; overflow-y: scroll; max-height: 20vh; width: 100%; /* Remove scroll bar */">
 					</div>
 				</div>
 			</div>
 
-			<main id="map-holder" class="col-10 main" >
+			<main id="map-holder" class="col-12 main" >
 				<div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);"></div>
 			</main>
 		</div>

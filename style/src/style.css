@@ -175,7 +175,9 @@ input[type=text] {display:inline;}
 
 #sidebar {
     overflow: hidden;
+    overflow-y: scroll;
     z-index: 3;
+    background-color: #333;
 }
 #sidebar .list-group {
     background-color: #333;
@@ -240,9 +242,6 @@ input[type=text] {display:inline;}
 
 @media (max-width:768px) {
     #sidebar {
-        min-width: 35px;
-        max-width: 40px;
-        overflow-y: auto;
         overflow-x: visible;
         transition: all 0.25s ease;
         transform: translateX(-45px);
@@ -257,7 +256,6 @@ input[type=text] {display:inline;}
 
     #sidebar, #sidebar .list-group {
         min-width: 35px;
-        overflow: visible;
     }
     /* overlay sub levels on small screens */
     #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
@@ -277,10 +275,11 @@ input[type=text] {display:inline;}
     }
 }
 
-.collapse.show {
+#sidebar.collapse.show {
   visibility: visible;
+  height: 100vh;
 }
-.collapsing {
+#sidebar.collapsing {
   visibility: visible;
   height: 0;
   -webkit-transition-property: height, visibility;
@@ -288,7 +287,7 @@ input[type=text] {display:inline;}
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
-.collapsing.width {
+#sidebar.collapsing.width {
   -webkit-transition-property: width, visibility;
   transition-property: width, visibility;
   width: 0;
