@@ -151,7 +151,7 @@ function mapInit(elementID) {
     _MAP_UVInvMap ? mapID.push("UV Invert") : null;
     _MAP_PostcodeMap ? mapID.push("Postcode") : null;
     var mapOptions = {
-        backgroundColor: "#0fa8d2",
+        backgroundColor: "inherit",
         minZoom: 3,
         maxZoom: 7,
         isPng: true,
@@ -174,6 +174,7 @@ function mapInit(elementID) {
         var type = map.getMapTypeId();
         switch (type) {
             case "Atlas":
+            case "Postcode":
                 $("#" + elementID).css({
                     "background-color": "#0fa8d2"
                 });
@@ -191,11 +192,6 @@ function mapInit(elementID) {
             case "UV Invert":
                 $("#" + elementID).css({
                     "background-color": "#f2f0b6"
-                });
-                break
-            default:
-                $("#" + elementID).css({
-                    "background-color": "#0fa8d2"
                 });
                 break;
         }
