@@ -226,6 +226,18 @@ var blipCss = `.blip {
     width: ${customImageWidth}px;
     height: ${customImageHeight}px;
 }`;
+
+function generateBlipControls(){
+    for(var blipName in types){
+        $("#blip-control-container").append(`<a id="blip_${blipName}_link" class="list-group-item d-inline-block collapsed blip-enabled" href="#"><span class="blip blip-${blipName}"></span></a>`);
+
+        if(_SETTINGS_debug){
+            console.log("Added ahref for " + blipName);
+        }
+        
+    }
+}
+
 function generateBlipShit(){
     var currentX = 0, currentY = 0, currentId = 0;
 
@@ -272,6 +284,7 @@ function generateBlipShit(){
     }
 
     $("head").append(`<style>${blipCss}</style>`);
+    setTimeout(generateBlipControls, 50);
 }
 
 setTimeout(generateBlipShit, 50);
