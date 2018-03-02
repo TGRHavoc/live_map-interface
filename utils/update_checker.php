@@ -2,7 +2,7 @@
 
 class Update{
 
-    private static $version = "2.1.3";
+    public static $version = "2.1.3";
     private static $url = "https://raw.githubusercontent.com/TGRHavoc/live_map-interface/master/version.json";
     private static $downloadUrl = "http://github.com/TGRHavoc/live_map-interface";
     private static $latestVer = "";
