@@ -26,14 +26,45 @@
 	require_once("utils/config.php");
 	require_once("utils/params.php");
 	require_once("utils/update_checker.php");
-	require_once("utils/servers.php");
-
-	Servers::init();
+	//require_once("utils/servers.php");
 
 	Update::getCurrentVersion();
 
 	$config = Config::getConfig();
 	$parser = ParamParser::getParser();
+
+	if(ISSET($_GET["server"])){
+		$name = $_GET["server"];
+
+		if(array_key_exists($name, Config::$servers)){
+			$srv = Config::$servers[$name];
+		}else{
+			$name = key(Config::$servers); // get the first server in array
+			$srv = Config::$servers[$name];
+		}
+
+		unset($_GET["server"]);
+	}else{
+		$name = key(Config::$servers); // get the first server in array
+		$srv = Config::$servers[$name];
+	}
+
+	// Update the config for the new server
+	if(array_key_exists("ip", $srv)){
+		$config->fivemIP = $srv["ip"];
+	}
+	if(array_key_exists("fivemPort", $srv)){
+		$config->fivemPort = $srv["fivemPort"];
+	}
+	if(array_key_exists("socketPort", $srv)){
+		$config->socketPort = $srv["socketPort"];
+	}
+	if(array_key_exists("liveMapName", $srv)){
+		$config->liveMapName = $srv["liveMapName"];
+	}
+
+	$config->currentServer = $name;
+
 ?>
 
 <html>
@@ -174,9 +205,10 @@
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<?php
-								$srvs = Servers::getServers();
+								$srvs = Config::$servers;
 								foreach ($srvs as $key => $value) {
-									echo "<a class='dropdown-item' href='$value'>$key</a>";
+									$uri = urlencode($key);
+									echo "<a class='dropdown-item' href='?server=$uri'>$key</a>";
 								}
 							?>
 						</div>
@@ -188,12 +220,13 @@
 						</a>
 					</li>
 
+					<!--
 					<li class="nv-item">
 						<a class="nav-link" role="button" id="blipToggle" data-toggle="collapse" data-target="#blip-filter-dropdown" aria-controls="blip-filter-dropdown" aria-label="Toggle blip controls" aria-expanded="false">
 							Blip controls
 						</a>
 					</li>
-
+					-->
 				</ul>
 			</div>
 		</div>

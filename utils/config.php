@@ -30,16 +30,25 @@ class Config{
     // that should speed up content delivery on production websites
     public $debug = true;
 
+    // An array of servers that you want the interface to be available for
+    public static $servers = array(
+        "Test server" => array( // The name of the server (make unique)
+            "ip" => "127.0.0.1", // The IP (if on something different to the one in the config)
+            "fivemPort" => "30120", // The fivem port
+            "socketPort" => "30121", // Set to the port that you set in the "socket_port" convar (if different to the one in the config)
+            "liveMapName" => "live_map" // Set to the resource's name (if different to the one in the config)
+        )
+    );
+    // These values will only be used if, the array doesn't contain it's values.
+    // E.g. if "$liveMapName" isn't in the array, the value below will be used.
+
     // Set to the IP of your FiveM server (public address).
     public $fivemIP = "127.0.0.1";
-
     // Set to the port your FiveM server is using (needs to be reachable from the internet)
     public $fivemPort = "30120";
-
     // Set to the port that you set in the "socket_port" convar.
     // If you haven't set this in the config, don't change this.
     public $socketPort = "30121";
-
     // Set to the name of the "live_map" resourcee that is added to the FiveM server.
     // Note: If you change the folder name on the GTA server you NEED to change this
     public $liveMapName = "live_map";
