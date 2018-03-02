@@ -220,13 +220,13 @@
 						</a>
 					</li>
 
-					<!--
+
 					<li class="nv-item">
 						<a class="nav-link" role="button" id="blipToggle" data-toggle="collapse" data-target="#blip-filter-dropdown" aria-controls="blip-filter-dropdown" aria-label="Toggle blip controls" aria-expanded="false">
 							Blip controls
 						</a>
 					</li>
-					-->
+
 				</ul>
 			</div>
 		</div>
@@ -299,20 +299,8 @@
 
 					<a class="nav-header">Blip Controls</a>
 
-					<div class="row">
-
-						<a class="list-group-item d-inline-block collapsed" href="#">
-							<span class="d-md-inline">Refresh Blips</span>
-						</a>
-						<a class="list-group-item d-inline-block collapsed" href="#">
-							<span class="d-md-inline">Refresh Blips</span>
-						</a>
-						<a class="list-group-item d-inline-block collapsed" href="#">
-							<span class="d-md-inline">Refresh Blips</span>
-						</a>
-						<a class="list-group-item d-inline-block collapsed" href="#">
-							<span class="d-md-inline">Refresh Blips</span>
-						</a>
+					<div id="blip-control-container" class="row">
+						
 					</div>
 
 				</div>
