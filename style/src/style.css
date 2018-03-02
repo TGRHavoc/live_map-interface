@@ -182,20 +182,20 @@ input[type=text] {display:inline;}
     text-align: center;
 }
 
-#sidebar {
+.custom-menu {
     overflow: hidden;
     overflow-y: scroll;
     z-index: 3;
     background-color: #333;
 }
-#sidebar .list-group {
+.custom-menu .list-group {
     background-color: #333;
 }
-#sidebar i {
+.custom-menu i {
     margin-right: 6px;
 }
 
-#sidebar .list-group-item {
+.custom-menu .list-group-item {
     border-radius: 0;
     background-color: #333;
     color: #ccc;
@@ -207,12 +207,12 @@ input[type=text] {display:inline;}
 }
 
 /* highlight active menu */
-#sidebar .list-group-item:not(.collapsed) {
+.custom-menu .list-group-item:not(.collapsed) {
     background-color: #222;
 }
 
 /* closed state */
-#sidebar .list-group .list-group-item[aria-expanded="false"]::after {
+.custom-menu .list-group .list-group-item[aria-expanded="false"]::after {
   content: " \f0d7";
   font-family: FontAwesome;
   display: inline;
@@ -221,10 +221,10 @@ input[type=text] {display:inline;}
 }
 
 /* open state */
-#sidebar .list-group .list-group-item[aria-expanded="true"] {
+.custom-menu .list-group .list-group-item[aria-expanded="true"] {
   background-color: #222;
 }
-#sidebar .list-group .list-group-item[aria-expanded="true"]::after {
+.custom-menu .list-group .list-group-item[aria-expanded="true"]::after {
   content: " \f0da";
   font-family: FontAwesome;
   display: inline;
@@ -233,53 +233,53 @@ input[type=text] {display:inline;}
 }
 
 /* level 1*/
-#sidebar .list-group .collapse .list-group-item,
-#sidebar .list-group .collapsing .list-group-item  {
+.custom-menu .list-group .collapse .list-group-item,
+.custom-menu .list-group .collapsing .list-group-item  {
   padding-left: 20px;
 }
 
 /* level 2*/
-#sidebar .list-group .collapse > .collapse .list-group-item,
-#sidebar .list-group .collapse > .collapsing .list-group-item {
+.custom-menu .list-group .collapse > .collapse .list-group-item,
+.custom-menu .list-group .collapse > .collapsing .list-group-item {
   padding-left: 30px;
 }
 
 /* level 3*/
-#sidebar .list-group .collapse > .collapse > .collapse .list-group-item {
+.custom-menu .list-group .collapse > .collapse > .collapse .list-group-item {
   padding-left: 40px;
 }
 
 @media (max-width:768px) {
-    #sidebar {
+    .custom-menu {
         overflow-x: visible;
         transition: all 0.25s ease;
         transform: translateX(-45px);
         position: fixed;
     }
 
-    #sidebar.show {
+    .custom-menu.show {
         transform: translateX(0);
     }
 
-    #sidebar::-webkit-scrollbar{ width: 0px; }
+    .custom-menu::-webkit-scrollbar{ width: 0px; }
 
-    #sidebar, #sidebar .list-group {
+    .custom-menu, .custom-menu .list-group {
         min-width: 35px;
     }
     /* overlay sub levels on small screens */
-    #sidebar .list-group .collapse.show, #sidebar .list-group .collapsing {
+    .custom-menu .list-group .collapse.show, .custom-menu .list-group .collapsing {
         position: relative;
         z-index: 1;
         width: 190px;
         top: 0;
     }
-    #sidebar .list-group > .list-group-item {
+    .custom-menu .list-group > .list-group-item {
         text-align: center;
         padding: .75rem .5rem;
     }
     /* hide caret icons of top level when collapsed */
-    #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
-    #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
+    .custom-menu .list-group > .list-group-item[aria-expanded="true"]::after,
+    .custom-menu .list-group > .list-group-item[aria-expanded="false"]::after {
         display:none;
     }
 }
@@ -288,7 +288,7 @@ input[type=text] {display:inline;}
   visibility: visible;
   height: 100vh;
 }
-#sidebar.collapsing {
+.custom-menu.collapsing {
   visibility: visible;
   height: 0;
   -webkit-transition-property: height, visibility;
@@ -316,6 +316,20 @@ input[type=text] {display:inline;}
     float: left;
 }
 
-#sidebar span.badge {
+.custom-menu span.badge {
     font-size: 100%;
+}
+
+#blip-filter-dropdown{
+    width: 100%;
+}
+
+#blip-filter-dropdown.collapse.show{
+    height: 100%;
+}
+
+#blip-filter-dropdown .list-group-item{
+    width: 150px;
+    float: left;
+    border: 1px solid rgba(0, 0, 0, 0.125);
 }

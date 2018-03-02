@@ -49,7 +49,7 @@
 
 	.gm-style .gm-style-mtc label,.gm-style .gm-style-mtc div{font-weight:400}
 
-	@media print {  .gm-style .gmnoprint, .gmnoprint {    display:none  }}@media screen {  .gm-style .gmnoscreen, .gmnoscreen {    display:none  }}
+	@media print {  .gm-style .gmnoprint, .gmnoprint { display:none }}@media screen {  .gm-style .gmnoscreen, .gmnoscreen {    display:none  }}
 
 	.gm-style {
 		font: 400 11px Roboto, Arial, sans-serif;
@@ -187,6 +187,13 @@
 							Hide/Show Controls
 						</a>
 					</li>
+
+					<li class="nv-item">
+						<a class="nav-link" role="button" id="blipToggle" data-toggle="collapse" data-target="#blip-filter-dropdown" aria-controls="blip-filter-dropdown" aria-label="Toggle blip controls" aria-expanded="false">
+							Blip controls
+						</a>
+					</li>
+
 				</ul>
 			</div>
 		</div>
@@ -194,8 +201,8 @@
 	</nav>
 
 	<div id="wrapper" class="container-fluid">
-		<div class="row">
-			<div id="sidebar" class="col-md-2 col-sm-6 col-xs-12 float-left collapse">
+		<div id="control-wrapper" >
+			<div id="sidebar" class="custom-menu col-md-2 col-sm-6 col-xs-12 float-left collapse">
 				<div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
 
 					<a class="nav-header">Controls</a>
@@ -254,10 +261,34 @@
 				</div>
 			</div>
 
-			<main id="map-holder" class="col-12 main" >
-				<div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);"></div>
-			</main>
+			<div id="blip-filter-dropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12 collapse">
+				<div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
+
+					<a class="nav-header">Blip Controls</a>
+
+					<div class="row">
+
+						<a class="list-group-item d-inline-block collapsed" href="#">
+							<span class="d-md-inline">Refresh Blips</span>
+						</a>
+						<a class="list-group-item d-inline-block collapsed" href="#">
+							<span class="d-md-inline">Refresh Blips</span>
+						</a>
+						<a class="list-group-item d-inline-block collapsed" href="#">
+							<span class="d-md-inline">Refresh Blips</span>
+						</a>
+						<a class="list-group-item d-inline-block collapsed" href="#">
+							<span class="d-md-inline">Refresh Blips</span>
+						</a>
+					</div>
+
+				</div>
+			</div>
 		</div>
+
+		<main id="map-holder" class="col-12 main" >
+			<div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);"></div>
+		</main>
 	</div>
 
 <?php
