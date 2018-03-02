@@ -193,7 +193,7 @@
 			</button>
 			<a class="navbar-brand" href="https://github.com/TGRHavoc/">
 					<img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
-					Live Map
+					Live Map v<?php echo Update::$version ?>
 			</a>
 
 			<div class="collapse navbar-collapse" id="navbarNav">
