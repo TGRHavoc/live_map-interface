@@ -150,7 +150,7 @@ function mapInit(elementID) {
     _MAP_UVInvMap ? mapID.push("UV Invert") : null;
     _MAP_PostcodeMap ? mapID.push("Postcode") : null;
     var mapOptions = {
-        backgroundColor: "#0fa8d2",
+        backgroundColor: "#00000000", // transparant background, so it switches dynamically when changing map types.
         minZoom: 3,
         maxZoom: 7,
         isPng: true,
