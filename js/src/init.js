@@ -35,6 +35,13 @@ function initPage() {
     $(window).on("load resize", function() {
         $(".map-tab-content").height((($("#tab-content").height() - $(".page-title-1").height()) - ($("#map-overlay-global-controls").height() * 4.2)));
     });
+
+    var $myGroup = $('#control-wrapper');
+    $myGroup.on('show.bs.collapse','.collapse', function() {
+        console.log("hidding?");
+        $myGroup.find('.collapse.show').collapse('hide');
+    });
+
 }
 
 function getBlipMarkerId(blip){

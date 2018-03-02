@@ -28,7 +28,7 @@ class Config{
 
     // Set to false to enable the miinified versions of JS and CSS files
     // that should speed up content delivery on production websites
-    public $debug = false;
+    public $debug = true;
 
     // Set to the IP of your FiveM server (public address).
     public $fivemIP = "127.0.0.1";
