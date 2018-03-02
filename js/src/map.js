@@ -150,7 +150,7 @@ function mapInit(elementID) {
     _MAP_UVInvMap ? mapID.push("UV Invert") : null;
     _MAP_PostcodeMap ? mapID.push("Postcode") : null;
     var mapOptions = {
-        backgroundColor: "#0fa8d2",
+        backgroundColor: "#00000000", // transparant background, so it switches dynamically when changing map types.
         minZoom: 3,
         maxZoom: 7,
         isPng: true,
@@ -303,3 +303,33 @@ function getMarker(id) {
         return _MAP_markerStore[id];
     }
 };
+
+// Add event handlers for clicking anywhere on the map (easiest way to update the bg only when needed)
+document.addEventListener("click", updateBg);
+// Add event handlers for when the map changes to or from fullscreen mode.
+window.addEventListener("fullscreenchange", updateBg);
+window.addEventListener("mozfullscreenchange", updateBg);
+window.addEventListener("webkitfullscreenchange", updateBg);
+
+// Function to update the bg color dynamically.
+function updateBg(){
+    // Wait 100ms before executing, switching full screen mode takes some time.
+    setTimeout(function () {
+        // If the browser is full screen, then set the bg color to the selected map type's bg color.
+        if((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
+            // Get the div to change to bg color on.
+            let bgDiv = document.getElementById("map-canvas").getElementsByTagName("div")[0];
+            // Get the selected map type's bg color.
+            let sourceColor = document.getElementById("map-canvas").style.backgroundColor;
+            // Set the new bg color of the div to the selected map type color.
+            bgDiv.style.backgroundColor = sourceColor;
+
+        // If the browser is not full screen, then reset the bg color to transparant.
+        } else {
+            // Get the div to change the the bg color on.
+            let bgDiv = document.getElementById("map-canvas").getElementsByTagName("div")[0];
+            // Change the bg color to transparant.
+            bgDiv.style.backgroundColor = "#00000000";
+        }
+    }, 100);
+}
