@@ -1,5 +1,6 @@
 
 images/map/
+images/__map/
 
 generate-changes.bat
 .changelog.rc
