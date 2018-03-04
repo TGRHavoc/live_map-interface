@@ -249,6 +249,14 @@
 						<span id="blips_enabled" class="badge badge-pill badge-success pull-right">on</span>
 					</a>
 
+					<a class="list-group-item d-inline-block collapsed">
+						<span class="d-md-inline">Map overlay</span>
+
+						<select id="overlaySelect" class="input-large form-control pull-right">
+							<option value="-1">None</option>
+						</select>
+					</a>
+
 					  <!--
 					  <li>
 						  <a id="toggleLive" href="#">Live update <span id="live_enabled" class="badge badge-danger pull-right">off</span></a>
@@ -300,7 +308,7 @@
 					<a class="nav-header">Blip Controls</a>
 
 					<div id="blip-control-container" class="row">
-						
+
 					</div>
 
 				</div>
