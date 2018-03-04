@@ -50,6 +50,18 @@ function getNormalizedCoord(coord, zoom) {
     };
 }
 
+var streetOverlayImages = new google.maps.ImageMapType({
+    getTileUrl: function(coord, zoom) {
+        var normalizedCoord = getNormalizedCoord(coord, zoom);
+        if (!normalizedCoord) {
+            return null;
+        }
+        return _MAP_tileURL + 'overlay_streets/' +  zoom + '-' + coord.x + '_' + coord.y + '.png';
+    },
+    tileSize: new google.maps.Size(256, 256),
+    name: "Street names"
+});
+
 // Start atlas
 var mapAtlasOptions = {
     getTileUrl: function(coord, zoom) {
@@ -57,7 +69,7 @@ var mapAtlasOptions = {
         if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
             return null;
         }
-        return _MAP_tileURL + 'atlas/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
+        return _MAP_tileURL + 'atlas/' +  zoom + '-' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
@@ -75,7 +87,7 @@ var mapSatelliteOptions = {
         if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
             return null;
         }
-        return _MAP_tileURL + 'satellite/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
+        return _MAP_tileURL + 'satellite/' +  zoom + '-' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
@@ -93,11 +105,11 @@ var mapRoadOptions = {
         if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
             return null;
         }
-        return _MAP_tileURL + 'road/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
+        return _MAP_tileURL + 'road/' +  zoom + '-' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
-    minZoom: 5,
+    //minZoom: 5,
     name: "Road",
     alt: "GTA V Road Map"
 };
@@ -112,7 +124,7 @@ var mapUVInvOptions = {
         if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
             return null;
         }
-        return _MAP_tileURL + 'uv-invert/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
+        return _MAP_tileURL + 'uv-invert/' +  zoom + '-' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
@@ -130,7 +142,7 @@ var mapPostcodeOptions = {
         if (!normalizedCoord || normalizedCoord.x > bounds[zoom] || normalizedCoord.y > bounds[zoom]) {
             return null;
         }
-        return _MAP_tileURL + 'postcode/' +  zoom + '_' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
+        return _MAP_tileURL + 'postcode/' +  zoom + '-' + normalizedCoord.x + '_' + normalizedCoord.y + '.png';
     },
     tileSize: new google.maps.Size(256, 256),
     maxZoom: 7,
@@ -169,6 +181,12 @@ function mapInit(elementID) {
     _MAP_roadMap ? map.mapTypes.set("Road", mapRoad) : null;
     _MAP_UVInvMap ? map.mapTypes.set("UV Invert", mapUVInv) : null;
     _MAP_PostcodeMap ? map.mapTypes.set("Postcode", mapPostcode) : null;
+
+    //TODO: Maybe make this an option or something?
+    _overlays.push(streetOverlayImages);
+
+    //TODO: If a postcode overlay get made or something, add it here too..
+
     map.setMapTypeId("Atlas");
     google.maps.event.addListener(map, "maptypeid_changed", function() {
         var type = map.getMapTypeId();
