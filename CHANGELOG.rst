@@ -2,6 +2,64 @@ Changelog
 =========
 
 
+v2.2.8 (04-03-2018)
+-------------------
+
+New
+~~~
+- Added overlays. [Jordan Dalton]
+
+  Overlays, Overlays, Overlays!
+
+  So, the map images now have a street overlay folder that is, well, overlayed onto the over images. Woo. So, now you don't need to send the street names with the player data.. Well, if you still want that you can.
+
+  Just make sure to download the latest image release, and pop them into your map folder.
+- Add dynamic blip controls. [Jordan Dalton]
+
+  Blip controls are now created and popped into the right div when the webapp is navigated to.
+
+  Still need to implement the actual behaviour.
+- Add version to title. [Jordan Dalton]
+
+  The webapp now displays the current version next to it's name. E.g. "Live Map v2.2.7"
+- Add temporary favicon. [Jordan Dalton]
+
+  Added a temp favicon for the webpage.
+- Add dynamic blip CSS. [Jordan Dalton]
+
+  Blip images for use in HTML is dynamically created in the generateBlipShit function in "markers.js". Since there's a load of blips, I felt dynamically creating them would be better than sitting down for two hours and manually putting them in. It doesn't take into account the other marker types (yet).
+
+Changes
+~~~~~~~
+- Update to latest development. [Jordan Dalton]
+
+  I can't remember what I changed but, something has so...
+- Update dropdown CSS. [Jordan Dalton]
+
+  Dropdowns now comply with the dark theme
+- Update sidebar to be more mobile friendly. [Jordan Dalton]
+
+  Before the sidebar wasn't very nice on smaller devices such as mobiles. This change should fix this. This also means that the map takes up the full webpage and users need to click the "Hide/Show Controls" button before they can see the controls.
+- Update alerts. [Jordan Dalton]
+
+  Alerts can now be scrolled though
+
+Fix
+~~~
+- Fixed map background. [Jordan Dalton]
+
+  Background for the map now changed with the map instead of staying the same colour.
+- Fixed alert holder width. [Jordan Dalton]
+
+  The new alert holder would cut off alerts on smaller screens. Should be fixed now.
+
+Other
+~~~~~
+- Removed servers.php. [Jordan Dalton]
+
+  The server array is now in the config.
+
+
 v2.2.7 (13-12-2017)
 -------------------
 
@@ -15,6 +73,7 @@ New
 
 Changes
 ~~~~~~~
+- Update changelog. [Jordan Dalton]
 - Update to v2.2.7. [Jordan Dalton]
 - Update readme. [Jordan Dalton]
 - Update navbar. [Jordan Dalton]
