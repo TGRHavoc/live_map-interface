@@ -24,17 +24,31 @@ var _showBlips = true;
 var _isConnected = false;
 var _trackPlayer = null;
 var playerCount = 0;
+var _overlays = [];
 
 function globalInit() {
     mapInit("map-canvas");
     initPage();
     initBlips();
+
+    for (var i = 0; i < _overlays.length; i++) {
+        var o = _overlays[i];
+        $("#overlaySelect").append(`<option value="${i}">${o.name}</option>`);
+    }
+
 }
 
 function initPage() {
     $(window).on("load resize", function() {
         $(".map-tab-content").height((($("#tab-content").height() - $(".page-title-1").height()) - ($("#map-overlay-global-controls").height() * 4.2)));
     });
+
+    var $myGroup = $('#control-wrapper');
+    $myGroup.on('show.bs.collapse','.collapse', function() {
+        console.log("hidding?");
+        $myGroup.find('.collapse.show').collapse('hide');
+    });
+
 }
 
 function getBlipMarkerId(blip){

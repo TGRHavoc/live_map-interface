@@ -47,9 +47,9 @@ function onOpen(e) {
     // New websocket server doesn't need to recieve this
     //webSocket.send("getPlayerData"); // Get any players connected to the server
 
-    $("#connection").removeClass("label-danger")
-        .removeClass("label-warning")
-        .addClass("label-success").text("connected");
+    $("#connection").removeClass("badge-danger")
+        .removeClass("badge-warning")
+        .addClass("badge-success").text("connected");
     $("#socket_error").text("");
 }
 
@@ -144,9 +144,9 @@ function onError(e) {
 }
 
 function onClose(e) {
-    $("#connection").removeClass("label-success")
-        .removeClass("label-warning")
-        .addClass("label-danger").text("disconnected");
+    $("#connection").removeClass("badge-success")
+        .removeClass("badge-warning")
+        .addClass("badge-danger").text("disconnected");
 
     _isConnected = false;
 }
@@ -300,9 +300,6 @@ function getPlayerInfoHtml(plr) {
 }
 
 function doPlayerUpdate(players) {
-
-    //Quickly sort the names, alphabetical order
-    players.sort();
 
     if (_SETTINGS_debug) {
         console.log(players);

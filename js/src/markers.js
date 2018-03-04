@@ -219,8 +219,31 @@ var types = {
     DollarSignSquared : {id: 434}
 };
 
+var blipCss = `.blip {
+    background: url("${_MAP_currentUri}${_MAP_iconURL}blips_texturesheet.png");
+    background-size: ${1024/2}px ${1024/2}px;
+    display: inline-block;
+    width: ${customImageWidth}px;
+    height: ${customImageHeight}px;
+}`;
+
+function generateBlipControls(){
+    for(var blipName in types){
+        $("#blip-control-container").append(`<a id="blip_${blipName}_link" class="list-group-item d-inline-block collapsed blip-enabled" href="#"><span class="blip blip-${blipName}"></span></a>`);
+
+        if(_SETTINGS_debug){
+            console.log("Added ahref for " + blipName);
+        }
+        
+    }
+}
+
 function generateBlipShit(){
     var currentX = 0, currentY = 0, currentId = 0;
+
+    var previousLeft = 0, previousTop = 0;
+    var linePadding = 0;
+
     for(var blipName in types){
         var blip = types[blipName];
 
@@ -248,7 +271,20 @@ function generateBlipShit(){
             scaledSize: new google.maps.Size( 1024/2,1024/2 ),
             origin: new google.maps.Point( customImageWidth * currentX , customImageHeight * currentY ),
         };
+
+        // CSS GENERATOR FOR BLIP ICONS IN HTML
+        // Just add the class "blip blip-<NAME>" to the element for blip icons
+        // e.g. <span class="blip blip-Standard"> for a Standard blip
+        var left = (currentX * customImageWidth) + linePadding; // 0 = padding between images
+        var top = (currentY * customImageHeight) + linePadding; // 0 = padding
+
+        // For styling spans and shit
+        blipCss += `.blip-${blipName} { background-position: -${left}px -${top}px }
+`;
     }
+
+    $("head").append(`<style>${blipCss}</style>`);
+    setTimeout(generateBlipControls, 50);
 }
 
-generateBlipShit();
+setTimeout(generateBlipShit, 50);

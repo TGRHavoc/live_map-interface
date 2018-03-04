@@ -2,28 +2,110 @@ Changelog
 =========
 
 
-v2.2.6 (24-11-2017)
+v2.2.8 (04-03-2018)
 -------------------
+
+New
+~~~
+- Added overlays. [Jordan Dalton]
+
+  Overlays, Overlays, Overlays!
+
+  So, the map images now have a street overlay folder that is, well, overlayed onto the over images. Woo. So, now you don't need to send the street names with the player data.. Well, if you still want that you can.
+
+  Just make sure to download the latest image release, and pop them into your map folder.
+- Add dynamic blip controls. [Jordan Dalton]
+
+  Blip controls are now created and popped into the right div when the webapp is navigated to.
+
+  Still need to implement the actual behaviour.
+- Add version to title. [Jordan Dalton]
+
+  The webapp now displays the current version next to it's name. E.g. "Live Map v2.2.7"
+- Add temporary favicon. [Jordan Dalton]
+
+  Added a temp favicon for the webpage.
+- Add dynamic blip CSS. [Jordan Dalton]
+
+  Blip images for use in HTML is dynamically created in the generateBlipShit function in "markers.js". Since there's a load of blips, I felt dynamically creating them would be better than sitting down for two hours and manually putting them in. It doesn't take into account the other marker types (yet).
 
 Changes
 ~~~~~~~
-- Update stuff to use new alerts. [Jordan Dalton]
+- Update to latest development. [Jordan Dalton]
 
-  Socket errors are now displayed in a alert (if debug is abled).
+  I can't remember what I changed but, something has so...
+- Update dropdown CSS. [Jordan Dalton]
 
-  If the interface gets an error when trying to get blips, it's shown in an error.
-- Update update system. [Jordan Dalton]
+  Dropdowns now comply with the dark theme
+- Update sidebar to be more mobile friendly. [Jordan Dalton]
 
-  Update system now uses the new alert system. I think it looks nicer.
+  Before the sidebar wasn't very nice on smaller devices such as mobiles. This change should fix this. This also means that the map takes up the full webpage and users need to click the "Hide/Show Controls" button before they can see the controls.
+- Update alerts. [Jordan Dalton]
+
+  Alerts can now be scrolled though
+
+Fix
+~~~
+- Fixed map background. [Jordan Dalton]
+
+  Background for the map now changed with the map instead of staying the same colour.
+- Fixed alert holder width. [Jordan Dalton]
+
+  The new alert holder would cut off alerts on smaller screens. Should be fixed now.
 
 Other
 ~~~~~
+- Removed servers.php. [Jordan Dalton]
+
+  The server array is now in the config.
+
+
+v2.2.7 (13-12-2017)
+-------------------
+
+New
+~~~
+- Add server selection. [Jordan Dalton]
+
+  Users can now select a server to view, if you have multiple servers to show.
+
+  I will update the readme to reflect these changes but, the easiest way to get this working is to add a empty array to the servers file with a name of your choice.
+
+Changes
+~~~~~~~
+- Update changelog. [Jordan Dalton]
+- Update to v2.2.7. [Jordan Dalton]
+- Update readme. [Jordan Dalton]
+- Update navbar. [Jordan Dalton]
+
+  Navbar now has stuff in it... Well, it _will_ do when I add them.
+- Update style. [Jordan Dalton]
+
+  Bootstrap 4 was released so, I thought I'd give it a try. With this, I've had to update the style of the interface.
+
+  The interface is now fully dark. This means the navigation elements (mainly the sidebar and navbar) is now dark.
+
+  Labels have changed... Well, bootstrap have renamed them to "badges" so, I've been forced to call them the same.
+
+  I've re-done the sidebar so, it no longer uses lists. It's just plain 'ol links.
+
+  Alerts are now just a solid color instead of a gradient.. Ew, who likes gradients anyways?
+
+Fix
+~~~
+- Fixed socket label not using bootstrap 4. [Jordan Dalton]
+
+  Socket label was updated to "badge" as per the new bootstrap system.
+
+
+v2.2.6 (24-11-2017)
+-------------------
+
+New
+~~~
 - Added map type for postcode map. [Jordan Dalton]
 
   As soon as davwheat sends me the map, I will upload the images. This update just gets the interface for said images.
-- Change console.debug to console.log. [Jordan Dalton]
-
-  debug doesn't seem to want to work for me so, I've reverted them to logs.
 - Add "alerter" [Jordan Dalton]
 
   A JavaScript file to help easily create alerts from Bootstrap.
@@ -33,19 +115,34 @@ Other
 
   Bootstrap lib has been added to allow for alerts.
 
+Changes
+~~~~~~~
+- Update to v2.2.6. [Jordan Dalton]
+- Update stuff to use new alerts. [Jordan Dalton]
+
+  Socket errors are now displayed in a alert (if debug is abled).
+
+  If the interface gets an error when trying to get blips, it's shown in an error.
+- Update update system. [Jordan Dalton]
+
+  Update system now uses the new alert system. I think it looks nicer.
+- Change console.debug to console.log. [Jordan Dalton]
+
+  debug doesn't seem to want to work for me so, I've reverted them to logs.
+
 
 v2.2.5 (23-11-2017)
 -------------------
 
-Changes
-~~~~~~~
-- Update to v2.2.5. [Jordan Dalton]
-
-Other
-~~~~~
+New
+~~~
 - Add player names now sorted. [Jordan Dalton]
 
   Player names are now sorted in the drop down menu by their "name" attribute. This mean "aaa" will appear at the top and, "zzz" will appear at the bottom (woo).
+
+Changes
+~~~~~~~
+- Update to v2.2.5. [Jordan Dalton]
 
 
 v2.2.4 (22-11-2017)
@@ -80,16 +177,19 @@ Other
 v2.2.2 (20-11-2017)
 -------------------
 
+New
+~~~
+- Added debug setting. [Antony Cook]
+
 Changes
 ~~~~~~~
 - Update to v2.2.2. [Jordan Dalton]
+- Changes boolean checks to use json_encode. [Antony Cook]
 
 Other
 ~~~~~
-- Added debug setting. [Antony Cook]
 - Identifying information is no longer displayed to the client when set
   to false. [Antony Cook]
-- Changes boolean checks to use json_encode. [Antony Cook]
 
 
 v2.2.1 (02-11-2017)
@@ -99,8 +199,8 @@ Changes
 ~~~~~~~
 - Update changelog. [Jordan Dalton]
 
-Other
-~~~~~
+Fix
+~~~
 - Fix #8 "Show blips toggle breaks" [Jordan Dalton]
 
   The toggle was using the old structure for the blips, forgot to update it. Now it works :)
@@ -108,6 +208,12 @@ Other
 
 v2.2.0 (30-10-2017)
 -------------------
+
+New
+~~~
+- Add blip socket commands. [Jordan Dalton]
+
+  Blips can now be added/updated and removed from the map from the socket server.
 
 Changes
 ~~~~~~~
@@ -137,9 +243,6 @@ Changes
 
 Other
 ~~~~~
-- Add blip socket commands. [Jordan Dalton]
-
-  Blips can now be added/updated and removed from the map from the socket server.
 - Revert "Update index.php" [Jordan Dalton]
 
   This reverts commit c156139761328f13f472d0fbc3631e8f872d485a.
@@ -165,6 +268,9 @@ v2.1.2 (20-10-2017)
 Changes
 ~~~~~~~
 - Update update_checker. [Jordan Dalton]
+- Changed readme extension. [Jordan Dalton]
+
+  Github wouldn't render it correctly without it.
 
 Fix
 ~~~
@@ -172,22 +278,12 @@ Fix
 
   Setting a variable to false in the config would screw up the interface... I hate PHP
 
-Other
-~~~~~
-- Changed readme extension. [Jordan Dalton]
-
-  Github wouldn't render it correctly without it.
-
 
 v2.1.1 (20-10-2017)
 -------------------
 
-Changes
-~~~~~~~
-- Update changelog. [Jordan Dalton]
-
-Other
-~~~~~
+New
+~~~
 - Add README. [Jordan Dalton]
 
   Added a README to hopefully help new users figure out how to use this.
@@ -205,6 +301,13 @@ Other
 - Add license. [Jordan Dalton]
 
   Added a license to the files and such. Get this bitch ready for release.
+
+Changes
+~~~~~~~
+- Update changelog. [Jordan Dalton]
+
+Other
+~~~~~
 - Removed echos. [Jordan Dalton]
 
   Left some echos in the PHP code from testing... They've been removed now.
@@ -213,23 +316,30 @@ Other
 v2.1.0 (20-10-2017)
 -------------------
 
-Changes
-~~~~~~~
-- Update how you configure the webapp. [Jordan Dalton]
-
-  All configuration stuff is now inside "utils/config.php".
-
-Other
-~~~~~
+New
+~~~
 - Added parameter parsing. [Jordan Dalton]
 
   The interface now has parameters!!! Woo 🎊🎊
 
   All configurable variables are inside the `utils/config.php` file :)
 
+Changes
+~~~~~~~
+- Update how you configure the webapp. [Jordan Dalton]
+
+  All configuration stuff is now inside "utils/config.php".
+
 
 v2.0.1 (22-09-2017)
 -------------------
+
+New
+~~~
+- Add .editorconfig. [AciD]
+
+  - Added `.editorconfig` to standardize code formatting
+  - Fixed formatting of neccesary files
 
 Changes
 ~~~~~~~
@@ -247,16 +357,21 @@ Fix
 
   There was some issues when using the minifier ($debug = false). They were caused by missing semicolons (don't ask). So, now minifying should work like a charm.
 
-Other
-~~~~~
-- Add .editorconfig. [AciD]
-
-  - Added `.editorconfig` to standardize code formatting
-  - Fixed formatting of neccesary files
-
 
 v2.0.0 (20-09-2017)
 -------------------
+
+New
+~~~
+- Add ajax request for blip data. [Jordan Dalton]
+
+  Blips are not gotten from the server via ajax request to the URL that is set by the user.
+- Added Google hack. [Jordan Dalton]
+
+  This allows anyone to run the live map without having to get an API  key from Google (wohoo, freedom)
+- Added runtime minifier. [Jordan Dalton]
+
+  If "debug" is set to false in the index, the minifier script will minify the css and js code and insert it into the HTML page when it's requested (yey).
 
 Changes
 ~~~~~~~
@@ -275,9 +390,6 @@ Fix
 
 Other
 ~~~~~
-- Add ajax request for blip data. [Jordan Dalton]
-
-  Blips are not gotten from the server via ajax request to the URL that is set by the user.
 - Minor changes. [Jordan Dalton]
 
   Removed whitespace infront of a player's name.
@@ -288,70 +400,17 @@ Other
   Holy fuck.. This took a lot of manual labour just to type out the blips the map can use :(
 
   Anyways, the MarkerTypes should now be generated when the page is loaded, saves on hardcoding each and every blip (there's hundereds) plus, it should allow for people to easily change the sprite sheet if they want.
-- Added Google hack. [Jordan Dalton]
-
-  This allows anyone to run the live map without having to get an API  key from Google (wohoo, freedom)
-- Added runtime minifier. [Jordan Dalton]
-
-  If "debug" is set to false in the index, the minifier script will minify the css and js code and insert it into the HTML page when it's requested (yey).
 
 
 v0.1 (24-05-2017)
 -----------------
 
-Changes
-~~~~~~~
-- Update to use minified bootstrap. [Jordan Dalton]
-- Update minified javascript files. [Jordan Dalton]
-
-  Minified javascript files have been updated to the latest version
-- Update socket to use player identifiers. [Jordan Dalton]
-
-  Localcache now uses the player identifier which, should be more unique than player names.
-- Update socket url to identityrp. [Jordan Dalton]
-
-  App now uses the identityrp secure websocket
-- Update jail2 location. [Jordan Dalton]
-
-  "jail2" was previously being rendered to a plane icon
-- Update websocket to use SSL. [Jordan Dalton]
-- Update UI. [Jordan Dalton]
-
-  Updated the UI and changed some stuff to make the app run a bit better.
-- Update script tags in index to show previous changes. [Jordan Dalton]
-- Update tile handling. [Jordan Dalton]
-
-  Map can now let user's pan anywhere, showing them the map again. Before the map would just disapear when panned too far.
-
-Fix
+New
 ~~~
-- Fixed hiding blips hiding players and added vehicle blips. [Jordan
-  Dalton]
-
-  Before, when hiding all blips the player blips would also be hidden. They should now be shown when other blips are hidden.
-
-  When a player enters a vehicle, their blip changes to the appropriate icon and the vehicle name is displayed.
-- Fixed websocket. [Jordan Dalton]
-
-  Apparently I committed a change that shouldn't have been committed... This fixes that commit.
-
-Other
-~~~~~
-- Remove player in localcache. [Jordan Dalton]
-
-  Wasn't really using it anyways..
-- Fix HTML syntax errors. [Jordan Dalton]
-
-  Had some small syntax errors, they didin't break anything but there was some errors in console.
 - Add local jquery file back and various updates. [Jordan Dalton]
 
   I must have fucked something up last time I added the jquery js file.. It works now so, I've added it back.
   I've also moved the control functions into their own file
-- Apparently I can't use a local JQuery file... FML. [Jordan Dalton]
-- I need to pay attention more.. [Jordan Dalton]
-- I'm tired. [Jordan Dalton]
-
-  Been working all night..
 - Add player tracking. [Jordan Dalton]
 
   Users can now track players on the server.. Stalkers!
@@ -369,14 +428,7 @@ Other
 
   Blips can now be toggled on and off. When off, only the player markers should be shown.
 - Added link to IdentityRP. [Jordan Dalton]
-- Various fixes and changes. [Jordan Dalton]
 - Add favicon. [Jordan Dalton]
-- Remove images/map. [Jordan Dalton]
-
-  Removed the image files..
-- Moved unminified files to js/src. [Jordan Dalton]
-
-  Unminified files are now in their own folder and should be used when developing.
 - Add minified markers file. [Jordan Dalton]
 
   I think minified files are loaded quicker and the markers file is big so, it's now minified.
@@ -429,5 +481,62 @@ Other
 - Add icons. [Jordan Dalton]
 
   Icons to show on the map have been added.
+
+Changes
+~~~~~~~
+- Update to use minified bootstrap. [Jordan Dalton]
+- Update minified javascript files. [Jordan Dalton]
+
+  Minified javascript files have been updated to the latest version
+- Update socket to use player identifiers. [Jordan Dalton]
+
+  Localcache now uses the player identifier which, should be more unique than player names.
+- Update socket url to identityrp. [Jordan Dalton]
+
+  App now uses the identityrp secure websocket
+- Update jail2 location. [Jordan Dalton]
+
+  "jail2" was previously being rendered to a plane icon
+- Update websocket to use SSL. [Jordan Dalton]
+- Update UI. [Jordan Dalton]
+
+  Updated the UI and changed some stuff to make the app run a bit better.
+- Update script tags in index to show previous changes. [Jordan Dalton]
+- Update tile handling. [Jordan Dalton]
+
+  Map can now let user's pan anywhere, showing them the map again. Before the map would just disapear when panned too far.
+
+Fix
+~~~
+- Fixed hiding blips hiding players and added vehicle blips. [Jordan
+  Dalton]
+
+  Before, when hiding all blips the player blips would also be hidden. They should now be shown when other blips are hidden.
+
+  When a player enters a vehicle, their blip changes to the appropriate icon and the vehicle name is displayed.
+- Fix HTML syntax errors. [Jordan Dalton]
+
+  Had some small syntax errors, they didin't break anything but there was some errors in console.
+- Fixed websocket. [Jordan Dalton]
+
+  Apparently I committed a change that shouldn't have been committed... This fixes that commit.
+
+Other
+~~~~~
+- Remove player in localcache. [Jordan Dalton]
+
+  Wasn't really using it anyways..
+- Apparently I can't use a local JQuery file... FML. [Jordan Dalton]
+- I need to pay attention more.. [Jordan Dalton]
+- I'm tired. [Jordan Dalton]
+
+  Been working all night..
+- Various fixes and changes. [Jordan Dalton]
+- Remove images/map. [Jordan Dalton]
+
+  Removed the image files..
+- Moved unminified files to js/src. [Jordan Dalton]
+
+  Unminified files are now in their own folder and should be used when developing.
 
 

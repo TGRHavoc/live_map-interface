@@ -22,7 +22,7 @@ function toggleBlips(){
 
         for(var spriteId in _blips){
             var blipArray = _blips[spriteId];
-            
+
             for(var i in blipArray){
                 var blip = blipArray[i];
 
@@ -39,6 +39,17 @@ function toggleBlips(){
 $(document).ready(function(){
     globalInit();
     connect();
+
+
+    $("#overlaySelect").on("change", function(){
+        if(this.value == -1){
+            map.overlayMapTypes.setAt(0,null);
+        }else{
+            if(_overlays[this.value] != undefined){
+                map.overlayMapTypes.setAt(0, _overlays[this.value]);
+            }
+        }
+    });
 
     $("#playerSelect").on("change", function(){
         if (this.value == ""){
@@ -66,15 +77,15 @@ $(document).ready(function(){
         //webSocket.send("getBlips");
         toggleBlips();
 
-        $("#blips_enabled").removeClass("label-success").removeClass("label-danger")
-            .addClass( _showBlips ? "label-success" : "label-danger")
+        $("#blips_enabled").removeClass("badge-success").removeClass("badge-danger")
+            .addClass( _showBlips ? "badge-success" : "badge-danger")
             .text(_showBlips ? "on" : "off");
     });
 
     $("#reconnect").click(function(e){
         e.preventDefault();
 
-        $("#connection").removeClass("label-success").removeClass("label-danger").addClass("label-warning").text("reconnecting");
+        $("#connection").removeClass("badge-success").removeClass("badge-danger").addClass("badge-warning").text("reconnecting");
 
         if(webSocket != undefined || webSocket != null){
             webSocket.close();

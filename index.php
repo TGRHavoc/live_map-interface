@@ -26,11 +26,45 @@
 	require_once("utils/config.php");
 	require_once("utils/params.php");
 	require_once("utils/update_checker.php");
+	//require_once("utils/servers.php");
 
 	Update::getCurrentVersion();
 
 	$config = Config::getConfig();
 	$parser = ParamParser::getParser();
+
+	if(ISSET($_GET["server"])){
+		$name = $_GET["server"];
+
+		if(array_key_exists($name, Config::$servers)){
+			$srv = Config::$servers[$name];
+		}else{
+			$name = key(Config::$servers); // get the first server in array
+			$srv = Config::$servers[$name];
+		}
+
+		unset($_GET["server"]);
+	}else{
+		$name = key(Config::$servers); // get the first server in array
+		$srv = Config::$servers[$name];
+	}
+
+	// Update the config for the new server
+	if(array_key_exists("ip", $srv)){
+		$config->fivemIP = $srv["ip"];
+	}
+	if(array_key_exists("fivemPort", $srv)){
+		$config->fivemPort = $srv["fivemPort"];
+	}
+	if(array_key_exists("socketPort", $srv)){
+		$config->socketPort = $srv["socketPort"];
+	}
+	if(array_key_exists("liveMapName", $srv)){
+		$config->liveMapName = $srv["liveMapName"];
+	}
+
+	$config->currentServer = $name;
+
 ?>
 
 <html>
@@ -38,14 +72,15 @@
 	<meta charset="utf-8">
 	<title>Havoc's Live map</title>
 
-	<link href="https://identityrp.co.uk/assets/favicon-79hd8bjv.png" rel="shortcut icon">
+	<!-- TODO: Change to an actual favicon -->
+	<link href="data:image/x-icon;base64,AAABAAEAEBACAAAAAACwAAAAFgAAACgAAAAQAAAAIAAAAAEAAQAAAAAAQAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAHtRtAAAAAAAH4AAAD/AAABw4AAA4HAAAOBwAADgcAAA4HAAAOBwAADgcAAA4HAAAOBwAABw4AAAP8AAAB+AAAAAAAAD//wAA+B8AAPAPAADjxwAAx+MAAMfjAADH4wAAx+MAAMfjAADH4wAAx+MAAMfjAADjxwAA8A8AAPgfAAD//wAA" rel="icon" type="image/x-icon" />
 
 	<style type="text/css">
 	.gm-style .gm-style-iw{font-weight:300;font-size:13px;overflow:hidden}.gm-style .gm-iw{color:#2c2c2c}.gm-style .gm-iw b{font-weight:400}.gm-style .gm-iw a:link,.gm-style .gm-iw a:visited{color:#4272db;text-decoration:none}.gm-style .gm-iw a:hover{color:#4272db;text-decoration:underline}.gm-style .gm-iw .gm-title{font-weight:400;margin-bottom:1px}.gm-style .gm-iw .gm-basicinfo{line-height:18px;padding-bottom:12px}.gm-style .gm-iw .gm-website{padding-top:6px}.gm-style .gm-iw .gm-photos{padding-bottom:8px;-ms-user-select:none;-moz-user-select:none;-webkit-user-select:none}.gm-style .gm-iw .gm-sv,.gm-style .gm-iw .gm-ph{cursor:pointer;height:50px;width:100px;position:relative;overflow:hidden}.gm-style .gm-iw .gm-sv{padding-right:4px}.gm-style .gm-iw .gm-wsv{cursor:pointer;position:relative;overflow:hidden}.gm-style .gm-iw .gm-sv-label,.gm-style .gm-iw .gm-ph-label{cursor:pointer;position:absolute;bottom:6px;color:#fff;font-weight:400;text-shadow:rgba(0,0,0,0.7) 0 1px 4px;font-size:12px}.gm-style .gm-iw .gm-stars-b,.gm-style .gm-iw .gm-stars-f{height:13px;font-size:0}.gm-style .gm-iw .gm-stars-b{position:relative;background-position:0 0;width:65px;top:3px;margin:0 5px}.gm-style .gm-iw .gm-rev{line-height:20px;-ms-user-select:none;-moz-user-select:none;-webkit-user-select:none}.gm-style.gm-china .gm-iw .gm-rev{display:none}.gm-style .gm-iw .gm-numeric-rev{font-size:16px;color:#dd4b39;font-weight:400}.gm-style .gm-iw.gm-transit{margin-left:15px}.gm-style .gm-iw.gm-transit td{vertical-align:top}.gm-style .gm-iw.gm-transit .gm-time{white-space:nowrap;color:#676767;font-weight:bold}.gm-style .gm-iw.gm-transit img{width:15px;height:15px;margin:1px 5px 0 -20px;float:left}.gm-iw {text-align:left;}.gm-iw .gm-numeric-rev {float:left;}.gm-iw .gm-photos,.gm-iw .gm-rev {direction:ltr;}.gm-iw .gm-stars-f, .gm-iw .gm-stars-b {background:url("http://maps.gstatic.com/mapfiles/api-3/images/review_stars.png") no-repeat;background-size: 65px 26px;float:left;}.gm-iw .gm-stars-f {background-position:left -13px;}.gm-iw .gm-sv-label,.gm-iw .gm-ph-label {left: 4px;}
 
 	.gm-style .gm-style-mtc label,.gm-style .gm-style-mtc div{font-weight:400}
 
-	@media print {  .gm-style .gmnoprint, .gmnoprint {    display:none  }}@media screen {  .gm-style .gmnoscreen, .gmnoscreen {    display:none  }}
+	@media print {  .gm-style .gmnoprint, .gmnoprint { display:none }}@media screen {  .gm-style .gmnoscreen, .gmnoscreen {    display:none  }}
 
 	.gm-style {
 		font: 400 11px Roboto, Arial, sans-serif;
@@ -70,9 +105,13 @@
 	?>
 
 	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
+	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
+
 	<script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
-	
+
 	<script>
 
 	///////////////////////////////////////////////////////////////////////////
@@ -80,6 +119,8 @@
 	///////////////////////////////////////////////////////////////////////////
 	var _MAP_tileURL = "<?php echo $config->mapTileUrl; ?>";
 	var _MAP_iconURL = "<?php echo $config->mapIconUrl; ?>";
+
+	var _MAP_currentUri = "<?php echo $_SERVER["REQUEST_URI"]; ?>";
 
 	// Sets whether it should showSets whether it should show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
 	var _MAP_atlasMap = <?php echo json_encode($config->atlasEnabled); ?>;
@@ -143,75 +184,140 @@
 
 </head>
 <body>
-	<nav class="navbar navbar-default-invert navbar-static-top" style="margin: 0;">
+
+	<nav class="navbar navbar-dark navbar-expand-md">
 		<!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo -->
-		<div class="container-fluid">
-			<div class="container">
-				<div class="navbar-brand" style="padding: 10px 15px">
-					<!-- You can change this shit -->
-					<a href="https://github.com/TGRHavoc/">
-						<img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
+		<div class="container">
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="navbar-brand" href="https://github.com/TGRHavoc/">
+					<img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
+					Live Map v<?php echo Update::$version ?>
+			</a>
+
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<!-- Servers -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Select a server
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<?php
+								$srvs = Config::$servers;
+								foreach ($srvs as $key => $value) {
+									$uri = urlencode($key);
+									echo "<a class='dropdown-item' href='?server=$uri'>$key</a>";
+								}
+							?>
+						</div>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" role="button" id="sidebarTooggle" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-label="Toggle sidebar" aria-expanded="false">
+							Hide/Show Controls
+						</a>
+					</li>
+
+
+					<li class="nv-item">
+						<a class="nav-link" role="button" id="blipToggle" data-toggle="collapse" data-target="#blip-filter-dropdown" aria-controls="blip-filter-dropdown" aria-label="Toggle blip controls" aria-expanded="false">
+							Blip controls
+						</a>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+
+	</nav>
+
+	<div id="wrapper" class="container-fluid">
+		<div id="control-wrapper" >
+			<div id="sidebar" class="custom-menu col-md-2 col-sm-6 col-xs-12 float-left collapse">
+				<div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
+
+					<a class="nav-header">Controls</a>
+
+					<a class="list-group-item d-inline-block collapsed" id="refreshBlips" href="#">
+						<span class="d-md-inline">Refresh Blips</span>
 					</a>
+
+					<a id="showBlips" href="#" class="list-group-item d-inline-block collapsed">
+						<span class="d-md-inline">Show Blips</span>
+						<span id="blips_enabled" class="badge badge-pill badge-success pull-right">on</span>
+					</a>
+
+					<a class="list-group-item d-inline-block collapsed">
+						<span class="d-md-inline">Map overlay</span>
+
+						<select id="overlaySelect" class="input-large form-control pull-right">
+							<option value="-1">None</option>
+						</select>
+					</a>
+
+					  <!--
+					  <li>
+						  <a id="toggleLive" href="#">Live update <span id="live_enabled" class="badge badge-danger pull-right">off</span></a>
+					  </li>
+					  -->
+					<a id="reconnect" href="#" class="list-group-item d-inline-block collapsed">
+						<span class="d-md-inline">Connect</span>
+						<span id="connection" class="badge badge-pill badge-danger pull-right">disconnected</span>
+					</a>
+
+					<a class="list-group-item d-inline-block collapsed">
+						<span class="d-md-inline">Track Player</span>
+
+						<select id="playerSelect" class="input-large form-control pull-right">
+							<option></option>
+						</select>
+					</a>
+				</div>
+
+				<div class="list-group border-0 card text-center text-md-left" >
+					<a class="nav-header">Information</a>
+
+					<a class="list-group-item d-inline-block collapsed">Currently viewing:
+						<p id="server_name" style="white-space: normal; color: #17A2B8">
+							<?php echo $config->currentServer; ?>
+						</p>
+					</a>
+
+					<a class="list-group-item d-inline-block collapsed">Blips loaded
+						<span id="blip_count" class="badge badge-pill badge-info pull-right">0</span>
+					</a>
+
+					<a class="list-group-item d-inline-block collapsed">Online players
+						<span id="player_count" class="badge badge-pill badge-info pull-right">0</span>
+					</a>
+				</div>
+
+				<div class="list-group border-0 card text-center text-md-left" style="margin-top: 10px;">
+					<p style="text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
+
+					<div id="alert-holder" class="list-group-item d-inline-block collapsed" style="white-space: normal; border: none; overflow-y: scroll; max-height: 20vh; width: 100%; /* Remove scroll bar */">
+					</div>
+				</div>
+			</div>
+
+			<div id="blip-filter-dropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12 collapse">
+				<div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
+
+					<a class="nav-header">Blip Controls</a>
+
+					<div id="blip-control-container" class="row">
+
+					</div>
+
 				</div>
 			</div>
 		</div>
-	</nav>
 
-	<div id="wrapper" class="container">
-		<div id="map-holder" style="position: absolute">
+		<main id="map-holder" class="col-12 main" >
 			<div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);"></div>
-		</div>
-
-		<div id="side-bar" class="sidebar-nav">
-			<div class="well" style="padding: 8px 0;">
-				<ul class="nav nav-list">
-				  <li class="nav-header">Controls</li>
-
-				  <li>
-					  <a id="refreshBlips" href="#">Refresh Blips</a>
-				  </li>
-
-				  <li>
-					  <a id="showBlips" href="#">Show Blips <span id="blips_enabled" class="label label-success pull-right">on</span></a>
-				  </li>
-
-				  <!--
-				  <li>
-					  <a id="toggleLive" href="#">Live update <span id="live_enabled" class="label label-danger pull-right">off</span></a>
-				  </li>
-				  -->
-				  <li>
-					  <a id="reconnect" href="#">Connect <span id="connection" class="label label-danger pull-right">disconnected</span></a>
-				  </li>
-
-				  <li id="socket_error" class="label label-danger"></li>
-
-				  <li style="height: 50px;">
-					  <a>
-						  Track Player
-						  <select id="playerSelect" class="input-large form-control pull-right" style="width: 65%">
-							  <option></option>
-						  </select>
-					  </a>
-				  </li>
-
-				</ul>
-
-				<ul class="nav nav-list" style="margin-top: 10px;">
-				  <li class="nav-header">Information</li>
-
-				  <li><a>Blips loaded <span id="blip_count" class="label label-info pull-right">0</span></a></li>
-
-				  <li><a>Online players <span id="player_count" class="label label-info pull-right">0</span></a></li>
-				</ul>
-			</div>
-
-			<p style="color: black; text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
-
-			<div id="alert-holder" class="position: absolute; width: 80%; z-index: 1">
-			</div>
-
-		</div>
+		</main>
 	</div>
 
 <?php
