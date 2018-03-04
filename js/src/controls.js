@@ -40,6 +40,17 @@ $(document).ready(function(){
     globalInit();
     connect();
 
+
+    $("#overlaySelect").on("change", function(){
+        if(this.value == -1){
+            map.overlayMapTypes.setAt(0,null);
+        }else{
+            if(_overlays[this.value] != undefined){
+                map.overlayMapTypes.setAt(0, _overlays[this.value]);
+            }
+        }
+    });
+
     $("#playerSelect").on("change", function(){
         if (this.value == ""){
             _trackPlayer = null;

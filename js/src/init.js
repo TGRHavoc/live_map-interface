@@ -24,11 +24,18 @@ var _showBlips = true;
 var _isConnected = false;
 var _trackPlayer = null;
 var playerCount = 0;
+var _overlays = [];
 
 function globalInit() {
     mapInit("map-canvas");
     initPage();
     initBlips();
+
+    for (var i = 0; i < _overlays.length; i++) {
+        var o = _overlays[i];
+        $("#overlaySelect").append(`<option value="${i}">${o.name}</option>`);
+    }
+
 }
 
 function initPage() {
