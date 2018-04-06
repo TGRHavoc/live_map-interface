@@ -2,8 +2,22 @@ Changelog
 =========
 
 
+v2.2.11 (06-04-2018)
+--------------------
+
+Fix
+~~~
+- Fixed update alerts. [Jordan Dalton]
+
+  Update alerts were still using the old alert system. Now it uses the new one.
+
+
 v2.2.10 (06-04-2018)
 --------------------
+
+Changes
+~~~~~~~
+- Update to v2.2.10. [Jordan Dalton]
 
 Fix
 ~~~
