@@ -28,7 +28,7 @@ class Config{
 
     // Set to false to enable the miinified versions of JS and CSS files
     // that should speed up content delivery on production websites
-    public $debug = false;
+    public $debug = true;
 
     // An array of servers that you want the interface to be available for
     public static $servers = array(
