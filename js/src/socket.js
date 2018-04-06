@@ -139,7 +139,11 @@ function onError(e) {
     //$("#socket_error").text(reason);
     console.error("Socket error: " + reason);
     if(_SETTINGS_debug){
-        createAlert("warning", "Socket error", ["There was an error with the socket connnection", reason], 2);
+        //createAlert("warning", "Socket error", ["There was an error with the socket connnection", reason], 2);
+        createAlert({
+            title: "<strong>Socket error!</strong>",
+            message: `There was an error with the socket connection: ${reason}`
+        });
     }
 }
 

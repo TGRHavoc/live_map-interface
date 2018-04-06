@@ -116,7 +116,11 @@ function blipSuccess(data, textStatus){
     if (data.error){
         //Do something about the error i guess.
         console.error("Error: " + data.error);
-        createAlert("warning", "Error getting blips!", data.error);
+        //createAlert("warning", "Error getting blips!", data.error);
+        createAlert({
+            title: "<strong>Error getting blips!</strong>",
+            message: data.error
+        }, {delay: 0});
         return;
     }
 
@@ -146,6 +150,12 @@ function blipSuccess(data, textStatus){
 
 function blipError( textStatus, errorThrown){
     console.error("Error \"" + JSON.stringify(textStatus) + "\": " + errorThrown);
+
+    createAlert({
+        title: "<strong>Error getting blips!</strong>",
+        message: "Maybe the server is down or, the config is setup incorrectly."
+    });
+
 }
 
 function initBlips(){
