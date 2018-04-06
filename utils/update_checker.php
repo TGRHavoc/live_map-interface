@@ -24,22 +24,9 @@ class Update{
     }
 
     public static function alertJs(){
-        $arr = array(
-            sprintf("An update is available (%s -> %s)", self::$version, self::$latestVer),
-            sprintf("Please download it <a href=\'%s\'>HERE</a>", self::$downloadUrl),
-        );
+        $jsArrayString = sprintf("An update is available (%s -> %s). Please download it <a style=\'color: #000;\' href=\'%s\'>HERE.</a>", self::$version, self::$latestVer, self::$downloadUrl);
 
-        // Dynamically create a array string for the above array
-        $jsArrayString = "[";
-        foreach ($arr as $key => $value) {
-            $jsArrayString .= "'%s'" . ($key == count($arr)-1 ? "" : ",");
-        }
-        $jsArrayString .= "]";
-
-        $jsArrayString = vsprintf($jsArrayString, $arr);
-
-        return "<script> createAlert('danger', 'Update available', " . $jsArrayString . "); </script>";
-
+        return "<script> createAlert({ title: 'Update available', message: '" . $jsArrayString . "'}, {type: 'danger', delay: 0}); </script>";
     }
 }
 
