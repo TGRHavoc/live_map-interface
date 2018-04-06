@@ -25,6 +25,7 @@ var _isConnected = false;
 var _trackPlayer = null;
 var playerCount = 0;
 var _overlays = [];
+var _disabledBlips = [];
 
 function globalInit() {
     mapInit("map-canvas");
