@@ -222,7 +222,7 @@ var types = {
 var nameToId = {};
 
 var blipCss = `.blip {
-    background: url("${_MAP_currentUri}${_MAP_iconURL}blips_texturesheet.png");
+    background: url("${_MAP_iconURL}blips_texturesheet.png");
     background-size: ${1024/2}px ${1024/2}px;
     display: inline-block;
     width: ${customImageWidth}px;
@@ -237,7 +237,7 @@ function generateBlipControls(){
             console.log("Added ahref for " + blipName);
         }
     }
-    
+
     // Events
     $(".blip-button-a").on("click", function(e){
         var ele = $(e.currentTarget);
