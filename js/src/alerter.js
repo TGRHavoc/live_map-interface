@@ -16,16 +16,6 @@
 //      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
-function makeid(len) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < len; i++){
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-}
-
 /*
     Creates an alert and displays it the user
 
@@ -33,7 +23,7 @@ function makeid(len) {
     title = Message to show in <strong> tags
     message = A string to show or, an array for multi-lined alert
 */
-function createAlert(type, title, message, fadeOut){
+function createAlert_DEPRECATED(type, title, message, fadeOut){
     if(type == undefined || type == null){
         type = "info";
     }
@@ -96,4 +86,57 @@ function createAlert(type, title, message, fadeOut){
             $(this).remove();
         });
     }
+}
+
+function createAlert(data, settings){
+    if(data == undefined || data == null){
+        console.error("Data needs to be set");
+        return;
+    }
+
+    if(typeof(data) == "string"){
+        var str = data;
+        data = {
+            message: str
+        };
+    }
+
+    if(typeof(data.icon) == "undefined"){
+        data.icon = "fas fa-exclamation-triangle";
+    }
+
+    if(typeof(data.title) == "undefined"){
+        data.title = "<strong>Warning!</strong>";
+    }
+
+    if(settings == undefined || settings == null || typeof(settings) != "object"){
+        settings = {
+            newsest_on_top: true,
+            placement: {
+                from: "bottom",
+                align: "left"
+            },
+            delay: 10000,
+            type: "warning"
+        };
+    }
+
+    // Defaults if they're not set
+    if(typeof(settings.placement) == "undefined"){
+        settings.placement = { from: "bottom", align: "left"};
+    }
+    if(typeof(settings.newsest_on_top) == "undefined"){
+        settings.newsest_on_top = true;
+    }
+    if(typeof(settings.delay) == "undefined"){
+        settings.delay = 5000;
+    }
+    if(typeof(settings.type) == "undefined"){
+        settings.type = "warning";
+    }
+
+    //console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(settings));
+    
+    return $.notify(data, settings);; // Incase I need this in future for shit like prgress bars or, if i need to update the alert
 }

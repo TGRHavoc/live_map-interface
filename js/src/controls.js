@@ -22,6 +22,15 @@ function toggleBlips(){
 
         for(var spriteId in _blips){
             var blipArray = _blips[spriteId];
+            //console.log("Disabled (" + spriteId + ")? " + _disabledBlips.includes(spriteId));
+
+            if(_disabledBlips.indexOf(spriteId) != -1){
+                if(_SETTINGS_debug){
+                    console.log("Blip " + spriteId + "'s are disabled..");
+                }
+                // If disabled, don't make a marker for it
+                continue;
+            }
 
             for(var i in blipArray){
                 var blip = blipArray[i];
@@ -93,4 +102,28 @@ $(document).ready(function(){
 
         connect();
     });
+
+    $("#toggle-all-blips").on("click", function(){
+        // Toggle the classes and add/remove the blipIds from the array
+        $("#blip-control-container").find("a").each(function(index, ele){
+            var ele = $(ele);
+            var blipId = ele.data("blipNumber").toString();
+
+            // Toggle blip
+            if(_disabledBlips.includes(blipId)){
+                // Already disabled, enable it
+                _disabledBlips.splice(_disabledBlips.indexOf(blipId), 1);
+                ele.removeClass("blip-disabled").addClass("blip-enabled");
+            }else{
+                // Enabled, disable it
+                _disabledBlips.push(blipId);
+                ele.removeClass("blip-enabled").addClass("blip-disabled");
+            }
+        });
+
+        // Now we can refresh the markers
+        clearAllMarkers();
+        toggleBlips();
+    });
+
 });
