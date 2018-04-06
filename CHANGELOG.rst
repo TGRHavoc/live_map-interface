@@ -2,6 +2,16 @@ Changelog
 =========
 
 
+v2.2.10 (06-04-2018)
+--------------------
+
+Fix
+~~~
+- Fixed blip icons not working on other servers. [Jordan Dalton]
+
+  When selecting another server, the URL for the blip icons would change to `/server?test+server/images/icons` which, is wrong.
+
+
 v2.2.9 (06-04-2018)
 -------------------
 
@@ -13,6 +23,7 @@ New
 
 Changes
 ~~~~~~~
+- Update to v2.2.9. [Jordan Dalton]
 - Update favicon. [Jordan Dalton]
 
   Favicon is now a nicer image that make sense. Taken from: https://www.freefavicon.com/freefavicons/objects/iconinfo/map-pin-152-195874.html
