@@ -2,6 +2,25 @@ Changelog
 =========
 
 
+v2.2.9 (06-04-2018)
+-------------------
+
+New
+~~~
+- Add blip controls. [Jordan Dalton]
+
+  Users can now toggle on/off the blips they want.
+
+Changes
+~~~~~~~
+- Update favicon. [Jordan Dalton]
+
+  Favicon is now a nicer image that make sense. Taken from: https://www.freefavicon.com/freefavicons/objects/iconinfo/map-pin-152-195874.html
+- Update alert system. [Jordan Dalton]
+
+  Alerts now use a library instead of the custom-built one. It's much better and smoother :P
+
+
 v2.2.8 (04-03-2018)
 -------------------
 
@@ -55,6 +74,11 @@ Fix
 
 Other
 ~~~~~
+- Removed street overlay.. [Jordan Dalton]
+
+  They didn't work.
+- Forgot to change the debug value back to false. [Jordan Dalton]
+- Upate to v2.2.8. [Jordan Dalton]
 - Removed servers.php. [Jordan Dalton]
 
   The server array is now in the config.
@@ -98,8 +122,8 @@ Fix
   Socket label was updated to "badge" as per the new bootstrap system.
 
 
-v2.2.6 (24-11-2017)
--------------------
+v0.2 (24-11-2017)
+-----------------
 
 New
 ~~~
