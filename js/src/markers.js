@@ -219,6 +219,8 @@ var types = {
     DollarSignSquared : {id: 434}
 };
 
+var nameToId = {};
+
 var blipCss = `.blip {
     background: url("${_MAP_currentUri}${_MAP_iconURL}blips_texturesheet.png");
     background-size: ${1024/2}px ${1024/2}px;
@@ -229,13 +231,34 @@ var blipCss = `.blip {
 
 function generateBlipControls(){
     for(var blipName in types){
-        $("#blip-control-container").append(`<a id="blip_${blipName}_link" class="list-group-item d-inline-block collapsed blip-enabled" href="#"><span class="blip blip-${blipName}"></span></a>`);
+        $("#blip-control-container").append(`<a data-blip-number="${nameToId[blipName]}" id="blip_${blipName}_link" class="blip-button-a list-group-item d-inline-block collapsed blip-enabled" href="#"><span class="blip blip-${blipName}"></span></a>`);
 
         if(_SETTINGS_debug){
             console.log("Added ahref for " + blipName);
         }
-        
     }
+    
+    // Events
+    $(".blip-button-a").on("click", function(e){
+        var ele = $(e.currentTarget);
+        var blipId = ele.data("blipNumber").toString();
+
+        // Toggle blip
+        if(_disabledBlips.includes(blipId)){
+            // Already disabled, enable it
+            _disabledBlips.splice(_disabledBlips.indexOf(blipId), 1);
+            ele.removeClass("blip-disabled").addClass("blip-enabled");
+        }else{
+            // Enabled, disable it
+            _disabledBlips.push(blipId);
+            ele.removeClass("blip-enabled").addClass("blip-disabled");
+        }
+
+        // Refresh blips (there's probably a faster way..)
+        clearAllMarkers();
+        toggleBlips();
+    });
+
 }
 
 function generateBlipShit(){
@@ -271,6 +294,8 @@ function generateBlipShit(){
             scaledSize: new google.maps.Size( 1024/2,1024/2 ),
             origin: new google.maps.Point( customImageWidth * currentX , customImageHeight * currentY ),
         };
+
+        nameToId[blipName] = currentId;
 
         // CSS GENERATOR FOR BLIP ICONS IN HTML
         // Just add the class "blip blip-<NAME>" to the element for blip icons

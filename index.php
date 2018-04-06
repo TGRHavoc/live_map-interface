@@ -297,7 +297,7 @@
             <div id="blip-filter-dropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12 collapse">
                 <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
 
-                    <a class="nav-header">Blip Controls</a>
+                    <a class="nav-header">Blip Controls <small id="toggle-all-blips" class="btn btn-sm btn-info">Toggle all</small></a>
 
                     <div id="blip-control-container" class="row">
 

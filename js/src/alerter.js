@@ -135,10 +135,8 @@ function createAlert(data, settings){
         settings.type = "warning";
     }
 
-    console.log(JSON.stringify(data));
-    console.log(JSON.stringify(settings));
-
-    var notif = $.notify(data, settings);
-
-    return notif; // Incase I need this in future for shit like prgress bars or, if i need to update the alert
+    //console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(settings));
+    
+    return $.notify(data, settings);; // Incase I need this in future for shit like prgress bars or, if i need to update the alert
 }
