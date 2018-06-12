@@ -118,7 +118,7 @@
     <script>
 
     ///////////////////////////////////////////////////////////////////////////
-    // PLEASE CHNAGE THE VAUES INSIDE THE CONFIG FILE
+    // PLEASE CHANGE THE VAUES INSIDE THE CONFIG FILE
     ///////////////////////////////////////////////////////////////////////////
     var _MAP_tileURL = "<?php echo $config->mapTileUrl; ?>";
     var _MAP_iconURL = "<?php echo $config->mapIconUrl; ?>";
