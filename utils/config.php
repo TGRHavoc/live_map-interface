@@ -62,6 +62,11 @@ class Config{
     // The directory that contains the folders for the map icons. Can be relative or a URL.
     // Make sure it has the trailing slash.
     public $mapIconUrl = "images/icons/";
+    
+    // This is optional but some maps display an error as Google is cracking down on API use
+    // If you don't add this, you might not be able to switch between the 4 map types
+    // Uncomment this if in use, else keep it commented!
+    // public $apikey = ""
 
     // Controls whether the atlas map is enabled or not
     // (WARNING: REQUIRES "atlas" TILE DIRECTORY INSIDE "mapTileUrl")
