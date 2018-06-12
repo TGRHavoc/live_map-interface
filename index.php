@@ -70,7 +70,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Havoc's Live map</title>
+    <title>Havoc's Live Map</title>
 
     <!-- Pin favicon from: https://www.freefavicon.com/freefavicons/objects/iconinfo/map-pin-152-195874.html -->
     <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP74zAv++Mwn/vjMMf74zDH++Mwm//jMCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD++c0d/vnNROPLnGDw4bRX/vnNQ/75zRkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFKwBThSsAQgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFLQABhSwAvIUsAKyGLgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhS0AYYUtAP+FLQD+hS0AUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGLgAAhi4AYYUtAPmFLQD/hS0A/4UtAPWGLgBVhi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACHLwABhi4AkoUuAP+MMQD/uEQA/7ZDAP+LMAD/hS4A/oYuAIONNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhzAAWoYvAP/DTQD//8Ay///mSP//5Uj//7ov/7dHAP+FLwD+hi8ASgAAAAAAAAAAAAAAAAAAAAAAAAAAiC0AAIYwAM2UNgD//888///pS///6Uv//+lL///pS///xjf/jTMA/4UwAL0AAAAAAAAAAAAAAAAAAAAAAAAAAIYxAAmGMAD66WQN///qTP//6Uz//+lM///pTP//6Uz//+pM/9NYCP+FMADxhTAAAwAAAAAAAAAAAAAAAAAAAACFMQALhTEA/PduE///6k3//+pN///qTf//6k3//+pN///qTf/iYg7/hTEA84MxAAMAAAAAAAAAAAAAAAAAAAAAhDEAAYQxANemQwH//+RK///qTf//6k3//+pN///qTf//30j/mjwA/4UxAMcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEMgBshDEA//93Gf//50z//+tO///rTv//5Ev/8W0V/4QxAP+EMgBbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgzIAA4MyAK+CMQD/tEwH//+AH///fh7/rUgF/4IxAP+BMQCggDEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDMgAEgjIAc4MyAOCDMgD+gzIA/oEyANyCMgBqgDEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+MAACgTIAFn4xABV/MQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+B8AAPgfAAD+fwAA/D8AAPw/AADwDwAA4AcAAOAHAADABwAAwAMAAMADAADABwAA4AcAAOAHAADwDwAA/D8AAA==" rel="icon" type="image/x-icon">
@@ -113,7 +113,7 @@
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-notify.min.js"></script>
 
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js<?php if (isset($config->apikey) { echo("?key=" . $config->apikey);} ?>"></script>
 
     <script>
 
@@ -155,6 +155,7 @@
     // Do not remove unless you know what you're doing (and you have a google api key)
     // Hack from https://stackoverflow.com/questions/38148097/google-maps-api-without-key/38809129#38809129
     // hack Google Maps to bypass API v3 key (needed since 22 June 2016 http://googlegeodevelopers.blogspot.com.es/2016/06/building-for-scale-updates-to-google.html)
+    <?php if (!isset($config->apikey) { ?>
     var target = document.head;
     var observer = new MutationObserver(function(mutations) {
         for (var i = 0; mutations[i]; ++i) { // notify when script to hack is added in HTML head
@@ -176,6 +177,7 @@
             }
         }
     });
+    <?php } ?>
     var config = { attributes: true, childList: true, characterData: true }
     observer.observe(target, config);
 
@@ -204,7 +206,7 @@
                     <!-- Servers -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select a server
+                            Select server...
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <?php
@@ -219,14 +221,14 @@
 
                     <li class="nav-item">
                         <a class="nav-link" role="button" id="sidebarTooggle" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-label="Toggle sidebar" aria-expanded="false">
-                            Hide/Show Controls
+                            Toggle Map Controls
                         </a>
                     </li>
 
 
                     <li class="nv-item">
                         <a class="nav-link" role="button" id="blipToggle" data-toggle="collapse" data-target="#blip-filter-dropdown" aria-controls="blip-filter-dropdown" aria-label="Toggle blip controls" aria-expanded="false">
-                            Blip controls
+                            Toggle Blip Controls
                         </a>
                     </li>
 
@@ -263,7 +265,7 @@
                     </a>
 
                     <a class="list-group-item d-inline-block collapsed">
-                        <span class="d-md-inline">Track Player</span>
+                        <span class="d-md-inline">Follow Player</span>
 
                         <select id="playerSelect" class="input-large form-control pull-right">
                             <option></option>
