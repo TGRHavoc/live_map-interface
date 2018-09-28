@@ -36,7 +36,13 @@ class Config{
             "ip" => "127.0.0.1", // The IP (if on something different to the one in the config)
             "fivemPort" => "30120", // The fivem port
             "socketPort" => "30121", // Set to the port that you set in the "socket_port" convar (if different to the one in the config)
-            "liveMapName" => "live_map" // Set to the resource's name (if different to the one in the config)
+            "liveMapName" => "live_map", // Set to the resource's name (if different to the one in the config)
+
+            "reverseProxy" => array(
+                "socketUrl" => "wss://some.server", // If we have a revers proxy server over at some.server that connects to the insecure fivemserver
+                "blipUrl" => "https://some.server/some_blips.json"
+            )
+
         )
     );
     // These values will only be used if, the array doesn't contain it's values.
@@ -52,6 +58,9 @@ class Config{
     // Set to the name of the "live_map" resourcee that is added to the FiveM server.
     // Note: If you change the folder name on the GTA server you NEED to change this
     public $liveMapName = "live_map";
+
+    // If you run a reverse proxy, this will be a little easier for you to point it to it.
+    public $reverseProxy = array();
 
     // These will be injected into the JS code to configure how the map works
 
@@ -102,7 +111,7 @@ class Config{
     * @return string The URL used to connect to the websocket server (e.g. "ws://127.0.0.1:30121")
     */
     public function socketUrl(){
-        return "ws://$this->fivemIP:$this->socketPort/";
+        return array_key_exists("socketUrl", $this->reverseProxy) ? $this->reverseProxy["socketUrl"] : "ws://$this->fivemIP:$this->socketPort/";
     }
 
     /**
@@ -111,7 +120,7 @@ class Config{
     * @return string The URL you can use to get the blips file (e.g. "http://127.0.0.1:30120/live_map/blips.json")
     */
     public function blipUrl(){
-        return $this->gtaServer() . $this->liveMapName . "/blips.json";
+        return array_key_exists("blipUrl", $this->reverseProxy) ? $this->reverseProxy["blipUrl"] : $this->gtaServer() . $this->liveMapName . "/blips.json";
     }
 
     private static $instance = NULL;
