@@ -62,6 +62,9 @@
     if(array_key_exists("liveMapName", $srv)){
         $config->liveMapName = $srv["liveMapName"];
     }
+    if(array_key_exists("reverseProxy", $srv)){
+        $config->reverseProxy = $srv["reverseProxy"];
+    }
 
     $config->currentServer = $name;
 
