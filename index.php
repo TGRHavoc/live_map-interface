@@ -224,7 +224,7 @@
                     </li>
 
 
-                    <li class="nv-item">
+                    <li class="nav-item">
                         <a class="nav-link" role="button" id="blipToggle" data-toggle="collapse" data-target="#blip-filter-dropdown" aria-controls="blip-filter-dropdown" aria-label="Toggle blip controls" aria-expanded="false">
                             Blip controls
                         </a>
