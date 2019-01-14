@@ -115,8 +115,10 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-notify.min.js"></script>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
 
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js"></script>
 
     <script>
 
@@ -154,39 +156,7 @@
     var _SETTINGS_debug = <?php echo json_encode($config->debug); ?>;
 
     var _SETTINGS_blipUrl = "<?php echo $config->blipUrl(); ?>";
-
-    // Do not remove unless you know what you're doing (and you have a google api key)
-    // Hack from https://stackoverflow.com/questions/38148097/google-maps-api-without-key/38809129#38809129
-    // hack Google Maps to bypass API v3 key (needed since 22 June 2016 http://googlegeodevelopers.blogspot.com.es/2016/06/building-for-scale-updates-to-google.html)
-    var target = document.head;
-    var observer = new MutationObserver(function(mutations) {
-        for (var i = 0; mutations[i]; ++i) { // notify when script to hack is added in HTML head
-            if (mutations[i].addedNodes[0].nodeName == "SCRIPT" && mutations[i].addedNodes[0].src.match(/\/AuthenticationService.Authenticate?/g)) {
-                var str = mutations[i].addedNodes[0].src.match(/[?&]callback=.*[&$]/g);
-                if (str) {
-                    if (str[0][str[0].length - 1] == '&') {
-                        str = str[0].substring(10, str[0].length - 1);
-                    } else {
-                        str = str[0].substring(10);
-                    }
-                    var split = str.split(".");
-                    var object = split[0];
-                    var method = split[1];
-                    window[object][method] = null; // remove censorship message function _xdc_._jmzdv6 (AJAX callback name "_jmzdv6" differs depending on URL)
-                    //window[object] = {}; // when we removed the complete object _xdc_, Google Maps tiles did not load when we moved the map with the mouse (no problem with OpenStreetMap)
-                }
-                observer.disconnect();
-            }
-        }
-    });
-    var config = { attributes: true, childList: true, characterData: true }
-    observer.observe(target, config);
-
     </script>
-
-    <?php
-        Minifier::printFirstJs($config->debug);
-    ?>
 
 </head>
 <body>
@@ -314,16 +284,59 @@
             <div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);"></div>
         </main>
     </div>
+    
+    <script src="js/src/utils.js"></script>
+    <script>
+    var _MAP_currentMarker;
+    var _MAP_markerStore;
+    var _MAP_map;
 
-<?php
-    Minifier::printLastJs($config->debug);
-    $parser->printJsForParams();
+    /*
+    var greenIcon = L.icon({
+		iconUrl: 'images/icons/debug.png',
 
-    if(!Update::latestVersion()){
-        echo Update::alertJs();
+		iconSize:     [23, 32], // size of the icon
+		iconAnchor:   [23, 32/2], // point of the icon which will correspond to marker's location
+		popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    var normalIcon = L.icon({
+		iconUrl: 'images/icons/normal.png',
+
+		iconSize:     [23, 32], // size of the icon
+		iconAnchor:   [23, 32/2], // point of the icon which will correspond to marker's location
+		popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
+    */
+
+    var map_tiles = {
+        "Normal" : L.tileLayer("images/tiles/normal/minimap_sea_{y}_{x}.png", {tileSize: 1024}),
+        "Postal" : L.tileLayer("images/tiles/postal/minimap_sea_{y}_{x}.png", {tileSize: 3072})
+    };
+
+    // 0, 0 in game = 
+
+    function mapInit(elementID) {
+
+        _MAP_map = L.map('map-canvas', {
+            maxZoom: 0,
+            minZoon: 0,
+            crs: L.CRS.Simple,
+            layers: [map_tiles["Normal"]]
+        }).setView([0,0], 0);
+        //_MAP_map.setMaxBounds(new L.LatLngBounds(br, tl));
+        
+        L.control.layers(map_tiles).addTo(_MAP_map);
+
+        _MAP_map.on("baselayerchange", function(e){
+            console.log(e.layer);
+            var recent = _MAP_map.unproject([e.layer.options.tileSize, e.layer.options.tileSize], _MAP_map.getMaxZoom());
+            _MAP_map.setView(recent, 0);
+        })
+
+        //L.tileLayer("images/tiles/minimap_{y}_{x}.png", {tileSize: 512}).addTo(_MAP_map);
     }
-?>
-
+    mapInit();
+    </script>
 </body>
 
 </html>
