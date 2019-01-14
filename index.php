@@ -307,10 +307,14 @@
 		popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
     */
+    
+    // Width = 4069 (2048 *2) 
+    // Height = 60444 (2048 *3)
+    var center = [2048 * 2, 2048 * 2];
 
     var map_tiles = {
-        "Normal" : L.tileLayer("images/tiles/normal/minimap_sea_{y}_{x}.png", {tileSize: 1024}),
-        "Postal" : L.tileLayer("images/tiles/postal/minimap_sea_{y}_{x}.png", {tileSize: 3072})
+        "Normal" : L.tileLayer("images/tiles/normal/minimap_sea_{y}_{x}.png", {maxNativeZoom: 0}), //Originally had the "tileSize" attribute set. Removing it allows for the "zoomed out" look
+        "Postal" : L.tileLayer("images/tiles/postal/minimap_sea_{y}_{x}.png", {maxNativeZoom: 0})
     };
 
     // 0, 0 in game = 
@@ -318,23 +322,46 @@
     function mapInit(elementID) {
 
         _MAP_map = L.map('map-canvas', {
-            maxZoom: 0,
-            minZoon: 0,
+            maxZoom: 3,
+            minZoom: 0,
             crs: L.CRS.Simple,
             layers: [map_tiles["Normal"]]
         }).setView([0,0], 0);
-        //_MAP_map.setMaxBounds(new L.LatLngBounds(br, tl));
-        
+
         L.control.layers(map_tiles).addTo(_MAP_map);
 
         _MAP_map.on("baselayerchange", function(e){
             console.log(e.layer);
             var recent = _MAP_map.unproject([e.layer.options.tileSize, e.layer.options.tileSize], _MAP_map.getMaxZoom());
             _MAP_map.setView(recent, 0);
-        })
+        });
 
         //L.tileLayer("images/tiles/minimap_{y}_{x}.png", {tileSize: 512}).addTo(_MAP_map);
     }
+
+    function drawRect(sw, ne){
+        return L.rectangle(new L.LatLngBounds(
+            _MAP_map.unproject(sw, _MAP_map.getMaxZoom()),
+            _MAP_map.unproject(ne, _MAP_map.getMaxZoom())
+        )).addTo(_MAP_map);
+    }
+
+    function drawRectAroundTile(x, y){
+        var scaleMulti = 1024 / 256;
+
+        var currentTileXStart = 512 * x;
+        var currentTileYStart = 512 * y;
+
+        var currentTileXEnd = currentTileXStart + (512);
+        var currentTileYEnd = currentTileYStart + (512);
+        
+
+        return drawRect(
+            [currentTileXStart * scaleMulti, currentTileYEnd * scaleMulti],
+            [currentTileXEnd* scaleMulti, currentTileYStart* scaleMulti]
+        )
+    }
+
     mapInit();
     </script>
 </body>
