@@ -22,23 +22,23 @@ var customImageHeight = 64 / 2; // 64 = sheetHeight / 16
 
 var MarkerTypes = {
     0: {
-        icon: "blank.png",
-        size: new google.maps.Size(0, 0),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(0, 0)
+        iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=',
+        iconSize: [0, 0],
+        popupAnchor: [0, 0],
+        iconAnchor: [0, 0]
     },
     999: {
-        icon: "debug.png",
-        size: new google.maps.Size(23, 32),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(11.5, 32)
+        iconUrl: _MAP_iconURL + "debug.png",
+        iconSize: [23, 32],
+        popupAnchor: [0, 0],
+        iconAnchor: [11.5, 0] // Bottom middle
     },
     // Apparently players have an icon of "6" so, might as well make normal that
     6: {
-        icon: "normal.png",
-        size: new google.maps.Size(22, 32),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(11, 32)
+        iconUrl: _MAP_iconURL + "normal.png",
+        iconSize: [22, 32],
+        popupAnchor: [0, 0],
+        iconAnchor: [11, 0]
     }
     // Custom markers are generated and added below
 };
@@ -225,8 +225,6 @@ var blipCss = `.blip {
     background: url("${_MAP_iconURL}blips_texturesheet.png");
     background-size: ${1024/2}px ${1024/2}px;
     display: inline-block;
-    width: ${customImageWidth}px;
-    height: ${customImageHeight}px;
 }`;
 
 function generateBlipControls(){
@@ -288,12 +286,16 @@ function generateBlipShit(){
 
         MarkerTypes[currentId] = {
             name: blipName.replace(/([A-Z0-9])/g, ' $1').trim(),
-            icon: "blips_texturesheet.png",
-            size: new google.maps.Size( customImageWidth, customImageHeight ),
-            anchor: new google.maps.Point( customImageWidth/2, customImageHeight ),
-            scaledSize: new google.maps.Size( 1024/2,1024/2 ),
-            origin: new google.maps.Point( customImageWidth * currentX , customImageHeight * currentY ),
+            className: `blip blip-${blipName}`,
+            iconUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=",
+            iconSize: [customImageWidth, customImageHeight],
+            iconAnchor: [customImageWidth/2, 0],
+            popupAnchor: [0, 0],
+            
+            //scaledSize: [ 1024/2,1024/2 ],
+            //origin: [ customImageWidth * currentX , customImageHeight * currentY ],
         };
+        
 
         nameToId[blipName] = currentId;
 

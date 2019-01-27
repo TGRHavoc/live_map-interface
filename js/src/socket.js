@@ -44,16 +44,13 @@ function onOpen(e) {
         console.log("_isConnected: " + _isConnected);
     }
 
-    // New websocket server doesn't need to recieve this
-    //webSocket.send("getPlayerData"); // Get any players connected to the server
-
     $("#connection").removeClass("badge-danger")
         .removeClass("badge-warning")
         .addClass("badge-success").text("connected");
     $("#socket_error").text("");
 }
 
-function sorter(plr1, plr2){
+function sorter(plr1, plr2) {
     var str1 = plr1["name"];
     var str2 = plr2["name"];
 
@@ -71,6 +68,7 @@ function onMessage(e) {
 
     var data = JSON.parse(e.data);
 
+    /*
     if (data.type == "addBlip" || data.type == "updateBlip" || data.type == "removeBlip") {
         // BACKWARDS COMPATABILITY!!
         if (!data.payload.hasOwnProperty("pos")) {
@@ -99,6 +97,12 @@ function onMessage(e) {
     } else if (data.type == "playerLeft") {
         //console.log("player left:" + data.payload);
         playerLeft(data.payload);
+    }
+    */
+    if (data.type == "playerData") {
+        //console.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
+        var sortedPlayers = data.payload.sort(sorter);
+        //doPlayerUpdate(sortedPlayers);
     }
 }
 
@@ -138,7 +142,7 @@ function onError(e) {
 
     //$("#socket_error").text(reason);
     console.error("Socket error: " + reason);
-    if(_SETTINGS_debug){
+    if (_SETTINGS_debug) {
         //createAlert("warning", "Socket error", ["There was an error with the socket connnection", reason], 2);
         createAlert({
             title: "<strong>Socket error!</strong>",
@@ -328,7 +332,7 @@ function doPlayerUpdate(players) {
 
         if (_trackPlayer != null && _trackPlayer == plr.identifer) {
             // If we're tracking a player, make sure we center them
-            map.panTo(convertToMapGMAP(plr.pos.x, plr.pos.y));
+            _MAP_map.panTo(convertToMap(plr.pos.x, plr.pos.y));
         }
 
         if (localCache[plr.identifer].marker != null || localCache[plr.identifer].marker != undefined) {

@@ -96,9 +96,9 @@ input[type=text] {display:inline;}
 .fix-row input {float:right;}
 .info-window {padding:10px;}
 .info-icon {background-image: url(../images/icons/info.png);background-repeat:no-repeat;background-position: center center;float:left;width:32px;height:32px;margin-right:5px;}
-.info-header-box {height:33px;border-bottom:1px solid #333;margin-bottom:2px;}
+.info-header-box {margin-bottom:2px;}
 .info-header {float:left;font-size:1.8em!important;font-weight:bold!important;color:#333!important;padding-top:3px;}
-.info-body {color:#333 !important;}
+.info-body {color:#333 !important; height:33px;border-top:1px solid #333;}
 .info-body-row {padding: 2px 0;color:#333 !important; margin: 0;}
 
 .dropdown-menu { background-color: #333; }
