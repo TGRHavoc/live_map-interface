@@ -35,15 +35,22 @@ function normalize(value, min, max){
     return Math.abs((value - min) / (max - min));
 }
 
-function convertToMap(x, y){
+function convertToMap(x, y) {
     var xPercent = normalize(x, game_min_x, game_max_x);
     var destX = xPercent * (Math.abs(map_max_x - map_min_x)) + map_min_x;
 
     var yPercent = normalize(y, game_min_y, game_max_y);
     var destY = yPercent * (Math.abs(map_max_y - map_min_y)) + map_min_y;
 
-    console.log(x + ", " + y + " == " + destX + ", " + destY);
-    console.log(_MAP_map.unproject([destX, destY], _MAP_map.getMaxZoom()));
+    return {lat: destX, lng: destY};
+}
+
+function convertToMapLeaflet(x, y){
+    var xPercent = normalize(x, game_min_x, game_max_x);
+    var destX = xPercent * (Math.abs(map_max_x - map_min_x)) + map_min_x;
+
+    var yPercent = normalize(y, game_min_y, game_max_y);
+    var destY = yPercent * (Math.abs(map_max_y - map_min_y)) + map_min_y;
 
     return _MAP_map.unproject([destX, destY], _MAP_map.getMaxZoom());
 }
