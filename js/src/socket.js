@@ -68,7 +68,6 @@ function onMessage(e) {
 
     var data = JSON.parse(e.data);
 
-    /*
     if (data.type == "addBlip" || data.type == "updateBlip" || data.type == "removeBlip") {
         // BACKWARDS COMPATABILITY!!
         if (!data.payload.hasOwnProperty("pos")) {
@@ -98,13 +97,7 @@ function onMessage(e) {
         //console.log("player left:" + data.payload);
         playerLeft(data.payload);
     }
-    */
-    if (data.type == "playerData") {
-        //console.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
-        var sortedPlayers = data.payload.sort(sorter);
-        doPlayerUpdate(sortedPlayers);
-        webSocket.close();
-    }
+    
 }
 
 function onError(e) {
@@ -231,7 +224,7 @@ function updateBlip(blipObj) {
         if (blipObj.hasOwnProperty("new_pos")) {
             // Blips are supposed to be static so, why this would even be fucking needed it beyond me
             // Still, better to prepare for the inevitability that someone wants this fucking feature
-            marker.setPosition(convertToMapGMAP(blipObj.new_pos.x, blipObj.new_pos.y, blipObj.new_pos.z));
+            marker.setLatLng(convertToMapLeaflet(blipObj.new_pos.x, blipObj.new_pos.y, blipObj.new_pos.z));
             blipObj.pos = blipObj.new_pos;
             delete blipObj.new_pos;
         }
@@ -265,7 +258,7 @@ function updateBlip(blipObj) {
 
         var info = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
-        marker.popup.setContent(info);
+        marker.bindPopup(info);
 
         _blips[blipObj.type][blipIndex] = blipObj;
     }
@@ -333,27 +326,21 @@ function doPlayerUpdate(players) {
 
         if (_trackPlayer != null && _trackPlayer == plr.identifer) {
             // If we're tracking a player, make sure we center them
-            _MAP_map.panTo(convertToMap(plr.pos.x, plr.pos.y));
+            _MAP_map.panTo(convertToMapLeaflet(plr.pos.x, plr.pos.y));
         }
 
         if (localCache[plr.identifer].marker != null || localCache[plr.identifer].marker != undefined) {
             // If we have a custom icon (we should) use it!!
             if (plr.icon) {
                 var t = MarkerTypes[plr.icon];
+
                 //console.log("Got icon of :" + plr.icon);
-                /*
-                _MAP_markerStore[localCache[plr.identifer].marker].setIcon({
-                    url: _MAP_iconURL + t.icon,
-                    size: t.size,
-                    origin: t.origin,
-                    anchor: t.anchor,
-                    scaledSize: t.scaledSize
-                });
-                */
+                
+                _MAP_markerStore[localCache[plr.identifer].marker].setIcon(L.icon(t));
             }
 
             // Update the player's location on the map :)
-            //_MAP_markerStore[localCache[plr.identifer].marker].setPosition(convertToMapLeaflet(plr.pos.x, plr.pos.y));
+            _MAP_markerStore[localCache[plr.identifer].marker].setLatLng(convertToMapLeaflet(plr.pos.x, plr.pos.y));
 
             //update popup with the information we have been sent
             var html = getPlayerInfoHtml(plr);
