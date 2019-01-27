@@ -102,7 +102,8 @@ function onMessage(e) {
     if (data.type == "playerData") {
         //console.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
         var sortedPlayers = data.payload.sort(sorter);
-        //doPlayerUpdate(sortedPlayers);
+        doPlayerUpdate(sortedPlayers);
+        webSocket.close();
     }
 }
 
@@ -340,6 +341,7 @@ function doPlayerUpdate(players) {
             if (plr.icon) {
                 var t = MarkerTypes[plr.icon];
                 //console.log("Got icon of :" + plr.icon);
+                /*
                 _MAP_markerStore[localCache[plr.identifer].marker].setIcon({
                     url: _MAP_iconURL + t.icon,
                     size: t.size,
@@ -347,19 +349,18 @@ function doPlayerUpdate(players) {
                     anchor: t.anchor,
                     scaledSize: t.scaledSize
                 });
+                */
             }
 
             // Update the player's location on the map :)
-            _MAP_markerStore[localCache[plr.identifer].marker].setPosition(convertToMapGMAP(plr.pos.x, plr.pos.y));
+            //_MAP_markerStore[localCache[plr.identifer].marker].setPosition(convertToMapLeaflet(plr.pos.x, plr.pos.y));
 
             //update popup with the information we have been sent
             var html = getPlayerInfoHtml(plr);
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
-            var infoBox = new google.maps.InfoWindow({
-                content: infoContent
-            });
-            _MAP_markerStore[localCache[plr.identifer].marker].popup.setContent(infoContent);
+
+            _MAP_markerStore[localCache[plr.identifer].marker].bindPopup(infoContent);
 
         } else {
 
@@ -369,10 +370,8 @@ function doPlayerUpdate(players) {
             var html = getPlayerInfoHtml(plr);
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
-            var infoBox = new google.maps.InfoWindow({
-                content: infoContent
-            });
-            _MAP_markerStore[m].popup.setContent(infoContent);
+            
+            _MAP_markerStore[m].bindPopup(infoContent);
 
         }
 

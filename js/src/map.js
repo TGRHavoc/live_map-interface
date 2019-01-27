@@ -26,13 +26,18 @@ var _MAP_tiles = {
 };
 
 function mapInit(elementID) {
-
     _MAP_map = L.map(elementID, {
         maxZoom: 3,
         minZoom: 0,
         crs: L.CRS.Simple,
         layers: [_MAP_tiles["Normal"]]
     }).setView([0, 0], 0);
+
+    var mapBounds = [[0,256*2], [-256*3, 0]];
+    
+    //_MAP_map.fitBounds(mapBounds);
+    _MAP_map.setMaxBounds(mapBounds);
+    //L.rectangle(mapBounds).addTo(_MAP_map);
 
     L.control.layers(_MAP_tiles).addTo(_MAP_map);
 
@@ -55,7 +60,9 @@ function createMarker(animated, draggable, objectRef, title) {
         name = "@Locator";
     }
     objectRef.position = stringCoordToFloat(objectRef.position);
+    console.log(objectRef.position);
     var coord = convertToMapLeaflet(objectRef.position.x, objectRef.position.y);
+    console.log(coord);
     var markerType = objectRef.type;
 
     //console.log(JSON.stringify(locationType));
