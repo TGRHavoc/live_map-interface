@@ -19,14 +19,34 @@
 function isNumeric(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n)
 }
-var game_1_x = 1972.606;
-var game_1_y = 3817.044;
-var map_1_lng = -60.8258056640625;
-var map_1_lat = 72.06379257078102;
-var game_2_x = -1154.11;
-var game_2_y = -2715.203;
-var map_2_lng = -72.1417236328125;
-var map_2_lat = 48.41572128171852;
+var game_min_x = -4000;
+var game_max_x = 6000;
+
+var game_min_y = 8000;
+var game_max_y = -4000;
+
+var map_min_x = 0;
+var map_max_x = 2048*2 + 1024;
+
+var map_min_y = 0;
+var map_max_y = 2048*3 - 256;
+
+function normalize(value, min, max){
+    return Math.abs((value - min) / (max - min));
+}
+
+function convertToMap(x, y){
+    var xPercent = normalize(x, game_min_x, game_max_x);
+    var destX = xPercent * (Math.abs(map_max_x - map_min_x)) + map_min_x;
+
+    var yPercent = normalize(y, game_min_y, game_max_y);
+    var destY = yPercent * (Math.abs(map_max_y - map_min_y)) + map_min_y;
+
+    console.log(x + ", " + y + " == " + destX + ", " + destY);
+    console.log(_MAP_map.unproject([destX, destY], _MAP_map.getMaxZoom()));
+
+    return _MAP_map.unproject([destX, destY], _MAP_map.getMaxZoom());
+}
 
 function convertToGame(lat, lng) {
     var rX = game_1_x + (lng - map_1_lng) * (game_1_x - game_2_x) / (map_1_lng - map_2_lng);
@@ -47,25 +67,13 @@ function convertToGameCoord(lat, lng) {
     };
 }
 
-function convertToMap(x, y) {
+function convertToMap_OLD(x, y) {
     var rLng = map_1_lng + (x - game_1_x) * (map_1_lng - map_2_lng) / (game_1_x - game_2_x);
     var rLat = map_1_lat + (y - game_1_y) * (map_1_lat - map_2_lat) / (game_1_y - game_2_y);
     return result = {
         lat: rLat,
         lng: rLng
     };
-}
-
-function convertToMapGMAP(x, y) {
-    var rLng = map_1_lng + (x - game_1_x) * (map_1_lng - map_2_lng) / (game_1_x - game_2_x);
-    var rLat = map_1_lat + (y - game_1_y) * (map_1_lat - map_2_lat) / (game_1_y - game_2_y);
-    return new google.maps.LatLng(rLat, rLng);
-}
-
-function convertToMapGMAPcoord(coord) {
-    var rLng = map_1_lng + (coord.x - game_1_x) * (map_1_lng - map_2_lng) / (game_1_x - game_2_x);
-    var rLat = map_1_lat + (coord.y - game_1_y) * (map_1_lat - map_2_lat) / (game_1_y - game_2_y);
-    return new google.maps.LatLng(rLat, rLng);
 }
 
 function stringCoordToFloat(coord) {
