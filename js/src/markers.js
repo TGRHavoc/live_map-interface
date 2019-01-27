@@ -225,6 +225,8 @@ var blipCss = `.blip {
     background: url("${_MAP_iconURL}blips_texturesheet.png");
     background-size: ${1024/2}px ${1024/2}px;
     display: inline-block;
+    width: ${customImageWidth}px;
+    height: ${customImageHeight}px;
 }`;
 
 function generateBlipControls(){

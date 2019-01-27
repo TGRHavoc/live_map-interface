@@ -111,19 +111,19 @@ function createMarker(animated, draggable, objectRef, title) {
 }
 
 function setMapCenter(lat, lng) {
-    map.setCenter(new google.maps.LatLng(lat, lng));
-    map.setZoom(6);
+    _MAP_map.setCenter([lat, lng]);
+    _MAP_map.setZoom(6);
 }
 
-function setMapCenterGMAP(coord) {
-    map.setCenter(coord);
-    map.setZoom(6);
+function setMapCenterLeaflet(coord) {
+    _MAP_map.setCenter(coord);
+    _MAP_map.setZoom(6);
 }
 
 function clearAllMarkers() {
     for (var i = 0; i < _MAP_markerStore.length; i++) {
         if (_MAP_markerStore[i] != "NULL") {
-            _MAP_markerStore[i].setMap(null);
+            _MAP_markerStore[i].remove();
         }
     }
     _MAP_markerStore.length = 0;
@@ -135,7 +135,7 @@ function clearAllMarkers() {
 
 function clearMarker(id) {
     if (_MAP_markerStore[id] != "NULL") {
-        _MAP_markerStore[id].setMap(null);
+        _MAP_markerStore[id].remove();
         _MAP_markerStore[id] = "NULL";
         $("#marker_" + id).remove();
     }
