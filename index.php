@@ -157,6 +157,9 @@
 
     var _SETTINGS_blipUrl = "<?php echo $config->blipUrl(); ?>";
     </script>
+    <?php
+        Minifier::printFirstJs($config->debug);
+    ?>
 
 </head>
 <body>
@@ -284,14 +287,21 @@
             <div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);"></div>
         </main>
     </div>
-    
-    <script src="js/src/utils.js"></script>
+
+<?php
+    Minifier::printLastJs($config->debug);
+    $parser->printJsForParams();
+    if(!Update::latestVersion()){
+        echo Update::alertJs();
+    }
+?>
+
     <script>
     var _MAP_currentMarker;
     var _MAP_markerStore;
     var _MAP_map;
 
-    /*
+    
     var greenIcon = L.icon({
 		iconUrl: 'images/icons/debug.png',
 
@@ -306,38 +316,6 @@
 		iconAnchor:   [23, 32/2], // point of the icon which will correspond to marker's location
 		popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
-    */
-    
-    // Width = 4069 (2048 *2) 
-    // Height = 60444 (2048 *3)
-    var center = [2048 * 2, 2048 * 2];
-
-    var map_tiles = {
-        "Normal" : L.tileLayer("images/tiles/normal/minimap_sea_{y}_{x}.png", {maxNativeZoom: 0}), //Originally had the "tileSize" attribute set. Removing it allows for the "zoomed out" look
-        "Postal" : L.tileLayer("images/tiles/postal/minimap_sea_{y}_{x}.png", {maxNativeZoom: 0})
-    };
-
-    // 0, 0 in game = 
-
-    function mapInit(elementID) {
-
-        _MAP_map = L.map('map-canvas', {
-            maxZoom: 3,
-            minZoom: 0,
-            crs: L.CRS.Simple,
-            layers: [map_tiles["Normal"]]
-        }).setView([0,0], 0);
-
-        L.control.layers(map_tiles).addTo(_MAP_map);
-
-        _MAP_map.on("baselayerchange", function(e){
-            console.log(e.layer);
-            var recent = _MAP_map.unproject([e.layer.options.tileSize, e.layer.options.tileSize], _MAP_map.getMaxZoom());
-            _MAP_map.setView(recent, 0);
-        });
-
-        //L.tileLayer("images/tiles/minimap_{y}_{x}.png", {tileSize: 512}).addTo(_MAP_map);
-    }
 
     function drawRect(sw, ne){
         return L.rectangle(new L.LatLngBounds(
@@ -362,7 +340,11 @@
         )
     }
 
-    mapInit();
+    function debugMarker(){
+        var ltln = convertToMap(0,0);
+        L.marker(ltln, {icon: greenIcon, title:"Test"}).addTo(_MAP_map);
+        _MAP_map.panTo(ltln);
+    }
     </script>
 </body>
 
