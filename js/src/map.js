@@ -19,6 +19,10 @@
 window.MarkerStore = [];
 window.CurrentLayer = undefined;
 
+L.Control.CustomLayer = L.Control.Layers.extend({
+    _checkDisabledLayers: function () {}
+});
+
 function mapInit(elementID) {
 
     // Create the different layers
@@ -49,7 +53,7 @@ function mapInit(elementID) {
     var mapBounds = new L.LatLngBounds(southWest, northEast);
 
     Map.setMaxBounds(mapBounds);
-    L.control.layers(tileLayers).addTo(Map);
+    var control = new L.Control.CustomLayer(tileLayers).addTo(Map);
 
     Map.on("baselayerchange", function (e) {
         var h = e.layer.options.tileSize * 3,
@@ -61,13 +65,16 @@ function mapInit(elementID) {
         var mapBounds = new L.LatLngBounds(southWest, northEast);
 
         Map.setMaxBounds(mapBounds);
+        Map.fitBounds(mapBounds);
         CurrentLayer = e.layer;
 
         clearAllMarkers();
         toggleBlips();
     });
 
-    Map.on('click', function (e) {
+    Map.on('preclick', function (e) {
+        console.log("Preclick!");
+        console.log(e);
     });
 }
 
