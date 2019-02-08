@@ -20,28 +20,44 @@
 var customImageWidth = 64 / 2; // 64 =  sheetWidth / 16
 var customImageHeight = 64 / 2; // 64 = sheetHeight / 16
 
-var MarkerTypes = {
-    0: {
-        iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=',
-        iconSize: [0, 0],
-        popupAnchor: [0, 0],
-        iconAnchor: [0, 0]
-    },
-    999: {
-        iconUrl: _MAP_iconURL + "debug.png",
-        iconSize: [23, 32],
-        popupAnchor: [0, 0],
-        iconAnchor: [11.5, 0] // Bottom middle
-    },
-    // Apparently players have an icon of "6" so, might as well make normal that
-    6: {
-        iconUrl: _MAP_iconURL + "normal.png",
-        iconSize: [22, 32],
-        popupAnchor: [0, 0],
-        iconAnchor: [11, 0]
-    }
-    // Custom markers are generated and added below
-};
+window.MarkerTypes = {};
+var blipCss = "";
+
+function initMarkers(){
+    console.log("initialising markers");
+    window.MarkerTypes = {
+        0: {
+            iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=',
+            iconSize: [0, 0],
+            popupAnchor: [0, 0],
+            iconAnchor: [0, 0]
+        },
+        999: {
+            iconUrl: config.iconDirectory + "/debug.png",
+            iconSize: [23, 32],
+            popupAnchor: [0, 0],
+            iconAnchor: [11.5, 0] // Bottom middle
+        },
+        // Apparently players have an icon of "6" so, might as well make normal that
+        6: {
+            iconUrl: config.iconDirectory + "/normal.png",
+            iconSize: [22, 32],
+            popupAnchor: [0, 0],
+            iconAnchor: [11, 0]
+        }
+    };
+
+    blipCss = `.blip {
+    background: url("${config.iconDirectory}/blips_texturesheet.png");
+    background-size: ${1024 / 2}px ${1024 / 2}px;
+    display: inline-block;
+    width: ${customImageWidth}px;
+    height: ${customImageHeight}px;
+}`;
+
+    generateBlipShit();
+}
+
 
 
 // FUCK ME, GTA HAS A LOT OF FUCKING BLIPS
@@ -221,19 +237,11 @@ var types = {
 
 var nameToId = {};
 
-var blipCss = `.blip {
-    background: url("${_MAP_iconURL}blips_texturesheet.png");
-    background-size: ${1024/2}px ${1024/2}px;
-    display: inline-block;
-    width: ${customImageWidth}px;
-    height: ${customImageHeight}px;
-}`;
-
 function generateBlipControls(){
     for(var blipName in types){
         $("#blip-control-container").append(`<a data-blip-number="${nameToId[blipName]}" id="blip_${blipName}_link" class="blip-button-a list-group-item d-inline-block collapsed blip-enabled" href="#"><span class="blip blip-${blipName}"></span></a>`);
 
-        if(_SETTINGS_debug){
+        if(config.debug){
             console.log("Added ahref for " + blipName);
         }
     }
@@ -286,18 +294,18 @@ function generateBlipShit(){
             currentY = blip.y;
         }
 
-        MarkerTypes[currentId] = {
+        window.MarkerTypes[currentId] = {
             name: blipName.replace(/([A-Z0-9])/g, ' $1').trim(),
             className: `blip blip-${blipName}`,
             iconUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=",
             iconSize: [customImageWidth, customImageHeight],
             iconAnchor: [customImageWidth/2, 0],
             popupAnchor: [0, 0],
-            
+
             //scaledSize: [ 1024/2,1024/2 ],
             //origin: [ customImageWidth * currentX , customImageHeight * currentY ],
         };
-        
+
 
         nameToId[blipName] = currentId;
 
@@ -316,4 +324,4 @@ function generateBlipShit(){
     setTimeout(generateBlipControls, 50);
 }
 
-setTimeout(generateBlipShit, 50);
+///setTimeout(generateBlipShit, 50);

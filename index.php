@@ -30,10 +30,12 @@
 
     Update::getCurrentVersion();
 
-    $config = Config::getConfig();
+    $debug = true;
+
     $parser = ParamParser::getParser();
 
     if(ISSET($_GET["server"])){
+        /*
         $name = $_GET["server"];
 
         if(array_key_exists($name, Config::$servers)){
@@ -42,32 +44,13 @@
             $name = key(Config::$servers); // get the first server in array
             $srv = Config::$servers[$name];
         }
+        */
 
         unset($_GET["server"]);
     }else{
         $name = key(Config::$servers); // get the first server in array
         $srv = Config::$servers[$name];
     }
-
-    // Update the config for the new server
-    if(array_key_exists("ip", $srv)){
-        $config->fivemIP = $srv["ip"];
-    }
-    if(array_key_exists("fivemPort", $srv)){
-        $config->fivemPort = $srv["fivemPort"];
-    }
-    if(array_key_exists("socketPort", $srv)){
-        $config->socketPort = $srv["socketPort"];
-    }
-    if(array_key_exists("liveMapName", $srv)){
-        $config->liveMapName = $srv["liveMapName"];
-    }
-    if(array_key_exists("reverseProxy", $srv)){
-        $config->reverseProxy = $srv["reverseProxy"];
-    }
-
-    $config->currentServer = $name;
-
 ?>
 
 <html>
@@ -104,7 +87,7 @@
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
     <?php
         // Print the CSS stuff for the webapp. This will either print the minfied version or, links to the CSS filees
-        Minifier::printCss($config->debug);
+        Minifier::printCss($debug);
     ?>
 	<link type="text/css" rel="stylesheet" href="style/fontawesome-all.min.css" />
 
@@ -115,50 +98,12 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap-notify.min.js"></script>
-    
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
 
-
-    <script>
-
-    ///////////////////////////////////////////////////////////////////////////
-    // PLEASE CHNAGE THE VAUES INSIDE THE CONFIG FILE
-    ///////////////////////////////////////////////////////////////////////////
-    var _MAP_tileURL = "<?php echo $config->mapTileUrl; ?>";
-    var _MAP_iconURL = "<?php echo $config->mapIconUrl; ?>";
-
-    var _MAP_currentUri = "<?php echo $_SERVER["REQUEST_URI"]; ?>";
-
-    // Sets whether it should showSets whether it should show Atlas map (WARNING: REQUIRES "atlas" TILE DIRECTORY)
-    var _MAP_atlasMap = <?php echo json_encode($config->atlasEnabled); ?>;
-
-    // Sets whether it should show Satellite map (WARNING: REQUIRES "satellite" TILE DIRECTORY)
-    var _MAP_satelliteMap = <?php echo json_encode($config->satelliteEnabled); ?>;
-
-    // Sets whether it should show Road map (WARNING: REQUIRES "road" TILE DIRECTORY)
-    var _MAP_roadMap = <?php echo json_encode($config->roadEnabled); ?>;
-
-    // Sets whether it should show UV Invert map (WARNING: REQUIRES "uv-invert" TILE DIRECTORY)
-    var _MAP_UVInvMap = <?php echo json_encode($config->uvInveredEnabled); ?>;
-
-    // Sets whether it should show Postcode map (WARNING: REQUIRES "postcode" TILE DIRECTORY)
-    var _MAP_PostcodeMap = <?php echo json_encode($config->postcodeEnabled); ?>;
-
-    // Set to the IP of the GTA server running "live_map" and change the port to the
-    // number that is set
-    var _SETTINGS_socketUrl = "<?php echo $config->socketUrl(); ?>";
-
-    // Set to false if you don't want to show the player's identifiers (this may be their IP)
-    var _SETTINGS_showIdentifiers = <?php echo json_encode($config->showIdentifiers); ?>;
-
-    // show debug information in the console
-    var _SETTINGS_debug = <?php echo json_encode($config->debug); ?>;
-
-    var _SETTINGS_blipUrl = "<?php echo $config->blipUrl(); ?>";
-    </script>
     <?php
-        Minifier::printFirstJs($config->debug);
+        Minifier::printFirstJs($debug);
     ?>
 
 </head>
@@ -182,14 +127,7 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Select a server
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <?php
-                                $srvs = Config::$servers;
-                                foreach ($srvs as $key => $value) {
-                                    $uri = urlencode($key);
-                                    echo "<a class='dropdown-item' href='?server=$uri'>$key</a>";
-                                }
-                            ?>
+                        <div id="server_menu" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         </div>
                     </li>
 
@@ -252,7 +190,6 @@
 
                     <a class="list-group-item d-inline-block collapsed">Currently viewing:
                         <p id="server_name" style="white-space: normal; color: #17A2B8">
-                            <?php echo $config->currentServer; ?>
                         </p>
                     </a>
 
@@ -289,7 +226,7 @@
     </div>
 
 <?php
-    Minifier::printLastJs($config->debug);
+    Minifier::printLastJs($debug);
     $parser->printJsForParams();
     if(!Update::latestVersion()){
         echo Update::alertJs();
@@ -297,11 +234,6 @@
 ?>
 
     <script>
-    var _MAP_currentMarker;
-    var _MAP_markerStore;
-    var _MAP_map;
-
-    
     var greenIcon = L.icon({
 		iconUrl: 'images/icons/debug.png',
 
@@ -316,35 +248,6 @@
 		iconAnchor:   [23, 32/2], // point of the icon which will correspond to marker's location
 		popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     });
-
-    function drawRect(sw, ne){
-        return L.rectangle(new L.LatLngBounds(
-            _MAP_map.unproject(sw, _MAP_map.getMaxZoom()),
-            _MAP_map.unproject(ne, _MAP_map.getMaxZoom())
-        )).addTo(_MAP_map);
-    }
-
-    function drawRectAroundTile(x, y){
-        var scaleMulti = 1024 / 256;
-
-        var currentTileXStart = 512 * x;
-        var currentTileYStart = 512 * y;
-
-        var currentTileXEnd = currentTileXStart + (512);
-        var currentTileYEnd = currentTileYStart + (512);
-        
-
-        return drawRect(
-            [currentTileXStart * scaleMulti, currentTileYEnd * scaleMulti],
-            [currentTileXEnd* scaleMulti, currentTileYStart* scaleMulti]
-        )
-    }
-
-    function debugMarker(){
-        var ltln = convertToMap(0,0);
-        L.marker(ltln, {icon: greenIcon, title:"Test"}).addTo(_MAP_map);
-        _MAP_map.panTo(ltln);
-    }
     </script>
 </body>
 

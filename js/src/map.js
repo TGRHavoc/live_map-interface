@@ -28,6 +28,11 @@ var _MAP_tiles = {
 var _MAP_currentLayer = _MAP_tiles["Normal"];
 
 function mapInit(elementID) {
+
+    // Create the different layers
+    var maps = window.config.maps;
+    console.log("maps:" + maps);
+
     _MAP_map = L.map(elementID, {
         crs: L.CRS.Simple,
         layers: [_MAP_currentLayer]
@@ -61,7 +66,7 @@ function mapInit(elementID) {
     });
 
     _MAP_map.on('click', function (e) {
-        console.log(e);
+        //console.log(e);
     });
     //L.tileLayer("images/tiles/minimap_{y}_{x}.png", {tileSize: 512}).addTo(_MAP_map);
 
@@ -75,9 +80,9 @@ function createMarker(animated, draggable, objectRef, title) {
         name = "@Locator";
     }
     objectRef.position = stringCoordToFloat(objectRef.position);
-    console.log(objectRef.position);
+    //console.log(objectRef.position);
     var coord = convertToMapLeaflet(objectRef.position.x, objectRef.position.y);
-    console.log(coord);
+    //console.log(coord);
     var markerType = objectRef.type;
 
     //console.log(JSON.stringify(locationType));
@@ -91,7 +96,7 @@ function createMarker(animated, draggable, objectRef, title) {
     var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + name + '</div></div><div class="clear"></div><div class=info-body>' + html + "</div></div>";
 
     var image = L.icon(markerType);
-    console.log(image);
+    //console.log(image);
     //console.log("image: " + JSON.stringify(image));
 
     var marker = L.marker(coord, {
