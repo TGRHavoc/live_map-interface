@@ -21,36 +21,51 @@ var _MAP_markerStore = [];
 var _MAP_map;
 
 var _MAP_tiles = {
-    "Normal": L.tileLayer("images/tiles/normal/minimap_sea_{y}_{x}.png", { maxNativeZoom: 0 }), //Originally had the "tileSize" attribute set. Removing it allows for the "zoomed out" look
-    "Postal": L.tileLayer("images/tiles/postal/minimap_sea_{y}_{x}.png", { maxNativeZoom: 0 })
+    "Normal": L.tileLayer("images/tiles/normal/minimap_sea_{y}_{x}.png", { minZoom: -2, maxZoom: 0, maxNativeZoom: 0, minNativeZoom: 0, tileSize: 1024 }), //Originally had the "tileSize" attribute set. Removing it allows for the "zoomed out" look
+    "Postal": L.tileLayer("images/tiles/postal/minimap_sea_{y}_{x}.png", { minZoom: -4, maxZoom: 0, maxNativeZoom: 0, minNativeZoom: 0, tileSize: 3072 })
 };
+
+var _MAP_currentLayer = _MAP_tiles["Normal"];
 
 function mapInit(elementID) {
     _MAP_map = L.map(elementID, {
-        maxZoom: 3,
-        minZoom: 0,
         crs: L.CRS.Simple,
-        layers: [_MAP_tiles["Normal"]]
-    }).setView([0, 0], 0);
+        layers: [_MAP_currentLayer]
+    }).setView([0,0], 0);
 
-    var mapBounds = [[0,256*2], [-256*3, 0]];
-    
-    //_MAP_map.fitBounds(mapBounds);
+    // Use the "normal" bounds since, it's default.
+    var h = _MAP_currentLayer.options.tileSize * 3,
+        w = _MAP_currentLayer.options.tileSize * 2;
+
+    var southWest = _MAP_map.unproject([0, h], _MAP_map.getMaxZoom());
+    var northEast = _MAP_map.unproject([w, 0], _MAP_map.getMaxZoom());
+    var mapBounds = new L.LatLngBounds(southWest, northEast);
+
     _MAP_map.setMaxBounds(mapBounds);
-    //L.rectangle(mapBounds).addTo(_MAP_map);
-
     L.control.layers(_MAP_tiles).addTo(_MAP_map);
 
     _MAP_map.on("baselayerchange", function (e) {
-        console.log(e.layer);
-        //var recent = _MAP_map.unproject([e.layer.options.tileSize, e.layer.options.tileSize], _MAP_map.getMaxZoom());
-        //_MAP_map.setView(recent, 0);
+        var h = e.layer.options.tileSize * 3,
+            w = e.layer.options.tileSize * 2;
+
+        var southWest = _MAP_map.unproject([0, h], _MAP_map.getMaxZoom());
+        var northEast = _MAP_map.unproject([w, 0], _MAP_map.getMaxZoom());
+
+        var mapBounds = new L.LatLngBounds(southWest, northEast);
+
+        _MAP_map.setMaxBounds(mapBounds);
+        _MAP_currentLayer = e.layer;
+
+        clearAllMarkers();
+        toggleBlips();
     });
 
     _MAP_map.on('click', function (e) {
         console.log(e);
     });
     //L.tileLayer("images/tiles/minimap_{y}_{x}.png", {tileSize: 512}).addTo(_MAP_map);
+
+    ///_MAP_map.setCenter([w * 0.5, h * 0.5]);
 }
 
 function createMarker(animated, draggable, objectRef, title) {
@@ -87,25 +102,6 @@ function createMarker(animated, draggable, objectRef, title) {
         draggable: draggable ? true : false
     }).addTo(_MAP_map).bindPopup(infoContent);
 
-    /*
-    var marker = new google.maps.Marker({
-        id: _MAP_markerStore.length,
-        type: locationType.name,
-        position: coord,
-        icon: image,
-        map: _MAP_map,
-        popup: infoBox,
-        object: objectRef,
-        draggable: draggable ? true : false,
-        animation: animated ? google.maps.Animation.DROP : 0
-    });
-    
-    if (name == "@DEBUG@@Locator") {
-        $("#marker-list").append('<div id="marker_' + marker.id + '" data-id="' + marker.id + '" class="marker-item"><div class="marker-desc"><span class="marker_name">@Locator</span></div><div class="marker-options"><a href="#" class="marker_view" title="View"><img src="images/icons/view.png" alt="View" height="16" width="16" /></a> </div></div><div class="clear"></div>');
-    } else {
-        $("#marker-list").append('<div id="marker_' + marker.id + '" data-id="' + marker.id + '" class="marker-item"><div class="marker-desc"><span class="marker_name">' + name + '</span></div><div class="marker-options"><a href="#" class="marker_view" title="View"><img src="images/icons/view.png" alt="View" height="16" width="16" /></a> / <a href="#" class="marker_delete" title="Delete"><img src="images/icons/delete.png" alt="Delete" height="16" width="16" /></a></div></div><div class="clear"></div>');
-    }
-    */
     _MAP_markerStore.push(marker);
     return _MAP_markerStore.length;
 }
