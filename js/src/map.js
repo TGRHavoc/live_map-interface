@@ -16,61 +16,59 @@
 //      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
-var _MAP_currentMarker;
-var _MAP_markerStore = [];
-var _MAP_map;
-
-var _MAP_tiles = {
-    "Normal": L.tileLayer("images/tiles/normal/minimap_sea_{y}_{x}.png", { minZoom: -2, maxZoom: 0, maxNativeZoom: 0, minNativeZoom: 0, tileSize: 1024 }), //Originally had the "tileSize" attribute set. Removing it allows for the "zoomed out" look
-    "Postal": L.tileLayer("images/tiles/postal/minimap_sea_{y}_{x}.png", { minZoom: -4, maxZoom: 0, maxNativeZoom: 0, minNativeZoom: 0, tileSize: 3072 })
-};
-
-var _MAP_currentLayer = _MAP_tiles["Normal"];
+window.MarkerStore = [];
+window.CurrentLayer = undefined;
 
 function mapInit(elementID) {
 
     // Create the different layers
+    var tileLayers = {};
     var maps = window.config.maps;
-    console.log("maps:" + maps);
+    maps.forEach(map => {
+        console.log(map);
+        tileLayers[map.name] = L.tileLayer(map.url,
+            Object.assign(
+            { minZoom: -2, maxZoom: 0, maxNativeZoom: 0, minNativeZoom: 0, tileSize: 1024, tileDirectory: config.tileDirectory },
+            map)
+        );
+        console.log(tileLayers[map.name]);
+    });
 
-    _MAP_map = L.map(elementID, {
+    CurrentLayer = tileLayers[Object.keys(tileLayers)[0]];
+
+    window.Map = L.map(elementID, {
         crs: L.CRS.Simple,
-        layers: [_MAP_currentLayer]
+        layers: [CurrentLayer]
     }).setView([0,0], 0);
 
-    // Use the "normal" bounds since, it's default.
-    var h = _MAP_currentLayer.options.tileSize * 3,
-        w = _MAP_currentLayer.options.tileSize * 2;
+    var h = CurrentLayer.options.tileSize * 3,
+        w = CurrentLayer.options.tileSize * 2;
 
-    var southWest = _MAP_map.unproject([0, h], _MAP_map.getMaxZoom());
-    var northEast = _MAP_map.unproject([w, 0], _MAP_map.getMaxZoom());
+    var southWest = Map.unproject([0, h], Map.getMaxZoom());
+    var northEast = Map.unproject([w, 0], Map.getMaxZoom());
     var mapBounds = new L.LatLngBounds(southWest, northEast);
 
-    _MAP_map.setMaxBounds(mapBounds);
-    L.control.layers(_MAP_tiles).addTo(_MAP_map);
+    Map.setMaxBounds(mapBounds);
+    L.control.layers(tileLayers).addTo(Map);
 
-    _MAP_map.on("baselayerchange", function (e) {
+    Map.on("baselayerchange", function (e) {
         var h = e.layer.options.tileSize * 3,
             w = e.layer.options.tileSize * 2;
 
-        var southWest = _MAP_map.unproject([0, h], _MAP_map.getMaxZoom());
-        var northEast = _MAP_map.unproject([w, 0], _MAP_map.getMaxZoom());
+        var southWest = Map.unproject([0, h], Map.getMaxZoom());
+        var northEast = Map.unproject([w, 0], Map.getMaxZoom());
 
         var mapBounds = new L.LatLngBounds(southWest, northEast);
 
-        _MAP_map.setMaxBounds(mapBounds);
-        _MAP_currentLayer = e.layer;
+        Map.setMaxBounds(mapBounds);
+        CurrentLayer = e.layer;
 
         clearAllMarkers();
         toggleBlips();
     });
 
-    _MAP_map.on('click', function (e) {
-        //console.log(e);
+    Map.on('click', function (e) {
     });
-    //L.tileLayer("images/tiles/minimap_{y}_{x}.png", {tileSize: 512}).addTo(_MAP_map);
-
-    ///_MAP_map.setCenter([w * 0.5, h * 0.5]);
 }
 
 function createMarker(animated, draggable, objectRef, title) {
@@ -101,33 +99,33 @@ function createMarker(animated, draggable, objectRef, title) {
 
     var marker = L.marker(coord, {
         title: title,
-        id: _MAP_markerStore.length,
+        id: MarkerStore.length,
         icon: image,
         object: objectRef,
         draggable: draggable ? true : false
-    }).addTo(_MAP_map).bindPopup(infoContent);
+    }).addTo(Map).bindPopup(infoContent);
 
-    _MAP_markerStore.push(marker);
-    return _MAP_markerStore.length;
+    MarkerStore.push(marker);
+    return MarkerStore.length;
 }
 
 function setMapCenter(lat, lng) {
-    _MAP_map.setCenter([lat, lng]);
-    _MAP_map.setZoom(6);
+    Map.setCenter([lat, lng]);
+    Map.setZoom(6);
 }
 
 function setMapCenterLeaflet(coord) {
-    _MAP_map.setCenter(coord);
-    _MAP_map.setZoom(6);
+    Map.setCenter(coord);
+    Map.setZoom(6);
 }
 
 function clearAllMarkers() {
-    for (var i = 0; i < _MAP_markerStore.length; i++) {
-        if (_MAP_markerStore[i] != "NULL") {
-            _MAP_markerStore[i].remove();
+    for (var i = 0; i < MarkerStore.length; i++) {
+        if (MarkerStore[i] != "NULL") {
+            MarkerStore[i].remove();
         }
     }
-    _MAP_markerStore.length = 0;
+    MarkerStore.length = 0;
     // Re-do player markers
     for(var id in localCache){
         localCache[id].marker = null;
@@ -135,15 +133,15 @@ function clearAllMarkers() {
 }
 
 function clearMarker(id) {
-    if (_MAP_markerStore[id] != "NULL") {
-        _MAP_markerStore[id].remove();
-        _MAP_markerStore[id] = "NULL";
+    if (MarkerStore[id] != "NULL") {
+        MarkerStore[id].remove();
+        MarkerStore[id] = "NULL";
         $("#marker_" + id).remove();
     }
 }
 
 function getMarker(id) {
-    if (_MAP_markerStore[id] != "NULL") {
-        return _MAP_markerStore[id];
+    if (MarkerStore[id] != "NULL") {
+        return MarkerStore[id];
     }
 };

@@ -54,7 +54,7 @@ $(document).ready(function(){
             return;
         }
 
-        _MAP_map.setZoom(6);// zoom in!
+        Map.setZoom(3);// zoom in!
         _trackPlayer = this.value;
     });
 

@@ -30,11 +30,11 @@ var game_2_x = -3778.16;
 var game_2_y = -4549.6;
 
 function convertToMap(x, y) {
-    var h = _MAP_currentLayer.options.tileSize * 3,
-        w = _MAP_currentLayer.options.tileSize * 2;
+    var h = CurrentLayer.options.tileSize * 3,
+        w = CurrentLayer.options.tileSize * 2;
 
-    var latLng1 = _MAP_map.unproject([w * 0.5, h * 0.5], _MAP_map.getMaxZoom());
-    var latLng2 = _MAP_map.unproject([0, h], _MAP_map.getMaxZoom());
+    var latLng1 = Map.unproject([w * 0.5, h * 0.5], Map.getMaxZoom());
+    var latLng2 = Map.unproject([0, h], Map.getMaxZoom());
 
     var rLng = latLng1.lng + (x - game_1_x) * (latLng1.lng - latLng2.lng) / (game_1_x - game_2_x);
     var rLat = latLng1.lat + (y - game_1_y) * (latLng1.lat - latLng2.lat) / (game_1_y - game_2_y);
