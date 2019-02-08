@@ -97,7 +97,7 @@ function onMessage(e) {
         //console.log("player left:" + data.payload);
         playerLeft(data.payload);
     }
-    
+
 }
 
 function onError(e) {
@@ -335,7 +335,7 @@ function doPlayerUpdate(players) {
                 var t = MarkerTypes[plr.icon];
 
                 //console.log("Got icon of :" + plr.icon);
-                
+
                 _MAP_markerStore[localCache[plr.identifer].marker].setIcon(L.icon(t));
             }
 
@@ -357,7 +357,7 @@ function doPlayerUpdate(players) {
             var html = getPlayerInfoHtml(plr);
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
-            
+
             _MAP_markerStore[m].bindPopup(infoContent);
 
         }
