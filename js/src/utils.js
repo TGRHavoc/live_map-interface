@@ -29,18 +29,6 @@ var game_1_y = 1660.16;
 var game_2_x = -3778.16;
 var game_2_y = -4549.6;
 
-
-var game_min_x = -4000.00;
-var game_max_x = 6000.00;
-var game_min_y = 8000.00;
-var game_max_y = -4000.00;
-var map_min_x = 0;
-var map_min_y = 0;
-
-/*
-    var rLng = map_1_lng + (x - game_1_x) * (map_1_lng - map_2_lng) / (game_1_x - game_2_x);
-    var rLat = map_1_lat + (y - game_1_y) * (map_1_lat - map_2_lat) / (game_1_y - game_2_y);
-*/
 function convertToMap(x, y) {
     var h = _MAP_currentLayer.options.tileSize * 3,
         w = _MAP_currentLayer.options.tileSize * 2;
@@ -56,20 +44,68 @@ function convertToMap(x, y) {
     };
 }
 
-function convertToMapOld(x, y) {
-    var map_max_x = _MAP_currentLayer.options.tileSize * 2,
-        map_max_y = _MAP_currentLayer.options.tileSize * 3;
+const singleComment = 1;
+const multiComment = 2;
+const stripWithoutWhitespace = () => '';
+const stripWithWhitespace = (str, start, end) => str.slice(start, end).replace(/\S/g, ' ');
 
-    var xPercent = normalize(x, game_min_x, game_max_x);
-    var destX = xPercent * (Math.abs(map_max_x - map_min_x)) + map_min_x;
+function stripJsonOfComments(str, opts) {
+    opts = opts || {};
 
-    var yPercent = normalize(y, game_min_y, game_max_y);
-    var destY = yPercent * (Math.abs(map_max_y - map_min_y)) + map_min_y;
+    const strip = opts.whitespace === false ? stripWithoutWhitespace : stripWithWhitespace;
 
-    console.log(convertToMap(x,y));
-    console.log(_MAP_map.unproject([destX, destY], _MAP_map.getMaxZoom()));
-    return _MAP_map.unproject([destX, destY], _MAP_map.getMaxZoom());
-}
+    let insideString = false;
+    let insideComment = false;
+    let offset = 0;
+    let ret = '';
+
+    for (let i = 0; i < str.length; i++) {
+        const currentChar = str[i];
+        const nextChar = str[i + 1];
+
+        if (!insideComment && currentChar === '"') {
+            const escaped = str[i - 1] === '\\' && str[i - 2] !== '\\';
+            if (!escaped) {
+                insideString = !insideString;
+            }
+        }
+
+        if (insideString) {
+            continue;
+        }
+
+        if (!insideComment && currentChar + nextChar === '//') {
+            ret += str.slice(offset, i);
+            offset = i;
+            insideComment = singleComment;
+            i++;
+        } else if (insideComment === singleComment && currentChar + nextChar === '\r\n') {
+            i++;
+            insideComment = false;
+            ret += strip(str, offset, i);
+            offset = i;
+            continue;
+        } else if (insideComment === singleComment && currentChar === '\n') {
+            insideComment = false;
+            ret += strip(str, offset, i);
+            offset = i;
+        } else if (!insideComment && currentChar + nextChar === '/*') {
+            ret += str.slice(offset, i);
+            offset = i;
+            insideComment = multiComment;
+            i++;
+            continue;
+        } else if (insideComment === multiComment && currentChar + nextChar === '*/') {
+            i++;
+            insideComment = false;
+            ret += strip(str, offset, i + 1);
+            offset = i + 1;
+            continue;
+        }
+    }
+
+    return ret + (insideComment ? strip(str.substr(offset)) : str.substr(offset));
+};
 
 function convertToMapLeaflet(x, y){
     var t = convertToMap(x, y);
