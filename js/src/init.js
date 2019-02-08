@@ -26,7 +26,6 @@ var _trackPlayer = null;
 var playerCount = 0;
 var _overlays = [];
 var _disabledBlips = [];
-
 window.changeServer = function (nameOfServer) {
     console.log("Changing connected server to: " + nameOfServer);
     if (!(nameOfServer in config.servers)) {
@@ -38,7 +37,6 @@ window.changeServer = function (nameOfServer) {
     }
 
     window.connectedTo = config.servers[nameOfServer];
-    //window.connectedTo = Object.assign(config.defaults, connectedTo);
 
     window.connectedTo.getBlipUrl = function () {
         if (this.reverseProxy && this.reverseProxy.blips) {
@@ -83,10 +81,12 @@ function globalInit() {
 
             for (const serverName in config.servers) {
                 // Make sure all servers inherit defaults if they need
-                config.servers[serverName] = Object.assign(config.servers[serverName], config.defaults);
+                var o = Object.assign({}, config.defaults, config.servers[serverName]);
+                if (config.debug) console.log(o);
+                config.servers[serverName] = o;
             }
 
-            changeServer(Object.keys(p.servers)[0]);
+            changeServer(Object.keys(p.servers)[0]); // Show the stuff for the first server in the config.
 
             initMarkers();
             initPage();
