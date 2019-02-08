@@ -1,0 +1,47 @@
+{
+    "debug": false,
+
+    "tileDirectory": "images/tiles",
+    "iconDirectory": "images/icons",
+    "showIdentifiers" : false,
+
+    "defaults": { // If a server doesn't have the key-value set, it will fallback to these values
+        "ip": "127.0.0.1", // Make sure this is the PUBLIC IP of the FIVEM server
+        "fivemPort": "30120", // The fivem port
+        "socketPort": "30121", // Set to the port that you set in the "socket_port" convar (if different to the one in the config)
+        "liveMapName": "live_map" // Set to the resource's name (if different to the one in the config)
+    },
+
+    "servers": {
+        "Default server 1": {}, // The config values are above, no need to write them again
+        "Only IP changed": { // Only the IP is different for this server. So, change it
+            "ip" : "192.168.1.2"
+        },
+        "Everything is different": {
+            "ip": "10.10.0.1",
+            "fivemPort": "60120",
+            "socketPort": "60121",
+            "liveMapName": "shitty_livemap"
+        },
+        "Reverse Proxy Example": {
+            "reverseProxy" : { // If you have knowledge on how to set up a "reverse proxy" for your webserver and want to keep the map on a secure connection, set the values below.
+                "socket": "wss://example.com", // The secure, proxied url for the socket connection
+                "blips": "https://example.com/server1/blips.json" // The secure, proxied url for the blip file
+            }
+        }
+    },
+    "maps" : [
+        {
+            "name": "Normal",
+            "url": "{tileDirectory}/normal/minimap_sea_{y}_{x}.png",
+            "minZoom": -2, // Set lower to zoom out more
+            "tileSize": 1024 // How big are the tiles in pixels
+        },
+        {
+            "name": "Postal",
+            "url": "{tileDirectory}/postal/minimap_sea_{y}_{x}.png",
+            "minZoom": -5, // Since this is 3 times bigger, just remove 3 from the default minZoom
+            "tileSize": 3072 // How big are the tiles in pixels
+        }
+    ]
+}
