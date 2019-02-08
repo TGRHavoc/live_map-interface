@@ -47,7 +47,6 @@ function toggleBlips(){
 
 $(document).ready(function(){
     globalInit();
-    connect();
 
     $("#playerSelect").on("change", function(){
         if (this.value == ""){
@@ -65,6 +64,11 @@ $(document).ready(function(){
             clearAllMarkers();
             initBlips();
         }
+    });
+
+    $("#server_menu").on("click", ".serverMenuItem", function(e){
+        console.log($(this).text());
+        changeServer($(this).text());
     });
 
     $("#showBlips").click(function(e){

@@ -16,10 +16,8 @@
 //      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
-var socketUrl = _SETTINGS_socketUrl;
-
-function connect() {
-    webSocket = new WebSocket(socketUrl);
+function connect(connectionString) {
+    window.webSocket = new WebSocket(connectionString);
 
     webSocket.onopen = function (e) {
         onOpen(e);
@@ -40,7 +38,7 @@ function connect() {
 
 function onOpen(e) {
     _isConnected = true;
-    if (_SETTINGS_debug) {
+    if (config.debug) {
         console.log("_isConnected: " + _isConnected);
     }
 
@@ -61,7 +59,7 @@ function onMessage(e) {
     var m = encodeURIComponent(e.data).match(/%[89ABab]/g);
     var byteSize = e.data.length + (m ? m.length : 0);
 
-    if (_SETTINGS_debug) {
+    if (config.debug) {
         console.log("recieved message (" + byteSize / 1024 + " kB)");
         console.log("data: " + e.data);
     }
@@ -136,7 +134,7 @@ function onError(e) {
 
     //$("#socket_error").text(reason);
     console.error("Socket error: " + reason);
-    if (_SETTINGS_debug) {
+    if (config.debug) {
         //createAlert("warning", "Socket error", ["There was an error with the socket connnection", reason], 2);
         createAlert({
             title: "<strong>Socket error!</strong>",
@@ -275,7 +273,7 @@ function playerLeft(playerName) {
     }
 
     playerCount = Object.keys(localCache).length;
-    if (_SETTINGS_debug) {
+    if (config.debug) {
         console.log("Playerleft playercount: " + playerCount);
     }
     $("#player_count").text(playerCount);
@@ -303,7 +301,7 @@ function getPlayerInfoHtml(plr) {
 
 function doPlayerUpdate(players) {
 
-    if (_SETTINGS_debug) {
+    if (config.debug) {
         console.log(players);
     }
 
@@ -365,7 +363,7 @@ function doPlayerUpdate(players) {
     });
 
     playerCount = Object.keys(localCache).length;
-    if (_SETTINGS_debug) {
+    if (config.debug) {
         console.log("playercount: " + playerCount);
     }
     $("#player_count").text(playerCount);
