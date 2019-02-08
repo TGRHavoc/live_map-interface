@@ -37,15 +37,7 @@ function createAlert(data, settings){
         data.title = "<strong>Warning!</strong>";
     }
 
-    settings = Object.assign(settings, {
-        newsest_on_top: true,
-        placement: {
-            from: "bottom",
-            align: "left"
-        },
-        delay: 10000,
-        type: "warning"
-    });
+    settings = Object.assign({ newsest_on_top: true, placement: { from: "bottom", align: "left" }, delay: 10000, type: "warning" }, settings);
 
     //console.log(JSON.stringify(data));
     //console.log(JSON.stringify(settings));

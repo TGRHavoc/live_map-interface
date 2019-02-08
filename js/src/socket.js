@@ -37,9 +37,8 @@ function connect(connectionString) {
 }
 
 function onOpen(e) {
-    _isConnected = true;
     if (config.debug) {
-        console.log("_isConnected: " + _isConnected);
+        console.log("_isConnected: " + webSocket.readyState == WebSocket.OPEN);
     }
 
     $("#connection").removeClass("badge-danger")
@@ -147,8 +146,6 @@ function onClose(e) {
     $("#connection").removeClass("badge-success")
         .removeClass("badge-warning")
         .addClass("badge-danger").text("disconnected");
-
-    _isConnected = false;
 }
 
 var localCache = {};
@@ -222,7 +219,7 @@ function updateBlip(blipObj) {
         if (blipObj.hasOwnProperty("new_pos")) {
             // Blips are supposed to be static so, why this would even be fucking needed it beyond me
             // Still, better to prepare for the inevitability that someone wants this fucking feature
-            marker.setLatLng(convertToMapLeaflet(blipObj.new_pos.x, blipObj.new_pos.y, blipObj.new_pos.z));
+            marker.setLatLng(convertToMap(blipObj.new_pos.x, blipObj.new_pos.y, blipObj.new_pos.z));
             blipObj.pos = blipObj.new_pos;
             delete blipObj.new_pos;
         }
@@ -289,7 +286,7 @@ function getPlayerInfoHtml(plr) {
 
         if (!(key === "identifer")) {
             html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
-        } else if (_SETTINGS_showIdentifiers && key == "identifer") {
+        } else if (config.showIdentifiers && key == "identifer") {
             html += '<div class="row info-body-row"><strong>Identifer:</strong>&nbsp;' + plr[key] + '</div>';
         } else {
             continue;
@@ -324,7 +321,7 @@ function doPlayerUpdate(players) {
 
         if (_trackPlayer != null && _trackPlayer == plr.identifer) {
             // If we're tracking a player, make sure we center them
-            _MAP_map.panTo(convertToMapLeaflet(plr.pos.x, plr.pos.y));
+            Map.panTo(convertToMap(plr.pos.x, plr.pos.y));
         }
 
         if (localCache[plr.identifer].marker != null || localCache[plr.identifer].marker != undefined) {
@@ -334,18 +331,18 @@ function doPlayerUpdate(players) {
 
                 //console.log("Got icon of :" + plr.icon);
 
-                _MAP_markerStore[localCache[plr.identifer].marker].setIcon(L.icon(t));
+                MarkerStore[localCache[plr.identifer].marker].setIcon(L.icon(t));
             }
 
             // Update the player's location on the map :)
-            _MAP_markerStore[localCache[plr.identifer].marker].setLatLng(convertToMapLeaflet(plr.pos.x, plr.pos.y));
+            MarkerStore[localCache[plr.identifer].marker].setLatLng(convertToMapLeaflet(plr.pos.x, plr.pos.y));
 
             //update popup with the information we have been sent
             var html = getPlayerInfoHtml(plr);
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
-            _MAP_markerStore[localCache[plr.identifer].marker].bindPopup(infoContent);
+            MarkerStore[localCache[plr.identifer].marker].bindPopup(infoContent);
 
         } else {
 
@@ -356,7 +353,7 @@ function doPlayerUpdate(players) {
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
-            _MAP_markerStore[m].bindPopup(infoContent);
+            MarkerStore[m].bindPopup(infoContent);
 
         }
 
