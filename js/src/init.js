@@ -27,22 +27,87 @@ var playerCount = 0;
 var _overlays = [];
 var _disabledBlips = [];
 
-function globalInit() {
-    mapInit("map-canvas");
-    initPage();
-    initBlips();
-
-    for (var i = 0; i < _overlays.length; i++) {
-        var o = _overlays[i];
-        $("#overlaySelect").append(`<option value="${i}">${o.name}</option>`);
+window.changeServer = function (nameOfServer) {
+    console.log("Changing connected server to: " + nameOfServer);
+    if (!(nameOfServer in config.servers)) {
+        createAlert({
+            title: "<strong>Couldn't load server config!</strong>",
+            message: `The server "${nameOfServer}" doesn't exist in the config file.`
+        });
+        return;
     }
 
+    window.connectedTo = config.servers[nameOfServer];
+    //window.connectedTo = Object.assign(config.defaults, connectedTo);
+
+    window.connectedTo.getBlipUrl = function () {
+        if (this.reverseProxy && this.reverseProxy.blips) {
+            return this.reverseProxy.blips;
+        }
+        return `http://${this.ip}:${this.fivemPort}/${this.liveMapName}/blips.json`;
+    }
+
+    window.connectedTo.getSocketUrl = function () {
+        if (this.reverseProxy && this.reverseProxy.socket) {
+            return this.reverseProxy.socket;
+        }
+        return `ws://${this.ip}:${this.socketPort}`;
+    }
+
+    // If we've changed servers. Might as well reset everything.
+    clearAllMarkers();
+    if (window.webSocket && window.webSocket.readyState == WebSocket.OPEN) window.webSocket.close();
+
+    $("#server_name").text(nameOfServer);
+
+    initBlips(connectedTo.getBlipUrl());
+    connect(connectedTo.getSocketUrl());
 }
 
+function globalInit() {
+    // Init config
+
+    $.ajax("config.json", {
+        error: function (textStatus, errorThrown) {
+            createAlert({
+                title: "<strong>Error getting config, cannot load map!</strong>",
+                message: textStatus.statusText
+            });
+        },
+        dataType: "text", // We want to strip any comments in the file first
+        success: function (data, textStatus) {
+            var str = stripJsonOfComments(data);
+            var p = JSON.parse(str);
+
+            window.config = p;
+
+            for (const serverName in config.servers) {
+                // Make sure all servers inherit defaults if they need
+                config.servers[serverName] = Object.assign(config.servers[serverName], config.defaults);
+            }
+
+            changeServer(Object.keys(p.servers)[0]);
+
+            initMarkers();
+            initPage();
+
+            setTimeout(()=>{ // Make sure markers have had time to generate before showing anything marker related
+                initBlips(connectedTo.getBlipUrl());
+                connect(connectedTo.getSocketUrl());
+            }, 50);
+
+            mapInit("map-canvas");
+        }
+    });
+}
 function initPage() {
     $(window).on("load resize", function() {
         $(".map-tab-content").height((($("#tab-content").height() - $(".page-title-1").height()) - ($("#map-overlay-global-controls").height() * 4.2)));
     });
+
+    for (const serverName in config.servers) {
+        $("#server_menu").append("<a class='dropdown-item serverMenuItem' href='#'>" + serverName + "</a>");
+    }
 
     var $myGroup = $('#control-wrapper');
     $myGroup.on('show.bs.collapse','.collapse', function() {
@@ -138,7 +203,6 @@ function blipSuccess(data, textStatus){
                 blip.description = (blip.hasOwnProperty("description") || blip.description != null) ? blip.description : "";
 
                 blip.type = spriteId;
-
                 createBlip(blip);
             }
         }
@@ -159,18 +223,14 @@ function blipError( textStatus, errorThrown){
 
 }
 
-function initBlips(){
+function initBlips(url){
     _blipCount = 0;
     _blips = [];
 
-    console.log("Sending ajax request to " + _SETTINGS_blipUrl);
-    $.ajax(_SETTINGS_blipUrl, {
+    console.log("Sending ajax request to " + url);
+    $.ajax(url, {
         error: blipError,
         dataType: "json",
         success: blipSuccess
     });
-}
-
-function initMarkers(debugOnly) {
-    
 }
