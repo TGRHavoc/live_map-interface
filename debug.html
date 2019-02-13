@@ -20,39 +20,6 @@
 
 -->
 <!DOCTYPE html>
-
-<?php
-    require_once("utils/minifier.php");
-    require_once("utils/config.php");
-    require_once("utils/params.php");
-    require_once("utils/update_checker.php");
-    //require_once("utils/servers.php");
-
-    Update::getCurrentVersion();
-
-    $debug = true;
-
-    $parser = ParamParser::getParser();
-
-    if(ISSET($_GET["server"])){
-        /*
-        $name = $_GET["server"];
-
-        if(array_key_exists($name, Config::$servers)){
-            $srv = Config::$servers[$name];
-        }else{
-            $name = key(Config::$servers); // get the first server in array
-            $srv = Config::$servers[$name];
-        }
-        */
-
-        unset($_GET["server"]);
-    }else{
-        $name = key(Config::$servers); // get the first server in array
-        $srv = Config::$servers[$name];
-    }
-?>
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -62,32 +29,41 @@
     <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP74zAv++Mwn/vjMMf74zDH++Mwm//jMCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD++c0d/vnNROPLnGDw4bRX/vnNQ/75zRkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFKwBThSsAQgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFLQABhSwAvIUsAKyGLgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhS0AYYUtAP+FLQD+hS0AUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGLgAAhi4AYYUtAPmFLQD/hS0A/4UtAPWGLgBVhi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACHLwABhi4AkoUuAP+MMQD/uEQA/7ZDAP+LMAD/hS4A/oYuAIONNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhzAAWoYvAP/DTQD//8Ay///mSP//5Uj//7ov/7dHAP+FLwD+hi8ASgAAAAAAAAAAAAAAAAAAAAAAAAAAiC0AAIYwAM2UNgD//888///pS///6Uv//+lL///pS///xjf/jTMA/4UwAL0AAAAAAAAAAAAAAAAAAAAAAAAAAIYxAAmGMAD66WQN///qTP//6Uz//+lM///pTP//6Uz//+pM/9NYCP+FMADxhTAAAwAAAAAAAAAAAAAAAAAAAACFMQALhTEA/PduE///6k3//+pN///qTf//6k3//+pN///qTf/iYg7/hTEA84MxAAMAAAAAAAAAAAAAAAAAAAAAhDEAAYQxANemQwH//+RK///qTf//6k3//+pN///qTf//30j/mjwA/4UxAMcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEMgBshDEA//93Gf//50z//+tO///rTv//5Ev/8W0V/4QxAP+EMgBbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgzIAA4MyAK+CMQD/tEwH//+AH///fh7/rUgF/4IxAP+BMQCggDEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDMgAEgjIAc4MyAOCDMgD+gzIA/oEyANyCMgBqgDEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+MAACgTIAFn4xABV/MQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+B8AAPgfAAD+fwAA/D8AAPw/AADwDwAA4AcAAOAHAADABwAAwAMAAMADAADABwAA4AcAAOAHAADwDwAA/D8AAA==" rel="icon" type="image/x-icon">
 
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <?php
-        // Print the CSS stuff for the webapp. This will either print the minfied version or, links to the CSS filees
-        Minifier::printCss($debug);
-    ?>
-	<link type="text/css" rel="stylesheet" href="style/fontawesome-all.min.css" />
 
-    <script src="js/jquery-3.2.1.min.js"></script>
+    <!-- Vendor Stylesheets -->
+    <link rel="stylesheet" href="style/vendor/all.css" />
+    <link rel="stylesheet" href="style/vendor/bootstrap.css" />
+    <link rel="stylesheet" href="style/vendor/bootstrap-grid.css" />
+    <link rel="stylesheet" href="style/vendor/bootstrap-reboot.css" />
+    <link rel="stylesheet" href="style/vendor/bootstrap-theme.css" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-	<script src="js/bootstrap-notify.min.js"></script>
+    <!-- Custom stylesheet-->
+    <link rel="stylesheet" href="style/src/style.css" />
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
-        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-        crossorigin=""/>
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin=""/>
 
     <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
-        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
-        crossorigin=""></script>
+    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+    crossorigin=""></script>
 
+    <!-- Vendor JS -->
+    <!-- They only have a letter in front of them because, I cba adding vendors to gulpfile manually.
+        I'd rather just add a JS file and be good to go.
+    -->
+    <script src="js/vendor/a_jquery-3.3.1.js"></script>
+    <script src="js/vendor/b_bootstrap.js"></script>
+    <script src="js/vendor/c_bootstrap-notify.js"></script>
 
-    <?php
-        Minifier::printFirstJs($debug);
-    ?>
+    <!-- Custom JS files -->
+    <script src="js/src/alerter.1.js"></script>
+    <script src="js/src/objects.1.js"></script>
+    <script src="js/src/utils.1.js"></script>
+    <script src="js/src/map.1.js"></script>
+    <script src="js/src/markers.1.js"></script>
+    <script src="js/src/init.1.js"></script>
+    <script src="js/src/socket.1.js"></script>
 
 </head>
 <body>
@@ -100,7 +76,7 @@
             </button>
             <a class="navbar-brand" href="https://github.com/TGRHavoc/">
                     <img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
-                    Live Map v<?php echo Update::$version ?>
+                    Live Map v<span id="livemap_version">2.0.0</span>
             </a>
 
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -208,13 +184,7 @@
         </main>
     </div>
 
-<?php
-    Minifier::printLastJs($debug);
-    $parser->printJsForParams();
-    if(!Update::latestVersion()){
-        echo Update::alertJs();
-    }
-?>
+    <script src="js/src/controls.2.js"></script>
 
     <script>
     var greenIcon = L.icon({
