@@ -4,3 +4,5 @@ images/__map/
 
 generate-changes.bat
 .changelog.rc
+
+node_modules/
