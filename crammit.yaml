@@ -1,6 +1,0 @@
-output: dist
-fingerprint: false
-
-css:
-    bundle:
-        - style/src/*.css
