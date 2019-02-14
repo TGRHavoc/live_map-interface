@@ -24,7 +24,7 @@ window.MarkerTypes = {};
 var blipCss = "";
 
 function initMarkers(){
-    console.log("initialising markers");
+    console._log("initialising markers");
     window.MarkerTypes = {
         0: {
             iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=',
@@ -242,7 +242,7 @@ function generateBlipControls(){
         $("#blip-control-container").append(`<a data-blip-number="${nameToId[blipName]}" id="blip_${blipName}_link" class="blip-button-a list-group-item d-inline-block collapsed blip-enabled" href="#"><span class="blip blip-${blipName}"></span></a>`);
 
         if(config.debug){
-            console.log("Added ahref for " + blipName);
+            console._log("Added ahref for " + blipName);
         }
     }
 

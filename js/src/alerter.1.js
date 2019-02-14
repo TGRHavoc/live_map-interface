@@ -39,8 +39,8 @@ function createAlert(data, settings){
 
     settings = Object.assign({ newsest_on_top: true, placement: { from: "bottom", align: "left" }, delay: 10000, type: "warning" }, settings);
 
-    //console.log(JSON.stringify(data));
-    //console.log(JSON.stringify(settings));
+    //console._log(JSON.stringify(data));
+    //console._log(JSON.stringify(settings));
 
     return $.notify(data, settings);; // Incase I need this in future for shit like prgress bars or, if i need to update the alert
 }

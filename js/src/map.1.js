@@ -29,13 +29,13 @@ function mapInit(elementID) {
     var tileLayers = {};
     var maps = window.config.maps;
     maps.forEach(map => {
-        console.log(map);
+        console._log(map);
         tileLayers[map.name] = L.tileLayer(map.url,
             Object.assign(
             { minZoom: -2, maxZoom: 0, maxNativeZoom: 0, minNativeZoom: 0, tileSize: 1024, tileDirectory: config.tileDirectory },
             map)
         );
-        console.log(tileLayers[map.name]);
+        console._log(tileLayers[map.name]);
     });
 
     CurrentLayer = tileLayers[Object.keys(tileLayers)[0]];
@@ -73,8 +73,8 @@ function mapInit(elementID) {
     });
 
     Map.on('preclick', function (e) {
-        console.log("Preclick!");
-        console.log(e);
+        console._log("Preclick!");
+        console._log(e);
     });
 }
 
@@ -85,12 +85,12 @@ function createMarker(animated, draggable, objectRef, title) {
         name = "@Locator";
     }
     objectRef.position = stringCoordToFloat(objectRef.position);
-    //console.log(objectRef.position);
+    //console._log(objectRef.position);
     var coord = convertToMapLeaflet(objectRef.position.x, objectRef.position.y);
-    //console.log(coord);
+    //console._log(coord);
     var markerType = objectRef.type;
 
-    //console.log(JSON.stringify(locationType));
+    //console._log(JSON.stringify(locationType));
 
     var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + objectRef.position.x.toFixed(2) + "} Y {" + objectRef.position.y.toFixed(2) + "} Z {" + objectRef.position.z.toFixed(2) + "}</div>";
 
@@ -101,8 +101,8 @@ function createMarker(animated, draggable, objectRef, title) {
     var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + name + '</div></div><div class="clear"></div><div class=info-body>' + html + "</div></div>";
 
     var image = L.icon(markerType);
-    //console.log(image);
-    //console.log("image: " + JSON.stringify(image));
+    //console._log(image);
+    //console._log("image: " + JSON.stringify(image));
 
     var marker = L.marker(coord, {
         title: title,
