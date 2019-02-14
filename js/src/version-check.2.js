@@ -34,7 +34,7 @@ $(document).ready(function () {
                             message: `An update is available (${window.version} -> ${p["interface"]}). Please download it <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface'>HERE.</a>`
                         })
                     }else{
-                        console.log("Up to date or, a higher version");
+                        console._log("Up to date or, a higher version");
                     }
 
                 }

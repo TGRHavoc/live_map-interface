@@ -38,7 +38,7 @@ function connect(connectionString) {
 
 function onOpen(e) {
     if (config.debug) {
-        console.log("_isConnected: " + webSocket.readyState == WebSocket.OPEN);
+        console._log("_isConnected: " + webSocket.readyState == WebSocket.OPEN);
     }
 
     $("#connection").removeClass("badge-danger")
@@ -59,8 +59,8 @@ function onMessage(e) {
     var byteSize = e.data.length + (m ? m.length : 0);
 
     if (config.debug) {
-        console.log("recieved message (" + byteSize / 1024 + " kB)");
-        console.log("data: " + e.data);
+        console._log("recieved message (" + byteSize / 1024 + " kB)");
+        console._log("data: " + e.data);
     }
 
     var data = JSON.parse(e.data);
@@ -86,12 +86,12 @@ function onMessage(e) {
         updateBlip(data.payload);
 
     } else if (data.type == "playerData") {
-        //console.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
+        //console._log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
         var sortedPlayers = data.payload.sort(sorter);
         doPlayerUpdate(sortedPlayers);
 
     } else if (data.type == "playerLeft") {
-        //console.log("player left:" + data.payload);
+        //console._log("player left:" + data.payload);
         playerLeft(data.payload);
     }
 
@@ -271,7 +271,7 @@ function playerLeft(playerName) {
 
     playerCount = Object.keys(localCache).length;
     if (config.debug) {
-        console.log("Playerleft playercount: " + playerCount);
+        console._log("Playerleft playercount: " + playerCount);
     }
     $("#player_count").text(playerCount);
 }
@@ -279,7 +279,7 @@ function playerLeft(playerName) {
 function getPlayerInfoHtml(plr) {
     var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(2) + "} Y {" + plr.pos.y.toFixed(2) + "} Z {" + plr.pos.z.toFixed(2) + "}</div>";
     for (var key in plr) {
-        //console.log("found key: "+ key);
+        //console._log("found key: "+ key);
         if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
             continue; // We're already displaying this info
         }
@@ -299,7 +299,7 @@ function getPlayerInfoHtml(plr) {
 function doPlayerUpdate(players) {
 
     if (config.debug) {
-        console.log(players);
+        console._log(players);
     }
 
     players.forEach(function (plr) {
@@ -329,7 +329,7 @@ function doPlayerUpdate(players) {
             if (plr.icon) {
                 var t = MarkerTypes[plr.icon];
 
-                //console.log("Got icon of :" + plr.icon);
+                //console._log("Got icon of :" + plr.icon);
 
                 MarkerStore[localCache[plr.identifer].marker].setIcon(L.icon(t));
             }
@@ -361,7 +361,7 @@ function doPlayerUpdate(players) {
 
     playerCount = Object.keys(localCache).length;
     if (config.debug) {
-        console.log("playercount: " + playerCount);
+        console._log("playercount: " + playerCount);
     }
     $("#player_count").text(playerCount);
 }

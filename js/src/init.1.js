@@ -16,6 +16,14 @@
 //      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
+// Ugly hack. Please. Avert eyes.
+_log = console._log = function(message, ...params){
+    if(window.config.debug){
+        params.unshift(message);
+        console.log.apply(this, params);
+    }
+}
+
 var _invervalId;
 var _isLive = false;
 var _blips = [];
@@ -27,7 +35,7 @@ var playerCount = 0;
 var _overlays = [];
 var _disabledBlips = [];
 window.changeServer = function (nameOfServer) {
-    console.log("Changing connected server to: " + nameOfServer);
+    console._log("Changing connected server to: " + nameOfServer);
     if (!(nameOfServer in config.servers)) {
         createAlert({
             title: "<strong>Couldn't load server config!</strong>",
@@ -82,7 +90,7 @@ function globalInit() {
             for (const serverName in config.servers) {
                 // Make sure all servers inherit defaults if they need
                 var o = Object.assign({}, config.defaults, config.servers[serverName]);
-                if (config.debug) console.log(o);
+                console._log(o);
                 config.servers[serverName] = o;
             }
 
@@ -111,7 +119,7 @@ function initPage() {
 
     var $myGroup = $('#control-wrapper');
     $myGroup.on('show.bs.collapse','.collapse', function() {
-        console.log("hidding?");
+        console._log("hidding?");
         $myGroup.find('.collapse.show').collapse('hide');
     });
 
@@ -208,7 +216,7 @@ function blipSuccess(data, textStatus){
         }
     }
 
-    console.log(_blipCount + " blips created");
+    console._log(_blipCount + " blips created");
     $("#blip_count").text(_blipCount);
 
 }
@@ -227,7 +235,7 @@ function initBlips(url){
     _blipCount = 0;
     _blips = [];
 
-    console.log("Sending ajax request to " + url);
+    console._log("Sending ajax request to " + url);
     $.ajax(url, {
         error: blipError,
         dataType: "json",

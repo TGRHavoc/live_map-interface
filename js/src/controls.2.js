@@ -17,16 +17,16 @@
 // ************************************************************************** //
 
 function toggleBlips(){
-    console.log("showing local blips");
+    console._log("showing local blips");
     if (_showBlips){
 
         for(var spriteId in _blips){
             var blipArray = _blips[spriteId];
-            //console.log("Disabled (" + spriteId + ")? " + _disabledBlips.includes(spriteId));
+            //console._log("Disabled (" + spriteId + ")? " + _disabledBlips.includes(spriteId));
 
             if(_disabledBlips.indexOf(spriteId) != -1){
                 if(_SETTINGS_debug){
-                    console.log("Blip " + spriteId + "'s are disabled..");
+                    console._log("Blip " + spriteId + "'s are disabled..");
                 }
                 // If disabled, don't make a marker for it
                 continue;
@@ -67,7 +67,7 @@ $(document).ready(function(){
     });
 
     $("#server_menu").on("click", ".serverMenuItem", function(e){
-        console.log($(this).text());
+        console._log($(this).text());
         changeServer($(this).text());
     });
 
