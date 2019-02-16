@@ -1,0 +1,286 @@
+<!--
+
+// ************************************************************************** //
+//            LiveMap Interface - The web interface for the livemap
+//                    Copyright (C) 2017  Jordan Dalton
+//
+//      This program is free software: you can redistribute it and/or modify
+//      it under the terms of the GNU General Public License as published by
+//      the Free Software Foundation, either version 3 of the License, or
+//      (at your option) any later version.
+//
+//      This program is distributed in the hope that it will be useful,
+//      but WITHOUT ANY WARRANTY; without even the implied warranty of
+//      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//      GNU General Public License for more details.
+//
+//      You should have received a copy of the GNU General Public License
+//      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
+// ************************************************************************** //
+
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Havoc's Live map</title>
+
+    <!-- Pin favicon from: https://www.freefavicon.com/freefavicons/objects/iconinfo/map-pin-152-195874.html -->
+    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP74zAv++Mwn/vjMMf74zDH++Mwm//jMCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD++c0d/vnNROPLnGDw4bRX/vnNQ/75zRkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFKwBThSsAQgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFLQABhSwAvIUsAKyGLgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhS0AYYUtAP+FLQD+hS0AUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGLgAAhi4AYYUtAPmFLQD/hS0A/4UtAPWGLgBVhi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACHLwABhi4AkoUuAP+MMQD/uEQA/7ZDAP+LMAD/hS4A/oYuAIONNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhzAAWoYvAP/DTQD//8Ay///mSP//5Uj//7ov/7dHAP+FLwD+hi8ASgAAAAAAAAAAAAAAAAAAAAAAAAAAiC0AAIYwAM2UNgD//888///pS///6Uv//+lL///pS///xjf/jTMA/4UwAL0AAAAAAAAAAAAAAAAAAAAAAAAAAIYxAAmGMAD66WQN///qTP//6Uz//+lM///pTP//6Uz//+pM/9NYCP+FMADxhTAAAwAAAAAAAAAAAAAAAAAAAACFMQALhTEA/PduE///6k3//+pN///qTf//6k3//+pN///qTf/iYg7/hTEA84MxAAMAAAAAAAAAAAAAAAAAAAAAhDEAAYQxANemQwH//+RK///qTf//6k3//+pN///qTf//30j/mjwA/4UxAMcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEMgBshDEA//93Gf//50z//+tO///rTv//5Ev/8W0V/4QxAP+EMgBbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgzIAA4MyAK+CMQD/tEwH//+AH///fh7/rUgF/4IxAP+BMQCggDEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDMgAEgjIAc4MyAOCDMgD+gzIA/oEyANyCMgBqgDEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+MAACgTIAFn4xABV/MQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+B8AAPgfAAD+fwAA/D8AAPw/AADwDwAA4AcAAOAHAADABwAAwAMAAMADAADABwAA4AcAAOAHAADwDwAA/D8AAA=="
+        rel="icon" type="image/x-icon">
+
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+
+    <!-- Vendor Stylesheets -->
+    <link rel="stylesheet" href="../style/vendor/all.css" />
+    <link rel="stylesheet" href="../style/vendor/bootstrap.css" />
+
+    <!-- Custom stylesheet-->
+    <link rel="stylesheet" href="../style/src/style.css" />
+
+    <script src="../js/vendor/a_jquery-3.3.1.js"></script>
+    <script src="../js/vendor/b_bootstrap.js"></script>
+    <script src="../js/vendor/c_bootstrap-notify.js"></script>
+    <script src="../js/vendor/d_version_check.js"></script>
+    <script src="./jquery.validate.min.js"></script>
+    <script src="../js/src/alerter.1.js"></script>
+</head>
+
+<body style="overflow: scroll">
+
+    <nav class="navbar navbar-dark navbar-expand-md">
+        <!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo -->
+        <div class="container">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="https://github.com/TGRHavoc/">
+                <img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px">
+                Live Map
+            </a>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-6">
+                <div class="clearfix">
+                    <form id="mainFormThatContainsDefaults" class="form-horizontal">
+                        <fieldset>
+                            <!-- Form Name -->
+                            <legend>LiveMap config generator</legend>
+
+                            <!-- Select Basic -->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="debug">Debug Mode</label>
+                                <div class="col-md-8">
+                                    <select id="debug" name="debug" class="form-control">
+                                        <option value="false">Disable</option>
+                                        <option value="true">Enable</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Select Basic -->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="showIdentifiers">Identifiers</label>
+                                <div class="col-md-8">
+                                    <select id="showIdentifiers" name="showIdentifiers" class="form-control">
+                                        <option value="false">Disable</option>
+                                        <option value="true">Enable</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="tileDirectory">Tile Directory</label>
+                                <div class="col-md-8">
+                                    <input id="tileDirectory" name="tileDirectory" type="text" value="images/tiles" placeholder="images/tiles" class="form-control input-md" required>
+                                    <small class="form-text text-muted">   Where should the map look for the tile images?</small>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="iconDirectory">Icon Directory</label>
+                                <div class="col-md-8">
+                                    <input id="iconDirectory" name="iconDirectory" type="text" value="images/icons" placeholder="images/icons" class="form-control input-md" required>
+                                    <small class="form-text text-muted">   Where should the map look for icon images?</small>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="defaults[ip]">IP</label>
+                                <div class="col-md-8">
+                                    <input id="defaults[ip]" name="defaults[ip]" type="text" placeholder="fivem.example.com" class="form-control input-md" required>
+                                    <small class="form-text text-muted">   What is the public IP for your FiveM server?</small>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="defaults[fivemPort]">FiveM Port</label>
+                                <div class="col-md-8">
+                                    <input id="defaults[fivemPort]" name="defaults[fivemPort]" type="text" value="30120" placeholder="30120" class="form-control input-md" digits required>
+                                    <small class="form-text text-muted">   What is the port FiveM is listening on?</small>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="defaults[socketPort]">Socket Port</label>
+                                <div class="col-md-8">
+                                    <input id="defaults[socketPort]" name="defaults[socketPort]" type="text" value="30121" placeholder="30121" class="form-control input-md" digits required>
+                                    <small class="form-text text-muted">   What is the port LiveMap is listening on?</small>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="defaults[liveMapName]">Resource Name</label>
+                                <div class="col-md-8">
+                                    <input id="defaults[liveMapName]" name="defaults[liveMapName]" type="text" value="live_map" placeholder="live_map" class="form-control input-md">
+                                    <small class="form-text text-muted">   What is the name of the LiveMap resource on the server?</small>
+                                </div>
+                            </div>
+
+                            <!-- Select Basic -->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="serverSelect">Servers</label>
+                                <div class="col-md-8">
+                                    <select id="serverSelect" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <!-- Button -->
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <button id="addServerButton" name="addServerButton" class="form-control btn btn-success">Add Server</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button id="editServerButton" name="editServerButton" class="form-control btn btn-primary">Edit Server</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button id="deleteServerButton" name="deleteServerButton" class="form-control btn btn-danger">Delete Server</button>
+                                </div>
+                            </div>
+
+                            <!-- Button (Double) -->
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <button id="generateConfigBtn" name="generateConfigBtn" class="btn btn-success">Generate Config</button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+
+            <div id="serverConfigBitThatFades" class="col-md-6 hidden">
+                <div class="clearfix">
+                    <form id="secondaryServerConfigForm" class="form-horizontal">
+                        <fieldset>
+
+                            <!-- Form Name -->
+                            <legend>Server Config</legend>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="name">Name</label>
+                                <div class="col-md-8">
+                                    <input id="name" type="text" placeholder="Public Server #1" class="form-control input-md" required="">
+                                    <small class="form-text text-muted">   The name of the server to show to your player.</small>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="ip">IP</label>
+                                <div class="col-md-8">
+                                    <input id="ip" name="ip" type="text" placeholder="fivem.example.com" class="form-control input-md">
+                                    <small class="form-text text-muted">   Only set this if it's different to the default IP</small>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="fivemPort">FiveM Port</label>
+                                <div class="col-md-8">
+                                    <input id="fivemPort" name="fivemPort" type="text" placeholder="30120" class="form-control input-md" digits>
+                                    <small class="form-text text-muted">   Only set this if it's different to the default port.</small>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="socketPort">LiveMap Port</label>
+                                <div class="col-md-8">
+                                    <input id="socketPort" name="socketPort" type="text" placeholder="30121" class="form-control input-md" digits>
+                                    <small class="form-text text-muted">   Only set this if it's different to the default port.</small>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="liveMapName">Resource Name</label>
+                                <div class="col-md-8">
+                                    <input id="liveMapName" name="liveMapName" type="text" placeholder="placeholder" class="form-control input-md">
+                                    <small class="form-text text-muted">   Only change this if it's different to the default resource name.</small>
+                                </div>
+                            </div>
+
+                            <!-- Prepended checkbox -->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="reverseProxy[blips]">Reverse Proxy (Blips)</label>
+                                <div class="col-md-8">
+                                    <input id="reverseProxy[blips]" name="reverseProxy[blips]" class="form-control" type="text" placeholder="https://example.com/blips.json">
+                                    <small class="form-text text-muted">Only set this if you have set up a reverse proxy on your webserver for the blip
+                                        file. Check to enable.</small>
+                                </div>
+                            </div>
+
+                            <!-- Prepended checkbox -->
+                            <div class="form-group row">
+                                <label class="col-md-4 control-label" for="reverseProxy[socket]">Reverse Proxy (Socket)`</label>
+                                <div class="col-md-8">
+                                    <input id="reverseProxy[socket]" name="reverseProxy[socket]" class="form-control" type="text" placeholder="wss://example.com">
+                                    <small class="form-text text-muted">Only set this if you have set up a reverse proxy on your webserver for the socket
+                                        connection. Check to enable.</small>
+                                </div>
+                            </div>
+
+                            <!-- Button (Double) -->
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <button id="serverConfigAdd" name="serverConfigAdd" class="form-control btn btn-success">Add server</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button id="serverConfigReset" name="serverConfigReset" class="form-control btn btn-danger">Reset</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <textarea style="height: 200px; margin-bottom: 100px;" class="form-control" id="outputArea" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="conf.js"></script>
+</body>
+
+</html>
