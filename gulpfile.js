@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var minify = require('gulp-minify');
+var replace = require("gulp-replace");
 var cleanCss = require('gulp-clean-css');
 var cleanCssComments = require("gulp-strip-css-comments");
 
@@ -33,6 +34,7 @@ function pack_css(){
         .pipe(concat('stylesheet.css'))
         .pipe(cleanCssComments({preserve: false}))
         .pipe(cleanCss())
+        .pipe(replace("../webfonts/", "../style/webfonts/"))
         .pipe(minify())
         .pipe(gulp.dest('dist/'));
 }
