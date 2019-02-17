@@ -346,7 +346,7 @@ function doPlayerUpdate(players) {
 
         } else {
 
-            var obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), MarkerTypes[6], "", "", "");
+            var obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), MarkerTypes[6], "", {isPlayer: true, player: plr});
             var m = localCache[plr.identifer].marker = createMarker(false, false, obj, plr.name) - 1;
 
             var html = getPlayerInfoHtml(plr);

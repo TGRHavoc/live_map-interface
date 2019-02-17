@@ -44,6 +44,17 @@ function convertToMap(x, y) {
     };
 }
 
+function getMapBounds(layer){
+    var h = layer.options.tileSize * 3,
+        w = layer.options.tileSize * 2;
+
+    var southWest = Map.unproject([0, h], Map.getMaxZoom());
+    var northEast = Map.unproject([w, 0], Map.getMaxZoom());
+
+    return new L.LatLngBounds(southWest, northEast);
+}
+
+// Stripping JSON comments
 const singleComment = 1;
 const multiComment = 2;
 const stripWithoutWhitespace = () => '';
