@@ -18,6 +18,14 @@
 
 window.MarkerStore = [];
 window.CurrentLayer = undefined;
+window.PlayerMarkers = L.markerClusterGroup({
+    maxClusterRadius: 20,
+    spiderfyOnMaxZoom: false,
+    showCoverageOnHover: false,
+    zoomToBoundsOnClick: false
+});
+
+window.Map = undefined;
 
 L.Control.CustomLayer = L.Control.Layers.extend({
     _checkDisabledLayers: function () {}
@@ -45,37 +53,15 @@ function mapInit(elementID) {
         layers: [CurrentLayer]
     }).setView([0,0], 0);
 
-    var h = CurrentLayer.options.tileSize * 3,
-        w = CurrentLayer.options.tileSize * 2;
-
-    var southWest = Map.unproject([0, h], Map.getMaxZoom());
-    var northEast = Map.unproject([w, 0], Map.getMaxZoom());
-    var mapBounds = new L.LatLngBounds(southWest, northEast);
+    var mapBounds = getMapBounds(CurrentLayer);
 
     Map.setMaxBounds(mapBounds);
+    Map.fitBounds(mapBounds);
+
     var control = new L.Control.CustomLayer(tileLayers).addTo(Map);
+    Map.addLayer(PlayerMarkers);
 
-    Map.on("baselayerchange", function (e) {
-        var h = e.layer.options.tileSize * 3,
-            w = e.layer.options.tileSize * 2;
-
-        var southWest = Map.unproject([0, h], Map.getMaxZoom());
-        var northEast = Map.unproject([w, 0], Map.getMaxZoom());
-
-        var mapBounds = new L.LatLngBounds(southWest, northEast);
-
-        Map.setMaxBounds(mapBounds);
-        Map.fitBounds(mapBounds);
-        CurrentLayer = e.layer;
-
-        clearAllMarkers();
-        toggleBlips();
-    });
-
-    Map.on('preclick', function (e) {
-        console._log("Preclick!");
-        console._log(e);
-    });
+    initControls(Map, PlayerMarkers);
 }
 
 function createMarker(animated, draggable, objectRef, title) {
@@ -104,13 +90,20 @@ function createMarker(animated, draggable, objectRef, title) {
     //console._log(image);
     //console._log("image: " + JSON.stringify(image));
 
+    var where = Map;
+    if(objectRef.data && objectRef.data.isPlayer){
+        // Add to the cluster layer
+        where = PlayerMarkers;
+    }
+
     var marker = L.marker(coord, {
         title: title,
         id: MarkerStore.length,
         icon: image,
         object: objectRef,
+        player: objectRef.data.player ? objectRef.data.player : undefined,
         draggable: draggable ? true : false
-    }).addTo(Map).bindPopup(infoContent);
+    }).addTo(where).bindPopup(infoContent);
 
     MarkerStore.push(marker);
     return MarkerStore.length;

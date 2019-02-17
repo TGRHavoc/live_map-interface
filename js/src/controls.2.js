@@ -118,5 +118,57 @@ $(document).ready(function(){
         clearAllMarkers();
         toggleBlips();
     });
-
 });
+
+function initControls(Map, PlayerMarkers){
+
+    // If they click on a clustered marker
+    PlayerMarkers.on('clusterclick', function (a) {
+
+        var html = L.DomUtil.create('ul');
+        var markers = a.layer.getAllChildMarkers();
+        for (var i = 0; i < markers.length; i++) {
+            var marker = markers[i].options;
+
+            var name = marker.title;
+            var child = L.DomUtil.create("li", "clusteredPlayerMarker");
+            child.setAttribute("data-identifier", marker.player.identifer);
+            child.appendChild(document.createTextNode(name));
+
+            html.appendChild(child);
+        }
+
+        L.DomEvent.on(html, "click", function(e){
+            var t = e.target;
+            var attribute = t.getAttribute("data-identifier");
+            var m = MarkerStore[localCache[attribute].marker]; // Get the marker using the localcache.
+
+            Map.closePopup(Map._popup); //Close the currently open popup
+            Map.openPopup(m.getPopup()); // Open the user's popup
+        });
+
+        Map.openPopup(html, a.layer.getLatLng());
+    });
+
+    // When a layer changes. Recalculate everything and shit. Make sure nothing breaks.
+    Map.on("baselayerchange", function (e) {
+
+        var mapBounds = getMapBounds(e.layer);
+
+        Map.setMaxBounds(mapBounds);
+        Map.fitBounds(mapBounds);
+        CurrentLayer = e.layer;
+
+        Map.removeLayer(PlayerMarkers); // Remove the cluster layer
+        window.PlayerMarkers = L.markerClusterGroup({ // Re-make it fresh
+            maxClusterRadius: 20,
+            spiderfyOnMaxZoom: false,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: false
+        });
+        Map.addLayer(PlayerMarkers); // Add it back. The clearAllMarkers() will ensure player markers are added to the new cluster layer
+
+        clearAllMarkers();
+        toggleBlips();
+    });
+}

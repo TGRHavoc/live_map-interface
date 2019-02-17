@@ -122,7 +122,6 @@ function initPage() {
         console._log("hidding?");
         $myGroup.find('.collapse.show').collapse('hide');
     });
-
 }
 
 function getBlipMarkerId(blip){
