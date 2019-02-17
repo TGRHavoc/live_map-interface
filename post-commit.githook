@@ -7,7 +7,7 @@
 
 ### REQUIRED
 # Please run
-# `npm install gulp gulp-concat gulp-minify gulp-clean-css gulp-strip-css-comments`
+# `npm install gulp gulp-concat gulp-minify gulp-clean-css gulp-strip-css-comments gulp-replace`
 # before trying to run this.
 
 # Bundle the JS and CSS files
