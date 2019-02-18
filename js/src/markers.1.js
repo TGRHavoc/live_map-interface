@@ -246,17 +246,16 @@ function generateBlipControls(){
         }
     }
 
-    // Events
-    $(".blip-button-a").on("click", function(e){
+    $(".blip-button-a").on("click", function (e) {
         var ele = $(e.currentTarget);
         var blipId = ele.data("blipNumber").toString();
 
         // Toggle blip
-        if(_disabledBlips.includes(blipId)){
+        if (_disabledBlips.includes(blipId)) {
             // Already disabled, enable it
             _disabledBlips.splice(_disabledBlips.indexOf(blipId), 1);
             ele.removeClass("blip-disabled").addClass("blip-enabled");
-        }else{
+        } else {
             // Enabled, disable it
             _disabledBlips.push(blipId);
             ele.removeClass("blip-enabled").addClass("blip-disabled");
@@ -266,7 +265,6 @@ function generateBlipControls(){
         clearAllMarkers();
         toggleBlips();
     });
-
 }
 
 function generateBlipShit(){

@@ -17,36 +17,49 @@
 // ************************************************************************** //
 
 function toggleBlips(){
-    console._log("showing local blips");
-    if (_showBlips){
 
-        for(var spriteId in _blips){
-            var blipArray = _blips[spriteId];
-            //console._log("Disabled (" + spriteId + ")? " + _disabledBlips.includes(spriteId));
+    clearAllMarkers();
+    if(!_showBlips){
+        return;
+    }
 
-            if(_disabledBlips.indexOf(spriteId) != -1){
-                if(_SETTINGS_debug){
-                    console._log("Blip " + spriteId + "'s are disabled..");
-                }
-                // If disabled, don't make a marker for it
-                continue;
-            }
+    for (var spriteId in _blips) {
+        var blipArray = _blips[spriteId];
+        console._log("Disabled (" + spriteId + ")? " + _disabledBlips.includes(spriteId));
 
-            for(var i in blipArray){
-                var blip = blipArray[i];
-
-                var obj = new MarkerObject(blip.name, new Coordinates(blip.pos.x, blip.pos.y, blip.pos.z), MarkerTypes[blip.type], blip.description, "", "");
-                blip.markerId = createMarker(false, false, obj, "") - 1;
-            }
+        if (_disabledBlips.indexOf(spriteId) != -1) {
+            console._log("Blip " + spriteId + "'s are disabled..");
+            // If disabled, don't make a marker for it
+            continue;
         }
 
-    }else{
-        clearAllMarkers();
+        for (var i in blipArray) {
+            var blip = blipArray[i];
+
+            var obj = new MarkerObject(blip.name, new Coordinates(blip.pos.x, blip.pos.y, blip.pos.z), MarkerTypes[blip.type], blip.description, "", "");
+            blip.markerId = createMarker(false, false, obj, "") - 1;
+        }
     }
+
 }
 
 $(document).ready(function(){
     globalInit();
+
+    // Toggle blip
+    $("#showBlips").click(function(e){
+        e.preventDefault();
+
+        _showBlips = !_showBlips;
+
+        //webSocket.send("getBlips");
+        toggleBlips();
+
+        $("#blips_enabled").removeClass("badge-success").removeClass("badge-danger")
+            .addClass( _showBlips ? "badge-success" : "badge-danger")
+            .text(_showBlips ? "on" : "off");
+    });
+
 
     $("#playerSelect").on("change", function(){
         if (this.value == ""){
@@ -60,28 +73,14 @@ $(document).ready(function(){
 
     $("#refreshBlips").click(function(e){
         e.preventDefault();
-        if (_showBlips){
-            clearAllMarkers();
-            initBlips();
-        }
+
+        clearAllMarkers();
+        initBlips(connectedTo.getBlipUrl());
     });
 
     $("#server_menu").on("click", ".serverMenuItem", function(e){
         console._log($(this).text());
         changeServer($(this).text());
-    });
-
-    $("#showBlips").click(function(e){
-        e.preventDefault();
-
-        _showBlips = !_showBlips;
-
-        //webSocket.send("getBlips");
-        toggleBlips();
-
-        $("#blips_enabled").removeClass("badge-success").removeClass("badge-danger")
-            .addClass( _showBlips ? "badge-success" : "badge-danger")
-            .text(_showBlips ? "on" : "off");
     });
 
     $("#reconnect").click(function(e){
@@ -97,25 +96,26 @@ $(document).ready(function(){
     });
 
     $("#toggle-all-blips").on("click", function(){
+        _blipControlToggleAll = !_blipControlToggleAll;
+        console._log(_blipControlToggleAll +" showing blips?");
         // Toggle the classes and add/remove the blipIds from the array
+
         $("#blip-control-container").find("a").each(function(index, ele){
             var ele = $(ele);
-            var blipId = ele.data("blipNumber").toString();
+            var blipId = ele.data("blip-number").toString();
 
-            // Toggle blip
-            if(_disabledBlips.includes(blipId)){
-                // Already disabled, enable it
+            if (_blipControlToggleAll){
+                // Showing them
                 _disabledBlips.splice(_disabledBlips.indexOf(blipId), 1);
                 ele.removeClass("blip-disabled").addClass("blip-enabled");
             }else{
-                // Enabled, disable it
+                // Hiding them all
                 _disabledBlips.push(blipId);
                 ele.removeClass("blip-enabled").addClass("blip-disabled");
             }
         });
 
         // Now we can refresh the markers
-        clearAllMarkers();
         toggleBlips();
     });
 });
@@ -158,15 +158,6 @@ function initControls(Map, PlayerMarkers){
         Map.setMaxBounds(mapBounds);
         Map.fitBounds(mapBounds);
         CurrentLayer = e.layer;
-
-        Map.removeLayer(PlayerMarkers); // Remove the cluster layer
-        window.PlayerMarkers = L.markerClusterGroup({ // Re-make it fresh
-            maxClusterRadius: 20,
-            spiderfyOnMaxZoom: false,
-            showCoverageOnHover: false,
-            zoomToBoundsOnClick: false
-        });
-        Map.addLayer(PlayerMarkers); // Add it back. The clearAllMarkers() will ensure player markers are added to the new cluster layer
 
         clearAllMarkers();
         toggleBlips();
