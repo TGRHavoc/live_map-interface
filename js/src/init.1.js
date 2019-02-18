@@ -34,8 +34,11 @@ var _trackPlayer = null;
 var playerCount = 0;
 var _overlays = [];
 var _disabledBlips = [];
+var _blipControlToggleAll = true; // Show all by default
+
 window.changeServer = function (nameOfServer) {
     console._log("Changing connected server to: " + nameOfServer);
+
     if (!(nameOfServer in config.servers)) {
         createAlert({
             title: "<strong>Couldn't load server config!</strong>",
@@ -61,7 +64,6 @@ window.changeServer = function (nameOfServer) {
     }
 
     // If we've changed servers. Might as well reset everything.
-    clearAllMarkers();
     if (window.webSocket && window.webSocket.readyState == WebSocket.OPEN) window.webSocket.close();
 
     $("#server_name").text(nameOfServer);
@@ -217,7 +219,7 @@ function blipSuccess(data, textStatus){
 
     console._log(_blipCount + " blips created");
     $("#blip_count").text(_blipCount);
-
+    toggleBlips();
 }
 
 function blipError( textStatus, errorThrown){

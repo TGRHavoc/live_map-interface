@@ -87,8 +87,6 @@ function createMarker(animated, draggable, objectRef, title) {
     var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + name + '</div></div><div class="clear"></div><div class=info-body>' + html + "</div></div>";
 
     var image = L.icon(markerType);
-    //console._log(image);
-    //console._log("image: " + JSON.stringify(image));
 
     var where = Map;
     if(objectRef.data && objectRef.data.isPlayer){
@@ -121,14 +119,24 @@ function setMapCenterLeaflet(coord) {
 
 function clearAllMarkers() {
     for (var i = 0; i < MarkerStore.length; i++) {
-        if (MarkerStore[i] != "NULL") {
-            MarkerStore[i].remove();
-        }
+        clearMarker(i);
     }
     MarkerStore.length = 0;
+
     // Re-do player markers
     for(var id in localCache){
         localCache[id].marker = null;
+    }
+    if(Map != undefined){
+        Map.removeLayer(window.PlayerMarkers); // Remove the cluster layer
+
+        window.PlayerMarkers = L.markerClusterGroup({ // Re-make it fresh
+            maxClusterRadius: 20,
+            spiderfyOnMaxZoom: false,
+            showCoverageOnHover: false,
+            zoomToBoundsOnClick: false
+        });
+        Map.addLayer(window.PlayerMarkers); // Add it back. The clearAllMarkers() will ensure player markers are added to the new cluster layer
     }
 }
 
