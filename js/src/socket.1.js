@@ -260,7 +260,8 @@ function updateBlip(blipObj) {
 }
 
 function playerLeft(playerName) {
-    if (localCache[playerName].marker != null || localCache[playerName].marker != undefined) {
+    if (localCache[playerName] !== undefined &&
+            (localCache[playerName].marker != null || localCache[playerName].marker != undefined)) {
         clearMarker(localCache[playerName].marker);
         delete localCache[playerName];
     }
