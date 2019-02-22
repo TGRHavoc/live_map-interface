@@ -89,10 +89,10 @@ function createMarker(animated, draggable, objectRef, title) {
 
     var image = L.icon(markerType);
 
-    var where = Map;
+    var where = window.Map;
     if(objectRef.data && objectRef.data.isPlayer){
         // Add to the cluster layer
-        where = PlayerMarkers;
+        where = window.PlayerMarkers;
     }
 
     var marker = L.marker(coord, {
