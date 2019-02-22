@@ -120,7 +120,22 @@ $(document).ready(function(){
     });
 });
 
-function initControls(Map, PlayerMarkers){
+function initMapControl(Map){
+    // When a layer changes. Recalculate everything and shit. Make sure nothing breaks.
+    Map.on("baselayerchange", function (e) {
+
+        var mapBounds = getMapBounds(e.layer);
+
+        Map.setMaxBounds(mapBounds);
+        Map.fitBounds(mapBounds);
+        CurrentLayer = e.layer;
+
+        clearAllMarkers();
+        toggleBlips();
+    });
+}
+
+function initPlayerMarkerControls(Map, PlayerMarkers){
 
     // If they click on a clustered marker
     PlayerMarkers.on('clusterclick', function (a) {
@@ -148,18 +163,5 @@ function initControls(Map, PlayerMarkers){
         });
 
         Map.openPopup(html, a.layer.getLatLng());
-    });
-
-    // When a layer changes. Recalculate everything and shit. Make sure nothing breaks.
-    Map.on("baselayerchange", function (e) {
-
-        var mapBounds = getMapBounds(e.layer);
-
-        Map.setMaxBounds(mapBounds);
-        Map.fitBounds(mapBounds);
-        CurrentLayer = e.layer;
-
-        clearAllMarkers();
-        toggleBlips();
     });
 }

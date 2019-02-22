@@ -61,7 +61,8 @@ function mapInit(elementID) {
     var control = new L.Control.CustomLayer(tileLayers).addTo(Map);
     Map.addLayer(PlayerMarkers);
 
-    initControls(Map, PlayerMarkers);
+    initMapControl(Map);
+    initPlayerMarkerControls(Map, PlayerMarkers);
 }
 
 function createMarker(animated, draggable, objectRef, title) {
@@ -129,14 +130,18 @@ function clearAllMarkers() {
     }
     if(Map != undefined){
         Map.removeLayer(window.PlayerMarkers); // Remove the cluster layer
+        window.PlayerMarkers = undefined;
 
-        window.PlayerMarkers = L.markerClusterGroup({ // Re-make it fresh
-            maxClusterRadius: 20,
-            spiderfyOnMaxZoom: false,
-            showCoverageOnHover: false,
-            zoomToBoundsOnClick: false
-        });
-        Map.addLayer(window.PlayerMarkers); // Add it back. The clearAllMarkers() will ensure player markers are added to the new cluster layer
+        setTimeout(() => {
+            window.PlayerMarkers = L.markerClusterGroup({ // Re-make it fresh
+                maxClusterRadius: 20,
+                spiderfyOnMaxZoom: false,
+                showCoverageOnHover: false,
+                zoomToBoundsOnClick: false
+            });
+            Map.addLayer(window.PlayerMarkers); // Add it back. The clearAllMarkers() will ensure player markers are added to the new cluster layer
+            initPlayerMarkerControls(Map, PlayerMarkers); //Reinitialise the event to allow clicking...
+        }, 1000);
     }
 }
 
