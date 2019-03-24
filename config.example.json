@@ -34,14 +34,12 @@
         {
             "name": "Normal",
             "url": "{tileDirectory}/normal/minimap_sea_{y}_{x}.png",
-            "minZoom": -2, // Set lower to zoom out more
-            "tileSize": 1024 // How big are the tiles in pixels
+            "minZoom": -2 // Set lower to zoom out more
         },
         {
             "name": "Postal",
             "url": "{tileDirectory}/postal/minimap_sea_{y}_{x}.png",
-            "minZoom": -5, // Since this is 3 times bigger, just remove 3 from the default minZoom
-            "tileSize": 3072 // How big are the tiles in pixels
+            "minZoom": -5 // Since this is 3 times bigger, just remove 3 from the default minZoom
         }
     ]
 }

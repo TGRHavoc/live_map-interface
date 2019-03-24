@@ -58,10 +58,8 @@ function onMessage(e) {
     var m = encodeURIComponent(e.data).match(/%[89ABab]/g);
     var byteSize = e.data.length + (m ? m.length : 0);
 
-    if (config.debug) {
-        console._log("recieved message (" + byteSize / 1024 + " kB)");
-        console._log("data: " + e.data);
-    }
+    console._log("recieved message (" + byteSize / 1024 + " kB)");
+    console._log("data: " + e.data);
 
     var data = JSON.parse(e.data);
 
@@ -253,6 +251,7 @@ function updateBlip(blipObj) {
 
         var info = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
+        marker.unbindPopup();
         marker.bindPopup(info);
 
         _blips[blipObj.type][blipIndex] = blipObj;
@@ -278,7 +277,7 @@ function playerLeft(playerName) {
 }
 
 function getPlayerInfoHtml(plr) {
-    var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(2) + "} Y {" + plr.pos.y.toFixed(2) + "} Z {" + plr.pos.z.toFixed(2) + "}</div>";
+    var html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(0) + "} Y {" + plr.pos.y.toFixed(0) + "} Z {" + plr.pos.z.toFixed(0) + "}</div>";
     for (var key in plr) {
         //console._log("found key: "+ key);
         if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
@@ -297,6 +296,17 @@ function getPlayerInfoHtml(plr) {
     return html;
 }
 
+function updatePopups(){
+    console.log("Updating?");
+    for (const key in localCache) {
+        //MarkerStore[localCache[plr.identifer].marker].unbindPopup();
+        //MarkerStore[localCache[plr.identifer].marker].bindPopup(infoContent);
+        MarkerStore[localCache[key].marker].setPopupContent(localCache[key].lastHtml);
+    }
+}
+
+setInterval(updatePopups, 5000);
+
 function doPlayerUpdate(players) {
 
     if (config.debug) {
@@ -307,9 +317,7 @@ function doPlayerUpdate(players) {
         if (plr == null || plr.name == undefined || plr.name == "") return;
 
         if (!(plr.identifer in localCache)) {
-            // "localCache" literally just keeps track of the marker.. I should rename it
-            //TODO: Rename "localCache" to something better
-            localCache[plr.identifer] = { marker: null };
+            localCache[plr.identifer] = { marker: null, lastHtml: null };
         }
 
         if ($("#playerSelect option[value='" + plr.identifer + "']").length <= 0) {
@@ -343,7 +351,13 @@ function doPlayerUpdate(players) {
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
-            MarkerStore[localCache[plr.identifer].marker].bindPopup(infoContent);
+            //console.log(infoContent !== localCache[plr.identifer].lastHtml);
+            if (infoContent !== localCache[plr.identifer].lastHtml) {
+                localCache[plr.identifer].lastHtml = infoContent;
+                //MarkerStore[localCache[plr.identifer].marker].unbindPopup();
+                //MarkerStore[localCache[plr.identifer].marker].bindPopup(infoContent);
+            }
+
 
         } else {
 
@@ -353,9 +367,7 @@ function doPlayerUpdate(players) {
             var html = getPlayerInfoHtml(plr);
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
-
-            MarkerStore[m].bindPopup(infoContent);
-
+            localCache[plr.identifer].lastHtml = infoContent;
         }
 
     });

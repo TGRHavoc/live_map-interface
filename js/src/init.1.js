@@ -68,8 +68,10 @@ window.changeServer = function (nameOfServer) {
 
     $("#server_name").text(nameOfServer);
 
-    initBlips(connectedTo.getBlipUrl());
-    connect(connectedTo.getSocketUrl());
+    setTimeout(() => {
+        initBlips(connectedTo.getBlipUrl());
+        connect(connectedTo.getSocketUrl());
+    }, 50);
 }
 
 function globalInit() {
@@ -95,18 +97,12 @@ function globalInit() {
                 console._log(o);
                 config.servers[serverName] = o;
             }
-
-            changeServer(Object.keys(p.servers)[0]); // Show the stuff for the first server in the config.
-
+            mapInit("map-canvas");
             initMarkers();
             initPage();
 
-            setTimeout(()=>{ // Make sure markers have had time to generate before showing anything marker related
-                initBlips(connectedTo.getBlipUrl());
-                connect(connectedTo.getSocketUrl());
-            }, 50);
 
-            mapInit("map-canvas");
+            changeServer(Object.keys(p.servers)[0]); // Show the stuff for the first server in the config.
         }
     });
 }
@@ -197,6 +193,10 @@ function blipSuccess(data, textStatus){
             message: data.error
         }, {delay: 0});
         return;
+    }
+
+    while(window.Map == undefined){
+        // Just wait..
     }
 
     for (var spriteId in data) {
