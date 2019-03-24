@@ -25,8 +25,6 @@ window.PlayerMarkers = L.markerClusterGroup({
     zoomToBoundsOnClick: false
 });
 
-window.Map = undefined;
-
 L.Control.CustomLayer = L.Control.Layers.extend({
     _checkDisabledLayers: function () {}
 });
@@ -38,9 +36,11 @@ function mapInit(elementID) {
     var maps = window.config.maps;
     maps.forEach(map => {
         console._log(map);
+        if (map.tileSize){ map.tileSize = 1024; } // Force 1024 down/up scale
+
         tileLayers[map.name] = L.tileLayer(map.url,
             Object.assign(
-            { minZoom: -2, maxZoom: 0, maxNativeZoom: 0, minNativeZoom: 0, tileSize: 1024, tileDirectory: config.tileDirectory },
+            { minZoom: -2, maxZoom: 2, tileSize: 1024, maxNativeZoom: 0, minNativeZoom: 0, tileDirectory: config.tileDirectory },
             map)
         );
         console._log(tileLayers[map.name]);
@@ -94,6 +94,11 @@ function createMarker(animated, draggable, objectRef, title) {
         // Add to the cluster layer
         where = window.PlayerMarkers;
     }
+    if(where == undefined){
+        console.warn("For some reason window.Map or window.PlayerMarkers is undefined");
+        console.warn("Cannot add the blip: " + objectRef);
+        where = createClusterLayer();
+    }
 
     var marker = L.marker(coord, {
         title: title,
@@ -132,17 +137,20 @@ function clearAllMarkers() {
         Map.removeLayer(window.PlayerMarkers); // Remove the cluster layer
         window.PlayerMarkers = undefined;
 
-        setTimeout(() => {
-            window.PlayerMarkers = L.markerClusterGroup({ // Re-make it fresh
-                maxClusterRadius: 20,
-                spiderfyOnMaxZoom: false,
-                showCoverageOnHover: false,
-                zoomToBoundsOnClick: false
-            });
-            Map.addLayer(window.PlayerMarkers); // Add it back. The clearAllMarkers() will ensure player markers are added to the new cluster layer
-            initPlayerMarkerControls(Map, PlayerMarkers); //Reinitialise the event to allow clicking...
-        }, 1000);
+        setTimeout(createClusterLayer, 10);
     }
+}
+
+function createClusterLayer(){
+    window.PlayerMarkers = L.markerClusterGroup({ // Re-make it fresh
+        maxClusterRadius: 20,
+        spiderfyOnMaxZoom: false,
+        showCoverageOnHover: false,
+        zoomToBoundsOnClick: false
+    });
+    Map.addLayer(window.PlayerMarkers); // Add it back. The clearAllMarkers() will ensure player markers are added to the new cluster layer
+    initPlayerMarkerControls(Map, PlayerMarkers); //Reinitialise the event to allow clicking...
+    return window.PlayerMarkers;
 }
 
 function clearMarker(id) {

@@ -23,18 +23,18 @@ function normalize(value, min, max) {
     return Math.abs((value - min) / (max - min));
 }
 
-var game_1_x = 327.86;
-var game_1_y = 1660.16;
+var game_1_x = -4300.00;
+var game_1_y = 8660.00;
 
-var game_2_x = -3778.16;
-var game_2_y = -4549.6;
+var game_2_x = 5000.0;
+var game_2_y = -5700.0;
 
 function convertToMap(x, y) {
     var h = CurrentLayer.options.tileSize * 3,
         w = CurrentLayer.options.tileSize * 2;
 
-    var latLng1 = Map.unproject([w * 0.5, h * 0.5], Map.getMaxZoom());
-    var latLng2 = Map.unproject([0, h], Map.getMaxZoom());
+    var latLng1 = Map.unproject([0, 0], 0);
+    var latLng2 = Map.unproject([w+20, h+30], 0);
 
     var rLng = latLng1.lng + (x - game_1_x) * (latLng1.lng - latLng2.lng) / (game_1_x - game_2_x);
     var rLat = latLng1.lat + (y - game_1_y) * (latLng1.lat - latLng2.lat) / (game_1_y - game_2_y);
@@ -48,8 +48,8 @@ function getMapBounds(layer){
     var h = layer.options.tileSize * 3,
         w = layer.options.tileSize * 2;
 
-    var southWest = Map.unproject([0, h], Map.getMaxZoom());
-    var northEast = Map.unproject([w, 0], Map.getMaxZoom());
+    var southWest = Map.unproject([0, h], 0);
+    var northEast = Map.unproject([w, 0], 0);
 
     return new L.LatLngBounds(southWest, northEast);
 }
