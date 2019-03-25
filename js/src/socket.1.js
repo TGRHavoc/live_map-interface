@@ -296,17 +296,6 @@ function getPlayerInfoHtml(plr) {
     return html;
 }
 
-function updatePopups(){
-    console.log("Updating?");
-    for (const key in localCache) {
-        //MarkerStore[localCache[plr.identifer].marker].unbindPopup();
-        //MarkerStore[localCache[plr.identifer].marker].bindPopup(infoContent);
-        MarkerStore[localCache[key].marker].setPopupContent(localCache[key].lastHtml);
-    }
-}
-
-setInterval(updatePopups, 5000);
-
 function doPlayerUpdate(players) {
 
     if (config.debug) {
@@ -351,23 +340,41 @@ function doPlayerUpdate(players) {
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
-            //console.log(infoContent !== localCache[plr.identifer].lastHtml);
-            if (infoContent !== localCache[plr.identifer].lastHtml) {
+            var m = localCache[plr.identifer].marker;
+            var marker = MarkerStore[m];
+            var popup = PopupStore[m];
+
+            if (infoContent != localCache[plr.identifer].lastHtml){
+                popup.setContent(infoContent);
                 localCache[plr.identifer].lastHtml = infoContent;
-                //MarkerStore[localCache[plr.identifer].marker].unbindPopup();
-                //MarkerStore[localCache[plr.identifer].marker].bindPopup(infoContent);
+            }
+
+            if(popup.isOpen()){
+                if (popup.getLatLng().distanceTo(marker.getLatLng()) != 0){
+                    popup.setLatLng(marker.getLatLng());
+                }
             }
 
 
         } else {
+            localCache[plr.identifer].lastHtml = infoContent;
+            var html = getPlayerInfoHtml(plr);
+            var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
             var obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), MarkerTypes[6], "", {isPlayer: true, player: plr});
             var m = localCache[plr.identifer].marker = createMarker(false, false, obj, plr.name) - 1;
 
-            var html = getPlayerInfoHtml(plr);
+            MarkerStore[m].unbindPopup(); // We want to handle the popups ourselfs.
+            PopupStore[m] = L.popup()
+                .setContent(infoContent)
+                .setLatLng(MarkerStore[m].getLatLng()); // Make a new marker
 
-            var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
-            localCache[plr.identifer].lastHtml = infoContent;
+            MarkerStore[m].on("click", function(e) {
+                console._log(e);
+                Map.closePopup(Map._popup);
+                PopupStore[e.target.options.id].setLatLng(e.latlng);
+                Map.openPopup(PopupStore[e.target.options.id]);
+            });
         }
 
     });
