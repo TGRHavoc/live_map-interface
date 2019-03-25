@@ -17,6 +17,7 @@
 // ************************************************************************** //
 
 window.MarkerStore = [];
+window.PopupStore = {}; // MarkerId : Popup
 window.CurrentLayer = undefined;
 window.PlayerMarkers = L.markerClusterGroup({
     maxClusterRadius: 20,
