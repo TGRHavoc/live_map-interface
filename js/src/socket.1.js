@@ -296,6 +296,32 @@ function getPlayerInfoHtml(plr) {
     return html;
 }
 
+function getFilterProps(plr){
+    var props = [];
+    for (var key in plr) {
+        //console._log("found key: "+ key);
+        if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
+            continue; // We're already displaying this info
+        }
+
+        if (!(key === "identifer")) {
+            props.push(key);
+        } else if (config.showIdentifiers && key == "identifer") {
+            props.push(key);
+        } else {
+            continue;
+        }
+    }
+
+    return props;
+}
+
+// Every minute, just clear what we can "filter". In case we get one player with a unique property that is never seen again.
+setInterval(()=> {
+    window.CanFilterOn = [];
+    $("#filterOn").innerHtml = "<option></option>";
+}, 60000);
+
 function doPlayerUpdate(players) {
 
     if (config.debug) {
@@ -307,6 +333,29 @@ function doPlayerUpdate(players) {
 
         if (!(plr.identifer in localCache)) {
             localCache[plr.identifer] = { marker: null, lastHtml: null };
+        }
+
+        // Filtering stuff
+
+        // If this player has a new property attached to them that we haven't seen before, add it to the filer
+        var p = getFilterProps(plr);
+        p.forEach((_p) => {
+            if (!window.CanFilterOn.includes(_p)){
+                window.CanFilterOn.push(_p);
+                $("#filterOn").append(`<option value="${_p}">${_p}</option>`);
+            }
+        });
+
+        var opacity = 1.0;
+        if (window.Filter){
+            if (plr[window.Filter.on] == undefined) {
+                opacity = 0.0;
+            }else{
+                var value = $("#onlyShow").val();
+                if (value != "" && !plr[window.Filter.on].includes(value)){
+                    opacity = 0.0;
+                }
+            }
         }
 
         if ($("#playerSelect option[value='" + plr.identifer + "']").length <= 0) {
@@ -344,6 +393,8 @@ function doPlayerUpdate(players) {
             var marker = MarkerStore[m];
             var popup = PopupStore[m];
 
+            marker.setOpacity(opacity);
+
             if (infoContent != localCache[plr.identifer].lastHtml){
                 popup.setContent(infoContent);
                 localCache[plr.identifer].lastHtml = infoContent;
@@ -365,6 +416,8 @@ function doPlayerUpdate(players) {
             var m = localCache[plr.identifer].marker = createMarker(false, false, obj, plr.name) - 1;
 
             MarkerStore[m].unbindPopup(); // We want to handle the popups ourselfs.
+            MarkerStore[m].setOpacity(opacity);
+
             PopupStore[m] = L.popup()
                 .setContent(infoContent)
                 .setLatLng(MarkerStore[m].getLatLng()); // Make a new marker
@@ -376,12 +429,9 @@ function doPlayerUpdate(players) {
                 Map.openPopup(PopupStore[e.target.options.id]);
             });
         }
-
     });
 
     playerCount = Object.keys(localCache).length;
-    if (config.debug) {
-        console._log("playercount: " + playerCount);
-    }
+    console._log("playercount: " + playerCount);
     $("#player_count").text(playerCount);
 }
