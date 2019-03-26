@@ -2,7 +2,18 @@
 
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
 
-<!-- TODO: Probably add some links or sommat to showcase it (e.g. http://illusivetea.me/livemap/)-->
+- [fivem-webinterface](#fivem-webinterface)
+  - [Prerequisites](#prerequisites)
+  - [How to install](#how-to-install)
+  - [Configuration](#configuration)
+    - [config.json](#configjson)
+      - [defaults object](#defaults-object)
+      - [reverse proxy object](#reverse-proxy-object)
+      - [server object](#server-object)
+      - [map object](#map-object)
+    - [config.html](#confightml)
+    - [Custom images](#custom-images)
+  - [Thanks](#thanks)
 
 ## Prerequisites
 
@@ -11,109 +22,102 @@ You will also need to install [live_map](https://github.com/TGRHavoc/live_map) o
 
 ## How to install
 
-- Download the [latest version](https://github.com/TGRHavoc/live_map-interface/archive/master.zip) and the [images (225 MB)](https://github.com/TGRHavoc/live_map-interface/releases/download/v0.1/map.images.zip).
+Download the [latest version](https://github.com/TGRHavoc/live_map-interface/archive/master.zip).
 
-- Extract the web interface to your website.
+This should be enough to get the interface up and running on your website. If you want to change stuff like the images, look in the [configuration](#configuration) section
 
-- Create a new directory for the map images (e.g. `images/map/`)
-
-- Extract the images to the map directory (e.g. `images/map/`)
-
-- Configure the interface by changing the values in `utils/config.php`
 
 ## Configuration
 
-### utils/config.php
-Pretty much everything can be configured inside the `utils/config.php` file.
-The variables have a brief description so you can get an idea of what values need to be where.
+### config.json
+The only file you will need to change to configure the map is the `config.json` file.
+This file can have comments in it without breaking the interface.
+Below is a table with the different things you can put into your `config.json` file.
 
-### utils/server.php
-So, this is a new file that you can configure to add more servers to the livemap.
-If you have 3 servers you want to show, this is your config file.
+| Name            | Type                               | Example                                                                                                      |                                                         What it does                                                          |
+| :-------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------: |
+| debug           | boolean                            | false                                                                                                        |                                            This just enables/disables debug mode.                                             |
+| tileDirectory   | string                             | "images/tiles"                                                                                               |   This is the directory that the interface should look in to find the tiled images. Note: This is used in the `maps` array    |
+| iconDirectory   | string                             | "images/icons"                                                                                               |                                     This is where the interface can find the icon images                                      |
+| showIdentifiers | boolean                            | false                                                                                                        | This determines whether the interface shows a player's identifier or not. Note: This may be an IP (if server has it enabled). |
+| defaults        | [default object](defaults-object)  | `"defaults": { "ip": "tgrhavoc.me", "fivemPort": "30120", "socketPort": "30121", "liveMapName": "live_map"}` |               This is the default the interface should fall back to use if a server doesn't have the value set.               |
+| servers         | [server object](server-object)     | `"A server": {"ip": "example.com"}`                                                                          |                              This is the object that contains the server data for the interface.                              |
+| maps            | array of [map objects](map-object) | `"maps": [{"name": "Normal", "url": "{tileDirectory}/normal/minimap_sea_{y}_{x}.png"}]`                      |                        An array containing the different map tiles available to use on the interface.                         |
 
-The only thing you want to change is the `$servers` variable on line 32.
-I'll try and give a detailed description on how you can use this below, hopefully you'll understand :)
-
-This array follows a structure and you will need to follow the structure inorder to get multiple servers working.
-
-The first thing the array wants, is a `"name" => array()` added to it.
-"name" will be the name of the server shown to the user for easy identification.
-The `array()` will be another array containing the information of the server.
-If you don't supply any information (e.g. just use `array()`) then, it will default back to the values inside of the `utils/config.php` file.
-
-The `array()` for the server can contain four key-pairs.
-Below is a table showing what the array wants and a brief description of what the value should be.
+#### defaults object
+| Name         | Type                                         | Example                                       |                                      What it does                                      |
+| :----------- | -------------------------------------------- | --------------------------------------------- | :------------------------------------------------------------------------------------: |
+| ip           | string                                       | "example.com"                                 |                        The **public** IP for your FiveM server.                        |
+| fivemPort    | number                                       | 30120                                         |                      The port your FiveM server is listening on.                       |
+| socketPort   | number                                       | 30121                                         |                    The port your LiveMap resource is listening on.                     |
+| liveMapName  | string                                       | "live_map"                                    |                        The name of the resource on your server.                        |
+| reverseProxy | [reserse proxy object](reverse-proxy-object) | `{"blips": "https://example.com/blips.json"}` | If you have a reverse proxy set up for the blips and socket connection, then use this. |
 
 
-| Name        |  Description |
-| ----------- | ------------ |
-| ip          | This should be the public IP for the server. Defined in `utils/config.php` as `$fivemIP` |
-| fivemPort   | This should be the FiveM port for the server. Defined in `utils/config.php` as `$fivemPort` |
-| socketPort  | This should be the socket port for the server. Defined in `utils/config.php` as `$socketPort` |
-| liveMapName | This should be the name of the livemap resource on that server. Defined in `utils/config.php` as `$liveMapName` |
+#### reverse proxy object
 
-#### Examples
-If you have 3 servers running on the default IP (defined in `utils/config.php`)
-```php
-private static $servers = array(
-    "Server 1" => array(
-        "fivemPort" => "30120",
-        "socketPort" => "30130",
-    ),
-    "Server 2" => array(
-        "fivemPort" => "30121",
-        "socketPort" => "30131",
-    ),
-    "Server 3" => array(
-        "fivemPort" => "30122",
-        "socketPort" => "30131",
-    )
-);
+| Name   | Type   | Example                                  |                                                                           What it does                                                                           |
+| :----- | ------ | ---------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| socket | string | "wss://echo.example.com"                 | The URL to the reverse proxy for the websocket connection. If you're using NGINX, the [following should be useful](https://www.nginx.com/blog/websocket-nginx/). |
+| blips  | string | "https://example.com/server1/blips.json" |                              The URL to the reverse proxy for the blips file (can even just be a static JSON file on a webserver).                               |
+
+#### server object
+The server objects must have a key whoes value is the server's name. 
+For example, if you have a server called `This is my cool server` then, the server entry would look like. 
+```json
+"servers" : {
+    "This is my cool server" : {
+        "ip": "example.com"
+    }
+}
 ```
 
-Or, if you have different servers on different IPs but, use the same ports
-```php
-private static $servers = array(
-    "Server 1" => array(
-        "ip" => "127.0.0.1"
-    ),
-    "Server 2" => array(
-        "ip" => "192.168.0.1"
-    ),
-    "Server 3" => array(
-        "ip" => "192.168.10.1"
-    )
-);
-```
+**If you don't set something in this object, the interface will look at the "defaults" object and use it's values instead.**
+It's therefore best practice to only use the `revserProxy` property in the server's object itself.
 
-Or, a mix of both
-```php
-private static $servers = array(
-    "Server 1" => array(
-        "ip" => "127.0.0.1",
-        "fivemPort" => "30121",
-        "socketPort" => "4040"
-    ),
-    "Server 2" => array(
-        "ip" => "192.168.0.1"
-    ),
-    "Server 3" => array(
-        "ip" => "192.168.10.1",
-        "socketPort" => "20394",
-        "liveMapName" => "some_shit_map"
-    )
-);
+| Name         | Type                                         | Example                                       |                                      What it does                                      |
+| :----------- | -------------------------------------------- | --------------------------------------------- | :------------------------------------------------------------------------------------: |
+| ip           | string                                       | "example.com"                                 |                        The **public** IP for your FiveM server.                        |
+| fivemPort    | number                                       | 30120                                         |                      The port your FiveM server is listening on.                       |
+| socketPort   | number                                       | 30121                                         |                    The port your LiveMap resource is listening on.                     |
+| liveMapName  | string                                       | "live_map"                                    |                        The name of the resource on your server.                        |
+| reverseProxy | [reserse proxy object](reverse-proxy-object) | `{"blips": "https://example.com/blips.json"}` | If you have a reverse proxy set up for the blips and socket connection, then use this. |
 
-```
 
-Below is the code I have running on the [demo map](http://map.tgrhavoc.me)
-```php
-private static $servers = array(
-    "Havoc's Test server (tgrhavoc.me)" => array(),
-    "This is an example of another server (it doesn't exist)" => array()
-);
-```
+#### map object
 
+| Name    | Type   | Example                                          |                                                                  What it does                                                                   |
+| :------ | ------ | ------------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------: |
+| name    | string | "Postal"                                         |                                  The name of this tileset. This is used when the user wants to change the map                                   |
+| url     | string | "{tileDirectory}/postal/minimap_sea_{y}_{x}.png" | Where the images are located for this map. GTA's minimap files have the Y coordinate before the X coordinate hence the `{y}_{x}` in the string. |
+| minZoom | number | -3                                               |                    How many times can the user zoom out for this tile set. The lower the number, the more they can zoom out.                    |
+
+### config.html
+
+If you're more of a visual person and, don't want to write a bunch of JSON to set up your server, you can use the utility page `config.html`.
+To get to this, just navigate to `utils/config.html` in your browser.
+This will give you a basic interface which, you can use to quickly configure the interface.
+
+<small>**Please note: You cannot add maps via this page. You will need to do this manually.**</small>
+
+
+### Custom images
+
+It's now fairly easy to use your own, custom images in the interface.
+
+- Make a new folder in your `tileDirectory` directory (optional but, recommended)
+- Put images into folder
+- Add an entry to the `maps` array in the config.
+
+Those are the only three steps you need!
+Now, getting the images is a different matter.
+If you have a custom "minimap" you use in game, you can probably use it with the interface as well. 
+All you need to do is extract the images from the YTD files with a program like OpenIV.
+If doing this, using the `minimap_sea` images will result in a much higher quality.
+
+![Export](.doc/7339a06b77d8594c0131883d1.png)
+
+![Saving](.doc/8ba2d745e29330e7b388de0ae.png)
 
 ## Thanks
 

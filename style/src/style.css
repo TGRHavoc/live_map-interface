@@ -59,7 +59,6 @@ a:focus { color: #3399FF; outline: none; }
 
 /* UI/Forms ---------------------- */
 select {background-color:#fff;font-family: inherit;border: 1px solid #ccc;-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);color: rgba(0,0,0,0.75);font-size: .875em;height: 2.3125em;width: 100%;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;-webkit-transition: 0 .45s .45s ease-in-out;-moz-transition: 0 .45s .45s ease-in-out;transition: box-shadow .45s .45s ease-in-out;margin: 0 0 1em;padding: .5em;}
-label{float: left;color: #D6D6D6;font-size: 1em;}
 fieldset legend {color: #D6D6D6;background: transparent;}
 fieldset{border-color: #3f3f3f;-moz-border-radius:5px;border-radius: 5px;-webkit-border-radius: 5px;}
 input[type=text] {display:inline;}
@@ -95,10 +94,9 @@ input[type=text] {display:inline;}
 .fix-row label {display:block;vertical-align: middle;padding: 8px 0;}
 .fix-row input {float:right;}
 .info-window {padding:10px;}
-.info-icon {background-image: url(../images/icons/info.png);background-repeat:no-repeat;background-position: center center;float:left;width:32px;height:32px;margin-right:5px;}
-.info-header-box {height:33px;border-bottom:1px solid #333;margin-bottom:2px;}
+.info-header-box {margin-bottom:2px;}
 .info-header {float:left;font-size:1.8em!important;font-weight:bold!important;color:#333!important;padding-top:3px;}
-.info-body {color:#333 !important;}
+.info-body {color:#333 !important; height:33px;border-top:1px solid #333;}
 .info-body-row {padding: 2px 0;color:#333 !important; margin: 0;}
 
 .dropdown-menu { background-color: #333; }
@@ -112,36 +110,12 @@ input[type=text] {display:inline;}
 
 /* UI/Div ---------------------- */
 #wrapper {position: relative;width:100%;height:100%;min-height:100%;position:relative;}
-#logo-box{background-color: #333439;padding: 5px; height: 104px; width: 104px;position:absolute;overflow:hidden;z-index: 99;bottom: 0;right: 0;border-radius:15px 0 0 0;}
 #content {width:100%;height:100%;}
 #map-holder {position:absolute;right:0;bottom:0;top:0;height:100%;overflow:hidden;padding-bottom:70px;}
 #map-canvas {width:100%;height:100%;background-color:#0fa8d2;}
-#map-overlay {background-color:#333439;width:340px;height:100%;position: absolute; top: 0; right: -340px; z-index: 99;}
-#map-overlay .inner {background-color:#333439;width:350px;height:100%;position: absolute; top: 0; right: 0; z-index: 99;}
-#map-overlay-slide {float:left;background-color:#333439;width:30px;padding:35px 15px;margin-left:-30px;margin-top:50%;cursor:pointer;border-radius:5px 0 0 5px;}
-#map-overlay-global-controls {display: block;width:100%;margin:0 auto;position:absolute;bottom: 0;left:0;padding: 10px 2px;border-top:2px solid #636363;}
 #tab-nav {background-color:#fff;height:28px;}
 #tab-content {margin:0 auto;height:100%;width:100%;}
-#map-overlay-global-navigation {margin:0;padding:0;width:100%;height:29px;}
-#map-overlay-global-navigation li {float:left;margin:0;padding:0;text-align:center;width:33.3%;}
-#map-overlay-global-navigation a {background-color:#fff;width:100%;}
-#map-overlay-global-navigation li a {display:block;width:100%;color:#333;padding:8px 14px 8px 14px;text-decoration:none;font-size:9px;font-family:Verdana, Arial, Helvetica, sans-serif;font-weight:bold;text-transform:uppercase;}
-#map-overlay-global-navigation li a:hover {background-color:#3399FF;color:#fff;}
-#map-overlay-global-navigation li a.active {background-color:#333439;color:#fff;}
 
-#ad-box {position: absolute; bottom: 0;left: 0;width:100%;margin:0 auto;}
-#google-ads {width:100%;max-height:90px;margin:0 auto;}
-#paypal-donate {background-color:#333439;width:400px;padding:5px;font-size: 11px;}
-
-#info-button {background-color:#333439;width: 24px; height: 24px;padding:4px;position: absolute; bottom: 0;right: 0;margin-bottom:100px;border-radius:5px 0 0 0;z-index: 99;}
-#about-box {background-color:#333439;width:100%;height:90px;padding:5px;position: absolute; bottom: 0;right: 0;text-align:right;z-index: 99;}
-
-/* UI/Fixes ---------------------- */
-.gm-style img { max-width: none; }
-.gm-style label { width: auto; display: inline; }
-
-/* UI/Overides --------------------- */
-#cookieChoiceInfo { background-color: #333!important; }
 
 /*************
     Alerts
@@ -184,7 +158,7 @@ input[type=text] {display:inline;}
 .custom-menu {
     overflow: hidden;
     overflow-y: scroll;
-    z-index: 3;
+    z-index: 9999;
     background-color: #333;
 }
 .custom-menu .list-group {
@@ -335,10 +309,79 @@ input[type=text] {display:inline;}
 
 #blip-filter-dropdown .list-group-item.blip-disabled {
     background-color: inherit;
+    padding: 0.3rem 1.1em;
 }
 #blip-filter-dropdown .list-group-item.blip-enabled {
     -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
 	-moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
 	box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
     background-color: rgba(31, 31, 31, 0.67);
+    padding: 0.3rem 1.1em;
+}
+
+/** Marker Cluster Styling */
+.marker-cluster-small {
+	background-color: rgba(181, 226, 140, 0.6);
+}
+.marker-cluster-small div {
+	background-color: rgba(110, 204, 57, 0.6);
+}
+
+.marker-cluster-medium {
+	background-color: rgba(241, 211, 87, 0.6);
+}
+.marker-cluster-medium div {
+	background-color: rgba(240, 194, 12, 0.6);
+}
+
+.marker-cluster-large {
+	background-color: rgba(253, 156, 115, 0.6);
+}
+.marker-cluster-large div {
+	background-color: rgba(241, 128, 23, 0.6);
+}
+
+	/* IE 6-8 fallback colors */
+.leaflet-oldie .marker-cluster-small {
+	background-color: rgb(181, 226, 140);
+}
+.leaflet-oldie .marker-cluster-small div {
+	background-color: rgb(110, 204, 57);
+}
+
+.leaflet-oldie .marker-cluster-medium {
+	background-color: rgb(241, 211, 87);
+}
+.leaflet-oldie .marker-cluster-medium div {
+	background-color: rgb(240, 194, 12);
+}
+
+.leaflet-oldie .marker-cluster-large {
+	background-color: rgb(253, 156, 115);
+}
+.leaflet-oldie .marker-cluster-large div {
+	background-color: rgb(241, 128, 23);
+}
+
+.marker-cluster {
+	background-clip: padding-box;
+    border-radius: 20px;
+}
+.marker-cluster div {
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	margin-top: 5px;
+
+	text-align: center;
+	border-radius: 15px;
+	font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+.marker-cluster span {
+    line-height: 30px;
+    color: #000;
+}
+
+.clusteredPlayerMarker {
+    cursor: pointer;
 }

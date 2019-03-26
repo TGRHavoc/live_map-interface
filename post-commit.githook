@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# This is the pre-push hook used to ensure that JS and CSS files
+# are minified and committed to the repo for the index.html file.
+# If you want to bundle your scripts (once modified) just run this
+# in the gitbash.
+
+### REQUIRED
+# Please run
+# `npm install gulp gulp-concat gulp-minify gulp-clean-css gulp-strip-css-comments gulp-replace`
+# before trying to run this.
+
+# Bundle the JS and CSS files
+node_modules/.bin/gulp
+echo "Made dist files... Committing them before push"
+git add dist/
+git commit -m "Update dist files"
+echo "Added dist files to new commit"
