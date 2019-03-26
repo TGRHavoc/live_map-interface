@@ -2,8 +2,193 @@ Changelog
 =========
 
 
+v3.2.0 (26-03-2019)
+-------------------
+
+New
+~~~
+- Added defaults to config. [Jordan Dalton]
+
+  debug - false
+  tileDirectory - "images/tiles"
+  iconDirectory - "images/icons"
+  showIdentifiers - false
+- Added player filtering. [Jordan Dalton]
+- Add clustering player icons. [Jordan Dalton]
+
+  If a player marker is within 20 (or there abouts) pixels of another, they will be clustered together.
+
+  To show a clustered player's information. Just click on their name.
+- Added utils/config.html. [Jordan Dalton]
+
+  This page should be used to generate JSON for the new config.json file.
+- Add new console._log function. [Jordan Dalton]
+
+  Before, everything was logged to console.
+  Using the new _log function should only display logs when in debug mode
+- Added font-awesome css. [Jordan Dalton]
+- Added git pre-push hook. [Jordan Dalton]
+
+  This is the hook I use to minify and commit the files for index.html
+- Added html files. [Jordan Dalton]
+
+  HTML is the new PHP. Now people can host the livemap on webservers that don't support PHP.
+  Wooo
+- Add bundler configs. [Jordan Dalton]
+
+  Added the config files for webpack and crammit.
+- Added tiles used during development. [Jordan Dalton]
+
+  This should allow people to just download the interface and go.
+
+  Before, they would have to extract the images themselves before use.
+- Added example json config. [Jordan Dalton]
+
+Changes
+~~~~~~~
+- Update to v3.2.0. [Jordan Dalton]
+- Update README to new version. [Jordan Dalton]
+- Update dist files. [Jordan Dalton]
+- Update dist files. [Jordan Dalton]
+- Update dist files. [Jordan Dalton]
+- Update dist files. [Jordan Dalton]
+- Update dist files. [Jordan Dalton]
+- Update dist files. [Jordan Dalton]
+- Update blip controls. [Jordan Dalton]
+
+  They no longer break when swicthing servers.
+- Update dist files. [Jordan Dalton]
+- Update dist files. [Jordan Dalton]
+- Update font paths back to relative. [Jordan Dalton]
+
+  Users running the map under a subdirectory would have had issues before.
+  Now they shouldn't.
+- Update dist files. [Jordan Dalton]
+- Update bootstrap to 4.1.3. [Jordan Dalton]
+- Update version check to JS. [Jordan Dalton]
+
+  The version checking logic is now inside a JS file and should be bundled inside the last-bundle dist file.
+- Update dist files. [Jordan Dalton]
+- Update font-awesome fonts. [Jordan Dalton]
+- Changed bundler software. [Jordan Dalton]
+
+  Moved from crammit and webpack to a more appropriate gulp.
+- Update webpack config to match previous PHP minifier. [Jordan Dalton]
+- Update layer control to not disable layers. [Jordan Dalton]
+
+  Before, the control would disable a layer if you zoomed out too far.
+  This wasn't needed because we already set the map to fit the map bounds (it resizes based on the map).
+  So, it's now overridden to remove this feature.
+- Update scripts to use new global variables. [Jordan Dalton]
+
+  Hopefully this makes the code more bareable to read
+- Update utils to have stripJsonOfComments function. [Jordan Dalton]
+
+  The function removes any comments inside a JSON string.
+
+Fix
+~~~
+- Fixed nav item's class. [matsn0w]
+- Fixed popup flickering on players. [Jordan Dalton]
+
+  Instead of relying on Leaflet to handle the moving popups, the code handles it.
+  This means that the popup isn't redrawing every time it moves position (I think that's what was heppening)
+  So, we get a smooth experience with moving players.
+- Fixed player clusters not being clickable. [Jordan Dalton]
+- Fixed config defaults when loading config. [Jordan Dalton]
+
+Other
+~~~~~
+- Increased marker accuracy. [Jordan Dalton]
+
+  Still not 100% accurate. This CRS shit confuses me in regards to Leaflet.
+
+  Anyways. Now tile's size must be set as 1024. It will be automatically scaled (at least, that's been my experience).
+- Possibly fixed production error. [Jordan Dalton]
+
+  Apparently leaflet is trying to call addLayer on a undefined variable.
+  I don't get any error on debug.html only the index.html file.
+- Renamed pre-push to post-commit. [Jordan Dalton]
+
+  This is a better work flow. Now, I can guarantee that if I make any changes in a commit, they will be reflected in the dist files.
+- Moved font locations and update all.css to have absolute path. [Jordan
+  Dalton]
+
+  Should allow the CSS to work on config.html as well as the other html files.
+- Renames JS files with number to designate where they should be when
+  bundled together. [Jordan Dalton]
+
+  1.js files will be placed inside the "first-bundle.js"
+  2.js files will be placed inside "last-bundle.js"
+- Moved vendor files into a vendor folder. [Jordan Dalton]
+- Removed php utility files. [Jordan Dalton]
+
+  Starting to move everything over to plain HTML.
+- WIP: Updating files to use new config.json file. [Jordan Dalton]
+
+
+v3.1.0 (08-02-2019)
+-------------------
+
+Changes
+~~~~~~~
+- Update controls to new framework/Fixes #20. [Jordan Dalton]
+
+  Hopefully this makes the map fully working with the new framework.
+
+  I still want to do a bunch of cleaning up. Make sure there's no left over code. And it should be good to deploy.
+- Update map utils for better accuracy with new framework. [Jordan
+  Dalton]
+
+  God. I. Hate. This.
+  There's no guarantee that the values entered will work for everyone.
+  There's no guarantee they will be accurate.
+  And I cannot tell you for the life of me where the values have come from.
+- Update static markers to new map. [Jordan Dalton]
+
+  Static markers now use the new map framework.
+- Update utils to new map. [Jordan Dalton]
+
+  This should accuratly calculate the coords from in game to the map coords
+- Update map code with better zooming. [Jordan Dalton]
+
+  By default the map size is downscaled as to give a zoomed out feel.
+  When zooming in, the framework will just scale the tiles we do have available.
+
+Fix
+~~~
+- Fixed accuracy issues in the map markers. [Jordan Dalton]
+
+  It was bugging me. This version still has it's issues but. it's a lot more accurate.
+
+
+v3.0.0 (14-01-2019)
+-------------------
+
+New
+~~~
+- Added leaflet.js framework. [Jordan Dalton]
+
+  Moved from Google's map to Leaflet.js's API.
+- Added python files used to extract PNGs from YTD files. [Jordan
+  Dalton]
+
+  A simple python script to turn YTD files into PNGs.
+  It literally goes thorugh the YTD archive and extracts ALL images it can find.
+  This is used to transform the minimap files "minimap_sea_*_*.ytd" to PNG files for use in the interface.
+
+  Just type `python extract_png.py` in the same directory as the YTD files.
+- Add reverse proxy config. [Jordan Dalton]
+
+  If people are smart and using reverse proxies, this commit should make life a little easier on them. Just set the "socketUrl" and/or "blipUrl" inside the "revsersProxy" setting and watch as your secure site becomes all green.
+
+
 v2.2.11 (06-04-2018)
 --------------------
+
+Changes
+~~~~~~~
+- Update to v2.2.11. [Jordan Dalton]
 
 Fix
 ~~~
