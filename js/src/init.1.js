@@ -36,6 +36,9 @@ var _overlays = [];
 var _disabledBlips = [];
 var _blipControlToggleAll = true; // Show all by default
 
+window.Filter = undefined; // For filtering players
+window.CanFilterOn = []; // What can the user filter?
+
 window.changeServer = function (nameOfServer) {
     console._log("Changing connected server to: " + nameOfServer);
 
@@ -233,6 +236,7 @@ function blipError( textStatus, errorThrown){
 }
 
 function initBlips(url){
+    clearAllMarkers();
     _blipCount = 0;
     _blips = [];
 

@@ -16,12 +16,7 @@
 //      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
-function toggleBlips(){
-
-    clearAllMarkers();
-    if(!_showBlips){
-        return;
-    }
+function toggleBlips(){ // _showBlips must be called before this function if you want to toggle all blips
 
     for (var spriteId in _blips) {
         var blipArray = _blips[spriteId];
@@ -29,18 +24,27 @@ function toggleBlips(){
 
         if (_disabledBlips.indexOf(spriteId) != -1) {
             console._log("Blip " + spriteId + "'s are disabled..");
+
+            blipArray.forEach(blip => {
+                console.log(blip);
+                var marker = MarkerStore[blip.markerId];
+                marker.remove();
+            });
+
             // If disabled, don't make a marker for it
             continue;
         }
 
-        for (var i in blipArray) {
-            var blip = blipArray[i];
-
-            var obj = new MarkerObject(blip.name, new Coordinates(blip.pos.x, blip.pos.y, blip.pos.z), MarkerTypes[blip.type], blip.description, "", "");
-            blip.markerId = createMarker(false, false, obj, "") - 1;
-        }
+        blipArray.forEach(blip => {
+            console.log(blip);
+            var marker = MarkerStore[blip.markerId];
+            if (_showBlips){
+                marker.addTo(Map);
+            }else{
+                marker.remove();
+            }
+        });
     }
-
 }
 
 $(document).ready(function(){
@@ -60,6 +64,30 @@ $(document).ready(function(){
             .text(_showBlips ? "on" : "off");
     });
 
+    $("#toggle-all-blips").on("click", function () {
+        _blipControlToggleAll = !_blipControlToggleAll;
+        console._log(_blipControlToggleAll + " showing blips?");
+        // Toggle the classes and add/remove the blipIds from the array
+
+        $("#blip-control-container").find("a").each(function (index, ele) {
+            var ele = $(ele);
+            var blipId = ele.data("blip-number").toString();
+
+            if (_blipControlToggleAll) {
+                // Showing them
+                _disabledBlips.splice(_disabledBlips.indexOf(blipId), 1);
+                ele.removeClass("blip-disabled").addClass("blip-enabled");
+            } else {
+                // Hiding them all
+                _disabledBlips.push(blipId);
+                ele.removeClass("blip-enabled").addClass("blip-disabled");
+            }
+        });
+
+        // Now we can refresh the markers
+        toggleBlips();
+    });
+
 
     $("#playerSelect").on("change", function(){
         if (this.value == ""){
@@ -69,6 +97,17 @@ $(document).ready(function(){
 
         Map.setZoom(3);// zoom in!
         _trackPlayer = this.value;
+    });
+
+    $("#filterOn").on("change", function(){
+        if (this.value == ""){
+            window.Filter = undefined;
+            return;
+        }
+
+        window.Filter = {
+            on: this.value
+        }
     });
 
     $("#refreshBlips").click(function(e){
@@ -93,30 +132,6 @@ $(document).ready(function(){
         }
 
         connect();
-    });
-
-    $("#toggle-all-blips").on("click", function(){
-        _blipControlToggleAll = !_blipControlToggleAll;
-        console._log(_blipControlToggleAll +" showing blips?");
-        // Toggle the classes and add/remove the blipIds from the array
-
-        $("#blip-control-container").find("a").each(function(index, ele){
-            var ele = $(ele);
-            var blipId = ele.data("blip-number").toString();
-
-            if (_blipControlToggleAll){
-                // Showing them
-                _disabledBlips.splice(_disabledBlips.indexOf(blipId), 1);
-                ele.removeClass("blip-disabled").addClass("blip-enabled");
-            }else{
-                // Hiding them all
-                _disabledBlips.push(blipId);
-                ele.removeClass("blip-enabled").addClass("blip-disabled");
-            }
-        });
-
-        // Now we can refresh the markers
-        toggleBlips();
     });
 });
 
@@ -156,10 +171,10 @@ function initPlayerMarkerControls(Map, PlayerMarkers){
         L.DomEvent.on(html, "click", function(e){
             var t = e.target;
             var attribute = t.getAttribute("data-identifier");
-            var m = MarkerStore[localCache[attribute].marker]; // Get the marker using the localcache.
+            var m = PopupStore[localCache[attribute].marker]; // Get the marker using the localcache.
 
             Map.closePopup(Map._popup); //Close the currently open popup
-            Map.openPopup(m.getPopup()); // Open the user's popup
+            Map.openPopup(m); // Open the user's popup
         });
 
         Map.openPopup(html, a.layer.getLatLng());
