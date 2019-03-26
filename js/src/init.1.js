@@ -92,7 +92,12 @@ function globalInit() {
             var str = stripJsonOfComments(data);
             var p = JSON.parse(str);
 
-            window.config = p;
+            window.config = Object.assign({
+                debug: false,
+                tileDirectory: "images/tiles",
+                iconDirectory: "images/icons",
+                showIdentifiers: false
+            }, p);
 
             for (const serverName in config.servers) {
                 // Make sure all servers inherit defaults if they need
