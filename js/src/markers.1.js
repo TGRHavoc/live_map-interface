@@ -262,7 +262,7 @@ function generateBlipControls(){
         }
 
         // Refresh blips (there's probably a faster way..)
-        clearAllMarkers();
+        //clearAllMarkers();
         toggleBlips();
     });
 }
