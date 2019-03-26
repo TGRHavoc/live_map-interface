@@ -46,29 +46,20 @@ New
 
 Changes
 ~~~~~~~
+- Update changelog to v3.2.0. [Jordan Dalton]
 - Update to v3.2.0. [Jordan Dalton]
 - Update README to new version. [Jordan Dalton]
-- Update dist files. [Jordan Dalton]
-- Update dist files. [Jordan Dalton]
-- Update dist files. [Jordan Dalton]
-- Update dist files. [Jordan Dalton]
-- Update dist files. [Jordan Dalton]
-- Update dist files. [Jordan Dalton]
 - Update blip controls. [Jordan Dalton]
 
   They no longer break when swicthing servers.
-- Update dist files. [Jordan Dalton]
-- Update dist files. [Jordan Dalton]
 - Update font paths back to relative. [Jordan Dalton]
 
   Users running the map under a subdirectory would have had issues before.
   Now they shouldn't.
-- Update dist files. [Jordan Dalton]
 - Update bootstrap to 4.1.3. [Jordan Dalton]
 - Update version check to JS. [Jordan Dalton]
 
   The version checking logic is now inside a JS file and should be bundled inside the last-bundle dist file.
-- Update dist files. [Jordan Dalton]
 - Update font-awesome fonts. [Jordan Dalton]
 - Changed bundler software. [Jordan Dalton]
 
