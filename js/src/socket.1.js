@@ -347,7 +347,7 @@ function doPlayerUpdate(players) {
         });
 
         var opacity = 1.0;
-        if (window.Filter){
+        if (window.Filter != undefined){
             if (plr[window.Filter.on] == undefined) {
                 opacity = 0.0;
             }else{

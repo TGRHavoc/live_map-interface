@@ -23,18 +23,42 @@ function normalize(value, min, max) {
     return Math.abs((value - min) / (max - min));
 }
 
-var game_1_x = -4300.00;
-var game_1_y = 8660.00;
 
-var game_2_x = 5000.0;
-var game_2_y = -5700.0;
+// :thinking: This seems to improve the accuracy. I think what the problem is, if that the images I'm using doesn't correlate 1:1 to the map I'm using as a reference
+// Reference image (for those who care): https://drive.google.com/file/d/0B-zvE86DVcv2MXhVSHZnc01QWm8/view
+// I'm pretty sure that the + and -'s account for the differences. So, maybe fine-tuning them will increase accuracy of the map.
+
+// Top left corner of the GTA Map
+var game_1_x = -4000.00 - 230;
+var game_1_y = 8000.00 + 420;
+
+// Around this location: https://tgrhavoc.me/fuck_you/retard/MGoWO6nCymLmFC3M98bXbXL7C.png.
+
+// It's the middle of the map and one tile up (in leaflet). You can find it's location on leaflet by running the line below in console
+//      var m = new L.Marker(Map.unproject([1024,1024*2],0)); m.addTo(Map);
+var game_2_x = 400.00 - 30;
+var game_2_y = -300.0 - 340.00;
+
+// Some information. I've spent too long looking at this to clearly see a patten
+// 0 0 for leaflet = -4000 8000 for GTA
+// mapWidth mapHeight for leaflet = 7000 -4000 for GTA
+//       2048 3072 = 7000 -4000
+//       4096 6144 = 7000 -4000
+
+//                                  Leaflet assumes tileSize = 1024
+//
+// tile 1 in game =                 tile 1 in leaflet:       gta delta      leaflet delta:
+// p1: -4000, 8000 (top left)           0,0                      y: 4200        y: 1024 (tilesize)
+// p2: -4000, 3800 (bottom left)        0,1024                   x: 4400        x: 1024 (tilesize)
+// p3:  400, 8000 (top right)           1024,0
+// p4:  400, 3800 (bottom rigt)         1024,1024
 
 function convertToMap(x, y) {
     var h = CurrentLayer.options.tileSize * 3,
         w = CurrentLayer.options.tileSize * 2;
 
     var latLng1 = Map.unproject([0, 0], 0);
-    var latLng2 = Map.unproject([w+20, h+30], 0);
+    var latLng2 = Map.unproject([w / 2, (h - CurrentLayer.options.tileSize)], 0);
 
     var rLng = latLng1.lng + (x - game_1_x) * (latLng1.lng - latLng2.lng) / (game_1_x - game_2_x);
     var rLat = latLng1.lat + (y - game_1_y) * (latLng1.lat - latLng2.lat) / (game_1_y - game_2_y);
