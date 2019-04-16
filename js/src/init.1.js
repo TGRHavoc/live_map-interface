@@ -105,7 +105,8 @@ function globalInit() {
                 debug: false,
                 tileDirectory: "images/tiles",
                 iconDirectory: "images/icons",
-                showIdentifiers: false
+                showIdentifiers: false,
+                groupPlayers: true
             }, p);
 
             for (const serverName in config.servers) {
