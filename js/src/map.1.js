@@ -91,7 +91,7 @@ function createMarker(animated, draggable, objectRef, title) {
     var image = L.icon(markerType);
 
     var where = window.Map;
-    if(objectRef.data && objectRef.data.isPlayer){
+    if(objectRef.data && objectRef.data.isPlayer && window.config.groupPlayers){
         // Add to the cluster layer
         where = window.PlayerMarkers;
     }
