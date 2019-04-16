@@ -4,6 +4,7 @@
     "tileDirectory": "images/tiles",
     "iconDirectory": "images/icons",
     "showIdentifiers" : false,
+    "groupPlayers": true, // Wether the map should group players together into "clusters" or not.
 
     "defaults": { // If a server doesn't have the key-value set, it will fallback to these values
         "ip": "127.0.0.1", // Make sure this is the PUBLIC IP of the FIVEM server
