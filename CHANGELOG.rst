@@ -2,6 +2,60 @@ Changelog
 =========
 
 
+v3.2.3 (16-04-2019)
+-------------------
+
+New
+~~~
+- Added "groupPlayers" to config. [Jordan Dalton]
+
+  As per request in #32.
+  Defaults to true so, people who don't care will automatically have grouping enabled.
+
+
+v3.2.2 (16-04-2019)
+-------------------
+
+Changes
+~~~~~~~
+- Update changeServer to reset controls. [Jordan Dalton]
+
+  This should reset the UI elements such as the player list when switching servers.
+  Before, it wouldn't reset showing you the players for the previous server you were viewing.
+
+  Not sure if this is related to #33.
+
+
+v3.2.1 (16-04-2019)
+-------------------
+
+New
+~~~
+- Added a stiched image of the normal tileset. [Jordan Dalton]
+- Added config to gitignore. [Jordan Dalton]
+
+  I can see myself accidently pushing that at some point.
+  So, I'd rather not risk it.
+
+Changes
+~~~~~~~
+- Update marker accuracy. [Jordan Dalton]
+
+  I'm starting to hate this project.
+
+  The markers are now even more accurate but, they're still not 100%.
+  I'm starting to think that it's beyond my capabilities.
+
+Other
+~~~~~
+- Removed random print from control file. [Jordan Dalton]
+
+  It spammed the console.
+- Udpate changelog to remove "update dist files" [Jordan Dalton]
+
+  It's not important enough to be in the changelog.
+
+
 v3.2.0 (26-03-2019)
 -------------------
 
