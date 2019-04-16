@@ -71,6 +71,15 @@ window.changeServer = function (nameOfServer) {
 
     $("#server_name").text(nameOfServer);
 
+    // Reset controls.
+    $("#playerSelect").children().remove();
+    $("#playerSelect").append("<option></option>");
+
+    $("#filterOn").children().remove();
+    $("#filterOn").append("<option></option>");
+    $("#onlyShow").text("");
+    window.Filter = undefined;
+
     setTimeout(() => {
         initBlips(connectedTo.getBlipUrl());
         connect(connectedTo.getSocketUrl());
