@@ -6,3 +6,4 @@ generate-changes.bat
 .changelog.rc
 
 node_modules/
+config.json
