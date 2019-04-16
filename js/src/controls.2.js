@@ -36,7 +36,7 @@ function toggleBlips(){ // _showBlips must be called before this function if you
         }
 
         blipArray.forEach(blip => {
-            console.log(blip);
+            //console.log(blip);
             var marker = MarkerStore[blip.markerId];
             if (_showBlips){
                 marker.addTo(Map);
