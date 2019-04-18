@@ -330,6 +330,7 @@ function doPlayerUpdate(players) {
 
     players.forEach(function (plr) {
         if (plr == null || plr.name == undefined || plr.name == "") return;
+        if (plr.identifer == undefined || plr.identifer == "") return;
 
         if (!(plr.identifer in localCache)) {
             localCache[plr.identifer] = { marker: null, lastHtml: null };
