@@ -2,6 +2,17 @@ Changelog
 =========
 
 
+v3.2.4 (26-04-2019)
+-------------------
+
+Changes
+~~~~~~~
+- Update socket.1.js. [Jordan Dalton]
+
+  This should actually fix #33
+- Update to v3.2.3. [Jordan Dalton]
+
+
 v3.2.3 (16-04-2019)
 -------------------
 
