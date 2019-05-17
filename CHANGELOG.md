@@ -1,5 +1,20 @@
 # Changelog
 
+### [3.2.5](https://github.com/TGRHavoc/live_map-interface/compare/v3.2.4...v3.2.5) (2019-05-17)
+
+
+### Changes
+
+* remove images/map folder ([87e8696](https://github.com/TGRHavoc/live_map-interface/commit/87e8696))
+
+
+### Features
+
+* add default marker icons ([9e11285](https://github.com/TGRHavoc/live_map-interface/commit/9e11285))
+* add fire station and flame icons to markers ([0769907](https://github.com/TGRHavoc/live_map-interface/commit/0769907))
+
+
+
 ### [3.2.4](https://github.com/TGRHavoc/live_map-interface/compare/v3.2.3...v3.2.4) 
 
 
