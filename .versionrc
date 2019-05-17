@@ -1,8 +1,11 @@
 {
 	"changelogHeader" : "# Changelog\n",
-	"skip": {
-		"bump": true
+    "message": "chore(release): v%s",
+	"scripts": {
+		"prerelease": "gulp",
+		"precommit": "git add dist/"
 	},
+	"commitAll": true,
 	"types": [
 		{
 			"type": "feat",
@@ -29,7 +32,7 @@
 			"type": "build",
 			"section": "Build System",
 			"hidden": true
-		}, 
+		},
 		{
 			"type": "ci",
 			"section": "Continuous Intergration",
