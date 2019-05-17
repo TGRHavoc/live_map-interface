@@ -115,7 +115,8 @@ var types = {
     Key : {id: 134, x: 10},
     MovieTheater : {},
     Music : {},
-    Marijuana : {id: 140, x:14 },
+    FireStation: {id: 137, x: 13},
+    Marijuana : {id: 140},
     Hunting : {},
 
     ArmsTraffickingGround : {id: 147, y: 4, x: 0},
@@ -232,7 +233,8 @@ var types = {
     Stopwatch : {id: 430},
     DollarSignCircled : {},
     Crosshair2 : {},
-    DollarSignSquared : {id: 434}
+    DollarSignSquared : {id: 434},
+    FlameIcon: { id: 436, x: 15}
 };
 
 var nameToId = {};
