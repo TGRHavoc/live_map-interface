@@ -1,5 +1,30 @@
 # Changelog
 
+## [4.0.0](https://github.com/TGRHavoc/live_map-interface/compare/v3.2.5...v4.0.0) (2019-06-09)
+
+
+### Bug Fixes
+
+* version error ([b71d894](https://github.com/TGRHavoc/live_map-interface/commit/b71d894))
+
+
+### Changes
+
+* remove values in config that are not needed anymore ([a37b31a](https://github.com/TGRHavoc/live_map-interface/commit/a37b31a))
+* spelling mistake `identifer` -> `identifier` ([3bcad79](https://github.com/TGRHavoc/live_map-interface/commit/3bcad79))
+
+
+### Features
+
+* update init to use the new resource system ([56034e1](https://github.com/TGRHavoc/live_map-interface/commit/56034e1))
+
+
+### BREAKING CHANGES
+
+* spelling mistake `identifer` -> `identifier`
+
+
+
 ### [3.2.5](https://github.com/TGRHavoc/live_map-interface/compare/v3.2.4...v3.2.5) (2019-05-17)
 
 
