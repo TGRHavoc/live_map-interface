@@ -162,7 +162,7 @@ function initPlayerMarkerControls(Map, PlayerMarkers){
 
             var name = marker.title;
             var child = L.DomUtil.create("li", "clusteredPlayerMarker");
-            child.setAttribute("data-identifier", marker.player.identifer);
+            child.setAttribute("data-identifier", marker.player.identifier);
             child.appendChild(document.createTextNode(name));
 
             html.appendChild(child);

@@ -284,10 +284,10 @@ function getPlayerInfoHtml(plr) {
             continue; // We're already displaying this info
         }
 
-        if (!(key === "identifer")) {
+        if (!(key === "identifier")) {
             html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
-        } else if (config.showIdentifiers && key == "identifer") {
-            html += '<div class="row info-body-row"><strong>Identifer:</strong>&nbsp;' + plr[key] + '</div>';
+        } else if (config.showIdentifiers && key == "identifier") {
+            html += '<div class="row info-body-row"><strong>identifier:</strong>&nbsp;' + plr[key] + '</div>';
         } else {
             continue;
         }
@@ -304,9 +304,9 @@ function getFilterProps(plr){
             continue; // We're already displaying this info
         }
 
-        if (!(key === "identifer")) {
+        if (!(key === "identifier")) {
             props.push(key);
-        } else if (config.showIdentifiers && key == "identifer") {
+        } else if (config.showIdentifiers && key == "identifier") {
             props.push(key);
         } else {
             continue;
@@ -330,10 +330,10 @@ function doPlayerUpdate(players) {
 
     players.forEach(function (plr) {
         if (plr == null || plr.name == undefined || plr.name == "") return;
-        if (plr.identifer == undefined || plr.identifer == "") return;
+        if (plr.identifier == undefined || plr.identifier == "") return;
 
-        if (!(plr.identifer in localCache)) {
-            localCache[plr.identifer] = { marker: null, lastHtml: null };
+        if (!(plr.identifier in localCache)) {
+            localCache[plr.identifier] = { marker: null, lastHtml: null };
         }
 
         // Filtering stuff
@@ -359,46 +359,46 @@ function doPlayerUpdate(players) {
             }
         }
 
-        if ($("#playerSelect option[value='" + plr.identifer + "']").length <= 0) {
+        if ($("#playerSelect option[value='" + plr.identifier + "']").length <= 0) {
             // Ooo look, we have players. Let's add them to the "tracker" drop-down
             $("#playerSelect").append($("<option>", {
-                value: plr.identifer, // Should be unique
+                value: plr.identifier, // Should be unique
                 text: plr.name // Their name.. Might not be unique?
             }));
         }
 
-        if (_trackPlayer != null && _trackPlayer == plr.identifer) {
+        if (_trackPlayer != null && _trackPlayer == plr.identifier) {
             // If we're tracking a player, make sure we center them
             Map.panTo(convertToMap(plr.pos.x, plr.pos.y));
         }
 
-        if (localCache[plr.identifer].marker != null || localCache[plr.identifer].marker != undefined) {
+        if (localCache[plr.identifier].marker != null || localCache[plr.identifier].marker != undefined) {
             // If we have a custom icon (we should) use it!!
             if (plr.icon) {
                 var t = MarkerTypes[plr.icon];
 
                 //console._log("Got icon of :" + plr.icon);
 
-                MarkerStore[localCache[plr.identifer].marker].setIcon(L.icon(t));
+                MarkerStore[localCache[plr.identifier].marker].setIcon(L.icon(t));
             }
 
             // Update the player's location on the map :)
-            MarkerStore[localCache[plr.identifer].marker].setLatLng(convertToMapLeaflet(plr.pos.x, plr.pos.y));
+            MarkerStore[localCache[plr.identifier].marker].setLatLng(convertToMapLeaflet(plr.pos.x, plr.pos.y));
 
             //update popup with the information we have been sent
             var html = getPlayerInfoHtml(plr);
 
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
-            var m = localCache[plr.identifer].marker;
+            var m = localCache[plr.identifier].marker;
             var marker = MarkerStore[m];
             var popup = PopupStore[m];
 
             marker.setOpacity(opacity);
 
-            if (infoContent != localCache[plr.identifer].lastHtml){
+            if (infoContent != localCache[plr.identifier].lastHtml){
                 popup.setContent(infoContent);
-                localCache[plr.identifer].lastHtml = infoContent;
+                localCache[plr.identifier].lastHtml = infoContent;
             }
 
             if(popup.isOpen()){
@@ -409,12 +409,12 @@ function doPlayerUpdate(players) {
 
 
         } else {
-            localCache[plr.identifer].lastHtml = infoContent;
+            localCache[plr.identifier].lastHtml = infoContent;
             var html = getPlayerInfoHtml(plr);
             var infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
             var obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), MarkerTypes[6], "", {isPlayer: true, player: plr});
-            var m = localCache[plr.identifer].marker = createMarker(false, false, obj, plr.name) - 1;
+            var m = localCache[plr.identifier].marker = createMarker(false, false, obj, plr.name) - 1;
 
             MarkerStore[m].unbindPopup(); // We want to handle the popups ourselfs.
             MarkerStore[m].setOpacity(opacity);
