@@ -15,7 +15,7 @@ $(document).ready(function () {
 
             $("#livemap_version").text(window.version); // Show it on the interface
 
-            $.ajax("//raw.githubusercontent.com/TGRHavoc/live_map-interface/master/version.json", {
+            $.ajax("https://raw.githubusercontent.com/TGRHavoc/live_map-interface/master/version.json", {
                 error: function (textStatus, errorThrown) {
                     createAlert({
                         title: "<strong>Error latest version for check!</strong>",
