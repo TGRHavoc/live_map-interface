@@ -56,7 +56,7 @@ window.changeServer = function (nameOfServer) {
         if (this.reverseProxy && this.reverseProxy.blips) {
             return this.reverseProxy.blips;
         }
-        return `http://${this.ip}:${this.fivemPort}/${this.liveMapName}/blips.json`;
+        return `http://${this.ip}:${this.socketPort}/blips.json`;
     }
 
     window.connectedTo.getSocketUrl = function () {
@@ -106,13 +106,13 @@ function globalInit() {
                 tileDirectory: "images/tiles",
                 iconDirectory: "images/icons",
                 showIdentifiers: false,
-                groupPlayers: true
+                groupPlayers: true,
+                servers: []
             }, p);
 
             for (const serverName in config.servers) {
                 // Make sure all servers inherit defaults if they need
                 var o = Object.assign({}, config.defaults, config.servers[serverName]);
-                console._log(o);
                 config.servers[serverName] = o;
             }
             mapInit("map-canvas");
