@@ -48,9 +48,7 @@ Below is a table with the different things you can put into your `config.json` f
 | Name         | Type                                         | Example                                       |                                      What it does                                      |
 | :----------- | -------------------------------------------- | --------------------------------------------- | :------------------------------------------------------------------------------------: |
 | ip           | string                                       | "example.com"                                 |                        The **public** IP for your FiveM server.                        |
-| fivemPort    | number                                       | 30120                                         |                      The port your FiveM server is listening on.                       |
 | socketPort   | number                                       | 30121                                         |                    The port your LiveMap resource is listening on.                     |
-| liveMapName  | string                                       | "live_map"                                    |                        The name of the resource on your server.                        |
 | reverseProxy | [reserse proxy object](reverse-proxy-object) | `{"blips": "https://example.com/blips.json"}` | If you have a reverse proxy set up for the blips and socket connection, then use this. |
 
 
@@ -78,9 +76,7 @@ It's therefore best practice to only use the `revserProxy` property in the serve
 | Name         | Type                                         | Example                                       |                                      What it does                                      |
 | :----------- | -------------------------------------------- | --------------------------------------------- | :------------------------------------------------------------------------------------: |
 | ip           | string                                       | "example.com"                                 |                        The **public** IP for your FiveM server.                        |
-| fivemPort    | number                                       | 30120                                         |                      The port your FiveM server is listening on.                       |
 | socketPort   | number                                       | 30121                                         |                    The port your LiveMap resource is listening on.                     |
-| liveMapName  | string                                       | "live_map"                                    |                        The name of the resource on your server.                        |
 | reverseProxy | [reserse proxy object](reverse-proxy-object) | `{"blips": "https://example.com/blips.json"}` | If you have a reverse proxy set up for the blips and socket connection, then use this. |
 
 
