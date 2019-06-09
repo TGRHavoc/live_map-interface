@@ -8,9 +8,7 @@
 
     "defaults": { // If a server doesn't have the key-value set, it will fallback to these values
         "ip": "127.0.0.1", // Make sure this is the PUBLIC IP of the FIVEM server
-        "fivemPort": "30120", // The fivem port
-        "socketPort": "30121", // Set to the port that you set in the "socket_port" convar (if different to the one in the config)
-        "liveMapName": "live_map" // Set to the resource's name (if different to the one in the config)
+        "socketPort": "30121" // Set to the port that you set in the "socket_port" convar (if different to the one in the config)
     },
 
     "servers": {
@@ -20,9 +18,7 @@
         },
         "Everything is different": {
             "ip": "10.10.0.1",
-            "fivemPort": "60120",
-            "socketPort": "60121",
-            "liveMapName": "shitty_livemap"
+            "socketPort": "60121"
         },
         "Reverse Proxy Example": {
             "reverseProxy" : { // If you have knowledge on how to set up a "reverse proxy" for your webserver and want to keep the map on a secure connection, set the values below.
