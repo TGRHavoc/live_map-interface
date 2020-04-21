@@ -1,9 +1,13 @@
 
 images/map/
 images/__map/
+images/tiles/
 
 generate-changes.bat
 .changelog.rc
 
 node_modules/
 config.json
+
+_site/
+obj/
