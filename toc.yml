@@ -1,0 +1,8 @@
+- name: Home
+  href: https://docs.tgrhavoc.co.uk
+- name: LiveMap Interface
+  homepage: index.md
+- name: Changelog
+  homepage: changelog.md
+- name: License
+  homepage: license.md
