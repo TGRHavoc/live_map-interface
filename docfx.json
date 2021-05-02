@@ -22,7 +22,8 @@
         },
         "fileMetadataFiles": [],
         "template": [
-            "default"
+            "default",
+            "C:/docfx/templates/material-dark"
         ],
         "postProcessors": [],
         "markdownEngineName": "markdig",
