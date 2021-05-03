@@ -16,31 +16,48 @@
 //      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
 // ************************************************************************** //
 
-function createAlert(data, settings){
-    if(data == undefined || data == null){
-        console.error("Data needs to be set");
-        return;
+class Alerter {
+
+    static DEFAULT_OPTIONS = {
+            status: 'warning', // success, error, warning
+            title: 'Warning!',
+            text: 'Notify text lorem ipsum',
+            effect: 'fade',
+            speed: 500,
+            customClass: null,
+            customIcon: null,
+            showIcon: true,
+            showCloseButton: true,
+            autoclose: true,
+            autotimeout: 20000,
+            gap: 10,
+            distance: 20,
+            type: 2,
+            position: 'right top'
+    };
+    /**
+     *
+     * @param {Object} data Either a string (the message to be shown) or an object containing options. See https://github.com/dgknca/simple-notify#parameters
+     * @returns
+     */
+    static createAlert(data) {
+        if (data == undefined || data == null) {
+            console.error("Data needs to be set");
+            return;
+        }
+
+        if (typeof (data) == "string") {
+            var str = data;
+            data = {
+                text: str
+            };
+        }
+
+        data = Object.assign(Alerter.DEFAULT_OPTIONS, data);
+
+        //console.log(JSON.stringify(data));
+        //console._log(JSON.stringify(settings));
+
+        return new Notify(data); // Incase I need this in future for shit like prgress bars or, if i need to update the alert
     }
-
-    if(typeof(data) == "string"){
-        var str = data;
-        data = {
-            message: str
-        };
-    }
-
-    if(typeof(data.icon) == "undefined"){
-        data.icon = "fas fa-exclamation-triangle";
-    }
-
-    if(typeof(data.title) == "undefined"){
-        data.title = "<strong>Warning!</strong>";
-    }
-
-    settings = Object.assign({ newsest_on_top: true, placement: { from: "bottom", align: "left" }, delay: 10000, type: "warning" }, settings);
-
-    //console._log(JSON.stringify(data));
-    //console._log(JSON.stringify(settings));
-
-    return $.notify(data, settings);; // Incase I need this in future for shit like prgress bars or, if i need to update the alert
 }
