@@ -53,6 +53,10 @@ function preprocess_bootstrap(){
     .pipe(gulp.dest("style/vendor/"));
 }
 
+gulp.task('sass:watch', function () {
+  gulp.watch('style/scss/src/**/*.scss', preprocess_sass);
+});
+
 exports.default = gulp.series(
     gulp.parallel(
         preprocess_sass, // Make sure we compile any SASS first.
