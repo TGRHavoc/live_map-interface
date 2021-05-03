@@ -15,6 +15,21 @@
 * remove docfx files ([005f995](https://github.com/TGRHavoc/live_map-interface/commit/005f9952d23ea5d995adf15d6b8da4c455410089))
 * update first-bundle and stylesheet ([9e9a863](https://github.com/TGRHavoc/live_map-interface/commit/9e9a86383b2dfdca24b682aa39cf02003f065a19))
 
+### [4.0.1](https://github.com/TGRHavoc/live_map-interface/compare/v4.0.0...v4.0.1) (2021-05-03)
+
+
+### Bug Fixes
+
+* gulp not bundling js files ([c339797](https://github.com/TGRHavoc/live_map-interface/commit/c3397978f4e5b85766e80b754d2b9df0ac2be4de))
+
+
+### Changes
+
+* format debug.html ([27ed891](https://github.com/TGRHavoc/live_map-interface/commit/27ed891422058ebd6100d9e28a17a87417fb73fe))
+* move js files into own folders ([3582e3f](https://github.com/TGRHavoc/live_map-interface/commit/3582e3f150afea958792c51afef7fc41ed4c2356))
+* remove docfx files ([005f995](https://github.com/TGRHavoc/live_map-interface/commit/005f9952d23ea5d995adf15d6b8da4c455410089))
+* update first-bundle and stylesheet ([9e9a863](https://github.com/TGRHavoc/live_map-interface/commit/9e9a86383b2dfdca24b682aa39cf02003f065a19))
+
 ## [4.0.0](https://github.com/TGRHavoc/live_map-interface/compare/v3.2.5...v4.0.0) (2019-06-09)
 
 
