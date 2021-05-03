@@ -9,6 +9,10 @@
         {
             "filename": "version.json",
             "updater": "tools/standard-version-bump.js"
+        },
+        {
+            "filename": "package.json",
+            "type": "json"
         }
     ],
 	"commitAll": true,
