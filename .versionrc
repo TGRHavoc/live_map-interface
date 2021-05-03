@@ -1,6 +1,6 @@
 {
 	"header" : "# Changelog\n",
-    "releaseCommitMessageFormat": "chore(release): v%s",
+    "releaseCommitMessageFormat": "chore(release): v{{currentTag}}",
 	"scripts": {
 		"prerelease": "gulp",
 		"precommit": "git add dist/"
