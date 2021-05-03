@@ -207,8 +207,8 @@
         </main>
     </div>
 
-    <script src="js/src/last-bundle/controls.js"></script>
-    <script src="js/src/last-bundle/version-check.js"></script>
+    <script src="js/src/last_bundle/controls.js"></script>
+    <script src="js/src/last_bundle/version-check.js"></script>
 
     <script>
         var greenIcon = L.icon({
@@ -225,6 +225,11 @@
             iconAnchor: [23, 32 / 2], // point of the icon which will correspond to marker's location
             popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
         });
+
+        function addDebug(x, y) {
+            var marker = new L.Marker(convertToMap(x, y));
+            marker.addTo(window.Map);
+        }
     </script>
 </body>
 
