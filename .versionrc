@@ -1,10 +1,16 @@
 {
-	"changelogHeader" : "# Changelog\n",
-    "message": "chore(release): v%s",
+	"header" : "# Changelog\n",
+    "releaseCommitMessageFormat": "chore(release): v%s",
 	"scripts": {
 		"prerelease": "gulp",
 		"precommit": "git add dist/"
 	},
+    "bumpFiles": [
+        {
+            "filename": "version.json",
+            "updater": "tools/standard-version-bump.js"
+        }
+    ],
 	"commitAll": true,
 	"types": [
 		{
