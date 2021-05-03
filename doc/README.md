@@ -111,9 +111,9 @@ If you have a custom "minimap" you use in game, you can probably use it with the
 All you need to do is extract the images from the YTD files with a program like OpenIV.
 If doing this, using the `minimap_sea` images will result in a much higher quality.
 
-![Export](.doc/7339a06b77d8594c0131883d1.png)
+![Export](images/7339a06b77d8594c0131883d1.png)
 
-![Saving](.doc/8ba2d745e29330e7b388de0ae.png)
+![Saving](images/8ba2d745e29330e7b388de0ae.png)
 
 ## Thanks
 
