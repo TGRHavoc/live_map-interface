@@ -1,8 +1,15 @@
-# fivem-webinterface
+---
+layout: default
+title: LiveMap Interface
+nav_order: 1
+permalink: /livemap-interface
+---
+
+# LiveMap interface
 
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
 
-- [fivem-webinterface](#fivem-webinterface)
+- [LiveMap interface](#livemap-interface)
   - [Prerequisites](#prerequisites)
   - [How to install](#how-to-install)
   - [Configuration](#configuration)
