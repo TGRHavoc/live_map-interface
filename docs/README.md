@@ -12,14 +12,6 @@ This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRH
 - [LiveMap interface](#livemap-interface)
   - [Prerequisites](#prerequisites)
   - [How to install](#how-to-install)
-  - [Configuration](#configuration)
-    - [config.json](#configjson)
-      - [defaults object](#defaults-object)
-      - [reverse proxy object](#reverse-proxy-object)
-      - [server object](#server-object)
-      - [map object](#map-object)
-    - [config.html](#confightml)
-    - [Custom images](#custom-images)
   - [Thanks](#thanks)
 
 ## Prerequisites
@@ -31,7 +23,7 @@ You will also need to install [live_map](https://github.com/TGRHavoc/live_map) o
 
 Download the [latest version](https://github.com/TGRHavoc/live_map-interface/archive/master.zip).
 
-This should be enough to get the interface up and running on your website. If you want to change stuff like the images, look in the [configuration](#configuration) section
+This should be enough to get the interface up and running on your website. If you want to change stuff like the images, look in the [configuration](https://github.com/TGRHavoc/live_map-interface/tree/DaveOkpare-patch-1/docs/config.md) section
 
 
 ## Thanks
