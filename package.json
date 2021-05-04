@@ -9,5 +9,9 @@
         "gulp-replace": "^1.1.2",
         "gulp-sass": "^4.1.0",
         "gulp-strip-css-comments": "^2.0.0"
+    },
+    "devDependencies": {
+        "jshint": "^2.12.0",
+        "typescript": "^4.2.4"
     }
 }
