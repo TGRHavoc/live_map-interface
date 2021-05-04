@@ -3,32 +3,12 @@ class VersionCheck {
     constructor(){
         this.versionFile = "version.json";
         this.currentVersion = "0.0.0";
-        this.remoteVersion = "0.0.0";
+        this.remoteVersion = "4.0.0";
         this.remoteVersionUrl = "https://raw.githubusercontent.com/TGRHavoc/live_map-interface/master/version.json";
     }
 
     updateInterface(){
         document.getElementById("livemap_version").textContent = this.currentVersion;
-    }
-
-    sendRequestTo(url, success, error){
-        var request = new XMLHttpRequest();
-        request.open("GET", url, true);
-
-        request.onload = function() {
-            if (request.status >= 200 && request.status < 400) {
-                success(request);
-            } else {
-                error(request);
-            }
-        };
-
-        request.onerror = function() {
-            // There was a connection error of some sort
-            Alerter.createAlert({status: "error", text: `Connection error. Couldn't send request to ${url}`});
-        };
-
-        request.send();
     }
 
     /**
@@ -37,7 +17,7 @@ class VersionCheck {
      */
     getCurrentVersion(nextFucntionIfSuccessfull){
         const _ = this;
-        this.sendRequestTo(_.versionFile, function(request){
+        Requester.sendRequestTo(_.versionFile, function(request){
             var data = JSON.parse(JsonStrip.stripJsonOfComments(request.responseText));
             _.currentVersion = data.interface;
             
@@ -49,7 +29,7 @@ class VersionCheck {
 
     getRemoteVersion(nextFucntionIfSuccessfull){
         const _ = this;
-        this.sendRequestTo(_.remoteVersionUrl, function(request){
+        Requester.sendRequestTo(_.remoteVersionUrl, function(request){
             var data = JSON.parse(JsonStrip.stripJsonOfComments(request.responseText));
             _.remoteVersion = data.interface;
             
