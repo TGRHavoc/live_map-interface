@@ -58,6 +58,17 @@ class Alerter {
         //console.log(JSON.stringify(data));
         //console._log(JSON.stringify(settings));
 
-        return new Notify(data); // Incase I need this in future for shit like prgress bars or, if i need to update the alert
+        return new Notify(data);
     }
 }
+/* For testing the styles
+Alerter.createAlert({title: "success test", text: "<a href='#'>Link!</a> Some more text!", type: 1, status: "success"});
+Alerter.createAlert({title: "success test", text: "<a href='#'>Link!</a> Some more text!", type: 2, status: "success"});
+Alerter.createAlert({title: "success test", text: "<a href='#'>Link!</a> Some more text!", type: 3, status: "success"});
+Alerter.createAlert({title: "warning test", text: "<a href='#'>Link!</a> Some more text!", type: 1, status: "warning"});
+Alerter.createAlert({title: "warning test", text: "<a href='#'>Link!</a> Some more text!", type: 2, status: "warning"});
+Alerter.createAlert({title: "warning test", text: "<a href='#'>Link!</a> Some more text!", type: 3, status: "warning"});
+Alerter.createAlert({title: "error test", text: "<a href='#'>Link!</a> Some more text!", type: 1, status: "error"});
+Alerter.createAlert({title: "error test", text: "<a href='#'>Link!</a> Some more text!", type: 2, status: "error"});
+Alerter.createAlert({title: "error test", text: "<a href='#'>Link!</a> Some more text!", type: 3, status: "error"});
+*/
