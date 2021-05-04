@@ -1,47 +1,90 @@
-$(document).ready(function () {
-    $.ajax("version.json", {
-        error: function (textStatus, errorThrown) {
-            createAlert({
-                title: "<strong>Error getting version.json!</strong>",
-                message: textStatus.statusText
-            });
-        },
-        dataType: "text", // We want to strip any comments in the file first
-        success: function (data, textStatus) {
-            var str = stripJsonOfComments(data);
-            var p = JSON.parse(str);
+class VersionCheck {
 
-            window.version = p["interface"];
+    constructor(){
+        this.versionFile = "version.json";
+        this.currentVersion = "0.0.0";
+        this.remoteVersion = "0.0.0";
+        this.remoteVersionUrl = "https://raw.githubusercontent.com/TGRHavoc/live_map-interface/master/version.json";
+    }
 
-            $("#livemap_version").text(window.version); // Show it on the interface
+    updateInterface(){
+        document.getElementById("livemap_version").textContent = this.currentVersion;
+    }
 
-            $.ajax("https://raw.githubusercontent.com/TGRHavoc/live_map-interface/master/version.json", {
-                error: function (textStatus, errorThrown) {
-                    createAlert({
-                        title: "<strong>Error latest version for check!</strong>",
-                        message: textStatus.statusText
+    sendRequestTo(url, success, error){
+        var request = new XMLHttpRequest();
+        request.open("GET", url, true);
+
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                success(request);
+            } else {
+                error(request);
+            }
+        };
+
+        request.onerror = function() {
+            // There was a connection error of some sort
+            Alerter.createAlert({status: "error", text: `Connection error. Couldn't send request to ${url}`});
+        };
+
+        request.send();
+    }
+
+    /**
+     * 
+     * @param {function} nextFucntionIfSuccessfull The function to call if we got the current version
+     */
+    getCurrentVersion(nextFucntionIfSuccessfull){
+        const _ = this;
+        this.sendRequestTo(_.versionFile, function(request){
+            var data = JSON.parse(JsonStrip.stripJsonOfComments(request.responseText));
+            _.currentVersion = data.interface;
+            
+            if (nextFucntionIfSuccessfull != null) nextFucntionIfSuccessfull();
+        }, function(request){
+            Alerter.createAlert({status: "error", text: `Got response ${request.status} from server.`});
+        });
+    }
+
+    getRemoteVersion(nextFucntionIfSuccessfull){
+        const _ = this;
+        this.sendRequestTo(_.remoteVersionUrl, function(request){
+            var data = JSON.parse(JsonStrip.stripJsonOfComments(request.responseText));
+            _.remoteVersion = data.interface;
+            
+            if (nextFucntionIfSuccessfull != null) nextFucntionIfSuccessfull();
+        }, function(request){
+            Alerter.createAlert({status: "error", text: `Got response ${request.status} from server.`});
+        });
+    }
+
+    doUpdate(){
+        const _ = this;
+        this.getCurrentVersion(function() {
+            _.updateInterface();
+
+            _.getRemoteVersion(function(){
+                // Check versions
+                if (window.compareVersions(_.currentVersion, _.remoteVersion) < 0){
+                    Alerter.createAlert({
+                        title: "Update available",
+                        text: `An update is available (${_.currentVersion} -> ${_.remoteVersion}). Please download it <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface'>HERE.</a>`
                     });
-                },
-                dataType: "text", // We want to strip any comments in the file first
-                success: function (data, textStatus) {
-                    var str = stripJsonOfComments(data);
-                    var p = JSON.parse(str);
-
-                    // Check versions
-                    if (window.compareVersions(window.version, p["interface"]) < 0){
-                        createAlert({
-                            title: "Update available",
-                            message: `An update is available (${window.version} -> ${p["interface"]}). Please download it <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface'>HERE.</a>`
-                        })
-                    }else{
-                        console._log("Up to date or, a higher version");
-                    }
-
+                }else{
+                    //console.log("Up to date or, a higher version");
+                    Alerter.createAlert({
+                        status: "success",
+                        title: "Version up to date",
+                        text: `Have fun with ${_.currentVersion} of LiveMap!`,
+                        autoclose: true,
+                        autotimeout: 2000
+                    });
                 }
             });
-        }
-    });
-});
+        });
+    }
+}
 
 /*
         $jsArrayString = sprintf("An update is available (%s -> %s). Please download it <a style=\'color: #000;\' href=\'%s\'>HERE.</a>", self::$version, self::$latestVer, self::$downloadUrl);

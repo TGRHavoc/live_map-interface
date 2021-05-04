@@ -35,15 +35,8 @@ AlertOptions {
 }
  */
 
-var Alerter = /** @class */ (function () {
-    function Alerter() {}
-
-    /**
-     *
-     * @param {Object} data Either a string (the message to be shown) or an object containing options. See https://github.com/dgknca/simple-notify#parameters
-     * @returns
-     */
-    Alerter.createAlert = function (data) {
+class Alerter {
+    static createAlert(data) {
         if (data == undefined || data == null) {
             console.error("Data needs to be set");
             return;
@@ -55,28 +48,28 @@ var Alerter = /** @class */ (function () {
         else {
             myOptionTemp = data;
         }
-        var myOptions = Object.assign(this.DEFAULT_OPTIONS, myOptionTemp);
+        var myOptions = Object.assign(Alerter.DEFAULT_OPTIONS, myOptionTemp);
         return new Notify(myOptions);
-    };
-    Alerter.DEFAULT_OPTIONS = {
-        status: 'warning',
-        title: 'Warning!',
-        text: 'Notify text lorem ipsum',
-        effect: 'fade',
-        speed: 500,
-        customClass: null,
-        customIcon: null,
-        showIcon: true,
-        showCloseButton: true,
-        autoclose: true,
-        autotimeout: 20000,
-        gap: 10,
-        distance: 20,
-        type: 2,
-        position: 'bottom right'
-    };
-    return Alerter;
-}());
+    }
+}
+
+Alerter.DEFAULT_OPTIONS = {
+    status: 'warning',
+    title: 'Warning!',
+    text: 'Notify text lorem ipsum',
+    effect: 'fade',
+    speed: 500,
+    customClass: null,
+    customIcon: null,
+    showIcon: true,
+    showCloseButton: true,
+    autoclose: true,
+    autotimeout: 20000,
+    gap: 10,
+    distance: 20,
+    type: 2,
+    position: 'bottom right'
+};
 
 /* For testing the styles
 Alerter.createAlert({title: "success test", text: "<a href='#'>Link!</a> Some more text!", type: 1, status: "success"});
