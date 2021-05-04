@@ -7,7 +7,7 @@ const gulp = require("gulp"),
     sass = require("gulp-sass");
 
 function pack_js() {
-    return gulp.src(["js/vendor/*.js", "js/src/first_bundle/*.js"])
+    return gulp.src(["js/vendor/**/*.js", "js/src/first_bundle/**/*.js"])
         .pipe(concat("first-bundle.js"))
         .pipe(minify({
             ext: {
@@ -19,7 +19,7 @@ function pack_js() {
 }
 
 function pack_js_2() {
-    return gulp.src(["js/src/last_bundle/*.js"])
+    return gulp.src(["js/src/last_bundle/**/*.js"])
         .pipe(concat("last-bundle.js"))
         .pipe(minify({
             ext: {
