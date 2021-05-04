@@ -78,69 +78,6 @@ function getMapBounds(layer){
     return new L.LatLngBounds(southWest, northEast);
 }
 
-// Stripping JSON comments
-const singleComment = 1;
-const multiComment = 2;
-const stripWithoutWhitespace = () => '';
-const stripWithWhitespace = (str, start, end) => str.slice(start, end).replace(/\S/g, ' ');
-
-function stripJsonOfComments(str, opts) {
-    opts = opts || {};
-
-    const strip = opts.whitespace === false ? stripWithoutWhitespace : stripWithWhitespace;
-
-    let insideString = false;
-    let insideComment = false;
-    let offset = 0;
-    let ret = '';
-
-    for (let i = 0; i < str.length; i++) {
-        const currentChar = str[i];
-        const nextChar = str[i + 1];
-
-        if (!insideComment && currentChar === '"') {
-            const escaped = str[i - 1] === '\\' && str[i - 2] !== '\\';
-            if (!escaped) {
-                insideString = !insideString;
-            }
-        }
-
-        if (insideString) {
-            continue;
-        }
-
-        if (!insideComment && currentChar + nextChar === '//') {
-            ret += str.slice(offset, i);
-            offset = i;
-            insideComment = singleComment;
-            i++;
-        } else if (insideComment === singleComment && currentChar + nextChar === '\r\n') {
-            i++;
-            insideComment = false;
-            ret += strip(str, offset, i);
-            offset = i;
-            continue;
-        } else if (insideComment === singleComment && currentChar === '\n') {
-            insideComment = false;
-            ret += strip(str, offset, i);
-            offset = i;
-        } else if (!insideComment && currentChar + nextChar === '/*') {
-            ret += str.slice(offset, i);
-            offset = i;
-            insideComment = multiComment;
-            i++;
-            continue;
-        } else if (insideComment === multiComment && currentChar + nextChar === '*/') {
-            i++;
-            insideComment = false;
-            ret += strip(str, offset, i + 1);
-            offset = i + 1;
-            continue;
-        }
-    }
-
-    return ret + (insideComment ? strip(str.substr(offset)) : str.substr(offset));
-};
 
 function convertToMapLeaflet(x, y){
     var t = convertToMap(x, y);
@@ -154,3 +91,73 @@ function stringCoordToFloat(coord) {
         z: parseFloat(coord.z),
     };
 };
+
+
+
+class JsonStrip {
+    constructor(){
+        this.singleComment = 1;
+        this.multiComment = 2;
+    }
+
+    static stripWithoutWhitespace() { return ''; }
+    static stripWithWhitespace (str, start, end) { return str.slice(start, end).replace(/\S/g, ' '); }
+
+    static stripJsonOfComments(str, opts) {
+        opts = opts || {};
+
+        const strip = opts.whitespace === false ? JsonStrip.stripWithoutWhitespace : JsonStrip.stripWithWhitespace;
+
+        let insideString = false;
+        let insideComment = false;
+        let offset = 0;
+        let ret = '';
+
+        for (let i = 0; i < str.length; i++) {
+            const currentChar = str[i];
+            const nextChar = str[i + 1];
+
+            if (!insideComment && currentChar === '"') {
+                const escaped = str[i - 1] === '\\' && str[i - 2] !== '\\';
+                if (!escaped) {
+                    insideString = !insideString;
+                }
+            }
+
+            if (insideString) {
+                continue;
+            }
+
+            if (!insideComment && currentChar + nextChar === '//') {
+                ret += str.slice(offset, i);
+                offset = i;
+                insideComment = this.singleComment;
+                i++;
+            } else if (insideComment === this.singleComment && currentChar + nextChar === '\r\n') {
+                i++;
+                insideComment = false;
+                ret += strip(str, offset, i);
+                offset = i;
+                continue;
+            } else if (insideComment === this.singleComment && currentChar === '\n') {
+                insideComment = false;
+                ret += strip(str, offset, i);
+                offset = i;
+            } else if (!insideComment && currentChar + nextChar === '/*') {
+                ret += str.slice(offset, i);
+                offset = i;
+                insideComment = this.multiComment;
+                i++;
+                continue;
+            } else if (insideComment === this.multiComment && currentChar + nextChar === '*/') {
+                i++;
+                insideComment = false;
+                ret += strip(str, offset, i + 1);
+                offset = i + 1;
+                continue;
+            }
+        }
+
+        return ret + (insideComment ? strip(str.substr(offset)) : str.substr(offset));
+    }
+}
