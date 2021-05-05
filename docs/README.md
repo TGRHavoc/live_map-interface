@@ -30,15 +30,6 @@ Download the [latest version](https://github.com/TGRHavoc/live_map-interface/arc
 This should be enough to get the interface up and running on your website. If you want to change stuff like the images, look in the [configuration](config.md) section.
 
 
-## Thanks
-
-Special thanks to the people who helped me test this, flushing out any bugs that managed to sneak in.
-
-- [AciD](https://github.com/xlxAciDxlx)
-- [KjayCopper](https://github.com/KjayCopper)
-- [IllusiveTea](https://github.com/IllusiveTea)
-- [Tom Grobbe](https://github.com/TomGrobbe)
-
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
