@@ -69,6 +69,15 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "DaveOkpare",
+      "name": "David Okpare",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19241431?v=4",
+      "profile": "https://github.com/DaveOkpare",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
