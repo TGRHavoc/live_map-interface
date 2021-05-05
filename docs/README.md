@@ -1,6 +1,6 @@
 # fivem-webinterface
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
@@ -126,6 +126,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://tomgrobbe.nl/"><img src="https://avatars.githubusercontent.com/u/31419184?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tom</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/issues?q=author%3ATomGrobbe" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://xlxacidxlx.com/"><img src="https://avatars.githubusercontent.com/u/7502881?v=4?s=100" width="100px;" alt=""/><br /><sub><b>AciD</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/issues?q=author%3AxlxAciDxlx" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/jiynn"><img src="https://avatars.githubusercontent.com/u/33206565?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jiynn</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/issues?q=author%3Ajiynn" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://tgrhavoc.co.uk/"><img src="https://avatars.githubusercontent.com/u/1770893?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jordan Dalton</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/commits?author=TGRHavoc" title="Code">💻</a></td>
   </tr>
 </table>
 
