@@ -1,19 +1,9 @@
 # fivem-webinterface
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
-
-- [fivem-webinterface](#fivem-webinterface)
-  - [Prerequisites](#prerequisites)
-  - [How to install](#how-to-install)
-  - [Configuration](#configuration)
-    - [config.json](#configjson)
-      - [defaults object](#defaults-object)
-      - [reverse proxy object](#reverse-proxy-object)
-      - [server object](#server-object)
-      - [map object](#map-object)
-    - [config.html](#confightml)
-    - [Custom images](#custom-images)
-  - [Thanks](#thanks)
 
 ## Prerequisites
 
@@ -123,3 +113,23 @@ Special thanks to the people who helped me test this, flushing out any bugs that
 - [KjayCopper](https://github.com/KjayCopper)
 - [IllusiveTea](https://github.com/IllusiveTea)
 - [Tom Grobbe](https://github.com/TomGrobbe)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://tomgrobbe.nl/"><img src="https://avatars.githubusercontent.com/u/31419184?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tom</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/issues?q=author%3ATomGrobbe" title="Bug reports">🐛</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
