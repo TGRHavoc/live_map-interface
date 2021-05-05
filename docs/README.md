@@ -8,7 +8,7 @@ permalink: /livemap-interface
 
 # LiveMap interface
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
@@ -55,6 +55,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/Local9"><img src="https://avatars.githubusercontent.com/u/6077794?v=4?s=100" width="100px;" alt=""/><br /><sub><b>127.0.0.1</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/issues?q=author%3ALocal9" title="Bug reports">🐛</a> <a href="https://github.com/TGRHavoc/live_map-interface/commits?author=Local9" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/davwheat"><img src="https://avatars.githubusercontent.com/u/7406822?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David Wheatley</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/commits?author=davwheat" title="Code">💻</a> <a href="https://github.com/TGRHavoc/live_map-interface/issues?q=author%3Adavwheat" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/DaveOkpare"><img src="https://avatars.githubusercontent.com/u/19241431?v=4?s=100" width="100px;" alt=""/><br /><sub><b>David Okpare</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/commits?author=DaveOkpare" title="Documentation">📖</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/matsn0w"><img src="https://avatars.githubusercontent.com/u/15019582?v=4?s=100" width="100px;" alt=""/><br /><sub><b>matsn0w</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/commits?author=matsn0w" title="Code">💻</a></td>
   </tr>
 </table>
 
