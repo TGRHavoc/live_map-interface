@@ -38,7 +38,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/7502881?v=4",
       "profile": "https://xlxacidxlx.com/",
       "contributions": [
-        "bug"
+        "bug",
+        "code"
       ]
     },
     {
@@ -86,6 +87,15 @@
       "profile": "https://github.com/matsn0w",
       "contributions": [
         "code"
+      ]
+    },
+    {
+      "login": "JasonO99",
+      "name": "Jason Olsen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2074263?v=4",
+      "profile": "https://github.com/JasonO99",
+      "contributions": [
+        "bug"
       ]
     }
   ],
