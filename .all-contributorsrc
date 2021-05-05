@@ -1,0 +1,24 @@
+{
+  "projectName": "live_map-interface",
+  "projectOwner": "TGRHavoc",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "docs/README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "TomGrobbe",
+      "name": "Tom",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31419184?v=4",
+      "profile": "https://tomgrobbe.nl/",
+      "contributions": [
+        "bug"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
