@@ -2,6 +2,7 @@
 layout: default
 title: LiveMap Interface
 nav_order: 1
+has_children: true
 permalink: /livemap-interface
 ---
 
