@@ -9,5 +9,8 @@
         "gulp-replace": "^1.1.2",
         "gulp-sass": "^4.1.0",
         "gulp-strip-css-comments": "^2.0.0"
+    },
+    "devDependencies": {
+        "all-contributors-cli": "^6.20.0"
     }
 }
