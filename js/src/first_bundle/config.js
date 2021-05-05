@@ -1,5 +1,3 @@
-
-
 class Config {
     constructor() { }
     static getConfig() {
@@ -10,6 +8,14 @@ class Config {
         }
 
         return this.staticConfig;
+    }
+
+    // TODO: Move into own class? Config doesn't seem like a good fit here.
+    static log(message, ...params){
+        if(Config.staticConfig.debug){
+            params.unshift(message);
+            console.log.apply(this, params);
+        }
     }
 
     static getConfigFileFromRemote() {
