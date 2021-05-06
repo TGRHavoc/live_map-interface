@@ -3,28 +3,32 @@
 /// <reference path="./markers.js" />
 
 class SocketHandler {
-    constructor(connectionString){
-        this.webSocket = new WebSocket(connectionString);
+    constructor(){
         this.config = Config.getConfig();
-
+        this.webSocket = null;
         this.localCache = {};
+    }
+
+    connect(connectionString){
+        this.webSocket = new WebSocket(connectionString);
 
         const _ = this;
         this.webSocket.onopen = function (e) {
-            _.onOpen.call(this, e);
+            _.onOpen.call(_, e);
         };
 
         this.webSocket.onmessage = function (e) {
-            _.onMessage.call(this, e);
+            _.onMessage.call(_, e);
         };
 
         this.webSocket.onerror = function (e) {
-            _.onError.call(this, e);
+            _.onError.call(_, e);
         };
 
         this.webSocket.onclose = function (e) {
-            _.onClose.call(this, e);
+            _.onClose.call(_, e);
         };
+
     }
 
     onOpen(e) {
