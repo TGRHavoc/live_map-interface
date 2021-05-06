@@ -1,3 +1,10 @@
+---
+layout: default
+title: Frequently Asked Questions
+nav_order: 999
+parent: LiveMap Interface
+---
+
 # Frequently Asked Questions
 
 - [Server Not Connecting/Showing Up](#server-not-connectingshowing-up)
