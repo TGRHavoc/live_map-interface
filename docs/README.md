@@ -1,7 +1,6 @@
 ---
 layout: default
 title: LiveMap Interface
-nav_order: 1
 has_children: true
 permalink: /livemap-interface
 ---
@@ -16,7 +15,7 @@ This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRH
 - [LiveMap interface](#livemap-interface)
   - [Prerequisites](#prerequisites)
   - [How to install](#how-to-install)
-  - [Contributors](#contributors)
+  - [Contributors ✨](#contributors-)
 
 ## Prerequisites
 
