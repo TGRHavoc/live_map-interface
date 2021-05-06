@@ -1,7 +1,7 @@
 class Config {
     constructor() { }
+
     static getConfig() {
-        console.log(this.staticConfig);
         if (JSON.stringify(this.staticConfig) === "{}") {
             this.getConfigFileFromRemote();
             console.warn("config didn't exist... try getting it again");
@@ -18,12 +18,17 @@ class Config {
         }
     }
 
-    static getConfigFileFromRemote() {
-        Requester.sendRequestTo("config.json", this.parseConfig, function (request) {
+    static getConfigFileFromRemote(callback) {
+        const _ = this;
+        Requester.sendRequestTo("config.json", function (request) {
+            _.parseConfig(request);
+            if (callback !== undefined) callback(true);
+        }, function (request) {
             Alerter.createAlert({
                 title: "Error getting config.json. Cannot load map",
                 text: request.textStatus.statusText
             });
+            if (callback !== undefined) callback(false)
         });
     }
 
