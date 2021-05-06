@@ -5,6 +5,8 @@ class VersionCheck {
         this.currentVersion = "0.0.0";
         this.remoteVersion = "4.0.0";
         this.remoteVersionUrl = "https://raw.githubusercontent.com/TGRHavoc/live_map-interface/master/version.json";
+
+        this.doUpdate();
     }
 
     updateInterface(){
@@ -12,7 +14,7 @@ class VersionCheck {
     }
 
     /**
-     * 
+     *
      * @param {function} nextFucntionIfSuccessfull The function to call if we got the current version
      */
     getCurrentVersion(nextFucntionIfSuccessfull){
@@ -20,7 +22,7 @@ class VersionCheck {
         Requester.sendRequestTo(_.versionFile, function(request){
             var data = JSON.parse(JsonStrip.stripJsonOfComments(request.responseText));
             _.currentVersion = data.interface;
-            
+
             if (nextFucntionIfSuccessfull != null) nextFucntionIfSuccessfull();
         }, function(request){
             Alerter.createAlert({status: "error", text: `Got response ${request.status} from server.`});
@@ -32,7 +34,7 @@ class VersionCheck {
         Requester.sendRequestTo(_.remoteVersionUrl, function(request){
             var data = JSON.parse(JsonStrip.stripJsonOfComments(request.responseText));
             _.remoteVersion = data.interface;
-            
+
             if (nextFucntionIfSuccessfull != null) nextFucntionIfSuccessfull();
         }, function(request){
             Alerter.createAlert({status: "error", text: `Got response ${request.status} from server.`});
