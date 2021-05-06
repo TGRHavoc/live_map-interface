@@ -68,6 +68,8 @@ class VersionCheck {
     }
 }
 
+window.VersionCheck = new VersionCheck();
+
 /*
         $jsArrayString = sprintf("An update is available (%s -> %s). Please download it <a style=\'color: #000;\' href=\'%s\'>HERE.</a>", self::$version, self::$latestVer, self::$downloadUrl);
 
