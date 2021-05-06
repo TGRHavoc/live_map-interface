@@ -23,6 +23,7 @@ Below is a table with the different things you can put into your `config.json` f
 | maps            | array of [map objects](#map-object) | `"maps": [{"name": "Normal", "url": "{tileDirectory}/normal/minimap_sea_{y}_{x}.png"}]`                      |                        An array containing the different map tiles available to use on the interface.                         |
 
 #### defaults object
+
 | Name         | Type                                          | Example                                       |                                      What it does                                      |
 | :----------- | --------------------------------------------- | --------------------------------------------- | :------------------------------------------------------------------------------------: |
 | ip           | string                                        | "example.com"                                 |                        The **public** IP for your FiveM server.                        |
@@ -38,6 +39,7 @@ Below is a table with the different things you can put into your `config.json` f
 | blips  | string | "https://example.com/server1/blips.json" |                              The URL to the reverse proxy for the blips file (can even just be a static JSON file on a webserver).                               |
 
 ### server object
+
 The server objects must have a key whoes value is the server's name. 
 For example, if you have a server called `This is my cool server` then, the server entry would look like. 
 ```json
