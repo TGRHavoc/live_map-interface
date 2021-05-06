@@ -2,11 +2,11 @@
 
 - [Server Not Connecting/Showing Up](#server-not-connectingshowing-up)
 - [Not able to communicate with the FiveM server](#not-able-to-communicate-with-the-fivem-server)
+- [Adding blips using a web request](#adding-blips-using-a-web-request)
 - [Error Getting Config, Cannot load map! Multiple Choices](#error-getting-config-cannot-load-map-multiple-choices)
 - [Localhost Not Working](#localhost-not-working)
 - [Unable to Display Livemap when using HTTPS](#unable-to-display-livemap-when-using-https)
 - [Error with Socket Connection](#error-with-socket-connection)
-- [Not Able to Communicate with the FiveM server](#not-able-to-communicate-with-the-fivem-server)
 - [Interface Not Connecting to Server](#interface-not-connecting-to-server)
 - [Blips Not Appearing](#blips-not-appearing)
 
@@ -18,6 +18,11 @@ If you don't know how to do this, just make the website use HTTP.
 - If the issue persists, make sure you have a "map" array in the config. See [config.example.json](https://github.com/TGRHavoc/live_map-interface/blob/master/config.example.json).
 
 Additionally, if you wanted to use your own images, you would need the YTD files then, you can get a developer to run the extract_png.py file located [here](https://github.com/TGRHavoc/live_map-interface/tree/master/images/tiles).
+
+### Not Able to Communicate with the FiveM server 
+
+- Make sure the resource is actually starting on the server. Usually, setting the debug to debug or something should give you enough information to see if it's starting.
+- If it is starting and listening, make sure it's allowed through the firewall.
 
 ### Adding blips using a web request
 
@@ -41,11 +46,6 @@ You need to use the server's public IP in the config.json file for it to work fo
 ### Error with Socket Connection
 
 Most likely a network issue. Make sure you have correctly opened your ports for the websocket connection. 
-
-### Not Able to Communicate with the FiveM server 
-
-- Make sure the resource is actually starting on the server. Usually, setting the debug to debug or something should give you enough information to see if it's starting.
-- If it is starting and listening, make sure it's allowed through the firewall.
 
 ### Interface Not Connecting to Server
 
