@@ -23,19 +23,73 @@ class MapWrapper {
             showCoverageOnHover: false,
             zoomToBoundsOnClick: false
         });
-        this.socketHandler = this.socketHandler;
+        this.socketHandler = socketHandler;
         this.Map = undefined;
+        this.connectedTo = {};
+
+        this.Filter = undefined; // For filtering players
+        this.CanFilterOn = []; // What can the user filter?
 
         this.mapInit("map-canvas");
     }
 
-    mapInit(elementId){
+    changeServer(nameOfServer){
+        Config.log("Changing connected server to: " + nameOfServer);
+        if (!(nameOfServer in Config.staticConfig.servers)) {
+            Alerter.createAlert({
+                title: "<strong>Couldn't load server config!</strong>",
+                text: `The server "${nameOfServer}" doesn't exist in the config file.`
+            });
+            return;
+        }
+
+        this.connectedTo = Config.staticConfig.servers[nameOfServer];
+
+        this.connectedTo.getBlipUrl = function () {
+            // this = the "connectedTo" server
+            if (this.reverseProxy && this.reverseProxy.blips) {
+                return this.reverseProxy.blips;
+            }
+            return `http://${this.ip}:${this.socketPort}/blips.json`;
+        }
+
+        this.connectedTo.getSocketUrl = function () {
+            // this = the "connectedTo" server
+            if (this.reverseProxy && this.reverseProxy.socket) {
+                return this.reverseProxy.socket;
+            }
+            return `ws://${this.ip}:${this.socketPort}`;
+        }
+
+        // If we've changed servers. Might as well reset everything.
+        if (this.socketHandler.webSocket && this.socketHandler.webSocket.readyState == WebSocket.OPEN) this.socketHandler.webSocket.close();
+
+        // $("#server_name").text(nameOfServer);
+
+        // // Reset controls.
+        // $("#playerSelect").children().remove();
+        // $("#playerSelect").append("<option></option>");
+
+        // $("#filterOn").children().remove();
+        // $("#filterOn").append("<option></option>");
+        // $("#onlyShow").text("");
+        this.Filter = undefined;
+
+        const _ = this;
+        setTimeout( function () {
+                    //     initBlips(connectedTo.getBlipUrl());
+
+            _.socketHandler.connect(_.connectedTo.getSocketUrl());
+        }, 50);
+    }
+
+    mapInit(elementID){
         // Create the different layers
         const config = Config.getConfig();
         let tileLayers = {};
         let maps = config.maps;
         maps.forEach(map => {
-            console._log(map);
+            Config.log(map);
             if (map.tileSize){ map.tileSize = 1024; } // Force 1024 down/up scale
 
             tileLayers[map.name] = L.tileLayer(map.url,
@@ -43,14 +97,14 @@ class MapWrapper {
                 { minZoom: -2, maxZoom: 2, tileSize: 1024, maxNativeZoom: 0, minNativeZoom: 0, tileDirectory: config.tileDirectory },
                 map)
             );
-            console._log(tileLayers[map.name]);
+            Config.log(tileLayers[map.name]);
         });
 
         this.CurrentLayer = tileLayers[Object.keys(tileLayers)[0]];
 
         this.Map =  window.Map = L.map(elementID, {
             crs: L.CRS.Simple,
-            layers: [CurrentLayer]
+            layers: [this.CurrentLayer]
         }).setView([0,0], 0);
 
         let mapBounds = Utils.getMapBounds(this.CurrentLayer);
@@ -59,7 +113,7 @@ class MapWrapper {
         this.Map.fitBounds(mapBounds);
 
         let control = new L.Control.CustomLayer(tileLayers).addTo(this.Map);
-        this.Map.addLayer(PlayerMarkers);
+        this.Map.addLayer(this.PlayerMarkers);
 
         // initMapControl(Map);
         // initPlayerMarkerControls(Map, PlayerMarkers);
@@ -70,12 +124,12 @@ class MapWrapper {
             name = "@Locator";
         }
         objectRef.position = Utils.stringCoordToFloat(objectRef.position);
-        //console._log(objectRef.position);
+        //Config.log(objectRef.position);
         let coord = Utils.convertToMapLeaflet(objectRef.position.x, objectRef.position.y);
-        //console._log(coord);
+        //Config.log(coord);
         let markerType = objectRef.type;
 
-        //console._log(JSON.stringify(locationType));
+        //Config.log(JSON.stringify(locationType));
 
         let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + objectRef.position.x.toFixed(2) + "} Y {" + objectRef.position.y.toFixed(2) + "} Z {" + objectRef.position.z.toFixed(2) + "}</div>";
 
