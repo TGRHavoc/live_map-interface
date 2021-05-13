@@ -15,6 +15,7 @@ This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRH
 - [LiveMap interface](#livemap-interface)
   - [Prerequisites](#prerequisites)
   - [How to install](#how-to-install)
+  - [Frequently Asked Questions](#frequently-asked-questions)
   - [Adding custom maps](#adding-custom-maps)
   - [Developers Information](#developers-information)
   - [Contributors ✨](#contributors-)
