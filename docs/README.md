@@ -15,6 +15,7 @@ This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRH
 - [LiveMap interface](#livemap-interface)
   - [Prerequisites](#prerequisites)
   - [How to install](#how-to-install)
+  - [Adding custom maps](#adding-custom-maps)
   - [Developers Information](#developers-information)
   - [Contributors ✨](#contributors-)
 
@@ -36,6 +37,9 @@ If you run into any issues, consult the [F.A.Q.](FAQ.md) first. Amongst other th
 - unable to communicate with FiveM server
 - errors getting blips
 - issues with localhost
+
+## Adding custom maps
+Information on how to add custom maps from GTA or alternative into livemap. See [Custom Maps](custom_maps.md).
 
 ## Developers Information
 
