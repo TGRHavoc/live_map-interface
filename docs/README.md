@@ -15,6 +15,7 @@ This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRH
 - [LiveMap interface](#livemap-interface)
   - [Prerequisites](#prerequisites)
   - [How to install](#how-to-install)
+  - [Developers Information](#developers-information)
   - [Contributors ✨](#contributors-)
 
 ## Prerequisites
@@ -29,10 +30,16 @@ Download the [latest version](https://github.com/TGRHavoc/live_map-interface/arc
 This should be enough to get the interface up and running on your website. If you want to change stuff like the images, look in the [configuration](config.md) section.
 
 ## Frequently Asked Questions
-If you run into any issues, consult the [F.A.Q.](FAQ.md) first. Amongst other things, this document contains information about common issues involving:
-- Server Not Connecting/Showing Up
-- Not able to communicate with FiveM server
 
+If you run into any issues, consult the [F.A.Q.](FAQ.md) first. Amongst other things, this document contains information about common issues involving:
+- server not connecting/showing up
+- unable to communicate with FiveM server
+- errors getting blips
+- issues with localhost
+
+## Developers Information
+
+Useful information for developers on dependencies and files locations for development. See [Developers Information](developers.md).
 
 ## Contributors ✨
 
