@@ -9,6 +9,14 @@ parent: LiveMap Interface
 
 If you're looking to customize the interface for your community or, want to improve it for all then this should help you get started.
 
+- [Developer Information](#developer-information)
+  - [Step 1: Fork & Clone](#step-1-fork--clone)
+  - [Step 2: Installing Dependencies](#step-2-installing-dependencies)
+  - [Step 3: Edit code](#step-3-edit-code)
+    - [Editing JS files](#editing-js-files)
+    - [Editing SCSS files](#editing-scss-files)
+  - [Step 4: Build!](#step-4-build)
+
 ## Step 1: Fork & Clone
 
 So. The first thing you're going to need to do is fork & clone this repository.
