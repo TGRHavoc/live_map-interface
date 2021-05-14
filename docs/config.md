@@ -70,27 +70,10 @@ It's therefore best practice to only use the `revserProxy` property in the serve
 
 ## config.html
 
+<!-- TODO: Update the html file... God knows it needs it -->
+
 If you're more of a visual person and, don't want to write a bunch of JSON to set up your server, you can use the utility page `config.html`.
 To get to this, just navigate to `utils/config.html` in your browser.
 This will give you a basic interface which, you can use to quickly configure the interface.
 
 <small>**Please note: You cannot add maps via this page. You will need to do this manually.**</small>
-
-<!-- TODO: Move into own file -->
-## Custom images
-
-It's now fairly easy to use your own, custom images in the interface.
-
-- Make a new folder in your `tileDirectory` directory (optional but, recommended)
-- Put images into folder
-- Add an entry to the `maps` array in the config.
-
-Those are the only three steps you need!
-Now, getting the images is a different matter.
-If you have a custom "minimap" you use in game, you can probably use it with the interface as well. 
-All you need to do is extract the images from the YTD files with a program like OpenIV.
-If doing this, using the `minimap_sea` images will result in a much higher quality.
-
-![Export](images/7339a06b77d8594c0131883d1.png)
-
-![Saving](images/8ba2d745e29330e7b388de0ae.png)
