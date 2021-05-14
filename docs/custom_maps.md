@@ -40,8 +40,8 @@ This set is as easy as `python extract_png.py`.
 
 This should output something like the following:
 ```shell
- E:\docker-data\nginx\gta.tgrhavoc.local\images\tiles  @4.0.1   develop ± 
-λ python extract_png.py
+ live_map-interface\images\tiles  @4.0.1   develop ± 
+❯ python extract_png.py
 minimap_sea_0_0.ytd
 Magic: b'RSC7', 0x37435352
 Version in header: 13
