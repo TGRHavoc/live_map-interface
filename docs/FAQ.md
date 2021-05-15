@@ -5,18 +5,17 @@ nav_order: 999
 parent: LiveMap Interface
 ---
 
-# Frequently Asked Questions
+# Frequently Asked Questions <!-- omit in toc -->
 
-- [Frequently Asked Questions](#frequently-asked-questions)
-  - [Server Not Connecting/Showing Up](#server-not-connectingshowing-up)
-  - [Not Able to Communicate with the FiveM server](#not-able-to-communicate-with-the-fivem-server)
-  - [Adding blips using a web request](#adding-blips-using-a-web-request)
-  - [Error Getting Config, Cannot load map! Multiple Choices](#error-getting-config-cannot-load-map-multiple-choices)
-  - [Localhost Not Working](#localhost-not-working)
-  - [Unable to Display Livemap when using HTTPS](#unable-to-display-livemap-when-using-https)
-  - [Error with Socket Connection](#error-with-socket-connection)
-  - [Interface Not Connecting to Server](#interface-not-connecting-to-server)
-  - [Blips Not Appearing](#blips-not-appearing)
+- [Server Not Connecting/Showing Up](#server-not-connectingshowing-up)
+- [Not Able to Communicate with the FiveM server](#not-able-to-communicate-with-the-fivem-server)
+- [Adding blips using a web request](#adding-blips-using-a-web-request)
+- [Error Getting Config, Cannot load map! Multiple Choices](#error-getting-config-cannot-load-map-multiple-choices)
+- [Localhost Not Working](#localhost-not-working)
+- [Unable to Display Livemap when using HTTPS](#unable-to-display-livemap-when-using-https)
+- [Error with Socket Connection](#error-with-socket-connection)
+- [Interface Not Connecting to Server](#interface-not-connecting-to-server)
+- [Blips Not Appearing](#blips-not-appearing)
 
 
 ## Server Not Connecting/Showing Up
