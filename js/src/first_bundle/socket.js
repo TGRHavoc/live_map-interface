@@ -80,7 +80,7 @@ class SocketHandler {
 
         } else if (data.type == "playerData") {
             //Config.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
-            let sortedPlayers = data.payload.sort(sorter);
+            let sortedPlayers = data.payload.sort(this.sorter);
             this.doPlayerUpdate(sortedPlayers);
 
         } else if (data.type == "playerLeft") {
@@ -265,11 +265,11 @@ class SocketHandler {
             $("#playerSelect option[value='" + playerName + "']").remove();
         }
 
-        playerCount = Object.keys(localCache).length;
+        this.playerCount = Object.keys(localCache).length;
 
-        Config.log("Playerleft playercount: " + playerCount);
+        Config.log("Playerleft playercount: " + this.playerCount);
 
-        document.getElementById("player_count").innerText = playerCount;
+        document.getElementById("player_count").innerText = this.playerCount;
     }
 
     getPlayerInfoHtml(plr) {
@@ -425,8 +425,8 @@ class SocketHandler {
 
         self.playerCount = Object.keys(self.localCache).length;
 
-        Config.log("playercount: " + playerCount);
-        document.getElementById("player_count").textContent = playerCount;
+        Config.log("playercount: " + self.playerCount);
+        document.getElementById("player_count").textContent = self.playerCount;
     }
 }
 
