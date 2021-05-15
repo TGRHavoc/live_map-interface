@@ -77,7 +77,7 @@ class MapWrapper {
 
         const _ = this;
         setTimeout( function () {
-                    //     initBlips(connectedTo.getBlipUrl());
+            Initializer.blips(_.connectedTo.getBlipUrl(), window.markers);
 
             _.socketHandler.connect(_.connectedTo.getSocketUrl());
         }, 50);
