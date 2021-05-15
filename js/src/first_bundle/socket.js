@@ -39,7 +39,7 @@ class SocketHandler {
         conn.classList.add("badge-success");
         conn.textContent = "connected";
 
-        document.getElementById("socket_error").textContent = "";
+        //document.getElementById("socket_error").textContent = "";
     }
 
     sorter(plr1, plr2) {
@@ -265,7 +265,7 @@ class SocketHandler {
             $("#playerSelect option[value='" + playerName + "']").remove();
         }
 
-        this.playerCount = Object.keys(localCache).length;
+        this.playerCount = Object.keys(this.localCache).length;
 
         Config.log("Playerleft playercount: " + this.playerCount);
 
@@ -282,7 +282,7 @@ class SocketHandler {
 
             if (key !== "identifier") {
                 html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
-            } else if (config.showIdentifiers && key == "identifier") {
+            } else if (this.config.showIdentifiers && key == "identifier") {
                 html += '<div class="row info-body-row"><strong>identifier:</strong>&nbsp;' + plr[key] + '</div>';
             } else {
                 continue;
@@ -319,14 +319,14 @@ class SocketHandler {
             if (plr == null || plr.name == undefined || plr.name == "") return;
             if (plr.identifier == undefined || plr.identifier == "") return;
 
-            if (!(plr.identifier in localCache)) {
+            if (!(plr.identifier in self.localCache)) {
                 self.localCache[plr.identifier] = { marker: null, lastHtml: null };
             }
 
             // Filtering stuff
 
             // If this player has a new property attached to them that we haven't seen before, add it to the filer
-            let p = getFilterProps(plr);
+            let p = self.getFilterProps(plr);
             p.forEach((_p) => {
                 // if (!window.CanFilterOn.includes(_p)){
                 //     window.CanFilterOn.push(_p);
@@ -363,7 +363,7 @@ class SocketHandler {
             if (self.localCache[plr.identifier].marker != null || self.localCache[plr.identifier].marker != undefined) {
                 // If we have a custom icon (we should) use it!!
                 if (plr.icon) {
-                    let t = Markers.MarkerTypes[plr.icon];
+                    let t = window.markers.MarkerTypes[plr.icon];
 
                     //Config.log("Got icon of :" + plr.icon);
                     // TODO: Implement
@@ -375,7 +375,7 @@ class SocketHandler {
                 //MarkerStore[localCache[plr.identifier].marker].setLatLng(convertToMapLeaflet(plr.pos.x, plr.pos.y));
 
                 //update popup with the information we have been sent
-                let html = getPlayerInfoHtml(plr);
+                let html = self.getPlayerInfoHtml(plr);
 
                 let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
 
@@ -399,11 +399,11 @@ class SocketHandler {
 
 
             } else {
-                let html = getPlayerInfoHtml(plr);
+                let html = self.getPlayerInfoHtml(plr);
                 let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
                 self.localCache[plr.identifier].lastHtml = infoContent;
 
-                let obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), MarkerTypes[6], "", {isPlayer: true, player: plr});
+                let obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), window.markers.MarkerTypes[6], "", {isPlayer: true, player: plr});
                 // TODO: Implement
                 // let m = localCache[plr.identifier].marker = createMarker(false, false, obj, plr.name) - 1;
 
