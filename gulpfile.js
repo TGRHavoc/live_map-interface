@@ -41,26 +41,17 @@ function pack_css(){
 }
 
 function preprocess_sass(){
-    return gulp.src(["style/scss/src/**/*.scss"])
+    return gulp.src(["style/scss/src/main.scss"])
     .pipe(sass())
     .pipe(concat("style.css"))
     .pipe(gulp.dest("style/src/"));
 }
-function preprocess_bootstrap(){
-    return gulp.src(["style/scss/bootstrap/**/*.scss"])
-    .pipe(sass())
-    .pipe(concat("bootstrap.css"))
-    .pipe(gulp.dest("style/vendor/"));
-}
 
 gulp.task('sass:watch', function () {
-  gulp.watch('style/scss/src/**/*.scss', preprocess_sass);
+  gulp.watch('style/scss/**/*.scss', preprocess_sass);
 });
 
 exports.default = gulp.series(
-    gulp.parallel(
-        preprocess_sass, // Make sure we compile any SASS first.
-        preprocess_bootstrap
-    ),
+    preprocess_sass, // Make sure we do sass -> css FIRST so we can bundle it in pack_css
     gulp.parallel(pack_js, pack_js_2, pack_css)
 );
