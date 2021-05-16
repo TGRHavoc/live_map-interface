@@ -17,11 +17,14 @@ class Initializer {
 
         let serverMenu = document.getElementById("server_menu");
         for (const serverName in config.servers) {
+            let li = document.createElement("li");
             let link = document.createElement("a");
             link.classList.add("dropdown-item", "serverMenuItem");
             link.href = "#";
             link.innerText = serverName;
-            serverMenu.appendChild(link);
+
+            li.appendChild(link);
+            serverMenu.appendChild(li);
             //$("#server_menu").append("<a class='dropdown-item serverMenuItem' href='#'>" + serverName + "</a>");
         }
 
