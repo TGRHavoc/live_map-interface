@@ -14,7 +14,7 @@
 
     <!-- Vendor Stylesheets -->
     <link rel="stylesheet" href="style/vendor/all.css" />
-    <link rel="stylesheet" href="style/vendor/bootstrap.css" />
+    <!-- <link rel="stylesheet" href="style/vendor/bootstrap.css" /> -->
     <link rel="stylesheet" href="style/vendor/MarkerCluster.css" />
 
     <!-- Custom stylesheet-->
@@ -49,22 +49,14 @@
 </head>
 
 <body>
-
-    <nav class="navbar navbar-dark navbar-expand-md">
-        <!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo -->
+    <!--
+        <nav class="navbar navbar-dark navbar-expand-md">
+        <!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo
         <div class="container">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="https://github.com/TGRHavoc/">
-                <img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px">
-                Live Map v<span id="livemap_version">0.0.0</span>
-            </a>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <!-- Servers -->
+                    <!-- Servers
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
@@ -96,9 +88,85 @@
         </div>
 
     </nav>
+-->
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="images/profile.png" style="max-height: 32px">
+                    Live Map v<span id="livemap_version">0.0.0</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-    <div id="wrapper" class="container-fluid">
-        <div id="control-wrapper">
+                <div class="collapse navbar-collapse" id="navbarsExample04">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="selectServerMenuDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Select a server
+                            </a>
+                            <!-- FIXME: Style this so it's dark too! -->
+                            <ul id="server_menu" class="dropdown-menu" aria-labelledby="selectServerMenuDropdown">
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" role="button" id="sidebarTooggle" data-bs-toggle="modal"
+                                data-bs-target="#controlsModal">
+                                Hide/Show Controls
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" role="button" id="blipToggle" data-bs-toggle="modal"
+                                data-bs-target="#blipsControlModal">
+                                Blip controls
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Control modals. Best way I can think of getting the controls to be nice on mobile -->
+
+    <!-- Vertically centered scrollable modal -->
+    <div class="modal fade show" id="controlsModal" tabindex="-1" aria-labelledby="controlsModalTitle" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="controlsModalTitle">Controls</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This is some placeholder content to show a vertically centered modal. We've added some extra copy
+                        here to show how vertically centering the modal works when combined with scrollable modals. We
+                        also
+                        use some repeated line breaks to quickly extend the height of the content, thereby triggering
+                        the
+                        scrolling. When content becomes longer than the prefedined max-height of modal, content will be
+                        cropped and scrollable within the modal.</p>
+                    <br><br><br><br><br><br><br><br><br><br>
+                    <p>Just like that.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of modals -->
+    <div id="wrapper" class="container-fluid" style="padding: 0;">
+        <!-- <div id="control-wrapper">
             <div id="sidebar" class="custom-menu col-md-4 col-sm-3 col-xs-6 float-left collapse ">
                 <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
 
@@ -117,7 +185,7 @@
                       <li>
                           <a id="toggleLive" href="#">Live update <span id="live_enabled" class="badge badge-danger pull-right">off</span></a>
                       </li>
-                      -->
+
                     <a id="reconnect" href="#" class="list-group-item d-inline-block collapsed">
                         <span class="d-md-inline">Connect</span>
                         <span id="connection" class="badge badge-pill badge-danger pull-right">disconnected</span>
@@ -177,11 +245,9 @@
 
                 </div>
             </div>
-        </div>
-
-        <main id="map-holder" class="col-12 main">
-            <div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);">
-            </div>
+        </div>-->
+        <main id="map-container">
+            <div id="map-canvas"></div>
         </main>
     </div>
 
@@ -206,7 +272,7 @@
 
         function addDebug(x, y) {
             var marker = new L.Marker(convertToMap(x, y));
-            marker.addTo(window.Map);
+            marker.addTo(window.MapL);
         }
     </script>
 </body>
