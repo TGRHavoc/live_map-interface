@@ -95,10 +95,10 @@ class Initializer {
             text: request.textStatus.statusText
         });
     }
-
 }
 
-(function() { // GlobalInit
+document.addEventListener('DOMContentLoaded', (event) => {
+    window.Translator = new Translator();
 
     Config.getConfigFileFromRemote(function(success){
 
@@ -124,5 +124,4 @@ class Initializer {
 
         mapWrapper.changeServer(Object.keys(Config.staticConfig.servers)[0]); // Show the stuff for the first server in the config.
     });
-
-})()
+});
