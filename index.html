@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title data-translate="title">Havoc's Live map</title>
+    <title data-i18n="title">Havoc's Live map</title>
 
     <!-- Pin favicon from: https://www.freefavicon.com/freefavicons/objects/iconinfo/map-pin-152-195874.html -->
     <link
@@ -43,7 +43,7 @@
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="selectServerMenuDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false" data-translate="navbar.select-server">
+                                data-bs-toggle="dropdown" aria-expanded="false" data-i18n="navbar.select-server">
                                 Select a server
                             </a>
                             <ul id="server_menu" class="dropdown-menu" aria-labelledby="selectServerMenuDropdown">
@@ -52,14 +52,14 @@
 
                         <li class="nav-item">
                             <a class="nav-link" role="button" id="sidebarTooggle" data-bs-toggle="modal"
-                                data-bs-target="#controlsModal" data-translate="navbar.controls">
+                                data-bs-target="#controlsModal" data-i18n="navbar.controls">
                                 Show Controls
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" role="button" id="blipToggle" data-bs-toggle="modal"
-                                data-bs-target="#blipsControlModal" data-translate="navbar.blips">
+                                data-bs-target="#blipsControlModal" data-i18n="navbar.blips">
                                 Blip controls
                             </a>
                         </li>
@@ -67,7 +67,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="selectLanguageDropdown"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <span data-translate="navbar.language">Language</span> <span id="current_lang" class="badge bg-info">en</span>
+                                <span data-i18n="navbar.language">Language</span> <span id="current_lang" class="badge bg-info">en</span>
                             </a>
                             <ul id="available-language" class="dropdown-menu" aria-labelledby="selectLanguageDropdown">
                             </ul>
@@ -86,21 +86,21 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="controlsModalTitle" data-translate="controls.title">Controls</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-translate="generic.close" data-translate-attr="aria-label" aria-label="Close"></button>
+                    <h5 class="modal-title" id="controlsModalTitle" data-i18n="controls.title">Controls</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n="generic.close" data-i18n-attr="aria-label" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
                     <!-- Blip controls -->
                     <div class="list-group border-0 text-center" style="padding: 8px 0;">
-                        <h4 class="control-header" data-translate="controls.blips.title">Blips</h4>
-                        <a class="list-group-item" id="refreshBlips" href="#" data-translate="controls.blips.refresh">
+                        <h4 class="control-header" data-i18n="controls.blips.title">Blips</h4>
+                        <a class="list-group-item" id="refreshBlips" href="#" data-i18n="controls.blips.refresh">
                             Refresh Blips
                         </a>
 
                         <a id="showBlips" href="#" class="list-group-item">
-                            <span data-translate="controls.blips.show">Show Blips</span> 
-                            <span data-translate="generic.on" id="blips_enabled" class="badge bg-success">on</span>
+                            <span data-i18n="controls.blips.show">Show Blips</span> 
+                            <span data-i18n="generic.on" id="blips_enabled" class="badge bg-success">on</span>
                         </a>
                     </div>
                     <!-- end blip controls -->
@@ -109,16 +109,16 @@
 
                     <!-- Connection controls -->
                     <div class="list-group border-0 text-center">
-                        <h4 class="control-header" data-translate="controls.connection.title">Connection</h4>
+                        <h4 class="control-header" data-i18n="controls.connection.title">Connection</h4>
 
                         <a id="toggleLive" class="list-group-item" href="#">
-                            <span data-translate="controls.connection.live-update">Live update</span>
-                            <span data-translate="generic.off" id="live_enabled" class="badge bg-danger">off</span>
+                            <span data-i18n="controls.connection.live-update">Live update</span>
+                            <span data-i18n="generic.off" id="live_enabled" class="badge bg-danger">off</span>
                         </a>
 
                         <a id="reconnect" href="#" class="list-group-item">
-                            <span class="d-md-inline" data-translate="controls.connection.reconnect">Connect</span>
-                            <span id="connection" class="badge bg-danger" data-translate="generic.disconnected">disconnected</span>
+                            <span class="d-md-inline" data-i18n="controls.connection.reconnect">Connect</span>
+                            <span id="connection" class="badge bg-danger" data-i18n="generic.disconnected">disconnected</span>
                         </a>
                     </div>
                     <!-- end connection controls -->
@@ -126,22 +126,22 @@
                     <hr />
 
                     <div class="list-group border-0 text-center">
-                        <h4 class="control-header" data-translate="controls.information.title">Information</h4>
+                        <h4 class="control-header" data-i18n="controls.information.title">Information</h4>
 
                         <a class="list-group-item ">
-                            <span data-translate="controls.information.viewing">Currently viewing</span>:
+                            <span data-i18n="controls.information.viewing">Currently viewing</span>:
                             <p id="server_name" class="text-info">
                                 No server loaded
                             </p>
                         </a>
 
                         <a class="list-group-item ">
-                            <span data-translate="controls.information.blips-loaded">Blips loaded</span>
+                            <span data-i18n="controls.information.blips-loaded">Blips loaded</span>
                             <span id="blip_count" class="badge bg-info">0</span>
                         </a>
 
                         <a class="list-group-item">
-                            <span data-translate="controls.information.players">Online players</span>
+                            <span data-i18n="controls.information.players">Online players</span>
                             <span id="player_count" class="badge bg-info">0</span>
                         </a>
                     </div>
@@ -150,7 +150,7 @@
 
                     <div class="list-group border-0 text-center">
                         <a class="list-group-item d-inline-block collapsed">
-                            <h6 class="control-header" data-translate="controls.track-player">Track Player</h6>
+                            <h6 class="control-header" data-i18n="controls.track-player">Track Player</h6>
 
                             <select id="playerSelect" class="input-large form-control">
                             </select>
@@ -160,13 +160,13 @@
 
                     <div class="list-group border-0 text-center">
                         <a class="list-group-item d-inline-block collapsed">
-                            <h6 class="control-header" data-translate="controls.filter.title">Filter</h6>
+                            <h6 class="control-header" data-i18n="controls.filter.title">Filter</h6>
 
                             <select id="filterOn" class="input-large form-control">
                             </select>
-                            <span data-translate="controls.filter.filter-value">With a value of: </span>
+                            <span data-i18n="controls.filter.filter-value">With a value of: </span>
                             <input 
-                                data-translate="controls.filter.filter-placeholder" data-translate-attr="placeholder"
+                                data-i18n="controls.filter.filter-placeholder" data-i18n-attr="placeholder"
                                 type="text" id="onlyShow" class="input-large form-control" placeholder="Something" />
                         </a>
                     </div>
@@ -176,13 +176,13 @@
 
                     <div class="list-group border-0 card text-center text-md-left" style="margin-top: 10px;">
                         <p style="text-align: center;">
-                            <span data-translate="credit">This was originally created by </span>
+                            <span data-i18n="credit">This was originally created by </span>
                             <a href="https://github.com/TGRHavoc">Havoc</a>
                         </p>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-translate="generic.close">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="generic.close">Close</button>
                 </div>
             </div>
         </div>
@@ -195,14 +195,14 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="blipsControlModalTitle" data-translate="blip-controls.title">Blip Controls</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-translate="generic.close" data-translate="aria-label" aria-label="Close"></button>
+                    <h5 class="modal-title" id="blipsControlModalTitle" data-i18n="blip-controls.title">Blip Controls</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n="generic.close" data-i18n="aria-label" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div id="blip-filter-dropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12">
                         <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
 
-                            <a id="toggle-all-blips" class="btn btn-sm btn-info" data-translate="blip-controls.toggle">Toggle all</a>
+                            <a id="toggle-all-blips" class="btn btn-sm btn-info" data-i18n="blip-controls.toggle">Toggle all</a>
 
                             <div id="blip-control-container" style="margin-top: 1em;">
 
@@ -213,7 +213,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-translate="generic.close">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-i18n="generic.close">Close</button>
                 </div>
             </div>
         </div>
