@@ -94,7 +94,7 @@
 
     <!-- Control modals. Best way I can think of getting the controls to be nice on mobile -->
 
-    <!-- Vertically centered scrollable modal -->
+    <!-- Controls modal -->
     <div class="modal fade show" id="controlsModal" tabindex="-1" aria-labelledby="controlsModalTitle" aria-modal="true"
         role="dialog">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -187,31 +187,47 @@
                                 href="https://github.com/TGRHavoc">Havoc</a></p>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
+    <!-- end controls modal -->
+
+    <!-- Blip control modal -->
+    <div class="modal fade show" id="blipsControlModal" tabindex="-1" aria-labelledby="blipsControlModalTitle"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blipsControlModalTitle">Blip Controls</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="blip-filter-dropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12">
+                        <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
+
+                            <a id="toggle-all-blips" class="btn btn-sm btn-info">Toggle all</a>
+
+                            <div id="blip-control-container" style="margin-top: 1em;">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <!-- End of modals -->
     <div id="wrapper" class="container-fluid" style="padding: 0;">
-        <!--
-            <div id="blip-filter-dropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12 collapse">
-                    <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
-
-                        <a class="nav-header">Blip Controls <small id="toggle-all-blips"
-                                class="btn btn-sm btn-info">Toggle
-                                all</small></a>
-
-                        <div id="blip-control-container" class="row">
-
-                        </div>
-
-                    </div>
-                </div>
-        -->
         <main id="map-container">
             <div id="map-canvas"></div>
         </main>
