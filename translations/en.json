@@ -1,0 +1,50 @@
+{
+    "title" : "Havoc's LiveMap",
+    "credit": "This was originally created by ",
+
+    "navbar":{
+        "select-server" : "Select a server",
+        "controls" : "Show Controls",
+        "blips": "Blip controls",
+        "language": "Language"
+    },
+
+    "generic": {
+        "on" : "On",
+        "off" : "Off",
+        "connected" : "Connected",
+        "disconnected": "Disconnected",
+        "close": "Close"
+    },
+
+    "controls" : {
+        "title" : "Controls",
+        "blips" : {
+            "title" : "Blips",
+            "refresh": "Refresh Blips",
+            "show" : "Show Blips"
+        },
+        "connection": {
+            "title": "Connections",
+            "live-update": "Live Update",
+            "reconnect" : "Reconnect"
+        },
+        "information": {
+            "viewing": "Currently viewing",
+            "blips-loaded": "Blips loaded",
+            "players": "Player Count"
+        },
+        "track-player": "Track a player",
+        "filter": {
+            "title": "Filter",
+            "filter-value": "With a value of",
+            "filter-placeholder": "Some value"
+        }
+    },
+
+    "blip-controls": {
+        "title": "Blip Controls",
+        "toggle": "Toggle all"
+    }
+
+}
