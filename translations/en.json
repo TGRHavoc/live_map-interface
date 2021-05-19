@@ -30,6 +30,7 @@
             "reconnect" : "Reconnect"
         },
         "information": {
+            "title": "Information",
             "viewing": "Currently viewing",
             "blips-loaded": "Blips loaded",
             "players": "Player Count"
