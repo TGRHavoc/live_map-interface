@@ -8,7 +8,7 @@ class Translator {
         this._lang = this.getLanguage();
         this.translations = {};
 
-        this._elements = document.querySelectorAll("[data-translate]");
+        this._elements = document.querySelectorAll("[data-i18n]");
 
         // Get the current manifest
         const _ = this;
@@ -107,19 +107,19 @@ class Translator {
      * @param {Element} element 
      */
     replace(element) {
-        if (!element.getAttribute("data-translate")){
-            console.error(`Element needs a data-translate attribute to be translated.
+        if (!element.getAttribute("data-i18n")){
+            console.error(`Element needs a data-i18n attribute to be translated.
                 ${element}`);
             return;
         }
 
-        const keys = element.getAttribute('data-translate').split(/\s/g);
-        let attributes = element.getAttribute('data-translate-attr');
+        const keys = element.getAttribute('data-i18n').split(/\s/g);
+        let attributes = element.getAttribute('data-i18n-attr');
 
         if (attributes && keys.length != attributes.split(/\s/g).length) {
-            console.warn(`The attributes "data-translate" and "data-translate-attr" must contain the same number of keys.
-Values in \`data-translate\`:      (${keys.length}) \`${keys.join(' ')}\`
-Values in \`data-translate-attr\`: (${attributes.length}) \`${attributes.join(' ')}\`
+            console.warn(`The attributes "data-i18n" and "data-i18n-attr" must contain the same number of keys.
+Values in \`data-i18n\`:      (${keys.length}) \`${keys.join(' ')}\`
+Values in \`data-i18n-attr\`: (${attributes.length}) \`${attributes.join(' ')}\`
 The HTML element is:
     ${element.outerHTML}`);
         }

@@ -5,7 +5,8 @@
     "navbar":{
         "select-server" : "Seleccione un servidor",
         "controls" : "Mostrar controles",
-        "blips": "Controles blip"
+        "blips": "Controles blip",
+        "language": "Idioma"
     },
 
     "generic": {
