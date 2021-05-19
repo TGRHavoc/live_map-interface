@@ -90,19 +90,18 @@
     </nav>
 -->
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Fourth navbar example">
+        <nav class="navbar navbar-expand-md navbar-dark" aria-label="Main navbar for LiveMap">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="images/profile.png" style="max-height: 32px">
                     Live Map v<span id="livemap_version">0.0.0</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarsExample04">
+                <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
 
                         <li class="nav-item dropdown">
@@ -110,7 +109,6 @@
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Select a server
                             </a>
-                            <!-- FIXME: Style this so it's dark too! -->
                             <ul id="server_menu" class="dropdown-menu" aria-labelledby="selectServerMenuDropdown">
                             </ul>
                         </li>
@@ -146,106 +144,114 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>This is some placeholder content to show a vertically centered modal. We've added some extra copy
-                        here to show how vertically centering the modal works when combined with scrollable modals. We
-                        also
-                        use some repeated line breaks to quickly extend the height of the content, thereby triggering
-                        the
-                        scrolling. When content becomes longer than the prefedined max-height of modal, content will be
-                        cropped and scrollable within the modal.</p>
-                    <br><br><br><br><br><br><br><br><br><br>
-                    <p>Just like that.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+
+                    <!-- Blip controls -->
+                    <div class="list-group border-0 text-center" style="padding: 8px 0;">
+                        <h4 class="control-header">Blips</h4>
+                        <a class="list-group-item" id="refreshBlips" href="#">
+                            Refresh Blips
+                        </a>
+
+                        <a id="showBlips" href="#" class="list-group-item">
+                            Show Blips <span id="blips_enabled" class="badge bg-success">on</span>
+                        </a>
+                    </div>
+                    <!-- end blip controls -->
+
+                    <hr />
+
+                    <!-- Connection controls -->
+                    <div class="list-group border-0 text-center">
+                        <h4 class="control-header">Connection</h4>
+
+                        <a id="toggleLive" class="list-group-item" href="#">
+                            Live update <span id="live_enabled" class="badge bg-danger">off</span>
+                        </a>
+
+                        <a id="reconnect" href="#" class="list-group-item">
+                            <span class="d-md-inline">Connect</span>
+                            <span id="connection" class="badge bg-danger">disconnected</span>
+                        </a>
+                    </div>
+                    <!-- end connection controls -->
+
+                    <hr />
+
+                    <div class="list-group border-0 text-center">
+                        <h4 class="control-header">Information</h4>
+
+                        <a class="list-group-item ">Currently viewing:
+                            <p id="server_name" class="text-info">
+                                No server loaded
+                            </p>
+                        </a>
+
+                        <a class="list-group-item ">Blips loaded
+                            <span id="blip_count" class="badge bg-info">0</span>
+                        </a>
+
+                        <a class="list-group-item">Online players
+                            <span id="player_count" class="badge bg-info">0</span>
+                        </a>
+                    </div>
+
+                    <hr />
+
+                    <div class="list-group border-0 text-center">
+                        <a class="list-group-item d-inline-block collapsed">
+                            <h6 class="control-header">Track Player</h6>
+
+                            <select id="playerSelect" class="input-large form-control"
+                                aria-placeholder="Select a player">
+                            </select>
+                        </a>
+                    </div>
+                    <hr />
+
+                    <div class="list-group border-0 text-center">
+                        <a class="list-group-item d-inline-block collapsed">
+                            <h6 class="control-header">Filter</h6>
+
+                            <select id="filterOn" class="input-large form-control">
+                            </select>
+                            <span>With a value of: </span>
+                            <input type="text" id="onlyShow" class="input-large form-control" placeholder="Something" />
+                        </a>
+                    </div>
+
+
+                    <hr />
+
+                    <div class="list-group border-0 card text-center text-md-left" style="margin-top: 10px;">
+                        <p style="text-align: center;">This was originally created by <a
+                                href="https://github.com/TGRHavoc">Havoc</a></p>
+                    </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+            </div>
         </div>
+    </div>
     </div>
 
     <!-- End of modals -->
     <div id="wrapper" class="container-fluid" style="padding: 0;">
-        <!-- <div id="control-wrapper">
-            <div id="sidebar" class="custom-menu col-md-4 col-sm-3 col-xs-6 float-left collapse ">
-                <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
-
-                    <a class="nav-header">Controls</a>
-
-                    <a class="list-group-item d-inline-block collapsed" id="refreshBlips" href="#">
-                        <span class="d-md-inline">Refresh Blips</span>
-                    </a>
-
-                    <a id="showBlips" href="#" class="list-group-item d-inline-block collapsed">
-                        <span class="d-md-inline">Show Blips</span>
-                        <span id="blips_enabled" class="badge badge-pill badge-success pull-right">on</span>
-                    </a>
-
-                    <!--
-                      <li>
-                          <a id="toggleLive" href="#">Live update <span id="live_enabled" class="badge badge-danger pull-right">off</span></a>
-                      </li>
-
-                    <a id="reconnect" href="#" class="list-group-item d-inline-block collapsed">
-                        <span class="d-md-inline">Connect</span>
-                        <span id="connection" class="badge badge-pill badge-danger pull-right">disconnected</span>
-                    </a>
-
-                    <a class="list-group-item d-inline-block collapsed">
-                        <span class="d-md-inline">Track Player</span>
-
-                        <select id="playerSelect" class="input-large form-control pull-right">
-                            <option></option>
-                        </select>
-                    </a>
-
-                    <a class="list-group-item d-inline-block collapsed">
-                        <span class="d-md-inline">Filter</span>
-
-                        <select id="filterOn" class="input-large form-control pull-right">
-                            <option></option>
-                        </select>
-                        <input type="text" id="onlyShow" class="input-large form-control pull-right" />
-                    </a>
-
-                </div>
-
-                <div class="list-group border-0 card text-center text-md-left">
-                    <a class="nav-header">Information</a>
-
-                    <a class="list-group-item d-inline-block collapsed">Currently viewing:
-                        <p id="server_name" style="white-space: normal; color: #17A2B8">
-                        </p>
-                    </a>
-
-                    <a class="list-group-item d-inline-block collapsed">Blips loaded
-                        <span id="blip_count" class="badge badge-pill badge-info pull-right">0</span>
-                    </a>
-
-                    <a class="list-group-item d-inline-block collapsed">Online players
-                        <span id="player_count" class="badge badge-pill badge-info pull-right">0</span>
-                    </a>
-                </div>
-
-                <div class="list-group border-0 card text-center text-md-left" style="margin-top: 10px;">
-                    <p style="text-align: center;">This was originaly created by <a
-                            href="https://github.com/TGRHavoc">Havoc</a></p>
-                </div>
-            </div>
-
+        <!--
             <div id="blip-filter-dropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12 collapse">
-                <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
+                    <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
 
-                    <a class="nav-header">Blip Controls <small id="toggle-all-blips" class="btn btn-sm btn-info">Toggle
-                            all</small></a>
+                        <a class="nav-header">Blip Controls <small id="toggle-all-blips"
+                                class="btn btn-sm btn-info">Toggle
+                                all</small></a>
 
-                    <div id="blip-control-container" class="row">
+                        <div id="blip-control-container" class="row">
+
+                        </div>
 
                     </div>
-
                 </div>
-            </div>
-        </div>-->
+        -->
         <main id="map-container">
             <div id="map-canvas"></div>
         </main>
