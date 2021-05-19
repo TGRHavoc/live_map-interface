@@ -1,7 +1,7 @@
 /// <reference path="./config.js" />
 /// <reference path="./map.js" />
 /// <reference path="./markers.js" />
-/// <reference path="./utils.js" />
+/// <reference path="./1_utils.js" />
 // This file should initialize the map and set everything up for it to work.
 
 class Initializer {
