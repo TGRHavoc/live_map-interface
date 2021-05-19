@@ -102,7 +102,7 @@ class MapWrapper {
 
         this.CurrentLayer = tileLayers[Object.keys(tileLayers)[0]];
 
-        this.Map =  window.Map = L.map(elementID, {
+        this.Map =  window.MapL = L.map(elementID, {
             crs: L.CRS.Simple,
             layers: [this.CurrentLayer]
         }).setView([0,0], 0);
@@ -147,7 +147,7 @@ class MapWrapper {
             where = this.PlayerMarkers;
         }
         if(where == undefined){
-            console.warn("For some reason window.Map or window.PlayerMarkers is undefined");
+            console.warn("For some reason window.MapL or window.PlayerMarkers is undefined");
             console.warn("Cannot add the blip: " + objectRef);
             where = this.createClusterLayer();
         }

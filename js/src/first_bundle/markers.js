@@ -184,6 +184,8 @@ class Markers {
         this.nameToId = {};
         this.config = config;
 
+        this.disabledBlips = [];
+
         this.MarkerTypes = {
             0: {
                 iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=',
@@ -223,23 +225,23 @@ class Markers {
 
         for(var blipName in types){
             var blip = types[blipName];
-    
+
             if(typeof(blip.id) != 'undefined'){
                 currentId = blip.id;
             }else{
                 currentId ++;
             }
-    
+
             if(typeof(blip.x) != 'undefined'){
                 currentX = blip.x;
             }else{
                 currentX ++;
             }
-    
+
             if(typeof(blip.y) != 'undefined'){
                 currentY = blip.y;
             }
-    
+
             this.MarkerTypes[currentId] = {
                 name: blipName.replace(/([A-Z0-9])/g, ' $1').trim(),
                 className: `blip blip-${blipName}`,
@@ -247,63 +249,79 @@ class Markers {
                 iconSize: [customImageWidth, customImageHeight],
                 iconAnchor: [customImageWidth/2, 0],
                 popupAnchor: [0, 0],
-    
+
                 //scaledSize: [ 1024/2,1024/2 ],
                 //origin: [ customImageWidth * currentX , customImageHeight * currentY ],
             };
 
             this.nameToId[blipName] = currentId;
-    
+
             // CSS GENERATOR FOR BLIP ICONS IN HTML
             // Just add the class "blip blip-<NAME>" to the element for blip icons
             // e.g. <span class="blip blip-Standard"> for a Standard blip
             var left = (currentX * customImageWidth) + linePadding; // 0 = padding between images
             var top = (currentY * customImageHeight) + linePadding; // 0 = padding
-    
+
             // For styling spans and shit
             this.blipCss += `.blip-${blipName} { background-position: -${left}px -${top}px }\n`;
         }
-        
+
         let style = document.createElement("style");
         style.innerHTML = this.blipCss;
         document.getElementsByTagName("head")[0].appendChild(style);
-        //setTimeout(generateBlipControls, 50);
+
+        const _ = this;
+        setTimeout(() => _.generateBlipControls(), 50);
     }
-}
 
-var nameToId = {};
+    generateBlipControls(){
+        let container = document.getElementById("blip-control-container");
 
-function generateBlipControls(){
-    for(var blipName in types){
-        $("#blip-control-container").append(`<a data-blip-number="${nameToId[blipName]}" id="blip_${blipName}_link" class="blip-button-a list-group-item d-inline-block collapsed blip-enabled" href="#"><span class="blip blip-${blipName}"></span></a>`);
+        for(var blipName in types){
+            let a = document.createElement("a");
+            a.setAttribute("data-blip-number", this.nameToId[blipName]);
+            a.id = `blip_${blipName}_link`;
+            a.classList.add("blip-button-a", "d-inline-block", "blip-enabled");
+            let span = document.createElement("span");
+            span.classList.add("blip", `blip-${blipName}`);
 
-        if(config.debug){
-            console._log("Added ahref for " + blipName);
+            a.appendChild(span);
+
+            container.appendChild(a);
+
+            Config.log("Added ahref for " + blipName);
+        }
+
+        var allButtons = document.getElementsByClassName("blip-button-a");
+        for (let ele of allButtons){
+
+            const _ = this;
+            ele.onclick = function () {
+                console.log("click!", _.disabledBlips);
+                let blipId = this.getAttribute("data-blip-number");
+                // Toggle blip
+                if (_.disabledBlips.includes(blipId)) {
+                    // Already disabled, enable it
+                    _.disabledBlips.splice(_.disabledBlips.indexOf(blipId), 1);
+                    ele.classList.remove("blip-disabled");
+                    ele.classList.add("blip-enabled");
+                } else {
+                    // Enabled, disable it
+                    _.disabledBlips.push(blipId);
+                    ele.classList.remove("blip-enabled");
+                    ele.classList.add("blip-disabled");
+                }
+
+            }
+
+
+            //     // Refresh blips (there's probably a faster way..)
+            //     //clearAllMarkers();
+
+            //FIXME: Below is a map call so, maybe put into the map class
+            //     toggleBlips();
         }
     }
 
-    $(".blip-button-a").on("click", function (e) {
-        var ele = $(e.currentTarget);
-        var blipId = ele.data("blipNumber").toString();
-
-        // Toggle blip
-        if (_disabledBlips.includes(blipId)) {
-            // Already disabled, enable it
-            _disabledBlips.splice(_disabledBlips.indexOf(blipId), 1);
-            ele.removeClass("blip-disabled").addClass("blip-enabled");
-        } else {
-            // Enabled, disable it
-            _disabledBlips.push(blipId);
-            ele.removeClass("blip-enabled").addClass("blip-disabled");
-        }
-
-        // Refresh blips (there's probably a faster way..)
-        //clearAllMarkers();
-        toggleBlips();
-    });
 }
-
-function generateBlipShit(){
-}
-
 ///setTimeout(generateBlipShit, 50);
