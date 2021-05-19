@@ -48,7 +48,7 @@ $body-color: $white !default;
 
 // Links
 
-$link-color: $success !default;
+$link-color: $orange !default;
 
 // Fonts
 
@@ -100,8 +100,8 @@ $nav-tabs-link-active-border-color: $nav-tabs-border-color $nav-tabs-border-colo
 // Navbar
 
 $navbar-padding-y: 1rem !default;
-$navbar-dark-color: rgba($white, 0.6) !default;
-$navbar-dark-hover-color: $white !default;
+$navbar-dark-color: rgba(lighten($orange, 10%), 0.6) !default;
+$navbar-dark-hover-color: $orange !default;
 $navbar-light-color: rgba($gray-900, 0.7) !default;
 $navbar-light-hover-color: $gray-900 !default;
 $navbar-light-active-color: $gray-900 !default;
