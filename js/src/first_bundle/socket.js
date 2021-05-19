@@ -128,7 +128,7 @@ class SocketHandler {
         console.error("Socket error: " + reason);
         Alerter.createAlert({
             title: "Socket Error",
-            status: error,
+            status: "error",
             autoclose: false,
             text: `There was an error with the socket connection: ${reason}`
         });

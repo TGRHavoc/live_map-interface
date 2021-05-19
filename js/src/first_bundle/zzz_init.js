@@ -1,7 +1,7 @@
 /// <reference path="./config.js" />
 /// <reference path="./map.js" />
 /// <reference path="./markers.js" />
-/// <reference path="./utils.js" />
+/// <reference path="./1_utils.js" />
 // This file should initialize the map and set everything up for it to work.
 
 class Initializer {
@@ -17,11 +17,14 @@ class Initializer {
 
         let serverMenu = document.getElementById("server_menu");
         for (const serverName in config.servers) {
+            let li = document.createElement("li");
             let link = document.createElement("a");
             link.classList.add("dropdown-item", "serverMenuItem");
             link.href = "#";
             link.innerText = serverName;
-            serverMenu.appendChild(link);
+
+            li.appendChild(link);
+            serverMenu.appendChild(li);
             //$("#server_menu").append("<a class='dropdown-item serverMenuItem' href='#'>" + serverName + "</a>");
         }
 

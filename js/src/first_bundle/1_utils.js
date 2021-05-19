@@ -1,3 +1,4 @@
+// This file needs to be loaded first
 class Utils {
     constructor(){}
 
@@ -12,8 +13,8 @@ class Utils {
         const h = CurrentLayer.options.tileSize * 3,
             w = CurrentLayer.options.tileSize * 2;
 
-        const latLng1 = Map.unproject([0, 0], 0);
-        const latLng2 = Map.unproject([w / 2, (h - CurrentLayer.options.tileSize)], 0);
+        const latLng1 = window.MapL.unproject([0, 0], 0);
+        const latLng2 = window.MapL.unproject([w / 2, (h - CurrentLayer.options.tileSize)], 0);
 
         let rLng = latLng1.lng + (x - Utils.game_1_x) * (latLng1.lng - latLng2.lng) / (Utils.game_1_x - Utils.game_2_x);
         let rLat = latLng1.lat + (y - Utils.game_1_y) * (latLng1.lat - latLng2.lat) / (Utils.game_1_y - Utils.game_2_y);
@@ -26,8 +27,8 @@ class Utils {
     static getMapBounds(layer){
         const h = layer.options.tileSize * 3,
             w = layer.options.tileSize * 2,
-            southWest = Map.unproject([0, h], 0),
-             northEast = Map.unproject([w, 0], 0);
+            southWest = window.MapL.unproject([0, h], 0),
+             northEast = window.MapL.unproject([w, 0], 0);
 
         return new L.LatLngBounds(southWest, northEast);
     }
