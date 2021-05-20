@@ -15,6 +15,7 @@ class Translator {
 
         fetch("translations/manifest.json").then(async resp => {
             let j = await resp.json();
+
             _.putLanguagesIntoNavbar(j);
         }).catch(err => {
             Alerter.createAlert({
@@ -34,6 +35,8 @@ class Translator {
 
     putLanguagesIntoNavbar(json) {
         let languageList = document.getElementById("available-language");
+
+        languageList.innerHTML = ""; // Clear any children already here
 
         for (let key in json) {
             const li = document.createElement("li");
@@ -103,8 +106,8 @@ class Translator {
     }
 
     /**
-     * 
-     * @param {Element} element 
+     *
+     * @param {Element} element
      */
     replace(element) {
         if (!element.getAttribute("data-i18n")){
