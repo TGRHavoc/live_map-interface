@@ -1,5 +1,5 @@
 /// <reference path="./config.js" />
-/// <reference path="./utils.js" />
+/// <reference path="./1_utils.js" />
 /// <reference path="./socket.js" />
 
 L.Control.CustomLayer = L.Control.Layers.extend({
@@ -118,6 +118,7 @@ class MapWrapper {
         // initMapControl(Map);
         // initPlayerMarkerControls(Map, PlayerMarkers);
     }
+
     createMarker(draggable, objectRef, title) {
         let name = objectRef.reference;
         if (name == "@DEBUG@@Locator") {
@@ -164,6 +165,7 @@ class MapWrapper {
         this.MarkerStore.push(marker);
         return MarkerStore.length;
     }
+
     createClusterLayer(){
         this.PlayerMarkers = L.markerClusterGroup({ // Re-make it fresh
             maxClusterRadius: 20,
