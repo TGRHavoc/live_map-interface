@@ -19,34 +19,52 @@ class VersionCheck {
      */
     getCurrentVersion(nextFucntionIfSuccessfull){
         const _ = this;
-        Requester.sendRequestTo(_.versionFile, function(request){
-            var data = JSON.parse(JsonStrip.stripJsonOfComments(request.responseText));
+
+        fetch(this.versionFile).then(async response => {
+            if (!response.ok){
+                throw Error("Response wasn't OK... " + response.statusText);
+            }
+            let data = await response.json();
             _.currentVersion = data.interface;
 
             if (nextFucntionIfSuccessfull != null) nextFucntionIfSuccessfull();
-        }, function(request){
-            Alerter.createAlert({status: "error", text: `Got response ${request.status} from server.`});
+
+        }).catch(err => {
+            Alerter.createAlert({
+                status: "error",
+                text: err.message,
+                title: "Error doing version update"
+            });
         });
     }
 
     getRemoteVersion(nextFucntionIfSuccessfull){
         const _ = this;
-        Requester.sendRequestTo(_.remoteVersionUrl, function(request){
-            var data = JSON.parse(JsonStrip.stripJsonOfComments(request.responseText));
+
+        fetch(_.remoteVersionUrl).then(async response => {
+            if (!response.ok){
+                throw Error("Response wasn't OK... " + response.statusText);
+            }
+            let data = await response.json();
             _.remoteVersion = data.interface;
 
             if (nextFucntionIfSuccessfull != null) nextFucntionIfSuccessfull();
-        }, function(request){
-            Alerter.createAlert({status: "error", text: `Got response ${request.status} from server.`});
+        }).catch(err => {
+            Alerter.createAlert({
+                status: "error",
+                text: err.message,
+                title: "Error doing version update"
+            });
         });
+
     }
 
     doUpdate(){
         const _ = this;
-        this.getCurrentVersion(function() {
+        this.getCurrentVersion(() => {
             _.updateInterface();
 
-            _.getRemoteVersion(function(){
+            _.getRemoteVersion(() => {
                 // Check versions
                 if (window.compareVersions(_.currentVersion, _.remoteVersion) < 0){
                     Alerter.createAlert({

@@ -7,14 +7,6 @@
 class Initializer {
 
     static page(config){
-
-        // window.addEventListener('resize', function(event) {
-        //     document.getElementsByClassName("map-tab-content");
-        // }, true);
-        // $(window).on("load resize", function() {
-        //     $(".map-tab-content").height((($("#tab-content").height() - $(".page-title-1").height()) - ($("#map-overlay-global-controls").height() * 4.2)));
-        // });
-
         let serverMenu = document.getElementById("server_menu");
         for (const serverName in config.servers) {
             let li = document.createElement("li");
@@ -27,29 +19,27 @@ class Initializer {
             serverMenu.appendChild(li);
             //$("#server_menu").append("<a class='dropdown-item serverMenuItem' href='#'>" + serverName + "</a>");
         }
-
-        // var $myGroup = document.getElementById('control-wrapper');
-        // $myGroup.addEventListener("show.bs.collapse", function() {
-        //     console.log("HELP");
-        //     console.log(this);
-        // }, true);
-        // $myGroup.on('show.bs.collapse','.collapse', function() {
-        //     console._log("hidding?");
-        //     $myGroup.find('.collapse.show').collapse('hide');
-        // });
     }
 
     static blips(url, markers){
         Config.log("Sending request to ", url);
-        Requester.sendRequestTo(url, function(req) {
-            Initializer.gotBlipSuccess(req, markers);
-        }, Initializer.gotBlipFailed);
+
+        fetch(url).then(async response => {
+            if (!response.ok){
+                throw Error("Response wasn't OK... " + response.statusText);
+            }
+
+            let blips = await response.json();
+            Initializer.gotBlipSuccess(blips, markers);
+        }).catch(err => {
+            Initializer.gotBlipFailed(err);
+        });
     }
 
-    static gotBlipSuccess(request, markers){
+    static gotBlipSuccess(blips, markers){
         let data = "";
         try{
-            data = JSON.parse(request.responseText);
+            data = JSON.parse(blips);
         }catch(e){
             console.error(e);
             Alerter.createAlert({
@@ -86,13 +76,13 @@ class Initializer {
         //toggleBlips();
     }
 
-    static gotBlipFailed(request){
-        console.error("Error \"" + JSON.stringify(request.textStatus));
+    static gotBlipFailed(error){
+        console.error("Error " + error);
 
         Alerter.createAlert({
             status: "error",
             title: "Error getting blips!",
-            text: request.textStatus.statusText
+            text: error
         });
     }
 }

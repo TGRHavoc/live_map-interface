@@ -20,20 +20,29 @@ class Config {
 
     static getConfigFileFromRemote(callback) {
         const _ = this;
-        Requester.sendRequestTo("config.json", function (request) {
-            _.parseConfig(request);
+
+        fetch("config.json").then(async response => {
+            if (!response.ok){
+                throw Error("Response wasn't OK... " + response.statusText);
+            }
+
+            let j = await response.text();
+            Config.parseConfig(j);
+
             if (callback !== undefined) callback(true);
-        }, function (request) {
+        }).catch(err => {
             Alerter.createAlert({
-                title: "Error getting config.json. Cannot load map",
-                text: request.textStatus.statusText
+                status: "error",
+                title:"Error getting config",
+                text: `${err.message}`
             });
-            if (callback !== undefined) callback(false)
+
+            if (callback !== undefined) callback(false);
         });
     }
 
-    static parseConfig(request) {
-        var str = JsonStrip.stripJsonOfComments(request.responseText);
+    static parseConfig(json) {
+        var str = JsonStrip.stripJsonOfComments(json);
         var configParsed = JSON.parse(str);
         Config.staticConfig = Object.assign(Config.defaultConfig, configParsed);
     }
