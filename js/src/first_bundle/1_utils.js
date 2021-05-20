@@ -148,25 +148,3 @@ class JsonStrip {
     }
 }
 
-
-class Requester {
-    static sendRequestTo(url, success, error){
-        let request = new XMLHttpRequest();
-        request.open("GET", url, true);
-
-        request.onload = function() {
-            if (request.status >= 200 && request.status < 400) {
-                success(request);
-            } else {
-                error(request);
-            }
-        };
-
-        request.onerror = function() {
-            // There was a connection error of some sort
-            Alerter.createAlert({status: "error", text: `Connection error. Couldn't send request to ${url}`});
-        };
-
-        request.send();
-    }
-}
