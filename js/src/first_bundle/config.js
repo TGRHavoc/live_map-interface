@@ -20,10 +20,11 @@ class Config {
 
     static getConfigFileFromRemote(callback) {
         const _ = this;
+        const lang = window.Translator;
 
         fetch("config.json").then(async response => {
             if (!response.ok){
-                throw Error("Response wasn't OK... " + response.statusText);
+                throw Error(lang.t("errors.response-not-ok", {statusText: response.statusText}));
             }
 
             let j = await response.text();
@@ -33,7 +34,7 @@ class Config {
         }).catch(err => {
             Alerter.createAlert({
                 status: "error",
-                title:"Error getting config",
+                title: lang.t("errors.getting-config"),
                 text: `${err.message}`
             });
 
