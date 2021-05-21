@@ -1,6 +1,7 @@
 /// <reference path="./alerter.js" />
 /// <reference path="./1_utils.js" />
 /// <reference path="./config.js" />
+/// <reference path="../../vendor/a_sprintf-js.js" />
 
 class Translator {
 
@@ -28,9 +29,6 @@ class Translator {
         //this.setLanguage(this._lang);
         localStorage.setItem("lang", this._lang);
         this.toggleLangTag();
-
-        this.getLanguageFromFile();
-
     }
 
     putLanguagesIntoNavbar(json) {
@@ -74,7 +72,7 @@ class Translator {
         document.getElementById("current_lang").innerText = this._lang;
     }
 
-    getLanguageFromFile() {
+    getLanguageFromFile(callback) {
         const _ = this;
         fetch(`translations/${this._lang}.json`).then(response => {
             if (!response.ok) {
@@ -91,6 +89,8 @@ class Translator {
 
             _.translations = translations;
             _.translatePage();
+
+            if (callback) callback();
         }).catch(err => {
             console.error(err);
             Alerter.createAlert({
@@ -98,11 +98,16 @@ class Translator {
                 title: "Error getting translation file",
                 text: err.message
             });
-        })
+        });
     }
 
     getValueFromJSON(key) {
         return key.split('.').reduce((obj, i) => (obj ? obj[i] : null), this.translations);
+    }
+
+    t(key, ...params){
+        Config.log(`Translating ${this.getValueFromJSON(key)}:`, params);
+        return vsprintf(this.getValueFromJSON(key), params);
     }
 
     /**
