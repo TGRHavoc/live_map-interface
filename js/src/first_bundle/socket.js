@@ -10,7 +10,7 @@ class SocketHandler {
     }
 
     connect(connectionString){
-        this.webSocket = new WebSocket(connectionString);
+        let socket = this.webSocket = new WebSocket(connectionString);
 
         const _ = this;
         this.webSocket.onopen = function (e) {
@@ -37,7 +37,7 @@ class SocketHandler {
 
         conn.classList.remove("bade-danger", "badge-warning");
         conn.classList.add("badge-success");
-        conn.textContent = "connected";
+        conn.textContent = window.Translator.t("generic.connected");
 
         //document.getElementById("socket_error").textContent = "";
     }
@@ -91,55 +91,34 @@ class SocketHandler {
     }
 
     onError(event) {
+        // TODO: Alert the user?
+    }
+
+    onClose(event) {
         // from http://stackoverflow.com/a/28396165
         let reason;
         // See http://tools.ietf.org/html/rfc6455#section-7.4.1
-        if (event.code == 1000) {
-            reason = "Normal closure, meaning that the purpose for which the connection was established has been fulfilled.";
-        } else if (event.code == 1001) {
-            reason = "Server is going down or a browser having navigated away from a page.";
-        } else if (event.code == 1002) {
-            reason = "An endpoint is terminating the connection due to a protocol error";
-        } else if (event.code == 1003) {
-            reason = "Wrong data type recieved by the server";
-        } else if (event.code == 1004) {
-            reason = "Reserved. The specific meaning might be defined in the future.";
-        } else if (event.code == 1005) {
-            reason = "No status code was actually present.";
-        } else if (event.code == 1006) {
-            reason = "The connection was closed abnormally, e.g., without sending or receiving a Close control frame";
-        } else if (event.code == 1007) {
-            reason = "Server has received data within a message that was not consistent with the type of the message.";
-        } else if (event.code == 1008) {
-            reason = "Server has received a message that 'violates its policy'.";
-        } else if (event.code == 1009) {
-            reason = "Server received a message that is too big for it to process.";
-        } else if (event.code == 1010) { // Note that this status code is not used by the server, because it can fail the WebSocket handshake instead.
-            reason = "Client expected the server to negotiate one or more extension, but the server didn't return them in the response message of the WebSocket handshake.\n Specifically, the extensions that are needed are: " + event.reason;
-        } else if (event.code == 1011) {
-            reason = "Server encountered an unexpected condition that prevented it from fulfilling the request.";
-        } else if (event.code == 1015) {
-            reason = "The connection was closed due to a failure to perform a TLS handshake (e.g., the server certificate can't be verified).";
+        if (event.code >= 1000 && event.code <= 1015) {
+            console.warn(event.code);
+            reason = window.Translator.t(`errors.socket.${event.code}`, event);
         } else {
-            reason = "Unknown reason (Server is probably down)";
+            reason = window.Translator.t(`errors.socket.other`, event);
         }
 
         //$("#socket_error").text(reason);
-        console.error("Socket error: " + reason);
+        // console.error("Socket error: " + reason);
         Alerter.createAlert({
-            title: "Socket Error",
+            title: window.Translator.t("errors.socket-error"),
             status: "error",
             autoclose: false,
-            text: `There was an error with the socket connection: ${reason}`
+            text: `${reason}`
         });
-    }
 
-    onClose(e) {
         let conn = document.getElementById("connection");
 
         conn.classList.remove("badge-success", "badge-warning");
         conn.classList.add("badge-danger");
-        conn.textContent = "disconnected";
+        conn.textContent = window.Translator.t("generic.disconnected");
     }
 
     //TODO: Refactor
@@ -273,6 +252,7 @@ class SocketHandler {
     }
 
     getPlayerInfoHtml(plr) {
+        //FIXME: Add Translation
         let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(0) + "} Y {" + plr.pos.y.toFixed(0) + "} Z {" + plr.pos.z.toFixed(0) + "}</div>";
         for (let key in plr) {
             //Config.log("found key: "+ key);
