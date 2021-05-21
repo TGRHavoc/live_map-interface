@@ -87,31 +87,37 @@ class Initializer {
     }
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
     window.Translator = new Translator();
 
-    Config.getConfigFileFromRemote(function(success){
+    window.Translator.getLanguageFromFile(() => {
 
-        if (!success){ // We can't do anything
-            console.error("Cannot load map as we can't load config.json");
-            return;
-        }
+        Config.getConfigFileFromRemote(function(success){
 
-        const config = Config.getConfig();
-        for (const serverName in config.servers) {
-            // Make sure all servers inherit defaults if they need
-            var o = Object.assign({}, config.defaults, config.servers[serverName]);
-            Config.staticConfig.servers[serverName] = o;
-        }
+            if (!success){ // We can't do anything
+                console.error("Cannot load map as we can't load config.json");
+                return;
+            }
 
-        const markers = window.markers = new Markers(config); // initMarkers
+            const config = Config.getConfig();
+            for (const serverName in config.servers) {
+                // Make sure all servers inherit defaults if they need
+                var o = Object.assign({}, config.defaults, config.servers[serverName]);
+                Config.staticConfig.servers[serverName] = o;
+            }
 
-        const socketHandler = window.socketHandler = new SocketHandler();
-        const mapWrapper = window.mapWrapper = new MapWrapper(socketHandler); // mapInit
+            const markers = window.markers = new Markers(config); // initMarkers
 
-        // todo: Initialize controls/page
-        Initializer.page(config);
+            const socketHandler = window.socketHandler = new SocketHandler();
+            const mapWrapper = window.mapWrapper = new MapWrapper(socketHandler); // mapInit
 
-        mapWrapper.changeServer(Object.keys(Config.staticConfig.servers)[0]); // Show the stuff for the first server in the config.
+            // todo: Initialize controls/page
+            Initializer.page(config);
+
+            mapWrapper.changeServer(Object.keys(Config.staticConfig.servers)[0]); // Show the stuff for the first server in the config.
+        });
     });
+
+
+
 });
