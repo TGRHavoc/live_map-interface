@@ -37,8 +37,8 @@ class MapWrapper {
         Config.log("Changing connected server to: " + nameOfServer);
         if (!(nameOfServer in Config.staticConfig.servers)) {
             Alerter.createAlert({
-                title: "<strong>Couldn't load server config!</strong>",
-                text: `The server "${nameOfServer}" doesn't exist in the config file.`
+                title: window.Translator.t("errors.server-config.title"),
+                text: window.Translator.t("errors.server-config.message", {nameOfServer})
             });
             return;
         }
