@@ -1,4 +1,5 @@
 import {JsonStrip} from "./utils.js";
+import {Alerter} from "./alerter.js";
 
 export class Config {
     constructor() { }
@@ -25,7 +26,9 @@ export class Config {
 
         try{
             let config = await fetch("config.json");
+
             let configData = await config.text();
+            Config.log("Parsing: ", configData);
 
             let str = JsonStrip.stripJsonOfComments(configData);
             let configParsed = JSON.parse(str);
@@ -34,10 +37,11 @@ export class Config {
             return Promise.resolve(configParsed);
 
         }catch(ex){
+            console.error(ex);
             new Alerter({
                 status: "error",
-                title: lang.t("errors.getting-config"),
-                text: `${err.message}`
+                title: lang.t("errors.getting-config.title"),
+                text: lang.t("errors.getting-config.message", {error: ex})
             });
             return Promise.reject(ex);
         }
