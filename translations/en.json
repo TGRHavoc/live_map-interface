@@ -44,8 +44,14 @@
         "toggle": "Toggle all"
     },
     "errors": {
-        "response-not-ok": "Response wasn't OK... %(statusText)s",
-        "getting-config": "Error getting config",
+        "getting-blips": {
+            "title": "Error getting blips.json",
+            "message" : "%(error.message)s"
+        },
+        "getting-config": {
+            "title" : "Error getting config",
+            "message": "%(error.message)s"
+        },
         "socket-error": "Error with WebSocket connection",
         "server-config": {
             "title": "Couldn't load server config!",
