@@ -71,7 +71,7 @@
             "1010": "Client expected the server to negotiate one or more extension, but the server didn't return them in the response message of the WebSocket handshake.\n Specifically, the extensions that are needed are: %(reason)s",
             "1011": "Server encountered an unexpected condition that prevented it from fulfilling the request.",
             "1015": "The connection was closed due to a failure to perform a TLS handshake (e.g., the server certificate can't be verified).",
-            "other": "Unknown reason (Server is probably down): %(code)s"
+            "other": "Unknown reason: %(code)s %(reason)s"
         }
     }
 }
