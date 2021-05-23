@@ -1,5 +1,6 @@
 import {Alerter} from "./alerter.js";
 import {Config} from "./config.js";
+import {vsprintf} from "./sprintf.js";
 
 export class Translator {
 
