@@ -1,6 +1,5 @@
 import {Config} from "./config.js";
 import {Alerter} from "./alerter.js";
-import {Markers} from "./markers.js";
 
 export class SocketHandler {
     constructor(){
