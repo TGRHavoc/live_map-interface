@@ -22,7 +22,8 @@
         integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
         crossorigin=""></script>
 
-    <script src="dist/first-bundle.js"></script>
+    <!-- We have to defer this script from loaded until the DOM has loaded. Otherwise, all document calls will be "undefined" -->
+    <script src="dist/main.js" defer></script>
 </head>
 
 <body>
@@ -233,8 +234,6 @@
             <div id="map-canvas"></div>
         </main>
     </div>
-
-    <script src="dist/last-bundle.js"></script>
 </body>
 
 </html>
