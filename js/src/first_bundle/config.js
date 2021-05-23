@@ -1,4 +1,6 @@
-class Config {
+import {JsonStrip} from "./utils.js";
+
+export class Config {
     constructor() { }
 
     static getConfig() {
@@ -18,34 +20,27 @@ class Config {
         }
     }
 
-    static getConfigFileFromRemote(callback) {
-        const _ = this;
+    static async getConfigFileFromRemote() {
         const lang = window.Translator;
 
-        fetch("config.json").then(async response => {
-            if (!response.ok){
-                throw Error(lang.t("errors.response-not-ok", {statusText: response.statusText}));
-            }
+        try{
+            let config = await fetch("config.json");
+            let configData = await config.text();
 
-            let j = await response.text();
-            Config.parseConfig(j);
+            let str = JsonStrip.stripJsonOfComments(configData);
+            let configParsed = JSON.parse(str);
+            Config.staticConfig = Object.assign(Config.defaultConfig, configParsed);
 
-            if (callback !== undefined) callback(true);
-        }).catch(err => {
-            Alerter.createAlert({
+            return Promise.resolve(configParsed);
+
+        }catch(ex){
+            new Alerter({
                 status: "error",
                 title: lang.t("errors.getting-config"),
                 text: `${err.message}`
             });
-
-            if (callback !== undefined) callback(false);
-        });
-    }
-
-    static parseConfig(json) {
-        var str = JsonStrip.stripJsonOfComments(json);
-        var configParsed = JSON.parse(str);
-        Config.staticConfig = Object.assign(Config.defaultConfig, configParsed);
+            return Promise.reject(ex);
+        }
     }
 }
 

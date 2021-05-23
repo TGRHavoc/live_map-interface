@@ -1,4 +1,4 @@
-class Coordinates{
+export class Coordinates{
     constructor(x, y, z){
         this.x = x;
         this.y = y;
@@ -6,7 +6,7 @@ class Coordinates{
     }
 }
 
-class MarkerObject {
+export class MarkerObject {
     constructor(reference, position, type, description, data){
         this.reference = reference;
         this.position = position;
@@ -14,5 +14,4 @@ class MarkerObject {
         this.description = description;
         this.data = data;
     }
-
 }

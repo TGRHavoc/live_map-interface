@@ -39,15 +39,7 @@
     <script src="js/vendor/simple-notify.js"></script>
 
     <!-- Custom JS files -->
-    <script src="js/src/first_bundle/config.js"></script>
-    <script src="js/src/first_bundle/translator.js"></script>
-    <script src="js/src/first_bundle/alerter.js"></script>
-    <script src="js/src/first_bundle/markers.js"></script>
-    <script src="js/src/first_bundle/objects.js"></script>
-    <script src="js/src/first_bundle/socket.js"></script>
-    <script src="js/src/first_bundle/1_utils.js"></script>
-    <script src="js/src/first_bundle/map.js"></script>
-    <script src="js/src/first_bundle/zzz_init.js"></script>
+    <script src="js/src/first_bundle/init.js" type="module"></script>
 </head>
 
 <body>
@@ -258,9 +250,6 @@
             <div id="map-canvas"></div>
         </main>
     </div>
-
-    <script src="js/src/last_bundle/controls.js"></script>
-    <script src="js/src/last_bundle/version-check.js"></script>
 
     <script>
         var greenIcon = L.icon({

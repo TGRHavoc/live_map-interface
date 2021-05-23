@@ -1,8 +1,8 @@
-/// <reference path="./config.js" />
-/// <reference path="./alerter.js" />
-/// <reference path="./markers.js" />
+import {Config} from "./config.js";
+import {Alerter} from "./alerter.js";
+import {Markers} from "./markers.js";
 
-class SocketHandler {
+export class SocketHandler {
     constructor(){
         this.config = Config.getConfig();
         this.webSocket = null;
@@ -10,7 +10,7 @@ class SocketHandler {
     }
 
     connect(connectionString){
-        let socket = this.webSocket = new WebSocket(connectionString);
+        this.webSocket = new WebSocket(connectionString);
 
         const _ = this;
         this.webSocket.onopen = function (e) {
@@ -107,7 +107,7 @@ class SocketHandler {
 
         //$("#socket_error").text(reason);
         // console.error("Socket error: " + reason);
-        Alerter.createAlert({
+        new Alerter({
             title: window.Translator.t("errors.socket-error"),
             status: "error",
             autoclose: false,

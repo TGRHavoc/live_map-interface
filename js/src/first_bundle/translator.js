@@ -1,9 +1,7 @@
-/// <reference path="./alerter.js" />
-/// <reference path="./1_utils.js" />
-/// <reference path="./config.js" />
-/// <reference path="../../vendor/a_sprintf-js.js" />
+import {Alerter} from "./alerter.js";
+import {Config} from "./config.js";
 
-class Translator {
+export class Translator {
 
     constructor() {
         this._lang = this.getLanguage();
@@ -19,7 +17,7 @@ class Translator {
 
             _.putLanguagesIntoNavbar(j);
         }).catch(err => {
-            Alerter.createAlert({
+            new Alerter({
                 status: "error",
                 title: "Error getting translation manifest",
                 text: err.message
@@ -72,33 +70,22 @@ class Translator {
         document.getElementById("current_lang").innerText = this._lang;
     }
 
-    getLanguageFromFile(callback) {
-        const _ = this;
-        fetch(`translations/${this._lang}.json`).then(response => {
-            if (!response.ok) {
-                Alerter.createAlert({
-                    status: "error",
-                    title: "Error getting translation file",
-                    text: `I received the error code ${response.status}`
-                });
-                return;
-            }
+    async getLanguageFromFile() {
+        try{
+            let translations = await fetch(`translations/${this._lang}.json`);
+            this.translations = await translations.json();
+            this.translatePage();
 
-            return response.json();
-        }).then(translations => {
-
-            _.translations = translations;
-            _.translatePage();
-
-            if (callback) callback();
-        }).catch(err => {
-            console.error(err);
-            Alerter.createAlert({
+            return Promise.resolve();
+        }catch(ex){
+            new Alerter({
                 status: "error",
                 title: "Error getting translation file",
-                text: err.message
+                text: ex
             });
-        });
+
+            return Promise.reject(ex);
+        }
     }
 
     getValueFromJSON(key) {
@@ -169,9 +156,4 @@ The HTML element is:
             return lang.substr(0, 2);
         }
     }
-
 }
-
-document.addEventListener('DOMContentLoaded', (event) => {
-    window.Translator = new Translator();
-})

@@ -1,12 +1,14 @@
-/// <reference path="./config.js" />
-/// <reference path="./1_utils.js" />
 /// <reference path="./socket.js" />
+
+import {Config} from "./config.js";
+import {Utils} from "./utils.js";
+import {Initializer} from "./init.js";
 
 L.Control.CustomLayer = L.Control.Layers.extend({
     _checkDisabledLayers: function () {}
 });
 
-class MapWrapper {
+export class MapWrapper {
 
     /**
      * Creates an instance of MapWrapper.
@@ -36,7 +38,7 @@ class MapWrapper {
     changeServer(nameOfServer){
         Config.log("Changing connected server to: " + nameOfServer);
         if (!(nameOfServer in Config.staticConfig.servers)) {
-            Alerter.createAlert({
+            new Alerter({
                 title: window.Translator.t("errors.server-config.title"),
                 text: window.Translator.t("errors.server-config.message", {nameOfServer})
             });
