@@ -27,6 +27,7 @@ export class Initializer {
 
     static async blips(url, markers){
         Config.log("Sending request to ", url);
+        const lang = window.Translator;
 
         try{
             let response = await fetch(url);
@@ -58,12 +59,12 @@ export class Initializer {
             //toggleBlips();
 
         }catch(error){
-            console.error("Error ", error);
+            console.error("Getting blips: ", error);
 
             new Alerter({
                 status: "error",
-                title: "Error getting blips!",
-                text: error.message
+                title: lang.t("errors.getting-config.title"),
+                text: lang.t("errors.getting-config.message", {error:error})
             });
         }
     }
