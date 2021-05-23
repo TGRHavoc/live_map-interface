@@ -3,6 +3,7 @@
 import {Config} from "./config.js";
 import {Utils} from "./utils.js";
 import {Initializer} from "./init.js";
+import {Alerter} from "./alerter.js";
 
 L.Control.CustomLayer = L.Control.Layers.extend({
     _checkDisabledLayers: function () {}
