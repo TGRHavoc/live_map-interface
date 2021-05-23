@@ -1,5 +1,5 @@
 // This file needs to be loaded first
-class Utils {
+export class Utils {
     constructor(){}
 
     static isNumeric(n) {
@@ -80,7 +80,7 @@ Utils.game_2_y = -300.0 - 340.00;
 // p4:  400, 3800 (bottom rigt)         1024,1024
 
 
-class JsonStrip {
+export class JsonStrip {
     constructor(){
         this.singleComment = 1;
         this.multiComment = 2;

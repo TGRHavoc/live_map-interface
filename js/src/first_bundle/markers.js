@@ -1,9 +1,11 @@
+import {Config} from "./config.js";
+
 // divide by 2 since we want to make icons 32x32 images
 const customImageWidth = 64 / 2; // 64 =  sheetWidth / 16 (amount of images)
 const customImageHeight = 64 / 2; // 64 = sheetHeight / 16 (amount of images)
 
 // FUCK ME, GTA HAS A LOT OF FUCKING BLIPS
-const types = {
+export const types = {
     Standard: {id: 1, x: 0, y: 0},
     Jet: {id: 16},
     Lift: {id: 36},
@@ -179,7 +181,7 @@ const types = {
     FlameIcon: { id: 436, x: 15}
 };
 
-class Markers {
+export class Markers {
     constructor(config){
         this.nameToId = {};
         this.config = config;
