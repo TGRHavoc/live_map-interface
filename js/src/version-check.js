@@ -43,10 +43,11 @@ export class VersionCheck {
     }
 
     compareVersions(v1, v2) {
-        [v1, v2].forEach(validate);
+        const _ = this;
+        [v1, v2].forEach((e) => _.validate(e));
 
-        var s1 = split(v1);
-        var s2 = split(v2);
+        var s1 = this.split(v1);
+        var s2 = this.split(v2);
 
         for (var i = 0; i < Math.max(s1.length - 1, s2.length - 1); i++) {
             var n1 = parseInt(s1[i] || 0, 10);
@@ -125,7 +126,7 @@ export class VersionCheck {
             await this.getRemoteVersion();
 
 
-            if (window.compareVersions(this.currentVersion, this.remoteVersion) < 0){
+            if (this.compareVersions(this.currentVersion, this.remoteVersion) < 0){
                 new Alerter({
                     title: "Update available",
                     text: `An update is available (${this.currentVersion} -> ${this.remoteVersion}). Please download it <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface'>HERE.</a>`
