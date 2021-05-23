@@ -1,4 +1,4 @@
-import {Alerter} from "../first_bundle/alerter.js";
+import {Alerter} from "./alerter.js";
 
 export class VersionCheck {
 

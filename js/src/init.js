@@ -4,7 +4,7 @@ import { Markers } from "./markers.js";
 import {SocketHandler} from "./socket.js";
 import {MapWrapper} from "./map.js";
 import {Alerter} from "./alerter.js";
-import {VersionCheck} from "../last_bundle/version-check.js";
+import {VersionCheck} from "./version-check.js";
 
 // This file should initialize the map and set everything up for it to work.
 

@@ -28,12 +28,17 @@ function bundleModuleCode(){
     // set up the browserify instance on a task basis
     var b = browserify({entries: [
             "node_modules/@babel/polyfill/dist/polyfill.min.js",
-            "js/src/first_bundle/init.js"
+            "js/src/init.js"
         ]}, { debug: true })
         .transform(babel, { presets: ["@babel/preset-env"]});
 
     return b.bundle()
-        .on('error', console.error)
+        .on('error', function(err){
+            // print the error (can replace with gulp-util)
+            console.log(err.message);
+            // end this stream
+            this.emit('end');
+        })
         .pipe(source("app.js"))
         // .pipe(buffer())
         // .pipe(sourcemaps.init({loadMaps: true}))
