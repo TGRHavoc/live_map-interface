@@ -129,7 +129,7 @@ export class VersionCheck {
             if (this.compareVersions(this.currentVersion, this.remoteVersion) < 0){
                 new Alerter({
                     title: "Update available",
-                    text: `An update is available (${this.currentVersion} -> ${this.remoteVersion}). Please download it <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface'>HERE.</a>`
+                    text: `An update is available (${this.currentVersion} -> ${this.remoteVersion}). Please download it <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>HERE.</a>`
                 });
             }else{
                 //console.log("Up to date or, a higher version");
