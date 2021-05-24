@@ -2,7 +2,7 @@
 	"header" : "# Changelog\n",
     "releaseCommitMessageFormat": "chore(release): v{{currentTag}}",
 	"scripts": {
-		"prerelease": "gulp",
+		"prerelease": "yarn gulp",
 		"precommit": "git add dist/"
 	},
     "bumpFiles": [
