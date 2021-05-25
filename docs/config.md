@@ -3,17 +3,17 @@ layout: default
 title: Configuration
 nav_order: 1
 parent: LiveMap Interface
+has_children: true
 ---
 
-# Configuration
+# Configuration <!-- omit in toc -->
 
-- [Configuration](#configuration)
-  - [config.json](#configjson)
-      - [defaults object](#defaults-object)
-    - [reverse proxy object](#reverse-proxy-object)
-    - [server object](#server-object)
-    - [map object](#map-object)
-  - [config.html](#confightml)
+- [config.json](#configjson)
+    - [defaults object](#defaults-object)
+  - [reverse proxy object](#reverse-proxy-object)
+  - [server object](#server-object)
+  - [map object](#map-object)
+- [config.html](#confightml)
 
 ## config.json
 The only file you will need to change to configure the map is the `config.json` file.
