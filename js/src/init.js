@@ -16,7 +16,7 @@ export class Initializer {
         for (const serverName in config.servers) {
             let li = document.createElement("li");
             let link = document.createElement("a");
-            link.classList.add("dropdown-item", "serverMenuItem");
+            link.classList.add("dropdown-item");
             link.href = "#";
             link.innerText = serverName;
 

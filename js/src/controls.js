@@ -181,7 +181,8 @@ export class Controls {
     }
 
     serverMenu_onClick(e){
-
+        let target = e.target;
+        this.mapWrapper.changeServer(target.innerText);
     }
 
 }
