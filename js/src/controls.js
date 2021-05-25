@@ -20,8 +20,10 @@ export class Controls {
 
     initControls(){
         document.getElementById("showBlips").onclick = this.showBlips_onClick.bind(this);
-        document.getElementById("toggle-all-blips").onclick = this.toggleAllBlips_onClick.bind(this);
+        document.getElementById("toggleAllBlips").onclick = this.toggleAllBlips_onClick.bind(this);
         document.getElementById("reconnect").onclick = this.reconnect_onClick.bind(this);
+
+        document.getElementById("serverMenu").onclick = this.serverMenu_onClick.bind(this);
 
         this.mapWrapper.PlayerMarkers.on("cluckerclick", this.playerMarker_clusterClick.bind(this));
     }
@@ -34,7 +36,7 @@ export class Controls {
     generateBlipControls(markers){
         console.log("BLIP CONTROLS");
 
-        let container = document.getElementById("blip-control-container");
+        let container = document.getElementById("blipControlContainer");
 
         for(var blipName in types){
             let a = document.createElement("a");
@@ -54,16 +56,10 @@ export class Controls {
         var allButtons = document.getElementsByClassName("blip-button-a");
 
         for (let ele of allButtons){
-
             ele.onclick = this.blipButtonClicked.bind(this);
-
-            //     // Refresh blips (there's probably a faster way..)
-            //     //clearAllMarkers();
-
-            //FIXME: Below is a map call so, maybe put into the map class
-            //     toggleBlips();
         }
 
+        this.mapWrapper.clearAllMarkers();
         this.mapWrapper.toggleBlips();
     }
 
@@ -96,7 +92,7 @@ export class Controls {
         //webSocket.send("getBlips");
         this.mapWrapper.toggleBlips();
 
-        let ele = document.getElementById("blips_enabled");
+        let ele = document.getElementById("blipsEnabled");
         ele.classList.remove("bg-success", "bg-danger");
 
         ele.classList.add(this.mapWrapper.showBlips ? "bg-success" : "bg-danger");
@@ -182,6 +178,10 @@ export class Controls {
         }
 
         this.mapWrapper.socketHandler.connect(this.mapWrapper.connectedTo.getSocketUrl());
+    }
+
+    serverMenu_onClick(e){
+
     }
 
 }

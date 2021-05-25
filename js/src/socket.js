@@ -18,7 +18,6 @@ export class SocketHandler {
         this.webSocket.onerror = this.onError.bind(this);
 
         this.webSocket.onclose = this.onClose.bind(this);
-
     }
 
     onOpen(e) {
@@ -166,8 +165,8 @@ export class SocketHandler {
         //     }
 
         //     _blipCount--;
-        //     $("#blip_count").text(_blipCount);
-        //     document.getElementById("blip_count").textContent = _blipCount;
+        //     $("#blipCount").text(_blipCount);
+        //     document.getElementById("blipCount").textContent = _blipCount;
         // }
     }
     //TODO: Refactor
@@ -238,7 +237,7 @@ export class SocketHandler {
 
         Config.log("Playerleft playercount: " + this.playerCount);
 
-        document.getElementById("player_count").innerText = this.playerCount;
+        document.getElementById("playerCount").innerText = this.playerCount;
     }
 
     getPlayerInfoHtml(plr) {
@@ -396,7 +395,7 @@ export class SocketHandler {
         self.playerCount = Object.keys(self.localCache).length;
 
         Config.log("playercount: " + self.playerCount);
-        document.getElementById("player_count").textContent = self.playerCount;
+        document.getElementById("playerCount").textContent = self.playerCount;
     }
 }
 

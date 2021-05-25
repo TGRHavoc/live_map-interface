@@ -7635,26 +7635,26 @@ textarea.form-control-lg {
     opacity: 1;
     transform: translateX(0); }
 
-#map-canvas {
+#mapConvas {
   height: calc(100vh - 74px);
   background-color: #0fa8d2; }
 
 .control-header {
   color: #3498db; }
 
-div#blip-control-container a.blip-button-a {
+div#blipControlContainer a.blip-button-a {
   position: relative;
   padding: 0.5rem 1rem;
   color: #fff;
   text-decoration: none;
   background-color: #303030;
   border: 1px solid #444; }
-  div#blip-control-container a.blip-button-a.blip-enabled {
+  div#blipControlContainer a.blip-button-a.blip-enabled {
     -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
     -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
     background-color: rgba(254, 168, 96, 0.67);
     padding: 0.3rem 1.1em; }
-  div#blip-control-container a.blip-button-a.blip-disabled {
+  div#blipControlContainer a.blip-button-a.blip-disabled {
     background-color: rgba(214, 44, 26, 0.67);
     padding: 0.3rem 1.1em; }

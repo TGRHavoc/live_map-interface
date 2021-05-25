@@ -1,6 +1,6 @@
 /// <reference path="./_variables.scss" />
 
-#map-canvas {
+#mapConvas {
     height: calc(100vh - 74px); // 74px = Navbar height
     background-color: rgba(#0fa8d2, 1);
 }
@@ -9,7 +9,7 @@
     color: rgba($cyan, 1);
 }
 
-div#blip-control-container {
+div#blipControlContainer {
     a.blip-button-a {
         position: relative;
         padding: 0.5rem 1rem;
