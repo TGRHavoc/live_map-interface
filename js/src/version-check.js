@@ -1,6 +1,5 @@
 import {Alerter} from "./alerter.js";
 
-//FIXME: Load _after_ translations have been loaded and use that for messages
 export class VersionCheck {
 
     constructor(){
@@ -80,6 +79,7 @@ export class VersionCheck {
     }
 
     async getCurrentVersion(){
+        const lang = window.Translator;
         try{
             let response = await fetch(this.versionFile);
 
@@ -91,8 +91,8 @@ export class VersionCheck {
         }catch(error){
             new Alerter({
                 status: "error",
-                text: err.message,
-                title: "Error doing version update"
+                text: lang.t("errors.version-check.current.message", {error:error}),
+                title: lang.t("errors.version-check.current.title")
             });
 
             return Promise.reject(error);
@@ -100,6 +100,7 @@ export class VersionCheck {
     }
 
     async getRemoteVersion(){
+        const lang = window.Translator;
         try{
             let response = await fetch(this.remoteVersionUrl);
             let data = await response.json();
@@ -109,8 +110,8 @@ export class VersionCheck {
         }catch(err){
             new Alerter({
                 status: "error",
-                text: err.message,
-                title: "Error doing version update"
+                text: lang.t("errors.version-check.remote.message", {error:error}),
+                title: lang.t("errors.version-check.remote.title")
             });
 
             return Promise.reject(err);
@@ -118,33 +119,33 @@ export class VersionCheck {
     }
 
     async doUpdate(){
-        const _ = this;
+        const lang = window.Translator;
 
         try{
             await this.getCurrentVersion();
             this.updateInterface();
 
             await this.getRemoteVersion();
-
-
-            if (this.compareVersions(this.currentVersion, this.remoteVersion) < 0){
-                new Alerter({
-                    title: "Update available",
-                    text: `An update is available (${this.currentVersion} -> ${this.remoteVersion}). Please download it <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>HERE.</a>`
-                });
-            }else{
-                //console.log("Up to date or, a higher version");
-                new Alerter({
-                    status: "success",
-                    title: "Version up to date",
-                    text: `Have fun with ${this.currentVersion} of LiveMap!`,
-                    autoclose: true,
-                    autotimeout: 2000
-                });
-            }
-
         }catch(err){
             console.error(err);
+        }
+
+        console.log("VERSIONCHECK: ", this.compareVersions(this.currentVersion, this.remoteVersion));
+
+        if (this.compareVersions(this.currentVersion, this.remoteVersion) <= 0){
+            new Alerter({
+                title: lang.t("updates.available.title"),
+                text: lang.t("updates.available.message", this)
+            });
+        }else{
+            //console.log("Up to date or, a higher version");
+            new Alerter({
+                status: "success",
+                title: lang.t("updates.latest.title"),
+                text: lang.t("updates.latest.message", this),
+                autoclose: true,
+                autotimeout: 10000
+            });
         }
 
     }

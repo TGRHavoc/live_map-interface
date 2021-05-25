@@ -74,7 +74,6 @@ export class Initializer {
 // Modules should be deferred so, DOM should be loaded already when we get here..
 
 (async () => {
-    window.VersionCheck = new VersionCheck();
     let translator = window.Translator = new Translator();
 
     let config = undefined;
@@ -89,6 +88,8 @@ export class Initializer {
         console.error(ex);
         return;
     }
+
+    window.VersionCheck = new VersionCheck();
 
     for (const serverName in config.servers) {
         // Make sure all servers inherit defaults if they need
