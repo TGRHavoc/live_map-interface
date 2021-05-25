@@ -4,6 +4,7 @@ import {Config} from "./config.js";
 import {Utils} from "./utils.js";
 import {Initializer} from "./init.js";
 import {Alerter} from "./alerter.js";
+import { Markers } from "./markers.js";
 
 L.Control.CustomLayer = L.Control.Layers.extend({
     _checkDisabledLayers: function () {}
@@ -33,7 +34,41 @@ export class MapWrapper {
         this.Filter = undefined; // For filtering players
         this.CanFilterOn = []; // What can the user filter?
 
+        this.blips= [];
+        this.showBlips = true;
+        this.disabledBlips = [];
+
         this.mapInit("map-canvas");
+    }
+
+    toggleBlips(){
+        for (var spriteId in this.blips) {
+            var blipArray = this.blips[spriteId];
+            console.log("Disabled (" + spriteId + ")? " + this.disabledBlips.includes(spriteId));
+
+            if (this.disabledBlips.indexOf(spriteId) != -1) {
+                console.log("Blip " + spriteId + "'s are disabled..");
+
+                blipArray.forEach(blip => {
+                    console.log(blip);
+                    var marker = this.MarkerStore[blip.markerId];
+                    marker.remove();
+                });
+
+                // If disabled, don't make a marker for it
+                continue;
+            }
+
+            blipArray.forEach(blip => {
+                //console.log(blip);
+                var marker = this.MarkerStore[blip.markerId];
+                if (this.showBlips){
+                    marker.addTo(Map);
+                }else{
+                    marker.remove();
+                }
+            });
+        }
     }
 
     changeServer(nameOfServer){
@@ -135,6 +170,8 @@ export class MapWrapper {
 
         //Config.log(JSON.stringify(locationType));
 
+
+        //TODO: TRANSLATE ENGLISH HERE
         let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + objectRef.position.x.toFixed(2) + "} Y {" + objectRef.position.y.toFixed(2) + "} Z {" + objectRef.position.z.toFixed(2) + "}</div>";
 
         if (objectRef.description != ""){
