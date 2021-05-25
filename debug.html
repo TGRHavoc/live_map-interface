@@ -46,7 +46,7 @@
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="images/profile.png" style="max-height: 32px">
-                    Live Map v<span id="livemap_version">0.0.0</span>
+                    Live Map v<span id="livemapVersion">0.0.0</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
                     aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@
                                 data-bs-toggle="dropdown" aria-expanded="false" data-i18n="navbar.select-server">
                                 Select a server
                             </a>
-                            <ul id="server_menu" class="dropdown-menu" aria-labelledby="selectServerMenuDropdown">
+                            <ul id="serverMenu" class="dropdown-menu" aria-labelledby="selectServerMenuDropdown">
                             </ul>
                         </li>
 
@@ -82,10 +82,10 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="selectLanguageDropdown"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                <span data-i18n="navbar.language">Language</span> <span id="current_lang"
+                                <span data-i18n="navbar.language">Language</span> <span id="currentLang"
                                     class="badge bg-info">en</span>
                             </a>
-                            <ul id="available-language" class="dropdown-menu" aria-labelledby="selectLanguageDropdown">
+                            <ul id="availableLanguages" class="dropdown-menu" aria-labelledby="selectLanguageDropdown">
                             </ul>
                         </li>
                     </ul>
@@ -117,7 +117,7 @@
 
                         <a id="showBlips" href="#" class="list-group-item">
                             <span data-i18n="controls.blips.show">Show Blips</span>
-                            <span data-i18n="generic.on" id="blips_enabled" class="badge bg-success">on</span>
+                            <span data-i18n="generic.on" id="blipsEnabled" class="badge bg-success">on</span>
                         </a>
                     </div>
                     <!-- end blip controls -->
@@ -130,7 +130,7 @@
 
                         <a id="toggleLive" class="list-group-item" href="#">
                             <span data-i18n="controls.connection.live-update">Live update</span>
-                            <span data-i18n="generic.off" id="live_enabled" class="badge bg-danger">off</span>
+                            <span data-i18n="generic.off" id="liveEnabled" class="badge bg-danger">off</span>
                         </a>
 
                         <a id="reconnect" href="#" class="list-group-item">
@@ -148,19 +148,19 @@
 
                         <a class="list-group-item ">
                             <span data-i18n="controls.information.viewing">Currently viewing</span>:
-                            <p id="server_name" class="text-info">
+                            <p id="serverName" class="text-info">
                                 No server loaded
                             </p>
                         </a>
 
                         <a class="list-group-item ">
                             <span data-i18n="controls.information.blips-loaded">Blips loaded</span>
-                            <span id="blip_count" class="badge bg-info">0</span>
+                            <span id="blipCount" class="badge bg-info">0</span>
                         </a>
 
                         <a class="list-group-item">
                             <span data-i18n="controls.information.players">Online players</span>
-                            <span id="player_count" class="badge bg-info">0</span>
+                            <span id="playerCount" class="badge bg-info">0</span>
                         </a>
                     </div>
 
@@ -219,13 +219,13 @@
                         data-i18n-attr="aria-label" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="blip-filter-dropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12">
+                    <div id="blipFilterDropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12">
                         <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
 
-                            <a id="toggle-all-blips" class="btn btn-sm btn-info" data-i18n="blip-controls.toggle">Toggle
+                            <a id="toggleAllBlips" class="btn btn-sm btn-info" data-i18n="blip-controls.toggle">Toggle
                                 all</a>
 
-                            <div id="blip-control-container" style="margin-top: 1em;">
+                            <div id="blipControlContainer" style="margin-top: 1em;">
 
                             </div>
 
@@ -244,8 +244,8 @@
 
     <!-- End of modals -->
     <div id="wrapper" class="container-fluid" style="padding: 0;">
-        <main id="map-container">
-            <div id="map-canvas"></div>
+        <main id="mapContainer">
+            <div id="mapConvas"></div>
         </main>
     </div>
 

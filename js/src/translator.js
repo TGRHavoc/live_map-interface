@@ -31,7 +31,7 @@ export class Translator {
     }
 
     putLanguagesIntoNavbar(json) {
-        let languageList = document.getElementById("available-language");
+        let languageList = document.getElementById("availableLanguages");
 
         languageList.innerHTML = ""; // Clear any children already here
 
@@ -68,7 +68,7 @@ export class Translator {
             document.documentElement.lang = this._lang;
         }
 
-        document.getElementById("current_lang").innerText = this._lang;
+        document.getElementById("currentLang").innerText = this._lang;
     }
 
     async getLanguageFromFile() {

@@ -1,5 +1,6 @@
 import {Alerter} from "./alerter.js";
 
+//FIXME: Load _after_ translations have been loaded and use that for messages
 export class VersionCheck {
 
     constructor(){
@@ -14,7 +15,7 @@ export class VersionCheck {
     }
 
     updateInterface(){
-        document.getElementById("livemap_version").textContent = this.currentVersion;
+        document.getElementById("livemapVersion").textContent = this.currentVersion;
     }
 
     indexOrEnd(str, q) {

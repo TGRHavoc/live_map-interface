@@ -38,7 +38,7 @@ export class MapWrapper {
         this.showBlips = true;
         this.disabledBlips = [];
 
-        this.mapInit("map-canvas");
+        this.mapInit("mapConvas");
     }
 
     toggleBlips(){
@@ -102,7 +102,7 @@ export class MapWrapper {
         // If we've changed servers. Might as well reset everything.
         if (this.socketHandler.webSocket && this.socketHandler.webSocket.readyState == WebSocket.OPEN) this.socketHandler.webSocket.close();
 
-        // $("#server_name").text(nameOfServer);
+        // $("#serverName").text(nameOfServer);
 
         // // Reset controls.
         // $("#playerSelect").children().remove();
@@ -152,9 +152,6 @@ export class MapWrapper {
 
         let control = new L.Control.CustomLayer(tileLayers).addTo(this.Map);
         this.Map.addLayer(this.PlayerMarkers);
-
-        // initMapControl(Map);
-        // initPlayerMarkerControls(Map, PlayerMarkers);
     }
 
     createMarker(draggable, objectRef, title) {

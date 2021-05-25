@@ -12,7 +12,7 @@ import { Controls } from "./controls.js";
 export class Initializer {
 
     static page(config){
-        let serverMenu = document.getElementById("server_menu");
+        let serverMenu = document.getElementById("serverMenu");
         for (const serverName in config.servers) {
             let li = document.createElement("li");
             let link = document.createElement("a");
@@ -22,7 +22,7 @@ export class Initializer {
 
             li.appendChild(link);
             serverMenu.appendChild(li);
-            //$("#server_menu").append("<a class='dropdown-item serverMenuItem' href='#'>" + serverName + "</a>");
+            //$("#serverMenu").append("<a class='dropdown-item serverMenuItem' href='#'>" + serverName + "</a>");
         }
     }
 
@@ -55,8 +55,8 @@ export class Initializer {
 
             //TODO: Implement
             // Config.log(_blipCount + " blips created");
-            // document.getElementById("blip_count").innerText = _blipCount;
-            //$("#blip_count").text(_blipCount);
+            // document.getElementById("blipCount").innerText = _blipCount;
+            //$("#blipCount").text(_blipCount);
             //toggleBlips();
 
         }catch(error){
