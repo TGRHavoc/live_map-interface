@@ -241,7 +241,7 @@ export class MapWrapper {
             this.Map.removeLayer(this.PlayerMarkers); // Remove the cluster layer
             this.PlayerMarkers = undefined;
 
-            setTimeout(this.createClusterLayer.call(this), 10);
+            setTimeout(this.createClusterLayer.bind(this), 10);
         }
     }
 
