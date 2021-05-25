@@ -11,22 +11,13 @@ export class SocketHandler {
     connect(connectionString){
         this.webSocket = new WebSocket(connectionString);
 
-        const _ = this;
-        this.webSocket.onopen = function (e) {
-            _.onOpen.call(_, e);
-        };
+        this.webSocket.onopen = this.onOpen.bind(this);
 
-        this.webSocket.onmessage = function (e) {
-            _.onMessage.call(_, e);
-        };
+        this.webSocket.onmessage = this.onMessage.bind(this);
 
-        this.webSocket.onerror = function (e) {
-            _.onError.call(_, e);
-        };
+        this.webSocket.onerror = this.onError.bind(this);
 
-        this.webSocket.onclose = function (e) {
-            _.onClose.call(_, e);
-        };
+        this.webSocket.onclose = this.onClose.bind(this);
 
     }
 
