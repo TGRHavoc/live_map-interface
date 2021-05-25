@@ -104,6 +104,8 @@ export class MapWrapper {
 
         // $("#serverName").text(nameOfServer);
 
+        document.getElementById("serverName").innerText = nameOfServer;
+
         // // Reset controls.
         // $("#playerSelect").children().remove();
         // $("#playerSelect").append("<option></option>");
