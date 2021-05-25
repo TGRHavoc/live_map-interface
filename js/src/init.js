@@ -5,6 +5,7 @@ import {SocketHandler} from "./socket.js";
 import {MapWrapper} from "./map.js";
 import {Alerter} from "./alerter.js";
 import {VersionCheck} from "./version-check.js";
+import { Controls } from "./controls.js";
 
 // This file should initialize the map and set everything up for it to work.
 
@@ -95,11 +96,14 @@ export class Initializer {
         Config.staticConfig.servers[serverName] = o;
     }
 
-    const markers = window.markers = new Markers(config);
+
     const socketHandler = window.socketHandler = new SocketHandler();
     const mapWrapper = window.mapWrapper = new MapWrapper(socketHandler);
 
-    Initializer.page(config); // TODO: Initialize controls
+    const controls = window.controls = new Controls(mapWrapper); // This calls initControls internally
+    const markers = window.markers = new Markers(config, controls);
+
+    Initializer.page(config);
     mapWrapper.changeServer(Object.keys(Config.staticConfig.servers)[0]); // Show the stuff for the first server in the config.
 })();
 
