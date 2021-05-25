@@ -45,6 +45,16 @@
         "toggle": "Toggle all"
     },
     "errors": {
+        "version-check": {
+            "current": {
+                "title": "Error getting current version",
+                "message": "%(error.message)s"
+            },
+            "remote": {
+                "title": "Error getting remote version",
+                "message": "%(error.message)s"
+            }
+        },
         "getting-blips": {
             "title": "Error getting blips.json",
             "message": "%(error.message)s"
@@ -73,6 +83,16 @@
             "1011": "Server encountered an unexpected condition that prevented it from fulfilling the request.",
             "1015": "The connection was closed due to a failure to perform a TLS handshake (e.g., the server certificate can't be verified).",
             "other": "Unknown reason: %(code)s %(reason)s"
+        }
+    },
+    "updates": {
+        "available" : {
+            "title": "Update available",
+            "message": "An update is available (%(currentVersion)s -> %(remoteVersion)s). Please download it <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>HERE.</a>"
+        },
+        "latest" : {
+            "title": "Up to date!",
+            "message": "Good news, you're using the latest version of the LiveMap interface. Please enjoy %(currentVersion)s!"
         }
     }
 }

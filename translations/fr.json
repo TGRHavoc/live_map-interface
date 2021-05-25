@@ -72,6 +72,26 @@
             "1011": "Le serveur a rencontré une condition inattendue qui l'a empêché de répondre à la demande.",
             "1015": "La connexion a été fermée en raison d'un échec de la poignée de main TLS (par exemple, le certificat du serveur ne peut pas être vérifié).",
             "other": "Raison inconnue : %(code)s %(reason)s"
+        },
+        "version-check": {
+            "current": {
+                "title": "Erreur lors de l'obtention de la version locale.",
+                "message": "%(error.message)s"
+            },
+            "remote": {
+                "title": "Erreur lors de l'obtention de la version distante.",
+                "message": "%(error.message)s"
+            }
+        }
+    },
+    "updates": {
+        "available" : {
+            "title": "Mise à jour disponible",
+            "message": "Une mise à jour est disponible (%(currentVersion)s -> %(remoteVersion)s). Veuillez le télécharger <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>ICI.</a>"
+        },
+        "latest" : {
+            "title": "À jour!",
+            "message": "Bonne nouvelle, vous utilisez la dernière version de l'interface LiveMap. Amusez-vous %(currentVersion)s!"
         }
     }
 }
