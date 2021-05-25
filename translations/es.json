@@ -11,19 +11,20 @@
         "off": "Desactivado",
         "connected": "Conectado",
         "disconnected": "Desconectado",
+        "reconnecting": "Reconectando ...",
         "close": "Cerrar"
     },
-    "controls" : {
-        "title" : "Controls",
-        "blips" : {
-            "title" : "Marcadores",
+    "controls": {
+        "title": "Controls",
+        "blips": {
+            "title": "Marcadores",
             "refresh": "Actualizar",
-            "show" : "Show"
+            "show": "Show"
         },
         "connection": {
             "title": "Conexiones",
             "live-update": "Actualización en vivo",
-            "reconnect" : "Vuelva a conectar"
+            "reconnect": "Vuelva a conectar"
         },
         "information": {
             "viewing": "Viendo actualmente",
@@ -37,7 +38,6 @@
             "filter-placeholder": "Alguna cosa"
         }
     },
-
     "blip-controls": {
         "title": "Mostrar controles",
         "toggle": "Alternar todo"
@@ -48,7 +48,7 @@
             "message": "%(error.message)s"
         },
         "getting-config": {
-            "title" : "Error al obtener la configuración",
+            "title": "Error al obtener la configuración",
             "message": "%(error.message)s"
         },
         "socket-error": "Error con la conexión de WebSocket",
