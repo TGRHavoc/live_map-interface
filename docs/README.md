@@ -5,20 +5,19 @@ has_children: true
 permalink: /livemap-interface
 ---
 
-# LiveMap interface
+# LiveMap interface <!-- omit in toc -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
 
-- [LiveMap interface](#livemap-interface)
-  - [Prerequisites](#prerequisites)
-  - [How to install](#how-to-install)
-  - [Frequently Asked Questions](#frequently-asked-questions)
-  - [Adding custom maps](#adding-custom-maps)
-  - [Developers Information](#developers-information)
-  - [Contributors ✨](#contributors-)
+- [Prerequisites](#prerequisites)
+- [How to install](#how-to-install)
+- [Frequently Asked Questions](#frequently-asked-questions)
+- [Adding custom maps](#adding-custom-maps)
+- [Developers Information](#developers-information)
+- [Contributors ✨](#contributors-)
 
 ## Prerequisites
 

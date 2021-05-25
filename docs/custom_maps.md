@@ -5,7 +5,7 @@ nav_order: 1
 parent: Development
 grand_parent: LiveMap Interface
 ---
-# Custom Images
+# Custom Images <!-- omit in toc -->
 
 It's possible to have custom map images in LiveMap.
 You can do this if you want LiveMap to show the same map that you have in game, cool right?
@@ -14,11 +14,10 @@ It's a bit of an involved process but, if you're willing to put in the time, the
 
 Note: You must have [Python 3](https://www.python.org/downloads/) installed.
 
-- [Custom Images](#custom-images)
-  - [Step 1: Extract YTD](#step-1-extract-ytd)
-  - [Step 2: Installing Pillow](#step-2-installing-pillow)
-  - [Step 3: Getting the Images](#step-3-getting-the-images)
-  - [Step 4: Configure the map](#step-4-configure-the-map)
+- [Step 1: Extract YTD](#step-1-extract-ytd)
+- [Step 2: Installing Pillow](#step-2-installing-pillow)
+- [Step 3: Getting the Images](#step-3-getting-the-images)
+- [Step 4: Configure the map](#step-4-configure-the-map)
 
 ## Step 1: Extract YTD
 If you have a custom map in FiveM then, you should already have the YTD files.
