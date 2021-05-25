@@ -12,6 +12,7 @@
         "off": "Off",
         "connected": "Connected",
         "disconnected": "Disconnected",
+        "reconnecting": "Reconnecting...",
         "close": "Close"
     },
     "controls": {
@@ -46,10 +47,10 @@
     "errors": {
         "getting-blips": {
             "title": "Error getting blips.json",
-            "message" : "%(error.message)s"
+            "message": "%(error.message)s"
         },
         "getting-config": {
-            "title" : "Error getting config",
+            "title": "Error getting config",
             "message": "%(error.message)s"
         },
         "socket-error": "Error with WebSocket connection",
