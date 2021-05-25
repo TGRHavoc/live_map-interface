@@ -1,4 +1,5 @@
 import {Config} from "./config.js";
+import { Controls } from "./controls.js";
 
 // divide by 2 since we want to make icons 32x32 images
 const customImageWidth = 64 / 2; // 64 =  sheetWidth / 16 (amount of images)
@@ -182,11 +183,16 @@ export const types = {
 };
 
 export class Markers {
-    constructor(config){
+
+    /**
+     * Creates an instance of Markers.
+     * @param {Config} config
+     * @param {Controls} controls
+     * @memberof Markers
+     */
+    constructor(config, controls){
         this.nameToId = {};
         this.config = config;
-
-        this.disabledBlips = [];
 
         this.MarkerTypes = {
             0: {
@@ -218,10 +224,16 @@ export class Markers {
             height: ${customImageHeight}px;
         }`;
 
-        this.generateBlipShit();
+        this.generateBlipShit(controls);
     }
 
-    generateBlipShit(){
+    /**
+     *
+     *
+     * @param {Controls} controls
+     * @memberof Markers
+     */
+    generateBlipShit(controls){
         var currentX = 0, currentY = 0, currentId = 0;
         const linePadding = 0;
 
@@ -273,57 +285,7 @@ export class Markers {
         document.getElementsByTagName("head")[0].appendChild(style);
 
         const _ = this;
-        setTimeout(() => _.generateBlipControls(), 50);
+        setTimeout(() => controls.generateBlipControls(_), 50);
     }
-
-    generateBlipControls(){
-        let container = document.getElementById("blip-control-container");
-
-        for(var blipName in types){
-            let a = document.createElement("a");
-            a.setAttribute("data-blip-number", this.nameToId[blipName]);
-            a.id = `blip_${blipName}_link`;
-            a.classList.add("blip-button-a", "d-inline-block", "blip-enabled");
-            let span = document.createElement("span");
-            span.classList.add("blip", `blip-${blipName}`);
-
-            a.appendChild(span);
-
-            container.appendChild(a);
-
-            Config.log("Added ahref for " + blipName);
-        }
-
-        var allButtons = document.getElementsByClassName("blip-button-a");
-        for (let ele of allButtons){
-
-            const _ = this;
-            ele.onclick = function () {
-                console.log("click!", _.disabledBlips);
-                let blipId = this.getAttribute("data-blip-number");
-                // Toggle blip
-                if (_.disabledBlips.includes(blipId)) {
-                    // Already disabled, enable it
-                    _.disabledBlips.splice(_.disabledBlips.indexOf(blipId), 1);
-                    ele.classList.remove("blip-disabled");
-                    ele.classList.add("blip-enabled");
-                } else {
-                    // Enabled, disable it
-                    _.disabledBlips.push(blipId);
-                    ele.classList.remove("blip-enabled");
-                    ele.classList.add("blip-disabled");
-                }
-
-            }
-
-
-            //     // Refresh blips (there's probably a faster way..)
-            //     //clearAllMarkers();
-
-            //FIXME: Below is a map call so, maybe put into the map class
-            //     toggleBlips();
-        }
-    }
-
 }
 ///setTimeout(generateBlipShit, 50);
