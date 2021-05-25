@@ -43,6 +43,16 @@
         "toggle": "Alternar todo"
     },
     "errors": {
+        "version-check": {
+            "current": {
+                "title": "Error al obtener la versión local.",
+                "message": "%(error.message)s"
+            },
+            "remote": {
+                "title": "Error al obtener la versión remota.",
+                "message": "%(error.message)s"
+            }
+        },
         "getting-blips": {
             "title": "Error al obtener blips.json",
             "message": "%(error.message)s"
@@ -71,6 +81,16 @@
             "1011": "El servidor encontró una condición inesperada que le impidió cumplir con la solicitud.",
             "1015": "La conexión se cerró debido a una falla al realizar un protocolo de enlace TLS (por ejemplo, el certificado del servidor no se puede verificar).",
             "other": "Razón desconocida: %(code)s %(reason)s"
+        }
+    },
+    "updates": {
+        "available" : {
+            "title": "Actualización disponible",
+            "message": "Hay una actualización disponible (%(currentVersion)s -> %(remoteVersion)s). Descárguelo <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>AQUÍ.</a>"
+        },
+        "latest" : {
+            "title": "¡A hoy!",
+            "message": "Buenas noticias, está utilizando la última versión de la interfaz de LiveMap. Por favor, disfruta %(currentVersion)s!"
         }
     }
 }
