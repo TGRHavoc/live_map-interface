@@ -25,8 +25,8 @@ export class SocketHandler {
         Config.log("_isConnected: " + this.webSocket.readyState == WebSocket.OPEN);
         let conn = document.getElementById("connection");
 
-        conn.classList.remove("bade-danger", "badge-warning");
-        conn.classList.add("badge-success");
+        conn.classList.remove("bg-danger", "bg-warning");
+        conn.classList.add("bg-success");
         conn.textContent = window.Translator.t("generic.connected");
 
         //document.getElementById("socket_error").textContent = "";
@@ -106,8 +106,8 @@ export class SocketHandler {
 
         let conn = document.getElementById("connection");
 
-        conn.classList.remove("badge-success", "badge-warning");
-        conn.classList.add("badge-danger");
+        conn.classList.remove("bg-success", "bg-warning");
+        conn.classList.add("bg-danger");
         conn.textContent = window.Translator.t("generic.disconnected");
     }
 
