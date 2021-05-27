@@ -18,7 +18,7 @@ export class Utils {
 
         let rLng = latLng1.lng + (x - Utils.game_1_x) * (latLng1.lng - latLng2.lng) / (Utils.game_1_x - Utils.game_2_x);
         let rLat = latLng1.lat + (y - Utils.game_1_y) * (latLng1.lat - latLng2.lat) / (Utils.game_1_y - Utils.game_2_y);
-        return result = {
+        return {
             lat: rLat,
             lng: rLng
         };
@@ -34,20 +34,18 @@ export class Utils {
     }
 
 
-    static convertToMapLeaflet(x, y){
-        let t = convertToMap(x, y);
+    static convertToMapLeaflet(currentLayer, x, y){
+        let t = this.convertToMap(currentLayer, x, y);
         return t;
     }
 
     static stringCoordToFloat(coord) {
-        return result = {
+        return {
             x: parseFloat(coord.x),
             y: parseFloat(coord.y),
             z: parseFloat(coord.z),
         };
     }
-
-
 }
 
 // :thinking: This seems to improve the accuracy. I think what the problem is, if that the images I'm using doesn't correlate 1:1 to the map I'm using as a reference

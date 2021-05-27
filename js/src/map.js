@@ -4,7 +4,7 @@ import {Config} from "./config.js";
 import {Utils} from "./utils.js";
 import {Initializer} from "./init.js";
 import {Alerter} from "./alerter.js";
-import { Markers } from "./markers.js";
+import {MarkerObject, Coordinates} from "./objects.js";
 
 L.Control.CustomLayer = L.Control.Layers.extend({
     _checkDisabledLayers: function () {}
@@ -37,8 +37,33 @@ export class MapWrapper {
         this.blips= [];
         this.showBlips = true;
         this.disabledBlips = [];
+        this.blipCount = 0;
 
         this.mapInit("mapConvas");
+    }
+
+    createBlip(blip, markerTypes){
+        console.log("Creating blip", blip);
+        if (!blip.hasOwnProperty("pos")){
+            // BACKWARDS COMPATABILITY!!
+            blip.pos = { x: blip.x, y: blip.y, z: blip.z};
+    
+            //Delete the old shit.. It's nicly wrapped in the pos object now
+            delete blip.x;
+            delete blip.y;
+            delete blip.z;
+        }
+    
+        var obj = new MarkerObject(blip.name, new Coordinates(blip.pos.x, blip.pos.y, blip.pos.z), markerTypes[blip.type], blip.description, "", "");
+    
+        if (this.blips[blip.type] == null){
+            this.blips[blip.type] = [];
+        }
+    
+        blip.markerId = this.createMarker(false, obj, "") - 1;
+    
+        this.blips[blip.type].push(blip);
+        this.blipCount++;
     }
 
     toggleBlips(){
@@ -63,7 +88,7 @@ export class MapWrapper {
                 //console.log(blip);
                 var marker = this.MarkerStore[blip.markerId];
                 if (this.showBlips){
-                    marker.addTo(Map);
+                    marker.addTo(this.Map);
                 }else{
                     marker.remove();
                 }
@@ -117,7 +142,7 @@ export class MapWrapper {
 
         const _ = this;
         setTimeout( function () {
-            Initializer.blips(_.connectedTo.getBlipUrl(), window.markers);
+            Initializer.blips(_.connectedTo.getBlipUrl(), window.markers, _);
 
             _.socketHandler.connect(_.connectedTo.getSocketUrl());
         }, 50);
@@ -161,9 +186,10 @@ export class MapWrapper {
         if (name == "@DEBUG@@Locator") {
             name = "@Locator";
         }
+        console.log(objectRef);
         objectRef.position = Utils.stringCoordToFloat(objectRef.position);
         //Config.log(objectRef.position);
-        let coord = Utils.convertToMapLeaflet(objectRef.position.x, objectRef.position.y);
+        let coord = Utils.convertToMapLeaflet(this.CurrentLayer, objectRef.position.x, objectRef.position.y);
         //Config.log(coord);
         let markerType = objectRef.type;
 
@@ -182,7 +208,7 @@ export class MapWrapper {
         let image = L.icon(markerType);
 
         let where = this.Map;
-        if(objectRef.data && objectRef.data.isPlayer && Config.getMarker().groupPlayers){
+        if(objectRef.data && objectRef.data.isPlayer && Config.getConfig().groupPlayers){
             // Add to the cluster layer
             where = this.PlayerMarkers;
         }
@@ -194,7 +220,7 @@ export class MapWrapper {
 
         let marker = L.marker(coord, {
             title: title,
-            id: MarkerStore.length,
+            id: this.MarkerStore.length,
             icon: image,
             object: objectRef,
             player: objectRef.data.player ? objectRef.data.player : undefined,
@@ -202,7 +228,7 @@ export class MapWrapper {
         }).addTo(where).bindPopup(infoContent);
 
         this.MarkerStore.push(marker);
-        return MarkerStore.length;
+        return this.MarkerStore.length;
     }
 
     createClusterLayer(){
