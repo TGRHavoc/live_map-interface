@@ -26,38 +26,20 @@ export class Initializer {
         }
     }
 
-    static async blips(url, markers){
-        Config.log("Sending request to ", url);
+    /**
+     * 
+     * @param {String} url 
+     * @param {Markers} markers 
+     * @param {MapWrapper} mapWrapper 
+     */
+    static async blips(url, markers, mapWrapper){
+        Config.log("Sending request to", url);
         const lang = window.Translator;
-
+        let data = null;
+        
         try{
             let response = await fetch(url);
-            let data = await response.json();
-
-            for (var spriteId in data) {
-                if (data.hasOwnProperty(spriteId)) {
-                    // data[spriteId] == array of blips for that type
-                    var blipArray = data[spriteId];
-
-                    for (var i in blipArray) {
-                        var blip = blipArray[i];
-                        var fallbackName = (markers.MarkerTypes[spriteId] != undefined && markers.MarkerTypes[spriteId].hasOwnProperty("name")) ? markers.MarkerTypes[spriteId].name : "Unknown Name... Please make sure the sprite exists.";
-
-                        blip.name = (blip.hasOwnProperty("name") || blip.name != null) ? blip.name : fallbackName;
-                        blip.description = (blip.hasOwnProperty("description") || blip.description != null) ? blip.description : "";
-
-                        blip.type = spriteId;
-                        //TODO: Implement
-                        //createBlip(blip);
-                    }
-                }
-            }
-
-            //TODO: Implement
-            // Config.log(_blipCount + " blips created");
-            // document.getElementById("blipCount").innerText = _blipCount;
-            //$("#blipCount").text(_blipCount);
-            //toggleBlips();
+            data = await response.json();
 
         }catch(error){
             console.error("Getting blips: ", error);
@@ -67,7 +49,34 @@ export class Initializer {
                 title: lang.t("errors.getting-config.title"),
                 text: lang.t("errors.getting-config.message", {error:error})
             });
+            return false;
         }
+
+        for (var spriteId in data) {
+            if (data.hasOwnProperty(spriteId)) {
+                // data[spriteId] == array of blips for that type
+                var blipArray = data[spriteId];
+
+                for (var i in blipArray) {
+                    var blip = blipArray[i];
+                    var fallbackName = (markers.MarkerTypes[spriteId] != undefined && markers.MarkerTypes[spriteId].hasOwnProperty("name")) ? markers.MarkerTypes[spriteId].name : "Unknown Name... Please make sure the sprite exists.";
+
+                    blip.name = (blip.hasOwnProperty("name") || blip.name != null) ? blip.name : fallbackName;
+                    blip.description = (blip.hasOwnProperty("description") || blip.description != null) ? blip.description : "";
+
+                    blip.type = spriteId;
+                    //TODO: Implement
+                    //createBlip(blip);
+
+                    mapWrapper.createBlip(blip, markers.MarkerTypes);
+
+                }
+            }
+        }
+
+        document.getElementById("blipCount").innerText = mapWrapper.blipCount;
+        mapWrapper.toggleBlips();
+
     }
 }
 
