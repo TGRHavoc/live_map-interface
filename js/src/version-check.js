@@ -129,9 +129,7 @@ export class VersionCheck {
         }catch(err){
             console.error(err);
         }
-
-        console.log("VERSIONCHECK: ", this.compareVersions(this.currentVersion, this.remoteVersion));
-
+        
         if (this.compareVersions(this.currentVersion, this.remoteVersion) <= 0){
             new Alerter({
                 title: lang.t("updates.available.title"),

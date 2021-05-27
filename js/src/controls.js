@@ -34,8 +34,6 @@ export class Controls {
      * @memberof Controls
      */
     generateBlipControls(markers){
-        console.log("BLIP CONTROLS");
-
         let container = document.getElementById("blipControlContainer");
 
         for(var blipName in types){
@@ -82,8 +80,6 @@ export class Controls {
     }
 
     showBlips_onClick(event){
-        console.log(this);
-
         const lang = window.Translator;
 
         event.preventDefault();

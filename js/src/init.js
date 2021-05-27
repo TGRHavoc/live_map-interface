@@ -1,17 +1,17 @@
 import { Config } from "./config.js";
 import { Translator } from "./translator.js";
 import { Markers } from "./markers.js";
-import {SocketHandler} from "./socket.js";
-import {MapWrapper} from "./map.js";
-import {Alerter} from "./alerter.js";
-import {VersionCheck} from "./version-check.js";
+import { SocketHandler } from "./socket.js";
+import { MapWrapper } from "./map.js";
+import { Alerter } from "./alerter.js";
+import { VersionCheck } from "./version-check.js";
 import { Controls } from "./controls.js";
 
 // This file should initialize the map and set everything up for it to work.
 
 export class Initializer {
 
-    static page(config){
+    static page(config) {
         let serverMenu = document.getElementById("serverMenu");
         for (const serverName in config.servers) {
             let li = document.createElement("li");
@@ -32,22 +32,22 @@ export class Initializer {
      * @param {Markers} markers 
      * @param {MapWrapper} mapWrapper 
      */
-    static async blips(url, markers, mapWrapper){
+    static async blips(url, markers, mapWrapper) {
         Config.log("Sending request to", url);
         const lang = window.Translator;
         let data = null;
-        
-        try{
+
+        try {
             let response = await fetch(url);
             data = await response.json();
 
-        }catch(error){
+        } catch (error) {
             console.error("Getting blips: ", error);
 
             new Alerter({
                 status: "error",
                 title: lang.t("errors.getting-config.title"),
-                text: lang.t("errors.getting-config.message", {error:error})
+                text: lang.t("errors.getting-config.message", { error: error })
             });
             return false;
         }
@@ -87,12 +87,12 @@ export class Initializer {
 
     let config = undefined;
 
-    try{
+    try {
         await translator.getLanguageFromFile();
 
         config = await Config.getConfigFileFromRemote();
 
-    }catch(ex){
+    } catch (ex) {
         console.error("Couldn't load LiveMap")
         console.error(ex);
         return;
