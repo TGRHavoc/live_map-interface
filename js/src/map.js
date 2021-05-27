@@ -43,7 +43,7 @@ export class MapWrapper {
     }
 
     createBlip(blip, markerTypes){
-        console.log("Creating blip", blip);
+        Config.log("Creating blip", blip);
         if (!blip.hasOwnProperty("pos")){
             // BACKWARDS COMPATABILITY!!
             blip.pos = { x: blip.x, y: blip.y, z: blip.z};
@@ -69,13 +69,13 @@ export class MapWrapper {
     toggleBlips(){
         for (var spriteId in this.blips) {
             var blipArray = this.blips[spriteId];
-            console.log("Disabled (" + spriteId + ")? " + this.disabledBlips.includes(spriteId));
+            Config.log("Disabled (" + spriteId + ")? " + this.disabledBlips.includes(spriteId));
 
             if (this.disabledBlips.indexOf(spriteId) != -1) {
-                console.log("Blip " + spriteId + "'s are disabled..");
+                //console.log("Blip " + spriteId + "'s are disabled..");
 
                 blipArray.forEach(blip => {
-                    console.log(blip);
+                    //console.log(blip);
                     var marker = this.MarkerStore[blip.markerId];
                     marker.remove();
                 });
@@ -186,7 +186,7 @@ export class MapWrapper {
         if (name == "@DEBUG@@Locator") {
             name = "@Locator";
         }
-        console.log(objectRef);
+        
         objectRef.position = Utils.stringCoordToFloat(objectRef.position);
         //Config.log(objectRef.position);
         let coord = Utils.convertToMapLeaflet(this.CurrentLayer, objectRef.position.x, objectRef.position.y);

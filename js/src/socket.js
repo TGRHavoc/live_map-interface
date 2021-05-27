@@ -21,7 +21,7 @@ export class SocketHandler {
     }
 
     onOpen(e) {
-        Config.log("_isConnected: " + this.webSocket.readyState == WebSocket.OPEN);
+        console.log("_isConnected: " + this.webSocket.readyState == WebSocket.OPEN);
         let conn = document.getElementById("connection");
 
         conn.classList.remove("bg-danger", "bg-warning");
@@ -42,8 +42,8 @@ export class SocketHandler {
         let m = encodeURIComponent(e.data).match(/%[89ABab]/g);
         let byteSize = e.data.length + (m ? m.length : 0);
 
-        Config.log("recieved message (" + byteSize / 1024 + " kB)");
-        Config.log("data: " + e.data);
+        console.log("recieved message (" + byteSize / 1024 + " kB)");
+        console.log("data: " + e.data);
 
         let data = JSON.parse(e.data);
 
@@ -68,12 +68,12 @@ export class SocketHandler {
             this.updateBlip(data.payload);
 
         } else if (data.type == "playerData") {
-            //Config.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
+            //console.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
             let sortedPlayers = data.payload.sort(this.sorter);
             this.doPlayerUpdate(sortedPlayers);
 
         } else if (data.type == "playerLeft") {
-            //Config.log("player left:" + data.payload);
+            //console.log("player left:" + data.payload);
             this.playerLeft(data.payload);
         }
 
@@ -235,7 +235,7 @@ export class SocketHandler {
 
         this.playerCount = Object.keys(this.localCache).length;
 
-        Config.log("Playerleft playercount: " + this.playerCount);
+        console.log("Playerleft playercount: " + this.playerCount);
 
         document.getElementById("playerCount").innerText = this.playerCount;
     }
@@ -244,7 +244,7 @@ export class SocketHandler {
         //FIXME: Add Translation
         let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(0) + "} Y {" + plr.pos.y.toFixed(0) + "} Z {" + plr.pos.z.toFixed(0) + "}</div>";
         for (let key in plr) {
-            //Config.log("found key: "+ key);
+            //console.log("found key: "+ key);
             if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
                 continue; // We're already displaying this info
             }
@@ -263,7 +263,7 @@ export class SocketHandler {
     getFilterProps(plr){
         let props = [];
         for (let key in plr) {
-            //Config.log("found key: "+ key);
+            //console.log("found key: "+ key);
             if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
                 continue; // We're already displaying this info
             }
@@ -282,7 +282,7 @@ export class SocketHandler {
 
     doPlayerUpdate(players) {
 
-        Config.log(players);
+        console.log(players);
         const self = this;
         players.forEach(function (plr) {
             if (plr == null || plr.name == undefined || plr.name == "") return;
@@ -334,7 +334,7 @@ export class SocketHandler {
                 if (plr.icon) {
                     let t = window.markers.MarkerTypes[plr.icon];
 
-                    //Config.log("Got icon of :" + plr.icon);
+                    //console.log("Got icon of :" + plr.icon);
                     // TODO: Implement
                     // MarkerStore[self.localCache[plr.identifier].marker].setIcon(L.icon(t));
                 }
@@ -384,7 +384,7 @@ export class SocketHandler {
                 //     .setLatLng(MarkerStore[m].getLatLng()); // Make a new marker
 
                 // MarkerStore[m].on("click", function(e) {
-                //     Config.log(e);
+                //     console.log(e);
                 //     Map.closePopup(Map._popup);
                 //     PopupStore[e.target.options.id].setLatLng(e.latlng);
                 //     Map.openPopup(PopupStore[e.target.options.id]);
@@ -394,7 +394,7 @@ export class SocketHandler {
 
         self.playerCount = Object.keys(self.localCache).length;
 
-        Config.log("playercount: " + self.playerCount);
+        console.log("playercount: " + self.playerCount);
         document.getElementById("playerCount").textContent = self.playerCount;
     }
 }
