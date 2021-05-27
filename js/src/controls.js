@@ -77,6 +77,8 @@ export class Controls {
             ele.classList.remove("blip-enabled");
             ele.classList.add("blip-disabled");
         }
+
+        this.mapWrapper.toggleBlips();
     }
 
     showBlips_onClick(event){
