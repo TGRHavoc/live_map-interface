@@ -56,7 +56,7 @@ export class Controls {
         var allButtons = document.getElementsByClassName("blip-button-a");
 
         for (let ele of allButtons){
-            ele.onclick = this.blipButtonClicked.bind(this);
+            ele.onclick = this.blipButtonClicked.bind(this, ele);
         }
 
         this.mapWrapper.clearAllMarkers();
@@ -64,7 +64,6 @@ export class Controls {
     }
 
     blipButtonClicked(ele){
-        console.log("click!", this);
         let blipId = ele.getAttribute("data-blip-number");
         // Toggle blip
         if (this.mapWrapper.disabledBlips.includes(blipId)) {
