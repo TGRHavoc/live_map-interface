@@ -50,7 +50,7 @@ export class Translator {
     }
 
     setLanguage(lang) {
-        console.log("Switching language to " + lang);
+        Config.log("Switching language to " + lang);
 
         if (lang == this._lang) {
             return;
@@ -94,7 +94,7 @@ export class Translator {
     }
 
     t(key, ...params){
-        console.log(`Translating ${this.getValueFromJSON(key)}:`, params);
+        Config.log(`Translating ${this.getValueFromJSON(key)}:`, params);
         return vsprintf(this.getValueFromJSON(key), params);
     }
 
