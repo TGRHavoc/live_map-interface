@@ -26,7 +26,6 @@ function toggleBlips(){ // _showBlips must be called before this function if you
             console._log("Blip " + spriteId + "'s are disabled..");
 
             blipArray.forEach(blip => {
-                console.log(blip);
                 var marker = MarkerStore[blip.markerId];
                 marker.remove();
             });
