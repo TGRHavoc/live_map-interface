@@ -1,6 +1,7 @@
 {
     "version": "4.0.1",
     "scripts": {
+        "doc": "jsdoc2md > docs/api.md",
         "release": "standard-version && conventional-github-releaser"
     },
     "dependencies": {
@@ -21,6 +22,7 @@
     },
     "devDependencies": {
         "conventional-github-releaser": "^3.1.5",
+        "jsdoc-to-markdown": "^7.0.1",
         "jshint": "^2.12.0",
         "standard-version": "^9.3.0"
     }
