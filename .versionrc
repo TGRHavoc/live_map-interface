@@ -1,10 +1,10 @@
 {
-	"header" : "# Changelog\n",
+    "header": "# Changelog\n",
     "releaseCommitMessageFormat": "chore(release): v{{currentTag}}",
-	"scripts": {
-		"prerelease": "yarn gulp",
-		"precommit": "git add dist/"
-	},
+    "scripts": {
+        "prerelease": "yarn gulp",
+        "precommit": "git add dist/"
+    },
     "bumpFiles": [
         {
             "filename": "version.json",
@@ -15,38 +15,38 @@
             "type": "json"
         }
     ],
-	"commitAll": true,
-	"types": [
-		{
-			"type": "feat",
-			"section": "Features"
-		},
-		{
-			"type": "fix",
-			"section": "Bug Fixes"
-		},
-		{
-			"type": "refactor",
-			"section": "Changes"
-		},
-		{
-			"type": "perf",
-			"section": "Performance Changes"
-		},
-		{
-			"type": "test",
-			"section": "Tests",
-			"hidden": true
-		},
-		{
-			"type": "build",
-			"section": "Build System",
-			"hidden": true
-		},
-		{
-			"type": "ci",
-			"section": "Continuous Intergration",
-			"hidden": true
-		}
-	]
+    "commitAll": true,
+    "types": [
+        {
+            "type": "feat",
+            "section": "Features"
+        },
+        {
+            "type": "fix",
+            "section": "Bug Fixes"
+        },
+        {
+            "type": "refactor",
+            "section": "Changes"
+        },
+        {
+            "type": "perf",
+            "section": "Performance Changes"
+        },
+        {
+            "type": "test",
+            "section": "Tests",
+            "hidden": true
+        },
+        {
+            "type": "build",
+            "section": "Build System",
+            "hidden": true
+        },
+        {
+            "type": "ci",
+            "section": "Continuous Intergration",
+            "hidden": true
+        }
+    ]
 }
