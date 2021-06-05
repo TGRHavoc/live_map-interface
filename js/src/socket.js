@@ -126,9 +126,10 @@ export class SocketHandler {
             delete this.localCache[playerName];
         }
 
-        if ($("#playerSelect option[value='" + playerName + "']").length > 0) {
-            $("#playerSelect option[value='" + playerName + "']").remove();
-        }
+        //FIXME: Reimplement
+        // if ($("#playerSelect option[value='" + playerName + "']").length > 0) {
+        //     $("#playerSelect option[value='" + playerName + "']").remove();
+        // }
 
         this.playerCount = Object.keys(this.localCache).length;
 
@@ -138,8 +139,9 @@ export class SocketHandler {
     }
 
     getPlayerInfoHtml(plr) {
-        //FIXME: Add Translation
-        let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(0) + "} Y {" + plr.pos.y.toFixed(0) + "} Z {" + plr.pos.z.toFixed(0) + "}</div>";
+        //let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(0) + "} Y {" + plr.pos.y.toFixed(0) + "} Z {" + plr.pos.z.toFixed(0) + "}</div>";
+        let html = Utils.getPositionHtml(plr.pos);
+
         for (let key in plr) {
             //Config.log("found key: "+ key);
             if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
@@ -147,9 +149,10 @@ export class SocketHandler {
             }
 
             if (key !== "identifier") {
-                html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
+                html += Utils.getHtmlForInformation(key, plr[key]);
+                ///html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
             } else if (this.config.showIdentifiers && key == "identifier") {
-                html += '<div class="row info-body-row"><strong>identifier:</strong>&nbsp;' + plr[key] + '</div>';
+                html += Utils.getHtmlForInformation(key, plr[key]);
             } else {
                 continue;
             }
