@@ -33,7 +33,6 @@ export class Utils {
         return new L.LatLngBounds(southWest, northEast);
     }
 
-
     static convertToMapLeaflet(currentLayer, x, y){
         let t = this.convertToMap(currentLayer, x, y);
         return t;
@@ -46,6 +45,52 @@ export class Utils {
             z: parseFloat(coord.z),
         };
     }
+
+    /**
+     *
+     *
+     * @static
+     * @param {Object} coords
+     * @param {number} coords.x
+     * @param {number} coords.y
+     * @param {number} coords.z
+     * @memberof Utils
+     */
+    static getPositionHtml(coords){
+        let lang = window.Translator;
+        return `<div class="row info-body-row"><strong>${lang.t("map.position")}:</strong>&nbsp;X ${coords.x.toFixed(2)} Y ${coords.y.toFixed(2)} Z ${coords.z.toFixed(2)}</div>`
+    }
+
+    /**
+     *
+     *
+     * @static
+     * @param {number} x
+     * @param {number} y
+     * @param {number} z
+     * @memberof Utils
+     */
+    static getPositionHtmlWith(x, y, z){
+        return Utils.getPositionHtml({x, y, z});
+    }
+
+    /**
+     *
+     *
+     * @static
+     * @param {string} key
+     * @param {any} value
+     * @return {string}
+     * @memberof Utils
+     */
+    static getHtmlForInformation(key, value){
+        return `<div class="row info-body-row"><strong>${key}:</strong>&nbsp;${value}</div>`
+    }
+
+    static getInfoHtmlForMarkers(name, extraHtml){
+        return `<div class="info-window"><div class="info-header-box"><div class="info-header">${name}</div></div><div class="clear"></div><div id=info-body>${extraHtml}</div></div>`
+    }
+
 }
 
 // :thinking: This seems to improve the accuracy. I think what the problem is, if that the images I'm using doesn't correlate 1:1 to the map I'm using as a reference
