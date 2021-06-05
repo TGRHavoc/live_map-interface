@@ -64,7 +64,7 @@ So the full block would look like:
     RewriteEngine on
     RewriteCond %{HTTP:UPGRADE} ^WebSocket$ [NC]
     RewriteCond %{HTTP:CONNECTION} ^Upgrade$ [NC]
-    RewriteRule .* ws://{{FIVEM_IP}}:{{SOCKET_PORT}}/%{REQUEST_URI} [P]
+    RewriteRule /ws ws://{{FIVEM_IP}}:{{SOCKET_PORT}}/%{REQUEST_URI} [P]
 </VirtualHost>
 ```
 
