@@ -54,6 +54,7 @@ function pack_css(){
         .pipe(cleanCssComments({preserve: false}))
         .pipe(cleanCss())
         .pipe(replace("../webfonts/", "../style/webfonts/"))
+        .pipe(replace("../../images/", "../images/"))
         .pipe(minify())
         .pipe(gulp.dest("dist/"));
 }
