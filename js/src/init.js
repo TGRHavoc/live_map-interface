@@ -83,6 +83,8 @@ export class Initializer {
 // Modules should be deferred so, DOM should be loaded already when we get here..
 
 (async () => {
+    window.Alerter = Alerter;
+
     let translator = window.Translator = new Translator();
 
     let config = undefined;
