@@ -32,3 +32,38 @@ div#blipControlContainer {
         }
     }
 }
+
+.clear {
+    clear: both;
+}
+
+.info-window {
+    padding: 10px;
+    background-color: $body-bg;
+
+    .info-header-box {
+        margin-bottom: 2px;
+    }
+
+    .info-header {
+        float: left;
+        font-size: 1.8em !important;
+        font-weight: bold !important;
+        padding-top: 3px;
+    }
+
+    .info-body {
+        height: 33px;
+        border-top: 1px solid $light;
+    }
+
+    .info-body-row {
+        strong {
+            width: auto;
+        }
+    }
+
+    .info-body-row {
+        padding: 2px 0;
+    }
+}
