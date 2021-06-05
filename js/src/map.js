@@ -47,21 +47,21 @@ export class MapWrapper {
         if (!blip.hasOwnProperty("pos")){
             // BACKWARDS COMPATABILITY!!
             blip.pos = { x: blip.x, y: blip.y, z: blip.z};
-    
+
             //Delete the old shit.. It's nicly wrapped in the pos object now
             delete blip.x;
             delete blip.y;
             delete blip.z;
         }
-    
+
         var obj = new MarkerObject(blip.name, new Coordinates(blip.pos.x, blip.pos.y, blip.pos.z), markerTypes[blip.type], blip.description, "", "");
-    
+
         if (this.blips[blip.type] == null){
             this.blips[blip.type] = [];
         }
-    
+
         blip.markerId = this.createMarker(false, obj, "") - 1;
-    
+
         this.blips[blip.type].push(blip);
         this.blipCount++;
     }
@@ -186,7 +186,7 @@ export class MapWrapper {
         if (name == "@DEBUG@@Locator") {
             name = "@Locator";
         }
-        
+
         objectRef.position = Utils.stringCoordToFloat(objectRef.position);
         //Config.log(objectRef.position);
         let coord = Utils.convertToMapLeaflet(this.CurrentLayer, objectRef.position.x, objectRef.position.y);
@@ -284,4 +284,126 @@ export class MapWrapper {
             return this.MarkerStore[id];
         }
     }
+
+    getBlipMarker(blip){
+        if(this.blips[blip.type] == null){
+            return -1;
+        }
+
+        var blipArrayForType = this.blips[blip.type];
+
+        for(var b in blipArrayForType){
+            var blp = blipArrayForType[b];
+
+            if (blp.pos.x == blip.pos.x && blp.pos.y == blip.pos.y && blp.pos.z == blip.pos.z){
+                return {index: b, blip: blp};
+            }
+        }
+
+        // Couldn't find it..
+        return -1;
+    }
+
+    doesBlipExist(blip){
+        return this.getBlipMarker(blip) != -1;
+    }
+
+    addBlip(blipObj, markers) {
+        if (this.doesBlipExist(blipObj)) {
+            return; // Meh, it already exists.. Just don't add it
+        }
+
+        if (!blipObj.hasOwnProperty("name")) { // Doesn't have a name
+            if (markers.MarkerTypes[spriteId] == null || markers.MarkerTypes[spriteId].name == undefined) {
+                // No stored name, make one up. All markers _should_ have a name though.
+                blipObj.name = "Dynamic Marker";
+            } else {
+                blipObj.name = markers.MarkerTypes[spriteId].name;
+            }
+        }
+
+        if (!blipObj.hasOwnProperty("description")) { // Doesn't have a description
+            blipObj.description = "";
+        }
+
+        this.createBlip(blipObj);
+    }
+
+    removeBlip(blipObj) {
+        if (this.doesBlipExist(blipObj)) {
+            // Remove it
+
+            let blp = this.getBlipMarker(blipObj);
+            let markerId = blp.blip.markerId;
+            let index = blp.index;
+
+            this.clearMarker(markerId);
+
+            this.blips[blipObj.type].splice(index, 1);
+
+            if (this.blips[blipObj.type].length == 0) {
+                delete this.blips[blipObj.type];
+            }
+
+            this.blipCount--;
+            document.getElementById("blipCount").textContent = this.blipCount;
+        }
+    }
+
+    //TODO: Refactor
+    updateBlip(blipObj, markers) {
+        if (this.doesBlipExist(blipObj)) {
+            // Can update it
+            let blp = this.getBlipMarker(blipObj);
+            let markerId = blp.blip.markerId;
+            let blipIndex = blp.index;
+
+            let marker = this.MarkerStore[markerId];
+
+            if (blipObj.hasOwnProperty("new_pos")) {
+                // Blips are supposed to be static so, why this would even be fucking needed it beyond me
+                // Still, better to prepare for the inevitability that someone wants this fucking feature
+                marker.setLatLng(Utils.convertToMap(blipObj.new_pos.x, blipObj.new_pos.y, blipObj.new_pos.z));
+                blipObj.pos = blipObj.new_pos;
+                delete blipObj.new_pos;
+            }
+
+            let name = "No name blip..";
+            let html = "";
+
+            if (blipObj.hasOwnProperty("name")) {
+                name = blipObj.name;
+            } else {
+                // No name given, might as well use the default one... If it exists...
+                if (markers.MarkerTypes[blipObj.type] != undefined && markers.MarkerTypes[blipObj.type].name != undefined) {
+                    name = markers.MarkerTypes[blipObj.type].name;
+                }
+            }
+
+            for (let key in blipObj) {
+
+                if (key == "name" || key == "type") {
+                    continue; // Name is already shown
+                }
+
+                if (key == "pos") {
+                    //TODO: Use translations
+                    //TODO: Maybe move into Utils?
+                    html += Utils.getPositionHtml(blipObj[key]);
+                } else {
+                    // Make sure the first letter of the key is capitalised
+                    key[0] = key[0].toUpperCase();
+                    html += Utils.getHtmlForInformation(key, blipObj[key]);
+                }
+            }
+
+            let info = Utils.getInfoHtmlForMarkers(name, html);
+
+            marker.unbindPopup();
+            marker.bindPopup(info);
+
+            this.blips[blipObj.type][blipIndex] = blipObj;
+        }
+    }
+
 }
