@@ -196,12 +196,14 @@ export class Markers {
 
         this.MarkerTypes = {
             0: {
+                name: "Blank Icon",
                 iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=',
                 iconSize: [0, 0],
                 popupAnchor: [0, 0],
                 iconAnchor: [0, 0]
             },
             999: {
+                name: "Debug Icon",
                 iconUrl: config.iconDirectory + "/debug.png",
                 iconSize: [23, 32],
                 popupAnchor: [0, 0],
@@ -209,6 +211,7 @@ export class Markers {
             },
             // Apparently players have an icon of "6" so, might as well make normal that
             6: {
+                name: "Player",
                 iconUrl: config.iconDirectory + "/normal.png",
                 iconSize: [22, 32],
                 popupAnchor: [0, 0],
