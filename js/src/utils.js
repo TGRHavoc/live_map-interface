@@ -91,6 +91,36 @@ export class Utils {
         return `<div class="info-window"><div class="info-header-box"><div class="info-header">${name}</div></div><div class="clear"></div><div id=info-body>${extraHtml}</div></div>`
     }
 
+    static getPlayerInfoHtml(plr) {
+        //let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(0) + "} Y {" + plr.pos.y.toFixed(0) + "} Z {" + plr.pos.z.toFixed(0) + "}</div>";
+        let html = Utils.getPositionHtml(plr.pos);
+
+        for (let key in plr) {
+            //Config.log("found key: "+ key);
+            if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
+                continue; // We're already displaying this info
+            }
+
+            if (key !== "identifier") {
+                html += Utils.getHtmlForInformation(key, plr[key]);
+                ///html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
+            } else if (this.config.showIdentifiers && key == "identifier") {
+                html += Utils.getHtmlForInformation(key, plr[key]);
+            } else {
+                continue;
+            }
+        }
+        return html;
+    }
+
+    static playerNameSorter(plr1, plr2) {
+        let str1 = plr1.name;
+        let str2 = plr2.name;
+
+        return (str1 < str2) ? -1 : (str1 > str2) ? 1 : 0;
+    }
+
+
 }
 
 // :thinking: This seems to improve the accuracy. I think what the problem is, if that the images I'm using doesn't correlate 1:1 to the map I'm using as a reference
