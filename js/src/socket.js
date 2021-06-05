@@ -2,6 +2,7 @@ import {Config} from "./config.js";
 import {Alerter} from "./alerter.js";
 import { MapWrapper } from "./map.js";
 import { Markers } from "./markers.js";
+import { Utils } from "./utils.js";
 
 //TODO: Document the player and blip objects
 // TODO: Document the array of player objects
@@ -17,12 +18,13 @@ export class SocketHandler {
         this.localCache = {};
     }
 
-    connect(connectionString){
+    //FIXME: We should pass a reference to mapWrapper here and call it's functions
+    connect(connectionString, mapWrapper){
         this.webSocket = new WebSocket(connectionString);
 
         this.webSocket.onopen = this.onOpen.bind(this);
 
-        this.webSocket.onmessage = this.onMessage.bind(this);
+        this.webSocket.onmessage = this.onMessage.bind(this, mapWrapper);
 
         this.webSocket.onerror = this.onError.bind(this);
 
@@ -40,14 +42,14 @@ export class SocketHandler {
         //document.getElementById("socket_error").textContent = "";
     }
 
-    sorter(plr1, plr2) {
-        let str1 = plr1.name;
-        let str2 = plr2.name;
-
-        return (str1 < str2) ? -1 : (str1 > str2) ? 1 : 0;
-    }
-
-    onMessage(e) {
+    /**
+     *
+     *
+     * @param {MapWrapper} mapWrapper
+     * @param {*} e
+     * @memberof SocketHandler
+     */
+    onMessage(mapWrapper, e) {
         let m = encodeURIComponent(e.data).match(/%[89ABab]/g);
         let byteSize = e.data.length + (m ? m.length : 0);
 
@@ -68,17 +70,20 @@ export class SocketHandler {
         }
 
         if (data.type == "addBlip") {
-            this.addBlip(data.payload);
+            mapWrapper.addBlip(data.payload);
+            // this.addBlip(data.payload);
 
         } else if (data.type == "removeBlip") {
-            this.removeBlip(data.payload);
+            mapWrapper.removeBlip(data.payload);
+            // this.removeBlip(data.payload);
 
         } else if (data.type == "updateBlip") {
-            this.updateBlip(data.payload);
+            mapWrapper.updateBlip(data.payload);
+            // this.updateBlip(data.payload);
 
         } else if (data.type == "playerData") {
             //Config.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
-            let sortedPlayers = data.payload.sort(this.sorter);
+            let sortedPlayers = data.payload.sort(Utils.playerNameSorter);
             this.doPlayerUpdate(sortedPlayers);
 
         } else if (data.type == "playerLeft") {
@@ -184,6 +189,7 @@ export class SocketHandler {
 
         Config.log(players);
         const self = this;
+
         players.forEach(function (plr) {
             if (plr == null || plr.name == undefined || plr.name == "") return;
             if (plr.identifier == undefined || plr.identifier == "") return;

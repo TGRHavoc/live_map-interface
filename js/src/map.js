@@ -144,7 +144,7 @@ export class MapWrapper {
         setTimeout( function () {
             Initializer.blips(_.connectedTo.getBlipUrl(), window.markers, _);
 
-            _.socketHandler.connect(_.connectedTo.getSocketUrl());
+            _.socketHandler.connect(_.connectedTo.getSocketUrl(), _);
         }, 50);
     }
 
