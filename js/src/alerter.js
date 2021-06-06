@@ -11,7 +11,7 @@
  * @property {boolean} showIcon=true            - Should the alert show the icon
  * @property {boolean} showCloseButton=true     - Should the alert show the close button
  * @property {boolean} autoclose=true           - Should the alert close itself after an amount of time?
- * @property {number} autotimeout=20000         - How long after the alert has been shown should it automatically close itself (only if autoclose is true) 
+ * @property {number} autotimeout=20000         - How long after the alert has been shown should it automatically close itself (only if autoclose is true)
  * @property {number} gap=10                    - The margin between notifications
  * @property {number} distance=20               - The distance to edges
  * @property {number} type=2                    - The type of the alert
@@ -60,7 +60,7 @@ class Alerter {
         }
 
         this.options = Object.assign(this.DEFAULT_OPTIONS, myOptionTemp);
-        
+
         this.notify = new Notify(this.options);
     }
 }
