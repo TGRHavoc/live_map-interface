@@ -192,18 +192,22 @@ export class MapWrapper {
         let coord = Utils.convertToMapLeaflet(this.CurrentLayer, objectRef.position.x, objectRef.position.y);
         //Config.log(coord);
         let markerType = objectRef.type;
+        const lang = window.Translator;
 
         //Config.log(JSON.stringify(locationType));
 
 
         //TODO: TRANSLATE ENGLISH HERE
-        let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + objectRef.position.x.toFixed(2) + "} Y {" + objectRef.position.y.toFixed(2) + "} Z {" + objectRef.position.z.toFixed(2) + "}</div>";
+        let html = Utils.getPositionHtml(objectRef.position);
+        //let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + objectRef.position.x.toFixed(2) + "} Y {" + objectRef.position.y.toFixed(2) + "} Z {" + objectRef.position.z.toFixed(2) + "}</div>";
 
         if (objectRef.description != ""){
-            html += '<div class="row info-body-row"><strong>Description:</strong>&nbsp;' + objectRef.description + "</div>";
+            //html += '<div class="row info-body-row"><strong>Description:</strong>&nbsp;' + objectRef.description + "</div>";
+            html += Utils.getHtmlForInformation(lang.t("map.description"), objectRef.description);
         }
 
-        let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + name + '</div></div><div class="clear"></div><div class=info-body>' + html + "</div></div>";
+        //let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + name + '</div></div><div class="clear"></div><div class=info-body>' + html + "</div></div>";
+        let infoContent = Utils.getInfoHtmlForMarkers(name, html);
 
         let image = L.icon(markerType);
 
