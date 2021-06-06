@@ -85,13 +85,17 @@
         }
     },
     "updates": {
-        "available" : {
+        "available": {
             "title": "Mise à jour disponible",
             "message": "Une mise à jour est disponible (%(currentVersion)s -> %(remoteVersion)s). Veuillez le télécharger <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>ICI.</a>"
         },
-        "latest" : {
+        "latest": {
             "title": "À jour!",
             "message": "Bonne nouvelle, vous utilisez la dernière version de l'interface LiveMap. Amusez-vous %(currentVersion)s!"
         }
+    },
+    "map": {
+        "position": "Positionner",
+        "description": "La description "
     }
 }
