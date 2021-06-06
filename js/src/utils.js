@@ -88,7 +88,7 @@ export class Utils {
     }
 
     static getInfoHtmlForMarkers(name, extraHtml){
-        return `<div class="info-window"><div class="info-header-box"><div class="info-header">${name}</div></div><div class="clear"></div><div id=info-body>${extraHtml}</div></div>`
+        return `<div class="info-window"><div class="info-header-box"><div class="info-header">${name}</div></div><div class="clear border"></div><div id="info-body">${extraHtml}</div></div>`
     }
 
     static getPlayerInfoHtml(plr) {
