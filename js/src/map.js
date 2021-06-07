@@ -39,7 +39,7 @@ export class MapWrapper {
         this.disabledBlips = [];
         this.blipCount = 0;
 
-        this.mapInit("mapConvas");
+        this.mapInit("mapCanvas");
     }
 
     createBlip(blip, markerTypes){
@@ -114,7 +114,7 @@ export class MapWrapper {
                 return this.reverseProxy.blips;
             }
             return `http://${this.ip}:${this.socketPort}/blips.json`;
-        }
+        };
 
         this.connectedTo.getSocketUrl = function () {
             // this = the "connectedTo" server
@@ -122,7 +122,7 @@ export class MapWrapper {
                 return this.reverseProxy.socket;
             }
             return `ws://${this.ip}:${this.socketPort}`;
-        }
+        };
 
         // If we've changed servers. Might as well reset everything.
         if (this.socketHandler.webSocket && this.socketHandler.webSocket.readyState == WebSocket.OPEN) this.socketHandler.webSocket.close();
