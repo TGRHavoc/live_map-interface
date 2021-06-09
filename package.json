@@ -35,6 +35,8 @@
         "conventional-github-releaser": "^3.1.5",
         "jsdoc-to-markdown": "^7.0.1",
         "jshint": "^2.12.0",
+        "gulp-strip-css-comments": "^2.0.0",
+        "all-contributors-cli": "^6.20.0",
         "standard-version": "^9.3.0"
     }
 }
