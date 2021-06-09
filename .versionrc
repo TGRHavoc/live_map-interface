@@ -1,10 +1,8 @@
 {
-    "header": "---\nlayout: default\ntitle: Changelog\nnav_order: 9999\nparent: LiveMap Interface\n---\n# Changelog\n",
-    "commit-all": true,
-    "infile": "docs/CHANGELOG.md",
+    "header": "# Changelog\n",
     "releaseCommitMessageFormat": "chore(release): v{{currentTag}}",
     "scripts": {
-        "prerelease": "gulp",
+        "prerelease": "yarn gulp",
         "precommit": "git add dist/"
     },
     "bumpFiles": [
@@ -17,6 +15,7 @@
             "type": "json"
         }
     ],
+    "commitAll": true,
     "types": [
         {
             "type": "feat",

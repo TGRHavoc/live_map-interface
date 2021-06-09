@@ -1,189 +1,237 @@
-<!--
-
-// ************************************************************************** //
-//            LiveMap Interface - The web interface for the livemap
-//                    Copyright (C) 2017  Jordan Dalton
-//
-//      This program is free software: you can redistribute it and/or modify
-//      it under the terms of the GNU General Public License as published by
-//      the Free Software Foundation, either version 3 of the License, or
-//      (at your option) any later version.
-//
-//      This program is distributed in the hope that it will be useful,
-//      but WITHOUT ANY WARRANTY; without even the implied warranty of
-//      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//      GNU General Public License for more details.
-//
-//      You should have received a copy of the GNU General Public License
-//      along with this program in the file "LICENSE".  If not, see <http://www.gnu.org/licenses/>.
-// ************************************************************************** //
-
--->
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title>Havoc's Live map</title>
+    <title>Havoc's LiveMap</title>
 
     <!-- Pin favicon from: https://www.freefavicon.com/freefavicons/objects/iconinfo/map-pin-152-195874.html -->
-    <link href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP74zAv++Mwn/vjMMf74zDH++Mwm//jMCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD++c0d/vnNROPLnGDw4bRX/vnNQ/75zRkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFKwBThSsAQgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFLQABhSwAvIUsAKyGLgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhS0AYYUtAP+FLQD+hS0AUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGLgAAhi4AYYUtAPmFLQD/hS0A/4UtAPWGLgBVhi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACHLwABhi4AkoUuAP+MMQD/uEQA/7ZDAP+LMAD/hS4A/oYuAIONNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhzAAWoYvAP/DTQD//8Ay///mSP//5Uj//7ov/7dHAP+FLwD+hi8ASgAAAAAAAAAAAAAAAAAAAAAAAAAAiC0AAIYwAM2UNgD//888///pS///6Uv//+lL///pS///xjf/jTMA/4UwAL0AAAAAAAAAAAAAAAAAAAAAAAAAAIYxAAmGMAD66WQN///qTP//6Uz//+lM///pTP//6Uz//+pM/9NYCP+FMADxhTAAAwAAAAAAAAAAAAAAAAAAAACFMQALhTEA/PduE///6k3//+pN///qTf//6k3//+pN///qTf/iYg7/hTEA84MxAAMAAAAAAAAAAAAAAAAAAAAAhDEAAYQxANemQwH//+RK///qTf//6k3//+pN///qTf//30j/mjwA/4UxAMcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEMgBshDEA//93Gf//50z//+tO///rTv//5Ev/8W0V/4QxAP+EMgBbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgzIAA4MyAK+CMQD/tEwH//+AH///fh7/rUgF/4IxAP+BMQCggDEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDMgAEgjIAc4MyAOCDMgD+gzIA/oEyANyCMgBqgDEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+MAACgTIAFn4xABV/MQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+B8AAPgfAAD+fwAA/D8AAPw/AADwDwAA4AcAAOAHAADABwAAwAMAAMADAADABwAA4AcAAOAHAADwDwAA/D8AAA==" rel="icon" type="image/x-icon">
+    <link
+        href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABILAAASCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP74zAv++Mwn/vjMMf74zDH++Mwm//jMCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD++c0d/vnNROPLnGDw4bRX/vnNQ/75zRkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFKwBThSsAQgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACFLQABhSwAvIUsAKyGLgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhS0AYYUtAP+FLQD+hS0AUgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGLgAAhi4AYYUtAPmFLQD/hS0A/4UtAPWGLgBVhi4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACHLwABhi4AkoUuAP+MMQD/uEQA/7ZDAP+LMAD/hS4A/oYuAIONNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAhzAAWoYvAP/DTQD//8Ay///mSP//5Uj//7ov/7dHAP+FLwD+hi8ASgAAAAAAAAAAAAAAAAAAAAAAAAAAiC0AAIYwAM2UNgD//888///pS///6Uv//+lL///pS///xjf/jTMA/4UwAL0AAAAAAAAAAAAAAAAAAAAAAAAAAIYxAAmGMAD66WQN///qTP//6Uz//+lM///pTP//6Uz//+pM/9NYCP+FMADxhTAAAwAAAAAAAAAAAAAAAAAAAACFMQALhTEA/PduE///6k3//+pN///qTf//6k3//+pN///qTf/iYg7/hTEA84MxAAMAAAAAAAAAAAAAAAAAAAAAhDEAAYQxANemQwH//+RK///qTf//6k3//+pN///qTf//30j/mjwA/4UxAMcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACEMgBshDEA//93Gf//50z//+tO///rTv//5Ev/8W0V/4QxAP+EMgBbAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgzIAA4MyAK+CMQD/tEwH//+AH///fh7/rUgF/4IxAP+BMQCggDEAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACDMgAEgjIAc4MyAOCDMgD+gzIA/oEyANyCMgBqgDEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+MAACgTIAFn4xABV/MQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+B8AAPgfAAD+fwAA/D8AAPw/AADwDwAA4AcAAOAHAADABwAAwAMAAMADAADABwAA4AcAAOAHAADwDwAA/D8AAA=="
+        rel="icon" type="image/x-icon">
 
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
 
-    <link type="text/css" rel="stylesheet" href="dist/stylesheet.css" />
+    <link rel="stylesheet" href="dist/stylesheet.css" type="text/css" />
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
-
-    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
-
-    <script src="dist/first-bundle.js"></script>
-
+    <!-- We have to defer this script from loaded until the DOM has loaded. Otherwise, all document calls will be "undefined" -->
+    <script src="dist/main.js" defer></script>
 </head>
+
 <body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark" aria-label="Main navbar for LiveMap">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="images/profile.png" style="max-height: 32px">
+                    Live Map v<span id="livemapVersion">0.0.0</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-    <nav class="navbar navbar-dark navbar-expand-md">
-        <!-- At some point, I'll add more stuff here. For the time being, it'll just be the site logo -->
-        <div class="container">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="https://github.com/TGRHavoc/">
-                    <img src="https://avatars1.githubusercontent.com/u/1770893?s=460&v=4" style="max-height: 30px" >
-                    Live Map v<span id="livemap_version">2.0.0</span>
-            </a>
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <!-- Servers -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Select a server
-                        </a>
-                        <div id="server_menu" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        </div>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="selectServerMenuDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false" data-i18n="navbar.select-server">
+                                Select a server
+                            </a>
+                            <ul id="serverMenu" class="dropdown-menu" aria-labelledby="selectServerMenuDropdown">
+                            </ul>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" role="button" id="sidebarTooggle" data-toggle="collapse" data-target="#sidebar" aria-controls="sidebar" aria-label="Toggle sidebar" aria-expanded="false">
-                            Hide/Show Controls
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" role="button" id="sidebarTooggle" data-bs-toggle="modal"
+                                data-bs-target="#controlsModal" data-i18n="navbar.controls">
+                                Show Controls
+                            </a>
+                        </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" role="button" id="blipToggle" data-toggle="collapse" data-target="#blip-filter-dropdown" aria-controls="blip-filter-dropdown" aria-label="Toggle blip controls" aria-expanded="false">
-                            Blip controls
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" role="button" id="blipToggle" data-bs-toggle="modal"
+                                data-bs-target="#blipsControlModal" data-i18n="navbar.blips">
+                                Blip controls
+                            </a>
+                        </li>
 
-                </ul>
-            </div>
-        </div>
-
-    </nav>
-
-    <div id="wrapper" class="container-fluid">
-        <div id="control-wrapper" >
-            <div id="sidebar" class="custom-menu col-md-4 col-sm-3 col-xs-6 float-left collapse">
-                <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
-
-                    <a class="nav-header">Controls</a>
-
-                    <a class="list-group-item d-inline-block collapsed" id="refreshBlips" href="#">
-                        <span class="d-md-inline">Refresh Blips</span>
-                    </a>
-
-                    <a id="showBlips" href="#" class="list-group-item d-inline-block collapsed">
-                        <span class="d-md-inline">Show Blips</span>
-                        <span id="blips_enabled" class="badge badge-pill badge-success pull-right">on</span>
-                    </a>
-
-                      <!--
-                      <li>
-                          <a id="toggleLive" href="#">Live update <span id="live_enabled" class="badge badge-danger pull-right">off</span></a>
-                      </li>
-                      -->
-                    <a id="reconnect" href="#" class="list-group-item d-inline-block collapsed">
-                        <span class="d-md-inline">Connect</span>
-                        <span id="connection" class="badge badge-pill badge-danger pull-right">disconnected</span>
-                    </a>
-
-                    <a class="list-group-item d-inline-block collapsed">
-                        <span class="d-md-inline">Track Player</span>
-
-                        <select id="playerSelect" class="input-large form-control pull-right">
-                            <option></option>
-                        </select>
-                    </a>
-
-                    <a class="list-group-item d-inline-block collapsed">
-                        <span class="d-md-inline">Filter</span>
-
-                        <select id="filterOn" class="input-large form-control pull-right">
-                            <option></option>
-                        </select>
-                        <input type="text" id="onlyShow" class="input-large form-control pull-right" />
-                    </a>
-
-                </div>
-
-                <div class="list-group border-0 card text-center text-md-left" >
-                    <a class="nav-header">Information</a>
-
-                    <a class="list-group-item d-inline-block collapsed">Currently viewing:
-                        <p id="server_name" style="white-space: normal; color: #17A2B8">
-                        </p>
-                    </a>
-
-                    <a class="list-group-item d-inline-block collapsed">Blips loaded
-                        <span id="blip_count" class="badge badge-pill badge-info pull-right">0</span>
-                    </a>
-
-                    <a class="list-group-item d-inline-block collapsed">Online players
-                        <span id="player_count" class="badge badge-pill badge-info pull-right">0</span>
-                    </a>
-                </div>
-
-                <div class="list-group border-0 card text-center text-md-left" style="margin-top: 10px;">
-                    <p style="text-align: center;">This was originaly created by <a href="https://github.com/TGRHavoc">Havoc</a></p>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="selectLanguageDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <span data-i18n="navbar.language">Language</span> <span id="currentLang"
+                                    class="badge bg-info">en</span>
+                            </a>
+                            <ul id="availableLanguages" class="dropdown-menu" aria-labelledby="selectLanguageDropdown">
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
+        </nav>
+    </header>
 
-            <div id="blip-filter-dropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12 collapse">
-                <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
+    <!-- Control modals. Best way I can think of getting the controls to be nice on mobile -->
 
-                    <a class="nav-header">Blip Controls <small id="toggle-all-blips" class="btn btn-sm btn-info">Toggle all</small></a>
+    <!-- Controls modal -->
+    <div class="modal fade show" id="controlsModal" tabindex="-1" aria-labelledby="controlsModalTitle" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="controlsModalTitle" data-i18n="controls.title">Controls</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n="generic.close"
+                        data-i18n-attr="aria-label" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
-                    <div id="blip-control-container" class="row">
+                    <!-- Blip controls -->
+                    <div class="list-group border-0 text-center" style="padding: 8px 0;">
+                        <h4 class="control-header" data-i18n="controls.blips.title">Blips</h4>
+                        <a class="list-group-item" id="refreshBlips" href="#" data-i18n="controls.blips.refresh">
+                            Refresh Blips
+                        </a>
 
+                        <a id="showBlips" href="#" class="list-group-item">
+                            <span data-i18n="controls.blips.show">Show Blips</span>
+                            <span data-i18n="generic.on" id="blipsEnabled" class="badge bg-success">on</span>
+                        </a>
+                    </div>
+                    <!-- end blip controls -->
+
+                    <hr />
+
+                    <!-- Connection controls -->
+                    <div class="list-group border-0 text-center">
+                        <h4 class="control-header" data-i18n="controls.connection.title">Connection</h4>
+
+                        <a id="toggleLive" class="list-group-item" href="#">
+                            <span data-i18n="controls.connection.live-update">Live update</span>
+                            <span data-i18n="generic.off" id="liveEnabled" class="badge bg-danger">off</span>
+                        </a>
+
+                        <a id="reconnect" href="#" class="list-group-item">
+                            <span class="d-md-inline" data-i18n="controls.connection.reconnect">Connect</span>
+                            <span id="connection" class="badge bg-danger"
+                                data-i18n="generic.disconnected">disconnected</span>
+                        </a>
+                    </div>
+                    <!-- end connection controls -->
+
+                    <hr />
+
+                    <div class="list-group border-0 text-center">
+                        <h4 class="control-header" data-i18n="controls.information.title">Information</h4>
+
+                        <a class="list-group-item ">
+                            <span data-i18n="controls.information.viewing">Currently viewing</span>:
+                            <p id="serverName" class="text-info">
+                                No server loaded
+                            </p>
+                        </a>
+
+                        <a class="list-group-item ">
+                            <span data-i18n="controls.information.blips-loaded">Blips loaded</span>
+                            <span id="blipCount" class="badge bg-info">0</span>
+                        </a>
+
+                        <a class="list-group-item">
+                            <span data-i18n="controls.information.players">Online players</span>
+                            <span id="playerCount" class="badge bg-info">0</span>
+                        </a>
                     </div>
 
+                    <hr />
+
+                    <div class="list-group border-0 text-center">
+                        <a class="list-group-item d-inline-block collapsed">
+                            <h6 class="control-header" data-i18n="controls.track-player.title">Track Player</h6>
+
+                            <select id="playerSelect" class="input-large form-control text-danger">
+                                <option value="" data-i18n="controls.track-player.disable" class="text-muted" selected>
+                                    Stop tracking
+                                </option>
+                            </select>
+                        </a>
+                    </div>
+                    <hr />
+
+                    <div class="list-group border-0 text-center">
+                        <a class="list-group-item d-inline-block collapsed">
+                            <h6 class="control-header" data-i18n="controls.filter.title">Filter</h6>
+
+                            <select id="filterOn" class="input-large form-control text-danger">
+                                <option value="" data-i18n="controls.filter.disable-filter" class="text-muted" selected>
+                                    Disable filter
+                                </option>
+                            </select>
+                            <span data-i18n="controls.filter.filter-value">With a value of: </span>
+                            <input data-i18n="controls.filter.filter-placeholder" data-i18n-attr="placeholder"
+                                type="text" id="onlyShow" class="input-large form-control" placeholder="Something" />
+                        </a>
+                    </div>
+
+
+                    <hr />
+
+                    <div class="list-group border-0 card text-center text-md-left" style="margin-top: 10px;">
+                        <p style="text-align: center;">
+                            <span data-i18n="credit">This was originally created by </span>
+                            <a href="https://github.com/TGRHavoc">Havoc</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        data-i18n="generic.close">Close</button>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- end controls modal -->
 
-        <main id="map-holder" class="col-12 main" >
-            <div id="map-canvas" style="position: relative; overflow: hidden; background-color: rgb(15, 168, 210);"></div>
-        </main>
+    <!-- Blip control modal -->
+    <div class="modal fade show" id="blipsControlModal" tabindex="-1" aria-labelledby="blipsControlModalTitle"
+        aria-modal="true" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blipsControlModalTitle" data-i18n="blip-controls.title"
+                        data-i18n-attr="aria-label">Blip Controls</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n="generic.close"
+                        data-i18n-attr="aria-label" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="blipFilterDropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12">
+                        <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
+
+                            <a id="toggleAllBlips" class="btn btn-sm btn-info" data-i18n="blip-controls.toggle">
+                                Toggle all
+                            </a>
+
+                            <div id="blipControlContainer" style="margin-top: 1em;">
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        data-i18n="generic.close">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script src="dist/last-bundle.js"></script>
-
-    <script>
-    var greenIcon = L.icon({
-		iconUrl: 'images/icons/debug.png',
-
-		iconSize:     [23, 32], // size of the icon
-		iconAnchor:   [23, 32/2], // point of the icon which will correspond to marker's location
-		popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    });
-    var normalIcon = L.icon({
-		iconUrl: 'images/icons/normal.png',
-
-		iconSize:     [23, 32], // size of the icon
-		iconAnchor:   [23, 32/2], // point of the icon which will correspond to marker's location
-		popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    });
-    </script>
+    <!-- End of modals -->
+    <div id="wrapper" class="container-fluid" style="padding: 0;">
+        <main id="mapContainer">
+            <div id="mapCanvas"></div>
+        </main>
+    </div>
 </body>
 
 </html>

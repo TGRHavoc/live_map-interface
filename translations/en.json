@@ -1,0 +1,106 @@
+{
+    "title": "Havoc's LiveMap",
+    "credit": "This was originally created by ",
+    "navbar": {
+        "select-server": "Select a server",
+        "controls": "Show Controls",
+        "blips": "Blip controls",
+        "language": "Language"
+    },
+    "generic": {
+        "on": "On",
+        "off": "Off",
+        "connected": "Connected",
+        "disconnected": "Disconnected",
+        "reconnecting": "Reconnecting...",
+        "close": "Close"
+    },
+    "controls": {
+        "title": "Controls",
+        "blips": {
+            "title": "Blips",
+            "refresh": "Refresh Blips",
+            "show": "Show Blips"
+        },
+        "connection": {
+            "title": "Connections",
+            "live-update": "Live Update",
+            "reconnect": "Reconnect"
+        },
+        "information": {
+            "title": "Information",
+            "viewing": "Currently viewing",
+            "blips-loaded": "Blips loaded",
+            "players": "Player Count"
+        },
+        "track-player": {
+            "title": "Track a player",
+            "disable": "Stop tracking"
+        },
+        "filter": {
+            "title": "Filter",
+            "disable-filter": "Disable filter",
+            "filter-value": "With a value of",
+            "filter-placeholder": "Some value"
+        }
+    },
+    "blip-controls": {
+        "title": "Blip Controls",
+        "toggle": "Toggle all"
+    },
+    "errors": {
+        "version-check": {
+            "current": {
+                "title": "Error getting current version",
+                "message": "%(error.message)s"
+            },
+            "remote": {
+                "title": "Error getting remote version",
+                "message": "%(error.message)s"
+            }
+        },
+        "getting-blips": {
+            "title": "Error getting blips.json",
+            "message": "%(error.message)s"
+        },
+        "getting-config": {
+            "title": "Error getting config",
+            "message": "%(error.message)s"
+        },
+        "socket-error": "Error with WebSocket connection",
+        "server-config": {
+            "title": "Couldn't load server config!",
+            "message": "The server \"%(nameOfServer)s\" doesn't exist in the config file."
+        },
+        "socket": {
+            "1000": "Normal closure, meaning that the purpose for which the connection was established has been fulfilled.",
+            "1001": "Server is going down or a browser having navigated away from a page.",
+            "1002": "An endpoint is terminating the connection due to a protocol error",
+            "1003": "Wrong data type received by the server",
+            "1004": "Reserved. The specific meaning might be defined in the future.",
+            "1005": "No status code was actually present.",
+            "1006": "The connection was closed abnormally, e.g., without sending or receiving a Close control frame.",
+            "1007": "Server has received data within a message that was not consistent with the type of the message.",
+            "1008": "Server has received a message that 'violates its policy'.",
+            "1009": "Server received a message that is too big for it to process.",
+            "1010": "Client expected the server to negotiate one or more extension, but the server didn't return them in the response message of the WebSocket handshake.\n Specifically, the extensions that are needed are: %(reason)s",
+            "1011": "Server encountered an unexpected condition that prevented it from fulfilling the request.",
+            "1015": "The connection was closed due to a failure to perform a TLS handshake (e.g., the server certificate can't be verified).",
+            "other": "Unknown reason: %(code)s %(reason)s"
+        }
+    },
+    "updates": {
+        "available": {
+            "title": "Update available",
+            "message": "An update is available (%(currentVersion)s -> %(remoteVersion)s). Please download it <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>HERE.</a>"
+        },
+        "latest": {
+            "title": "Up to date!",
+            "message": "Good news, you're using the latest version of the LiveMap interface. Please enjoy %(currentVersion)s!"
+        }
+    },
+    "map": {
+        "position": "Position",
+        "description": "Description"
+    }
+}

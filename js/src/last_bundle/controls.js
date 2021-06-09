@@ -26,7 +26,6 @@ function toggleBlips(){ // _showBlips must be called before this function if you
             console._log("Blip " + spriteId + "'s are disabled..");
 
             blipArray.forEach(blip => {
-                console.log(blip);
                 var marker = MarkerStore[blip.markerId];
                 marker.remove();
             });
@@ -59,17 +58,17 @@ $(document).ready(function(){
         //webSocket.send("getBlips");
         toggleBlips();
 
-        $("#blips_enabled").removeClass("badge-success").removeClass("badge-danger")
+        $("#blipsEnabled").removeClass("badge-success").removeClass("badge-danger")
             .addClass( _showBlips ? "badge-success" : "badge-danger")
             .text(_showBlips ? "on" : "off");
     });
 
-    $("#toggle-all-blips").on("click", function () {
+    $("#toggleAllBlips").on("click", function () {
         _blipControlToggleAll = !_blipControlToggleAll;
         console._log(_blipControlToggleAll + " showing blips?");
         // Toggle the classes and add/remove the blipIds from the array
 
-        $("#blip-control-container").find("a").each(function (index, ele) {
+        $("#blipControlContainer").find("a").each(function (index, ele) {
             var ele = $(ele);
             var blipId = ele.data("blip-number").toString();
 
@@ -117,7 +116,7 @@ $(document).ready(function(){
         initBlips(connectedTo.getBlipUrl());
     });
 
-    $("#server_menu").on("click", ".serverMenuItem", function(e){
+    $("#serverMenu").on("click", ".serverMenuItem", function(e){
         console._log($(this).text());
         changeServer($(this).text());
     });
