@@ -39,6 +39,8 @@ export class MapWrapper {
         this.disabledBlips = [];
         this.blipCount = 0;
 
+        this.localPlayerCache = {};
+
         this.mapInit("mapCanvas");
     }
 
@@ -313,6 +315,8 @@ export class MapWrapper {
     }
 
     addBlip(blipObj, markers) {
+        let spriteId = blipObj.type;
+
         if (this.doesBlipExist(blipObj)) {
             return; // Meh, it already exists.. Just don't add it
         }
@@ -354,7 +358,6 @@ export class MapWrapper {
         }
     }
 
-    //TODO: Refactor
     updateBlip(blipObj, markers) {
         if (this.doesBlipExist(blipObj)) {
             // Can update it
@@ -391,8 +394,6 @@ export class MapWrapper {
                 }
 
                 if (key == "pos") {
-                    //TODO: Use translations
-                    //TODO: Maybe move into Utils?
                     html += Utils.getPositionHtml(blipObj[key]);
                 } else {
                     // Make sure the first letter of the key is capitalised
@@ -409,5 +410,158 @@ export class MapWrapper {
             this.blips[blipObj.type][blipIndex] = blipObj;
         }
     }
+
+    playerLeft(playerName) {
+        if (this.localPlayerCache[playerName] !== undefined &&
+                (this.localPlayerCache[playerName].marker != null || this.localPlayerCache[playerName].marker != undefined)) {
+            //clearMarker(localPlayerCache[playerName].marker);
+            this.clearMarker(this.localPlayerCache[playerName]);
+            delete this.localPlayerCache[playerName];
+        }
+
+        //FIXME: Reimplement
+        // if ($("#playerSelect option[value='" + playerName + "']").length > 0) {
+        //     $("#playerSelect option[value='" + playerName + "']").remove();
+        // }
+        let playerSelect = document.querySelector(`#playerSelect option[value='${playerName}']`);
+        if (playerSelect){
+            playerSelect.remove();
+        }
+
+        this.playerCount = Object.keys(this.localPlayerCache).length;
+
+        Config.log("Playerleft playercount: " + this.playerCount);
+
+        document.getElementById("playerCount").innerText = this.playerCount;
+    }
+
+    doPlayerUpdate(players) {
+
+        Config.log(players);
+
+        players.forEach(this.doPlayerHtmlUpdates.bind(this));
+
+        this.playerCount = Object.keys(this.localPlayerCache).length;
+
+        Config.log("playercount: " + this.playerCount);
+        document.getElementById("playerCount").textContent = this.playerCount;
+    }
+
+    doPlayerHtmlUpdates(plr) {
+
+            if (plr == null || plr.name == undefined || plr.name == "") return;
+            if (plr.identifier == undefined || plr.identifier == "") return;
+
+            if (!(plr.identifier in this.localPlayerCache)) {
+                this.localPlayerCache[plr.identifier] = { marker: null, lastHtml: null };
+            }
+
+            // Filtering stuff
+
+            // If this player has a new property attached to them that we haven't seen before, add it to the filer
+            let p = Utils.getFilterProps(plr);
+            console.log("Can filter on: ", p);
+            p.forEach((_p) => {
+                //console.log("THIS INSIDE OF FOREACH = ", this);
+                if (!this.CanFilterOn.includes(_p)){
+                    let filterOption = document.createElement("option");
+                    filterOption.value = _p;
+                    filterOption.innerText = _p;
+
+                    this.CanFilterOn.push(_p);
+                //     $("#filterOn").append(`<option value="${_p}">${_p}</option>`);
+                    document.getElementById("filterOn").appendChild(filterOption);
+                }
+            });
+
+            let opacity = 1.0;
+            // if (window.Filter != undefined){
+            //     if (plr[window.Filter.on] == undefined) {
+            //         opacity = 0.0;
+            //     }else{
+            //         let value = $("#onlyShow").val();
+            //         if (value != "" && !plr[window.Filter.on].includes(value)){
+            //             opacity = 0.0;
+            //         }
+            //     }
+            // }
+
+            let selectPlayerOptions = document.getElementById("playerSelect").options;
+            if (!(plr.identifier in selectPlayerOptions)) {
+                // TODO: Implement
+                // $("#playerSelect").append($("<option>", {
+                //     value: plr.identifier, // Should be unique
+                //     text: plr.name // Their name.. Might not be unique?
+                // }));
+            }
+            // TODO: Implement
+            // if (_trackPlayer != null && _trackPlayer == plr.identifier) {
+            //     // If we're tracking a player, make sure we center them
+            //     Map.panTo(convertToMap(plr.pos.x, plr.pos.y));
+            // }
+
+            if (this.localPlayerCache[plr.identifier].marker != null || this.localPlayerCache[plr.identifier].marker != undefined) {
+                // If we have a custom icon (we should) use it!!
+                if (plr.icon) {
+                    let t = window.markers.MarkerTypes[plr.icon];
+
+                    //Config.log("Got icon of :" + plr.icon);
+                    // TODO: Implement
+                    // MarkerStore[this.localPlayerCache[plr.identifier].marker].setIcon(L.icon(t));
+                }
+
+                // Update the player's location on the map :)
+                // TODO: Implement
+                //MarkerStore[localPlayerCache[plr.identifier].marker].setLatLng(convertToMapLeaflet(plr.pos.x, plr.pos.y));
+
+                //update popup with the information we have been sent
+                let html = this.getPlayerInfoHtml(plr);
+
+                let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
+
+                let m = this.localPlayerCache[plr.identifier].marker;
+                // TODO: Implement
+                // let marker = MarkerStore[m];
+                // let popup = PopupStore[m];
+
+                // marker.setOpacity(opacity);
+
+                // if (infoContent != localPlayerCache[plr.identifier].lastHtml){
+                //     popup.setContent(infoContent);
+                //     localPlayerCache[plr.identifier].lastHtml = infoContent;
+                // }
+
+                // if(popup.isOpen()){
+                //     if (popup.getLatLng().distanceTo(marker.getLatLng()) != 0){
+                //         popup.setLatLng(marker.getLatLng());
+                //     }
+                // }
+
+
+            } else {
+                let html = Utils.getPlayerInfoHtml(plr);
+                //let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
+                let infoContent  = Utils.getInfoHtmlForMarkers(plr.name, html);
+                this.localPlayerCache[plr.identifier].lastHtml = infoContent;
+
+                let obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), window.markers.MarkerTypes[6], "", {isPlayer: true, player: plr});
+                // TODO: Implement
+                // let m = localPlayerCache[plr.identifier].marker = createMarker(false, false, obj, plr.name) - 1;
+
+                // MarkerStore[m].unbindPopup(); // We want to handle the popups ourselfs.
+                // MarkerStore[m].setOpacity(opacity);
+
+                // PopupStore[m] = L.popup()
+                //     .setContent(infoContent)
+                //     .setLatLng(MarkerStore[m].getLatLng()); // Make a new marker
+
+                // MarkerStore[m].on("click", function(e) {
+                //     Config.log(e);
+                //     Map.closePopup(Map._popup);
+                //     PopupStore[e.target.options.id].setLatLng(e.latlng);
+                //     Map.openPopup(PopupStore[e.target.options.id]);
+                // });
+            }
+        }
 
 }
