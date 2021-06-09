@@ -35,6 +35,7 @@
         "track-player": "Отслеживание игрока",
         "filter": {
             "title": "Фильтр",
+            "disable-filter": "Отключить фильтр"
             "filter-value": "Со значением",
             "filter-placeholder": "Некоторое значение"
         }

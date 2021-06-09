@@ -35,7 +35,8 @@
         "filter": {
             "title": "Filtrar",
             "filter-value": "Con el valor",
-            "filter-placeholder": "Alguna cosa"
+            "filter-placeholder": "Alguna cosa",
+            "disable-filter": "Deshabilitar filtro"
         }
     },
     "blip-controls": {
