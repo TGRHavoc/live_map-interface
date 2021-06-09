@@ -41,6 +41,8 @@ export class MapWrapper {
 
         this.localPlayerCache = {};
 
+        this.trackPlayer = null;
+
         this.mapInit("mapCanvas");
     }
 
@@ -486,20 +488,23 @@ export class MapWrapper {
                 }
             }
 
+            let selectPlayerOptions = document.getElementById("playerSelect");
+            console.log("selectPlayerOptions", selectPlayerOptions);
 
-            let selectPlayerOptions = document.getElementById("playerSelect").options;
-            if (!(plr.identifier in selectPlayerOptions)) {
-                // TODO: Implement
-                // $("#playerSelect").append($("<option>", {
-                //     value: plr.identifier, // Should be unique
-                //     text: plr.name // Their name.. Might not be unique?
-                // }));
+            if(!Utils.optionExists(plr.identifier, selectPlayerOptions)){
+                // They're not an option to track. Add them!
+                let playerOption = document.createElement("option");
+                playerOption.value = plr.identifier;
+                playerOption.innerText = plr.name;
+                playerOption.className = "text-info"; // Parent will have `text-danger` some times so, override it here
+
+                selectPlayerOptions.appendChild(playerOption);
             }
-            // TODO: Implement
-            // if (_trackPlayer != null && _trackPlayer == plr.identifier) {
-            //     // If we're tracking a player, make sure we center them
-            //     Map.panTo(convertToMap(plr.pos.x, plr.pos.y));
-            // }
+
+            if (this.trackPlayer != null && this.trackPlayer == plr.identifier) {
+                // If we're tracking a player, make sure we center them
+                this.Map.panTo(Utils.convertToMap(this.CurrentLayer, plr.pos.x, plr.pos.y));
+            }
 
             if (this.localPlayerCache[plr.identifier].marker != null || this.localPlayerCache[plr.identifier].marker != undefined) {
                 // If we have a custom icon (we should) use it!!
