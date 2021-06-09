@@ -7,7 +7,7 @@ permalink: /livemap-interface
 
 # LiveMap interface <!-- omit in toc -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
@@ -66,6 +66,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/matsn0w"><img src="https://avatars.githubusercontent.com/u/15019582?v=4?s=100" width="100px;" alt=""/><br /><sub><b>matsn0w</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/commits?author=matsn0w" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/JasonO99"><img src="https://avatars.githubusercontent.com/u/2074263?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jason Olsen</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/issues?q=author%3AJasonO99" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/Aaron-Downham"><img src="https://avatars.githubusercontent.com/u/32743520?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aaron-Downham</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/issues?q=author%3AAaron-Downham" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/Annihilator4423"><img src="https://avatars.githubusercontent.com/u/61148120?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Annihilator4423</b></sub></a><br /><a href="https://github.com/TGRHavoc/live_map-interface/commits?author=Annihilator4423" title="Documentation">📖</a></td>
   </tr>
 </table>
 
