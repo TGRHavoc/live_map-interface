@@ -506,14 +506,16 @@ export class MapWrapper {
                 this.Map.panTo(Utils.convertToMap(this.CurrentLayer, plr.pos.x, plr.pos.y));
             }
 
-            if (this.localPlayerCache[plr.identifier].marker != null || this.localPlayerCache[plr.identifier].marker != undefined) {
+            const playerMarkerInLocalCache = this.localPlayerCache[plr.identifier].marker;
+            const playerMarkerFromStore = this.MarkerStore[playerMarkerInLocalCache];
+
+            if (playerMarkerInLocalCache != null || playerMarkerInLocalCache != undefined) {
                 // If we have a custom icon (we should) use it!!
                 if (plr.icon) {
-                    let t = window.markers.MarkerTypes[plr.icon];
+                    let t = this.markers.MarkerTypes[plr.icon];
 
                     //Config.log("Got icon of :" + plr.icon);
-                    // TODO: Implement
-                    // MarkerStore[this.localPlayerCache[plr.identifier].marker].setIcon(L.icon(t));
+                    playerMarkerFromStore.setIcon(L.icon(t));
                 }
 
                 // Update the player's location on the map :)
