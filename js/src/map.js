@@ -475,16 +475,17 @@ export class MapWrapper {
             });
 
             let opacity = 1.0;
-            // if (window.Filter != undefined){
-            //     if (plr[window.Filter.on] == undefined) {
-            //         opacity = 0.0;
-            //     }else{
-            //         let value = $("#onlyShow").val();
-            //         if (value != "" && !plr[window.Filter.on].includes(value)){
-            //             opacity = 0.0;
-            //         }
-            //     }
-            // }
+            if (this.Filter != undefined){
+                if (plr[this.Filter.on] == undefined) {
+                    opacity = 0.0;
+                }else{
+                    let value = document.getElementById("onlyShow").value;
+                    if (value != "" && !plr[this.Filter.on].includes(value)){
+                        opacity = 0.0;
+                    }
+                }
+            }
+
 
             let selectPlayerOptions = document.getElementById("playerSelect").options;
             if (!(plr.identifier in selectPlayerOptions)) {
