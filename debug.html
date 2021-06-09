@@ -161,9 +161,10 @@
 
                     <div class="list-group border-0 text-center">
                         <a class="list-group-item d-inline-block collapsed">
-                            <h6 class="control-header" data-i18n="controls.track-player">Track Player</h6>
+                            <h6 class="control-header" data-i18n="controls.track-player.title">Track Player</h6>
 
                             <select id="playerSelect" class="input-large form-control">
+                                <option value="" data-i18n="controls.track-player.disable" selected></option>
                             </select>
                         </a>
                     </div>
@@ -174,6 +175,7 @@
                             <h6 class="control-header" data-i18n="controls.filter.title">Filter</h6>
 
                             <select id="filterOn" class="input-large form-control">
+                                <option value="" data-i18n="controls.filter.disable-filter" selected></option>
                             </select>
                             <span data-i18n="controls.filter.filter-value">With a value of: </span>
                             <input data-i18n="controls.filter.filter-placeholder" data-i18n-attr="placeholder"
