@@ -183,8 +183,7 @@ export class MapWrapper {
         }).setView([0,0], 0);
 
         let mapBounds = Utils.getMapBounds(this.CurrentLayer);
-
-        this.Map.setMaxBounds(mapBounds);
+        this.Map.setMaxBounds(mapBounds.pad(1)); // Give the user some "wiggle room" before the map snaps back into bounds
         this.Map.fitBounds(mapBounds);
 
         let control = new L.Control.CustomLayer(tileLayers).addTo(this.Map);
@@ -468,7 +467,7 @@ export class MapWrapper {
 
             // If this player has a new property attached to them that we haven't seen before, add it to the filer
             let p = Utils.getFilterProps(plr);
-            console.log("Can filter on: ", p);
+            //console.log("Can filter on: ", p);
             p.forEach((_p) => {
                 //console.log("THIS INSIDE OF FOREACH = ", this);
                 if (!this.CanFilterOn.includes(_p)){
@@ -495,7 +494,7 @@ export class MapWrapper {
             }
 
             let selectPlayerOptions = document.getElementById("playerSelect");
-            console.log("selectPlayerOptions", selectPlayerOptions);
+            // console.log("selectPlayerOptions", selectPlayerOptions);
 
             if(!Utils.optionExists(plr.identifier, selectPlayerOptions)){
                 // They're not an option to track. Add them!
