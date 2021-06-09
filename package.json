@@ -4,6 +4,17 @@
         "doc": "jsdoc2md > docs/api.md",
         "release": "standard-version && conventional-github-releaser"
     },
+    "jshintConfig": {
+        "esversion": "2015",
+        "browser": true,
+        "latedef": true,
+        "newcap": true,
+        "undef": true,
+        "predef": [
+            "L",
+            "console"
+        ]
+    },
     "dependencies": {
         "@babel/core": "^7.14.3",
         "@babel/polyfill": "^7.12.1",
