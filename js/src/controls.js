@@ -144,16 +144,19 @@ export class Controls {
             html.appendChild(child);
         }
 
-        L.DomEvent.on(html, "click", function(e){
-            var t = e.target;
-            var attribute = t.getAttribute("data-identifier");
-            var m = PopupStore[localCache[attribute].marker]; // Get the marker using the localcache.
-
-            Map.closePopup(Map._popup); //Close the currently open popup
-            Map.openPopup(m); // Open the user's popup
-        });
+        // If they click on a username
+        L.DomEvent.on(html, "click", this.playerInsideCluster_onClick.bind(this));
 
         Map.openPopup(html, a.layer.getLatLng());
+    }
+
+    playerInsideCluster_onClick(e){
+        var t = e.target;
+        var attribute = t.getAttribute("data-identifier");
+        var m = this.mapWrapper.PopupStore[this.mapWrapper.localCache[attribute].marker]; // Get the marker using the localcache.
+
+        Map.closePopup(Map._popup); //Close the currently open popup
+        Map.openPopup(m); // Open the user's popup
     }
 
     reconnect_onClick(e){
