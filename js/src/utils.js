@@ -142,8 +142,25 @@ export class Utils {
         return props;
     }
 
+    /**
+     * Return if a particular option exists in a <select> object
+     * @param {String} needle A string representing the option you are looking for
+     * @param {Object} haystack A Select object
+    */
+    static optionExists ( needle, haystack ){
+        var optionExists = false,
+            optionsLength = haystack.length;
 
-
+        while ( optionsLength-- )
+        {
+            if ( haystack.options[ optionsLength ].value === needle )
+            {
+                optionExists = true;
+                break;
+            }
+        }
+        return optionExists;
+    }
 }
 
 // :thinking: This seems to improve the accuracy. I think what the problem is, if that the images I'm using doesn't correlate 1:1 to the map I'm using as a reference
