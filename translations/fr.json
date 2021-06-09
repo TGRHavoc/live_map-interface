@@ -35,6 +35,7 @@
         "track-player": "Suivre un joueur",
         "filter": {
             "title": "Filtrer",
+            "disable-filter": "Désactiver le filtre",
             "filter-value": "Avec une valeur de",
             "filter-placeholder": "Une certaine valeur"
         }

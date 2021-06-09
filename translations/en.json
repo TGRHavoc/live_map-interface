@@ -36,6 +36,7 @@
         "track-player": "Track a player",
         "filter": {
             "title": "Filter",
+            "disable-filter": "Disable filter",
             "filter-value": "With a value of",
             "filter-placeholder": "Some value"
         }
