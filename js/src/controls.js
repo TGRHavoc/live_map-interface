@@ -28,8 +28,10 @@ export class Controls {
         this.mapWrapper.PlayerMarkers.on("cluckerclick", this.playerMarker_clusterClick.bind(this));
 
         //TODO: Filter Dropdown (select element) should have `text-danger` when disabled & `text-normal` for non-disabled.
-
         document.getElementById("playerSelect").onchange = this.playerSelect_onChange.bind(this);
+        document.getElementById("filterOn").onchange =this.filterOn_onChange.bind(this);
+
+
     }
 
     /**
@@ -200,11 +202,27 @@ export class Controls {
 
         if (value == ""){ // No longer want to track
             this.mapWrapper.trackPlayer = null;
+            e.target.classList.add("text-danger");
             return;
         }
 
+        e.target.classList.remove("text-danger");
         this.mapWrapper.Map.setZoom(3);
         this.mapWrapper.trackPlayer = value;
     }
 
+    filterOn_onChange(e){
+        const value = e.target.value;
+        if (value == ""){
+            this.mapWrapper.Filter = undefined;
+            e.target.classList.add("text-danger");
+            //document.getElementById("filterOn").classList.remove("text-danger");
+            return;
+        }
+
+        e.target.classList.remove("text-danger");
+        this.mapWrapper.Filter = {
+            on: value
+        };
+    }
 }
