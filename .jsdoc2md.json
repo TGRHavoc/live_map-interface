@@ -1,0 +1,8 @@
+{
+    "files": [
+        "js/src/**"
+    ],
+    "template": "tools/api-doc-template.hbs",
+    "partial": "tools/partials/**",
+    "no-gfm": false
+}

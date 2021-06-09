@@ -11,3 +11,10 @@ config.json
 
 _site/
 obj/
+
+## Browserified/Babel'd js file. This should only exist on a developer's machine so, might as well ignore it.
+dist/js/
+yarn-error.log
+.env
+blips.json
+TODO
