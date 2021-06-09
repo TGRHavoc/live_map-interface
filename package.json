@@ -1,5 +1,5 @@
 {
-    "version": "4.0.1",
+    "version": "4.1.0",
     "scripts": {
         "doc": "jsdoc2md > docs/api.md",
         "release": "standard-version && conventional-github-releaser"
