@@ -28,6 +28,8 @@ export class Controls {
         this.mapWrapper.PlayerMarkers.on("cluckerclick", this.playerMarker_clusterClick.bind(this));
 
         //TODO: Filter Dropdown (select element) should have `text-danger` when disabled & `text-normal` for non-disabled.
+
+        document.getElementById("playerSelect").onchange = this.playerSelect_onChange.bind(this);
     }
 
     /**
@@ -191,6 +193,18 @@ export class Controls {
         mw.Map.closePopup(mw.Map._popup);
         mw.PopupStore[e.target.options.id].setLatLng(e.latlng);
         mw.Map.openPopup(mw.PopupStore[e.target.options.id]);
+    }
+
+    playerSelect_onChange(e){
+        let value = e.target.value;
+
+        if (value == ""){ // No longer want to track
+            this.mapWrapper.trackPlayer = null;
+            return;
+        }
+
+        this.mapWrapper.Map.setZoom(3);
+        this.mapWrapper.trackPlayer = value;
     }
 
 }
