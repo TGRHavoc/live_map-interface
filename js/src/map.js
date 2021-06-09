@@ -425,14 +425,10 @@ export class MapWrapper {
         if (this.localPlayerCache[playerName] !== undefined &&
                 (this.localPlayerCache[playerName].marker != null || this.localPlayerCache[playerName].marker != undefined)) {
             //clearMarker(localPlayerCache[playerName].marker);
-            this.clearMarker(this.localPlayerCache[playerName]);
+            this.clearMarker(this.localPlayerCache[playerName].marker);
             delete this.localPlayerCache[playerName];
         }
 
-        //FIXME: Reimplement
-        // if ($("#playerSelect option[value='" + playerName + "']").length > 0) {
-        //     $("#playerSelect option[value='" + playerName + "']").remove();
-        // }
         let playerSelect = document.querySelector(`#playerSelect option[value='${playerName}']`);
         if (playerSelect){
             playerSelect.remove();
