@@ -26,6 +26,8 @@ export class Controls {
         document.getElementById("serverMenu").onclick = this.serverMenu_onClick.bind(this);
 
         this.mapWrapper.PlayerMarkers.on("cluckerclick", this.playerMarker_clusterClick.bind(this));
+
+        //TODO: Filter Dropdown (select element) should have `text-danger` when disabled & `text-normal` for non-disabled.
     }
 
     /**
@@ -183,6 +185,12 @@ export class Controls {
     serverMenu_onClick(e){
         let target = e.target;
         this.mapWrapper.changeServer(target.innerText);
+    }
+
+    playerMarker_onClick(mw, e){
+        mw.Map.closePopup(mw.Map._popup);
+        mw.PopupStore[e.target.options.id].setLatLng(e.latlng);
+        mw.Map.openPopup(mw.PopupStore[e.target.options.id]);
     }
 
 }
