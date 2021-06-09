@@ -567,12 +567,7 @@ export class MapWrapper {
                     .setContent(infoContent)
                     .setLatLng(this.MarkerStore[m].getLatLng()); // Make a new marker
 
-                this.MarkerStore[m].on("click", function(e) {
-                    Config.log(e);
-                    this.Map.closePopup(this.Map._popup);
-                    this.PopupStore[e.target.options.id].setLatLng(e.latlng);
-                    this.Map.openPopup(this.PopupStore[e.target.options.id]);
-                });
+                this.MarkerStore[m].on("click", this.controls.playerMarker_onClick.bind(this.controls, this));
             }
         }
 
