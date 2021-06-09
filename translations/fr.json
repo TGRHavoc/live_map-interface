@@ -32,7 +32,10 @@
             "blips-loaded": "Blips chargés",
             "players": "Nombre de joueurs"
         },
-        "track-player": "Suivre un joueur",
+        "track-player": {
+            "title": "Suivre un joueur",
+            "disable": "Arrêter le suivi"
+        },
         "filter": {
             "title": "Filtrer",
             "disable-filter": "Désactiver le filtre",

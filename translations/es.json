@@ -31,7 +31,10 @@
             "blips-loaded": "Marcadores cargados",
             "players": "Recuento de jugadores"
         },
-        "track-player": "Rastrear a un jugador",
+        "track-player": {
+            "title": "Rastrear a un jugador",
+            "disable": "Detener el seguimiento"
+        },
         "filter": {
             "title": "Filtrar",
             "filter-value": "Con el valor",

@@ -33,7 +33,10 @@
             "blips-loaded": "Blips loaded",
             "players": "Player Count"
         },
-        "track-player": "Track a player",
+        "track-player": {
+            "title": "Track a player",
+            "disable": "Stop tracking"
+        },
         "filter": {
             "title": "Filter",
             "disable-filter": "Disable filter",
