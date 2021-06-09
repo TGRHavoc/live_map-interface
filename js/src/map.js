@@ -274,7 +274,7 @@ export class MapWrapper {
 
         // Re-do player markers
         for(let id in this.socketHandler.localCache){
-            this.socketHandler.localCache[id].marker = null;
+            this.localCache[id].marker = null;
         }
         if(this.Map != undefined){
             this.Map.removeLayer(this.PlayerMarkers); // Remove the cluster layer
@@ -287,8 +287,11 @@ export class MapWrapper {
     clearMarker(id) {
         if (this.MarkerStore[id] != "NULL") {
             this.MarkerStore[id].remove();
-            this.MarkerStore[id] = "NULL";
-            document.getElementById(`marker_${id}`).remove();
+            //document.getElementById(`marker_${id}`).remove();
+            this.Map.removeLayer(this.MarkerStore[id]);
+            //delete this.MarkerStore[id];
+
+            this.MarkerStore[id] = null;
         }
     }
 
@@ -515,7 +518,7 @@ export class MapWrapper {
             const playerMarkerInLocalCache = this.localPlayerCache[plr.identifier].marker;
             const playerMarkerFromStore = this.MarkerStore[playerMarkerInLocalCache];
 
-            if (playerMarkerInLocalCache != null || playerMarkerInLocalCache != undefined) {
+            if (playerMarkerInLocalCache && playerMarkerFromStore) {
                 // If we have a custom icon (we should) use it!!
                 if (plr.icon) {
                     let t = this.markers.MarkerTypes[plr.icon];

@@ -1,7 +1,7 @@
 import { MapWrapper } from "./map.js";
 import {types} from "./markers.js";
 import {Config} from "./config.js";
-
+import {Initializer} from "./init.js";
 
 export class Controls {
 
@@ -22,15 +22,13 @@ export class Controls {
         document.getElementById("showBlips").onclick = this.showBlips_onClick.bind(this);
         document.getElementById("toggleAllBlips").onclick = this.toggleAllBlips_onClick.bind(this);
         document.getElementById("reconnect").onclick = this.reconnect_onClick.bind(this);
-
         document.getElementById("serverMenu").onclick = this.serverMenu_onClick.bind(this);
 
         this.mapWrapper.PlayerMarkers.on("cluckerclick", this.playerMarker_clusterClick.bind(this));
 
-        //TODO: Filter Dropdown (select element) should have `text-danger` when disabled & `text-normal` for non-disabled.
         document.getElementById("playerSelect").onchange = this.playerSelect_onChange.bind(this);
         document.getElementById("filterOn").onchange =this.filterOn_onChange.bind(this);
-
+        document.getElementById("refreshBlips").onclick = this.refreshBlips_onClick.bind(this);
 
     }
 
@@ -224,5 +222,12 @@ export class Controls {
         this.mapWrapper.Filter = {
             on: value
         };
+    }
+
+    refreshBlips_onClick(e){
+        e.preventDefault();
+
+        this.mapWrapper.clearAllMarkers();
+        Initializer.blips(this.mapWrapper.connectedTo.getBlipUrl(), this.mapWrapper.markers, this.mapWrapper);
     }
 }
