@@ -97,7 +97,17 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "Aaron-Downham",
+      "name": "Aaron-Downham",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32743520?v=4",
+      "profile": "https://github.com/Aaron-Downham",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
-  "contributorsPerLine": 6
+  "contributorsPerLine": 6,
+  "skipCi": true
 }
