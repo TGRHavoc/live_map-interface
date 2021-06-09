@@ -27,10 +27,10 @@ export class Initializer {
     }
 
     /**
-     * 
-     * @param {String} url 
-     * @param {Markers} markers 
-     * @param {MapWrapper} mapWrapper 
+     *
+     * @param {String} url
+     * @param {Markers} markers
+     * @param {MapWrapper} mapWrapper
      */
     static async blips(url, markers, mapWrapper) {
         Config.log("Sending request to", url);
@@ -87,7 +87,7 @@ export class Initializer {
 
     let translator = window.Translator = new Translator();
 
-    let config = undefined;
+    let config = null;
 
     try {
         await translator.getLanguageFromFile();
@@ -95,7 +95,7 @@ export class Initializer {
         config = await Config.getConfigFileFromRemote();
 
     } catch (ex) {
-        console.error("Couldn't load LiveMap")
+        console.error("Couldn't load LiveMap");
         console.error(ex);
         return;
     }
