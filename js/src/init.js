@@ -112,9 +112,6 @@ export class Initializer {
     const socketHandler = window.socketHandler = new SocketHandler();
     const mapWrapper = window.mapWrapper = new MapWrapper(socketHandler);
 
-    const controls = window.controls = new Controls(mapWrapper); // This calls initControls internally
-    const markers = window.markers = new Markers(config, controls);
-
     Initializer.page(config);
     mapWrapper.changeServer(Object.keys(Config.staticConfig.servers)[0]); // Show the stuff for the first server in the config.
 })();

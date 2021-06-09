@@ -5,6 +5,9 @@ import {Utils} from "./utils.js";
 import {Initializer} from "./init.js";
 import {Alerter} from "./alerter.js";
 import {MarkerObject, Coordinates} from "./objects.js";
+import { Markers } from "./markers.js";
+import { Controls } from "./controls.js";
+
 
 L.Control.CustomLayer = L.Control.Layers.extend({
     _checkDisabledLayers: function () {}
@@ -44,6 +47,9 @@ export class MapWrapper {
         this.trackPlayer = null;
 
         this.mapInit("mapCanvas");
+
+        this.controls = window.controls = new Controls(this); // This calls initControls internally
+        this.markers = window.markers = new Markers(Config.getConfig(), this.controls);
     }
 
     createBlip(blip, markerTypes){
@@ -316,7 +322,7 @@ export class MapWrapper {
         return this.getBlipMarker(blip) != -1;
     }
 
-    addBlip(blipObj, markers) {
+    addBlip(blipObj) {
         let spriteId = blipObj.type;
 
         if (this.doesBlipExist(blipObj)) {
@@ -324,11 +330,11 @@ export class MapWrapper {
         }
 
         if (!blipObj.hasOwnProperty("name")) { // Doesn't have a name
-            if (markers.MarkerTypes[spriteId] == null || markers.MarkerTypes[spriteId].name == undefined) {
+            if (this.markers.MarkerTypes[spriteId] == null || this.markers.MarkerTypes[spriteId].name == undefined) {
                 // No stored name, make one up. All markers _should_ have a name though.
                 blipObj.name = "Dynamic Marker";
             } else {
-                blipObj.name = markers.MarkerTypes[spriteId].name;
+                blipObj.name = this.markers.MarkerTypes[spriteId].name;
             }
         }
 
@@ -360,7 +366,7 @@ export class MapWrapper {
         }
     }
 
-    updateBlip(blipObj, markers) {
+    updateBlip(blipObj) {
         if (this.doesBlipExist(blipObj)) {
             // Can update it
             let blp = this.getBlipMarker(blipObj);
@@ -384,8 +390,8 @@ export class MapWrapper {
                 name = blipObj.name;
             } else {
                 // No name given, might as well use the default one... If it exists...
-                if (markers.MarkerTypes[blipObj.type] != undefined && markers.MarkerTypes[blipObj.type].name != undefined) {
-                    name = markers.MarkerTypes[blipObj.type].name;
+                if (this.markers.MarkerTypes[blipObj.type] != undefined && this.markers.MarkerTypes[blipObj.type].name != undefined) {
+                    name = this.markers.MarkerTypes[blipObj.type].name;
                 }
             }
 
@@ -552,7 +558,7 @@ export class MapWrapper {
                 let infoContent  = Utils.getInfoHtmlForMarkers(plr.name, html);
                 this.localPlayerCache[plr.identifier].lastHtml = infoContent;
 
-                let obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), window.markers.MarkerTypes[6], "", {isPlayer: true, player: plr});
+                let obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), this.markers.MarkerTypes[6], "", {isPlayer: true, player: plr});
                 // TODO: Implement
                 // let m = localPlayerCache[plr.identifier].marker = createMarker(false, false, obj, plr.name) - 1;
 
