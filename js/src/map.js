@@ -525,31 +525,30 @@ export class MapWrapper {
                 }
 
                 // Update the player's location on the map :)
-                // TODO: Implement
-                //MarkerStore[localPlayerCache[plr.identifier].marker].setLatLng(convertToMapLeaflet(plr.pos.x, plr.pos.y));
+                playerMarkerFromStore.setLatLng(Utils.convertToMapLeaflet(this.CurrentLayer, plr.pos.x, plr.pos.y));
 
                 //update popup with the information we have been sent
-                let html = this.getPlayerInfoHtml(plr);
+                let html = Utils.getPlayerInfoHtml(plr);
 
-                let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
+                //let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
+                let infoContent = Utils.getInfoHtmlForMarkers(plr.name, html);
 
-                let m = this.localPlayerCache[plr.identifier].marker;
-                // TODO: Implement
-                // let marker = MarkerStore[m];
-                // let popup = PopupStore[m];
+                let marker = playerMarkerFromStore;
+                let popUp = this.PopupStore[playerMarkerInLocalCache];
 
-                // marker.setOpacity(opacity);
+                marker.setOpacity(opacity);
 
-                // if (infoContent != localPlayerCache[plr.identifier].lastHtml){
-                //     popup.setContent(infoContent);
-                //     localPlayerCache[plr.identifier].lastHtml = infoContent;
-                // }
+                if (infoContent != this.localPlayerCache[plr.identifier].lastHtml){
+                    popUp.setContent(infoContent);
+                    this.localPlayerCache[plr.identifier].lastHtml = infoContent;
+                }
 
-                // if(popup.isOpen()){
-                //     if (popup.getLatLng().distanceTo(marker.getLatLng()) != 0){
-                //         popup.setLatLng(marker.getLatLng());
-                //     }
-                // }
+                // Move the popup with the player
+                if(popUp.isOpen()){
+                    if (popUp.getLatLng().distanceTo(marker.getLatLng()) != 0){
+                        popUp.setLatLng(marker.getLatLng());
+                    }
+                }
 
 
             } else {
@@ -559,22 +558,21 @@ export class MapWrapper {
                 this.localPlayerCache[plr.identifier].lastHtml = infoContent;
 
                 let obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), this.markers.MarkerTypes[6], "", {isPlayer: true, player: plr});
-                // TODO: Implement
-                // let m = localPlayerCache[plr.identifier].marker = createMarker(false, false, obj, plr.name) - 1;
+                let m = this.localPlayerCache[plr.identifier].marker = this.createMarker(false, obj, plr.name) - 1;
 
-                // MarkerStore[m].unbindPopup(); // We want to handle the popups ourselfs.
-                // MarkerStore[m].setOpacity(opacity);
+                this.MarkerStore[m].unbindPopup(); // We want to handle the popups ourselves.
+                this.MarkerStore[m].setOpacity(opacity);
 
-                // PopupStore[m] = L.popup()
-                //     .setContent(infoContent)
-                //     .setLatLng(MarkerStore[m].getLatLng()); // Make a new marker
+                this.PopupStore[m] = L.popup()
+                    .setContent(infoContent)
+                    .setLatLng(this.MarkerStore[m].getLatLng()); // Make a new marker
 
-                // MarkerStore[m].on("click", function(e) {
-                //     Config.log(e);
-                //     Map.closePopup(Map._popup);
-                //     PopupStore[e.target.options.id].setLatLng(e.latlng);
-                //     Map.openPopup(PopupStore[e.target.options.id]);
-                // });
+                this.MarkerStore[m].on("click", function(e) {
+                    Config.log(e);
+                    this.Map.closePopup(this.Map._popup);
+                    this.PopupStore[e.target.options.id].setLatLng(e.latlng);
+                    this.Map.openPopup(this.PopupStore[e.target.options.id]);
+                });
             }
         }
 
