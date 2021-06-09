@@ -1,3 +1,5 @@
+import { Config } from "./config.js";
+
 // This file needs to be loaded first
 export class Utils {
     constructor(){}
@@ -104,7 +106,7 @@ export class Utils {
             if (key !== "identifier") {
                 html += Utils.getHtmlForInformation(key, plr[key]);
                 ///html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
-            } else if (this.config.showIdentifiers && key == "identifier") {
+            } else if (Config.getConfig().showIdentifiers && key == "identifier") {
                 html += Utils.getHtmlForInformation(key, plr[key]);
             } else {
                 continue;
@@ -119,6 +121,27 @@ export class Utils {
 
         return (str1 < str2) ? -1 : (str1 > str2) ? 1 : 0;
     }
+
+    static getFilterProps(plr){
+        let props = [];
+        for (let key in plr) {
+            //Config.log("found key: "+ key);
+            if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
+                continue; // We're already displaying this info
+            }
+
+            if (key !== "identifier") {
+                props.push(key);
+            } else if (Config.getConfig().showIdentifiers && key == "identifier") {
+                props.push(key);
+            } else {
+                continue;
+            }
+        }
+
+        return props;
+    }
+
 
 
 }
