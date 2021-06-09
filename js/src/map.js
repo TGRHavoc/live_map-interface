@@ -474,6 +474,7 @@ export class MapWrapper {
                     let filterOption = document.createElement("option");
                     filterOption.value = _p;
                     filterOption.innerText = _p;
+                    filterOption.className = "text-info";
 
                     this.CanFilterOn.push(_p);
                 //     $("#filterOn").append(`<option value="${_p}">${_p}</option>`);
