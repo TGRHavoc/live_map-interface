@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch debug.html",
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "url": "http://localhost/gtav/debug.html",
+            "pathMappings": [
+                {
+                    "url": "http://localhost/gtav",
+                    "path": "${workspaceFolder}"
+                }
+            ]
+        }
+    ]
+}
