@@ -48,7 +48,7 @@ ProxyPassReverse /blips http://{{FIVEM_IP}}:{{SOCKET_PORT}}/blips
 RewriteEngine on
 RewriteCond %{HTTP:UPGRADE} ^WebSocket$ [NC]
 RewriteCond %{HTTP:CONNECTION} ^Upgrade$ [NC]
-RewriteRule /ws ws://{{FIVEM_IP}}:{{SOCKET_PORT}}/ [P]
+RewriteRule /ws ws://{{FIVEM_IP}}:{{SOCKET_PORT}}/%{REQUEST_URI} [P]
 ```
 
 So the full block would look like:
@@ -64,7 +64,7 @@ So the full block would look like:
     RewriteEngine on
     RewriteCond %{HTTP:UPGRADE} ^WebSocket$ [NC]
     RewriteCond %{HTTP:CONNECTION} ^Upgrade$ [NC]
-    RewriteRule /ws ws://{{FIVEM_IP}}:{{SOCKET_PORT}}/ [P]
+    RewriteRule /ws ws://{{FIVEM_IP}}:{{SOCKET_PORT}}/%{REQUEST_URI} [P]
 </VirtualHost>
 ```
 
@@ -72,12 +72,12 @@ So the full block would look like:
 
 Inside your `server` block for your website you will need to add
 ```conf
-location /blips/ {
+location /blips {
     proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}}/blips;
 }
 
-location /ws/ {
-    proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}}/;
+location /ws {
+    proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}};
 
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -97,12 +97,12 @@ server {
     root                /some/location/for/livemap-interface;
     index index.html;
 
-    location /blips/ {
+    location /blips {
         proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}}/blips;
     }
 
-    location /ws/ {
-        proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}}/;
+    location /ws {
+        proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}};
 
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
