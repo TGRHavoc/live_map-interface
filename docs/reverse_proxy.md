@@ -77,7 +77,7 @@ location /blips {
 }
 
 location /ws {
-    proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}};
+    proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}}/;
 
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -102,7 +102,7 @@ server {
     }
 
     location /ws {
-        proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}};
+        proxy_pass http://{{FIVEM_IP}}:{{SOCKET_PORT}}/;
 
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
