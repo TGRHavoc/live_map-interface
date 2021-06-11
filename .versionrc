@@ -3,7 +3,7 @@
     "releaseCommitMessageFormat": "chore(release): v{{currentTag}}",
     "scripts": {
         "prerelease": "yarn gulp",
-        "precommit": "git add dist/"
+        "precommit": "git add -A dist/ style/src/"
     },
     "bumpFiles": [
         {
