@@ -38,7 +38,7 @@
         },
         "filter": {
             "title": "Фильтр",
-            "disable-filter": "Отключить фильтр"
+            "disable-filter": "Отключить фильтр",
             "filter-value": "Со значением",
             "filter-placeholder": "Некоторое значение"
         }
