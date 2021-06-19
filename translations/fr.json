@@ -37,7 +37,7 @@
             "disable": "Arrêter le suivi"
         },
         "filter": {
-            "title": "Filtrer",
+            "title": "Filtre",
             "disable-filter": "Désactiver le filtre",
             "filter-value": "Avec une valeur de",
             "filter-placeholder": "Une certaine valeur"
@@ -91,7 +91,7 @@
     "updates": {
         "available": {
             "title": "Mise à jour disponible",
-            "message": "Une mise à jour est disponible (%(currentVersion)s -> %(remoteVersion)s). Veuillez le télécharger <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>ICI.</a>"
+            "message": "Une mise à jour est disponible (%(currentVersion)s -> %(remoteVersion)s). Veuillez la télécharger <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>ICI.</a>"
         },
         "latest": {
             "title": "À jour!",
