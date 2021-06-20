@@ -168,6 +168,7 @@ Must be one of the following:
 * **perf**: A code change that improves performance
 * **refactor**: A code change that neither fixes a bug nor adds a feature
 * **test**: Adding missing tests or correcting existing tests
+* **translation**: Adding or updating translations
 
 
 #### Scope
