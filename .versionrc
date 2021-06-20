@@ -18,35 +18,35 @@
     "commitAll": true,
     "types": [
         {
-            "type": "feat",
-            "section": "Features"
+            "type": "translation",
+            "section": "Translations"
         },
         {
-            "type": "fix",
-            "section": "Bug Fixes"
+            "type": "chore",
+            "hidden": false
+        },
+        {
+            "type": "docs",
+            "section": "Documentation",
+            "hidden": false
+        },
+        {
+            "type": "style",
+            "hidden": false
         },
         {
             "type": "refactor",
-            "section": "Changes"
+            "hidden": false
         },
         {
             "type": "perf",
-            "section": "Performance Changes"
+            "section": "Performance",
+            "hidden": false
         },
         {
             "type": "test",
             "section": "Tests",
-            "hidden": true
-        },
-        {
-            "type": "build",
-            "section": "Build System",
-            "hidden": true
-        },
-        {
-            "type": "ci",
-            "section": "Continuous Intergration",
-            "hidden": true
+            "hidden": false
         }
     ]
 }
