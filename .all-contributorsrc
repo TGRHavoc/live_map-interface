@@ -115,6 +115,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "Cu-chi",
+      "name": "Cuchi'",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42467470?v=4",
+      "profile": "https://github.com/Cu-chi",
+      "contributions": [
+        "translation"
+      ]
     }
   ],
   "contributorsPerLine": 6,
