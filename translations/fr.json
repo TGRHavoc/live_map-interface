@@ -22,7 +22,7 @@
             "show": "Afficher les blips"
         },
         "connection": {
-            "title": "Connexions",
+            "title": "Connexion",
             "live-update": "Mise à jour en direct",
             "reconnect": "Reconnecter"
         },
