@@ -11,7 +11,7 @@
         "off": "Désactivé",
         "connected": "Connecté",
         "disconnected": "Déconnecté",
-        "reconnecting": "Reconnexion ...",
+        "reconnecting": "Reconnexion...",
         "close": "Fermer"
     },
     "controls": {
