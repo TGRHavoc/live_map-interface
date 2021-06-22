@@ -8,7 +8,7 @@
     },
     "generic": {
         "on": "Activé",
-        "off": "Off",
+        "off": "Désactivé",
         "connected": "Connecté",
         "disconnected": "Déconnecté",
         "reconnecting": "Reconnexion ...",
