@@ -6,6 +6,24 @@ parent: LiveMap Interface
 ---
 # Changelog
 
+### [4.1.2](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.1...v4.1.2) (2021-07-03)
+
+
+### Documentation
+
+* **contributing:** add translation to types for commits ([1a23cbf](https://github.com/TGRHavoc/live_map-interface/commit/1a23cbf93dd48b740e6cbf55ee23abf9b6935566))
+* move changelog into docs/ ([91c5dbc](https://github.com/TGRHavoc/live_map-interface/commit/91c5dbc598ab78e6de5e955bf69f842a8444c579))
+* update .all-contributorsrc [skip ci] ([451e0cc](https://github.com/TGRHavoc/live_map-interface/commit/451e0cc52a81e355104bae8fe405791c38587b81))
+* update docs/README.md [skip ci] ([b6ca593](https://github.com/TGRHavoc/live_map-interface/commit/b6ca59329bebe5284e99ed8efe5fa71a0594455b))
+
+
+### Translations
+
+* **fr:** `Connexions` -> `Connexion` ([8542007](https://github.com/TGRHavoc/live_map-interface/commit/854200788911eaccd5cb151144eddf81edc2d9ee))
+* **fr:** `off` -> `Désactivé` ([b8c7102](https://github.com/TGRHavoc/live_map-interface/commit/b8c7102ca4baf2ab1eaead49c4fcf622eaa90606))
+* **fr:** `Une certaine valeur` -> `La valeur` ([c589a7b](https://github.com/TGRHavoc/live_map-interface/commit/c589a7bb77319a992710d79ffa25c26ea2b91341))
+* **fr:** fix grammar for `generic.reconnecting` ([b234470](https://github.com/TGRHavoc/live_map-interface/commit/b234470e63c425bbb94c06fe2f103490a7ce1c85))
+
 ## [4.1.0](https://github.com/TGRHavoc/live_map-interface/compare/v4.0.1...v4.1.0) (2021-06-09)
 
 
