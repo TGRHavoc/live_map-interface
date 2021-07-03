@@ -1,11 +1,42 @@
 {
-  "dependencies": {
-    "gulp": "^4.0.2",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-cli": "^2.3.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-minify": "^3.1.0",
-    "gulp-replace": "^1.1.2",
-    "gulp-strip-css-comments": "^2.0.0"
-  }
+    "version": "4.1.1",
+    "scripts": {
+        "doc": "jsdoc2md > docs/api.md",
+        "release": "standard-version && git push --follow-tags origin develop && conventional-github-releaser"
+    },
+    "jshintConfig": {
+        "esversion": "2015",
+        "browser": true,
+        "latedef": true,
+        "newcap": true,
+        "undef": true,
+        "predef": [
+            "L",
+            "console"
+        ]
+    },
+    "dependencies": {
+        "@babel/core": "^7.14.3",
+        "@babel/polyfill": "^7.12.1",
+        "@babel/preset-env": "^7.14.2",
+        "babelify": "^10.0.0",
+        "browserify": "^17.0.0",
+        "gulp": "^4.0.2",
+        "gulp-clean-css": "^4.3.0",
+        "gulp-cli": "^2.3.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-minify": "^3.1.0",
+        "gulp-replace": "^1.1.2",
+        "gulp-sass": "^4.1.0",
+        "gulp-strip-css-comments": "^2.0.0",
+        "vinyl-source-stream": "^2.0.0"
+    },
+    "devDependencies": {
+        "conventional-github-releaser": "^3.1.5",
+        "jsdoc-to-markdown": "^7.0.1",
+        "jshint": "^2.12.0",
+        "gulp-strip-css-comments": "^2.0.0",
+        "all-contributors-cli": "^6.20.0",
+        "standard-version": "^9.3.0"
+    }
 }

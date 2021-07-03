@@ -1,42 +1,53 @@
 {
-	"changelogHeader" : "# Changelog\n",
-    "message": "chore(release): v%s",
-	"scripts": {
-		"prerelease": "gulp",
-		"precommit": "git add dist/"
-	},
-	"commitAll": true,
-	"types": [
-		{
-			"type": "feat",
-			"section": "Features"
-		},
-		{
-			"type": "fix",
-			"section": "Bug Fixes"
-		},
-		{
-			"type": "refactor",
-			"section": "Changes"
-		},
-		{
-			"type": "perf",
-			"section": "Performance Changes"
-		},
-		{
-			"type": "test",
-			"section": "Tests",
-			"hidden": true
-		},
-		{
-			"type": "build",
-			"section": "Build System",
-			"hidden": true
-		},
-		{
-			"type": "ci",
-			"section": "Continuous Intergration",
-			"hidden": true
-		}
-	]
+    "header": "---\nlayout: default\ntitle: Changelog\nnav_order: 9999\nparent: LiveMap Interface\n---\n# Changelog\n",
+    "infile": "docs/CHANGELOG.md",
+    "releaseCommitMessageFormat": "chore(release): v{{currentTag}}",
+    "scripts": {
+        "prerelease": "yarn gulp",
+        "precommit": "git add -A dist/ style/src/"
+    },
+    "bumpFiles": [
+        {
+            "filename": "version.json",
+            "updater": "tools/standard-version-bump.js"
+        },
+        {
+            "filename": "package.json",
+            "type": "json"
+        }
+    ],
+    "commitAll": true,
+    "types": [
+        {
+            "type": "translation",
+            "section": "Translations"
+        },
+        {
+            "type": "chore",
+            "hidden": false
+        },
+        {
+            "type": "docs",
+            "section": "Documentation",
+            "hidden": false
+        },
+        {
+            "type": "style",
+            "hidden": false
+        },
+        {
+            "type": "refactor",
+            "hidden": false
+        },
+        {
+            "type": "perf",
+            "section": "Performance",
+            "hidden": false
+        },
+        {
+            "type": "test",
+            "section": "Tests",
+            "hidden": false
+        }
+    ]
 }

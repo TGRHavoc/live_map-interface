@@ -1,0 +1,22 @@
+// Leaflet's css for pop-ups. Needs to be overridden to be consistent with the theme
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background-color: $body-bg !important;
+    color: $body-color !important;
+}
+
+.leaflet-control-layers {
+    background-color: $body-bg !important;
+    color: $body-color !important;
+}
+
+.leaflet-bar {
+    a.leaflet-disabled {
+        color: $nav-link-disabled-color !important;
+    }
+
+    a {
+        background-color: $body-bg !important;
+        color: $link-color !important;
+    }
+}
