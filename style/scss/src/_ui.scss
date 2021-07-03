@@ -1,0 +1,69 @@
+/// <reference path="./_variables.scss" />
+
+#mapCanvas {
+    height: calc(100vh - 74px); // 74px = Navbar height
+    background-color: rgba(#0fa8d2, 1);
+}
+
+.control-header {
+    color: rgba($cyan, 1);
+}
+
+div#blipControlContainer {
+    a.blip-button-a {
+        position: relative;
+        padding: 0.5rem 1rem;
+        color: #fff;
+        text-decoration: none;
+        background-color: #303030;
+        border: 1px solid #444;
+
+        &.blip-enabled {
+            -webkit-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+            -moz-box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+            box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+            background-color: rgba(lighten($orange, 15%), 0.67);
+            padding: 0.3rem 1.1em;
+        }
+
+        &.blip-disabled {
+            background-color: rgba(darken($red, 10%), 0.67);
+            padding: 0.3rem 1.1em;
+        }
+    }
+}
+
+.clear {
+    clear: both;
+}
+
+.info-window {
+    padding: 10px;
+    background-color: $body-bg;
+
+    .info-header-box {
+        margin-bottom: 2px;
+    }
+
+    .info-header {
+        float: left;
+        font-size: 1.8em !important;
+        font-weight: bold !important;
+        padding-top: 3px;
+    }
+
+    .info-body {
+        height: 33px;
+        border-top: 1px solid $light;
+    }
+
+    .info-body-row {
+        strong {
+            width: auto;
+        }
+    }
+
+    .info-body-row {
+        padding: 2px 0;
+    }
+}

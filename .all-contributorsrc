@@ -1,0 +1,131 @@
+{
+  "projectName": "live_map-interface",
+  "projectOwner": "TGRHavoc",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "docs/README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "TGRHavoc",
+      "name": "Jordan Dalton",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1770893?v=4",
+      "profile": "https://tgrhavoc.co.uk/",
+      "contributions": [
+        "code",
+        "doc",
+        "design",
+        "ideas"
+      ]
+    },
+    {
+      "login": "TomGrobbe",
+      "name": "Tom",
+      "avatar_url": "https://avatars.githubusercontent.com/u/31419184?v=4",
+      "profile": "https://tomgrobbe.nl/",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "xlxAciDxlx",
+      "name": "AciD",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7502881?v=4",
+      "profile": "https://xlxacidxlx.com/",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "jiynn",
+      "name": "jiynn",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33206565?v=4",
+      "profile": "https://github.com/jiynn",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Local9",
+      "name": "127.0.0.1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6077794?v=4",
+      "profile": "https://github.com/Local9",
+      "contributions": [
+        "bug",
+        "code"
+      ]
+    },
+    {
+      "login": "davwheat",
+      "name": "David Wheatley",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7406822?v=4",
+      "profile": "https://github.com/davwheat",
+      "contributions": [
+        "code",
+        "bug"
+      ]
+    },
+    {
+      "login": "DaveOkpare",
+      "name": "David Okpare",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19241431?v=4",
+      "profile": "https://github.com/DaveOkpare",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "matsn0w",
+      "name": "matsn0w",
+      "avatar_url": "https://avatars.githubusercontent.com/u/15019582?v=4",
+      "profile": "https://github.com/matsn0w",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "JasonO99",
+      "name": "Jason Olsen",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2074263?v=4",
+      "profile": "https://github.com/JasonO99",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Aaron-Downham",
+      "name": "Aaron-Downham",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32743520?v=4",
+      "profile": "https://github.com/Aaron-Downham",
+      "contributions": [
+        "bug"
+      ]
+    },
+    {
+      "login": "Annihilator4423",
+      "name": "Annihilator4423",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61148120?v=4",
+      "profile": "https://github.com/Annihilator4423",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Cu-chi",
+      "name": "Cuchi'",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42467470?v=4",
+      "profile": "https://github.com/Cu-chi",
+      "contributions": [
+        "translation"
+      ]
+    }
+  ],
+  "contributorsPerLine": 6,
+  "skipCi": true
+}

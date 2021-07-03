@@ -1,0 +1,104 @@
+{
+    "credit": "Esto fue creado originalmente por",
+    "navbar": {
+        "select-server": "Seleccionar un servidor",
+        "controls": "Mostrar controles",
+        "blips": "Controles blip",
+        "language": "Idioma"
+    },
+    "generic": {
+        "on": "Activado",
+        "off": "Desactivado",
+        "connected": "Conectado",
+        "disconnected": "Desconectado",
+        "reconnecting": "Reconectando ...",
+        "close": "Cerrar"
+    },
+    "controls": {
+        "title": "Controls",
+        "blips": {
+            "title": "Marcadores",
+            "refresh": "Actualizar",
+            "show": "Show"
+        },
+        "connection": {
+            "title": "Conexiones",
+            "live-update": "Actualización en vivo",
+            "reconnect": "Vuelva a conectar"
+        },
+        "information": {
+            "viewing": "Viendo actualmente",
+            "blips-loaded": "Marcadores cargados",
+            "players": "Recuento de jugadores"
+        },
+        "track-player": {
+            "title": "Rastrear a un jugador",
+            "disable": "Detener el seguimiento"
+        },
+        "filter": {
+            "title": "Filtrar",
+            "filter-value": "Con el valor",
+            "filter-placeholder": "Alguna cosa",
+            "disable-filter": "Deshabilitar filtro"
+        }
+    },
+    "blip-controls": {
+        "title": "Mostrar controles",
+        "toggle": "Alternar todo"
+    },
+    "errors": {
+        "version-check": {
+            "current": {
+                "title": "Error al obtener la versión local.",
+                "message": "%(error.message)s"
+            },
+            "remote": {
+                "title": "Error al obtener la versión remota.",
+                "message": "%(error.message)s"
+            }
+        },
+        "getting-blips": {
+            "title": "Error al obtener blips.json",
+            "message": "%(error.message)s"
+        },
+        "getting-config": {
+            "title": "Error al obtener la configuración",
+            "message": "%(error.message)s"
+        },
+        "socket-error": "Error con la conexión de WebSocket",
+        "server-config": {
+            "title": "¡No se pudo cargar la configuración del servidor!",
+            "message": "El servidor \"%(nameOfServer)s\" no existe en el archivo de configuración."
+        },
+        "socket": {
+            "1000": "Cierre normal, lo que significa que se ha cumplido el propósito para el que se estableció la conexión.",
+            "1001": "El servidor está cayendo o un navegador ha salido de una página.",
+            "1002": "Un punto final está terminando la conexión debido a un error de protocolo",
+            "1003": "Incorrecto tipo de datos recibido por el servidor",
+            "1004": "Reservado. El significado específico podría definirse en el futuro.",
+            "1005": "No había ningún código de estado realmente presente.",
+            "1006": "La conexión se cerró de forma anormal, por ejemplo, sin enviar o recibir un marco de control Cerrar",
+            "1007": "El servidor ha recibido datos dentro de un mensaje que no coherente con el tipo de mensaje.",
+            "1008": "El servidor ha recibido un mensaje que 'viola su política'.",
+            "1009": "El servidor recibió un mensaje que es demasiado grande para procesarlo.",
+            "1010": "El cliente esperaba que el servidor negociara una o más extensiones, pero el servidor no las devolvió en el mensaje de respuesta del protocolo de enlace de WebSocket.\nEspecíficamente, las extensiones que se necesitan son: %(reason)s",
+            "1011": "El servidor encontró una condición inesperada que le impidió cumplir con la solicitud.",
+            "1015": "La conexión se cerró debido a una falla al realizar un protocolo de enlace TLS (por ejemplo, el certificado del servidor no se puede verificar).",
+            "other": "Razón desconocida: %(code)s %(reason)s"
+        }
+    },
+    "updates": {
+        "available": {
+            "title": "Actualización disponible",
+            "message": "Hay una actualización disponible (%(currentVersion)s -> %(remoteVersion)s). Descárguelo <a style='color: #000;' href='https://github.com/TGRHavoc/live_map-interface/releases'>AQUÍ.</a>"
+        },
+        "latest": {
+            "title": "¡A hoy!",
+            "message": "Buenas noticias, está utilizando la última versión de la interfaz de LiveMap. Por favor, disfruta %(currentVersion)s!"
+        }
+    },
+    "map": {
+        "position": "Posición",
+        "description": "Descripción"
+    }
+}
