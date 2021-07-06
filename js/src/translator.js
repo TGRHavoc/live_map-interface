@@ -1,12 +1,13 @@
-import {Alerter} from "./alerter.js";
-import {Config} from "./config.js";
-import {vsprintf} from "./sprintf.js";
+import { Alerter } from "./alerter.js";
+import { Config } from "./config.js";
+import { vsprintf } from "./sprintf.js";
 
 export class Translator {
 
     constructor() {
         this._lang = this.getLanguage();
         this.translations = {};
+        this.manifest = {};
 
         this._elements = document.querySelectorAll("[data-i18n]");
 
@@ -15,6 +16,7 @@ export class Translator {
 
         fetch("translations/manifest.json").then(async resp => {
             let j = await resp.json();
+            _.manifest = j;
 
             _.putLanguagesIntoNavbar(j);
         }).catch(err => {
@@ -24,6 +26,10 @@ export class Translator {
                 text: err.message
             });
         });
+
+        if (!this.manifest[this._lang]) { // The user's language isn't in the manifest... Just fall back to English
+            this._lang = "en";
+        }
 
         //this.setLanguage(this._lang);
         localStorage.setItem("lang", this._lang);
@@ -72,13 +78,13 @@ export class Translator {
     }
 
     async getLanguageFromFile() {
-        try{
+        try {
             let translations = await fetch(`translations/${this._lang}.json`);
             this.translations = await translations.json();
             this.translatePage();
 
             return Promise.resolve();
-        }catch(ex){
+        } catch (ex) {
             new Alerter({
                 status: "error",
                 title: "Error getting translation file",
@@ -93,7 +99,7 @@ export class Translator {
         return key.split('.').reduce((obj, i) => (obj ? obj[i] : null), this.translations);
     }
 
-    t(key, ...params){
+    t(key, ...params) {
         Config.log(`Translating ${this.getValueFromJSON(key)}:`, params);
         return vsprintf(this.getValueFromJSON(key), params);
     }
@@ -103,7 +109,7 @@ export class Translator {
      * @param {Element} element
      */
     replace(element) {
-        if (!element.getAttribute("data-i18n")){
+        if (!element.getAttribute("data-i18n")) {
             console.error(`Element needs a data-i18n attribute to be translated.
                 ${element}`);
             return;
@@ -120,7 +126,7 @@ The HTML element is:
     ${element.outerHTML}`);
         }
 
-        if (attributes){
+        if (attributes) {
             attributes = attributes.split(/\s/g);
         }
 
