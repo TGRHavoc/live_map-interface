@@ -455,119 +455,119 @@ export class MapWrapper {
 
     doPlayerHtmlUpdates(plr) {
 
-            if (plr == null || plr.name == undefined || plr.name == "") return;
-            if (plr.identifier == undefined || plr.identifier == "") return;
+        if (plr == null || plr.name == undefined || plr.name == "") return;
+        if (plr.identifier == undefined || plr.identifier == "") return;
 
-            if (!(plr.identifier in this.localPlayerCache)) {
-                this.localPlayerCache[plr.identifier] = { marker: null, lastHtml: null };
-            }
+        if (!(plr.identifier in this.localPlayerCache)) {
+            this.localPlayerCache[plr.identifier] = { marker: null, lastHtml: null };
+        }
 
-            // Filtering stuff
+        // Filtering stuff
 
-            // If this player has a new property attached to them that we haven't seen before, add it to the filer
-            let p = Utils.getFilterProps(plr);
-            //console.log("Can filter on: ", p);
-            p.forEach((_p) => {
-                //console.log("THIS INSIDE OF FOREACH = ", this);
-                if (!this.CanFilterOn.includes(_p)){
-                    let filterOption = document.createElement("option");
-                    filterOption.value = _p;
-                    filterOption.innerText = _p;
-                    filterOption.className = "text-info";
+        // If this player has a new property attached to them that we haven't seen before, add it to the filer
+        let p = Utils.getFilterProps(plr);
+        //console.log("Can filter on: ", p);
+        p.forEach((_p) => {
+            //console.log("THIS INSIDE OF FOREACH = ", this);
+            if (!this.CanFilterOn.includes(_p)) {
+                let filterOption = document.createElement("option");
+                filterOption.value = _p;
+                filterOption.innerText = _p;
+                filterOption.className = "text-info";
 
-                    this.CanFilterOn.push(_p);
+                this.CanFilterOn.push(_p);
                 //     $("#filterOn").append(`<option value="${_p}">${_p}</option>`);
-                    document.getElementById("filterOn").appendChild(filterOption);
-                }
-            });
-
-            let opacity = 1.0;
-            if (this.Filter != undefined){
-                if (plr[this.Filter.on] == undefined) {
-                    opacity = 0.0;
-                }else{
-                    let value = document.getElementById("onlyShow").value;
-                    if (value != "" && !plr[this.Filter.on].includes(value)){
-                        opacity = 0.0;
-                    }
-                }
+                document.getElementById("filterOn").appendChild(filterOption);
             }
+        });
 
-            let selectPlayerOptions = document.getElementById("playerSelect");
-            // console.log("selectPlayerOptions", selectPlayerOptions);
-
-            if(!Utils.optionExists(plr.identifier, selectPlayerOptions)){
-                // They're not an option to track. Add them!
-                let playerOption = document.createElement("option");
-                playerOption.value = plr.identifier;
-                playerOption.innerText = plr.name;
-                playerOption.className = "text-info"; // Parent will have `text-danger` some times so, override it here
-
-                selectPlayerOptions.appendChild(playerOption);
-            }
-
-            if (this.trackPlayer != null && this.trackPlayer == plr.identifier) {
-                // If we're tracking a player, make sure we center them
-                this.Map.panTo(Utils.convertToMap(this.CurrentLayer, plr.pos.x, plr.pos.y));
-            }
-
-            const playerMarkerInLocalCache = this.localPlayerCache[plr.identifier].marker;
-            const playerMarkerFromStore = this.MarkerStore[playerMarkerInLocalCache];
-
-            if (playerMarkerInLocalCache && playerMarkerFromStore) {
-                // If we have a custom icon (we should) use it!!
-                if (plr.icon) {
-                    let t = this.markers.MarkerTypes[plr.icon];
-
-                    //Config.log("Got icon of :" + plr.icon);
-                    playerMarkerFromStore.setIcon(L.icon(t));
-                }
-
-                // Update the player's location on the map :)
-                playerMarkerFromStore.setLatLng(Utils.convertToMapLeaflet(this.CurrentLayer, plr.pos.x, plr.pos.y));
-
-                //update popup with the information we have been sent
-                let html = Utils.getPlayerInfoHtml(plr);
-
-                //let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
-                let infoContent = Utils.getInfoHtmlForMarkers(plr.name, html);
-
-                let marker = playerMarkerFromStore;
-                let popUp = this.PopupStore[playerMarkerInLocalCache];
-
-                marker.setOpacity(opacity);
-
-                if (infoContent != this.localPlayerCache[plr.identifier].lastHtml){
-                    popUp.setContent(infoContent);
-                    this.localPlayerCache[plr.identifier].lastHtml = infoContent;
-                }
-
-                // Move the popup with the player
-                if(popUp.isOpen()){
-                    if (popUp.getLatLng().distanceTo(marker.getLatLng()) != 0){
-                        popUp.setLatLng(marker.getLatLng());
-                    }
-                }
-
-
+        let opacity = 1.0;
+        if (this.Filter != undefined) {
+            if (plr[this.Filter.on] == undefined) {
+                opacity = 0.0;
             } else {
-                let html = Utils.getPlayerInfoHtml(plr);
-                //let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
-                let infoContent  = Utils.getInfoHtmlForMarkers(plr.name, html);
-                this.localPlayerCache[plr.identifier].lastHtml = infoContent;
-
-                let obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), this.markers.MarkerTypes[6], "", {isPlayer: true, player: plr});
-                let m = this.localPlayerCache[plr.identifier].marker = this.createMarker(false, obj, plr.name) - 1;
-
-                this.MarkerStore[m].unbindPopup(); // We want to handle the popups ourselves.
-                this.MarkerStore[m].setOpacity(opacity);
-
-                this.PopupStore[m] = L.popup()
-                    .setContent(infoContent)
-                    .setLatLng(this.MarkerStore[m].getLatLng()); // Make a new marker
-
-                this.MarkerStore[m].on("click", this.controls.playerMarker_onClick.bind(this.controls, this));
+                let value = document.getElementById("onlyShow").value;
+                if (value != "" && !plr[this.Filter.on].includes(value)) {
+                    opacity = 0.0;
+                }
             }
         }
+
+        let selectPlayerOptions = document.getElementById("playerSelect");
+        // console.log("selectPlayerOptions", selectPlayerOptions);
+
+        if (!Utils.optionExists(plr.identifier, selectPlayerOptions)) {
+            // They're not an option to track. Add them!
+            let playerOption = document.createElement("option");
+            playerOption.value = plr.identifier;
+            playerOption.innerText = plr.name;
+            playerOption.className = "text-info"; // Parent will have `text-danger` some times so, override it here
+
+            selectPlayerOptions.appendChild(playerOption);
+        }
+
+        if (this.trackPlayer != null && this.trackPlayer == plr.identifier) {
+            // If we're tracking a player, make sure we center them
+            this.Map.panTo(Utils.convertToMap(this.CurrentLayer, plr.pos.x, plr.pos.y));
+        }
+
+        const playerMarkerInLocalCache = this.localPlayerCache[plr.identifier].marker;
+        const playerMarkerFromStore = this.MarkerStore[playerMarkerInLocalCache];
+
+        if (playerMarkerFromStore) {
+            // If we have a custom icon (we should) use it!!
+            if (plr.icon) {
+                let t = this.markers.MarkerTypes[plr.icon];
+
+                //Config.log("Got icon of :" + plr.icon);
+                playerMarkerFromStore.setIcon(L.icon(t));
+            }
+
+            // Update the player's location on the map :)
+            playerMarkerFromStore.setLatLng(Utils.convertToMapLeaflet(this.CurrentLayer, plr.pos.x, plr.pos.y));
+
+            //update popup with the information we have been sent
+            let html = Utils.getPlayerInfoHtml(plr);
+
+            //let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
+            let infoContent = Utils.getInfoHtmlForMarkers(plr.name, html);
+
+            let marker = playerMarkerFromStore;
+            let popUp = this.PopupStore[playerMarkerInLocalCache];
+
+            marker.setOpacity(opacity);
+
+            if (infoContent != this.localPlayerCache[plr.identifier].lastHtml) {
+                popUp.setContent(infoContent);
+                this.localPlayerCache[plr.identifier].lastHtml = infoContent;
+            }
+
+            // Move the popup with the player
+            if (popUp.isOpen()) {
+                if (popUp.getLatLng().distanceTo(marker.getLatLng()) != 0) {
+                    popUp.setLatLng(marker.getLatLng());
+                }
+            }
+
+
+        } else {
+            let html = Utils.getPlayerInfoHtml(plr);
+            //let infoContent = '<div class="info-window"><div class="info-header-box"><div class="info-icon"></div><div class="info-header">' + plr.name + '</div></div><div class="clear"></div><div id=info-body>' + html + "</div></div>";
+            let infoContent = Utils.getInfoHtmlForMarkers(plr.name, html);
+            this.localPlayerCache[plr.identifier].lastHtml = infoContent;
+
+            let obj = new MarkerObject(plr.name, new Coordinates(plr.pos.x, plr.pos.y, plr.pos.z), this.markers.MarkerTypes[6], "", { isPlayer: true, player: plr });
+            let m = this.localPlayerCache[plr.identifier].marker = this.createMarker(false, obj, plr.name) - 1;
+
+            this.MarkerStore[m].unbindPopup(); // We want to handle the popups ourselves.
+            this.MarkerStore[m].setOpacity(opacity);
+
+            this.PopupStore[m] = L.popup()
+                .setContent(infoContent)
+                .setLatLng(this.MarkerStore[m].getLatLng()); // Make a new marker
+
+            this.MarkerStore[m].on("click", this.controls.playerMarker_onClick.bind(this.controls, this));
+        }
+    }
 
 }
