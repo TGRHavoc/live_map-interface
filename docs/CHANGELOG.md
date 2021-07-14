@@ -6,6 +6,16 @@ parent: LiveMap Interface
 ---
 # Changelog
 
+### [4.1.4](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.3...v4.1.4) (2021-07-14)
+
+
+### Documentation
+
+* **config:** remove old fields ([cd57335](https://github.com/TGRHavoc/live_map-interface/commit/cd5733580aa02b997e4b3f51550cad27c105b9e7))
+
+
+* bump markercluster ([d8961ac](https://github.com/TGRHavoc/live_map-interface/commit/d8961acf7ea8b1473f1ef43106be1e802fc2c252))
+
 ### [4.1.3](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.2...v4.1.3) (2021-07-06)
 
 ### [4.1.2](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.1...v4.1.2) (2021-07-03)
