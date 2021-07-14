@@ -1,5 +1,5 @@
-import {Config} from "./config.js";
-import {Alerter} from "./alerter.js";
+import { Config } from "./config.js";
+import { Alerter } from "./alerter.js";
 import { MapWrapper } from "./map.js";
 import { Markers } from "./markers.js";
 import { Utils } from "./utils.js";
@@ -12,14 +12,19 @@ export class SocketHandler {
      * Creates an instance of SocketHandler.
      * @memberof SocketHandler
      */
-    constructor(){
+    constructor() {
         this.config = Config.getConfig();
         this.webSocket = null;
         this.localPlayerCache = {};
     }
 
     //FIXME: We should pass a reference to mapWrapper here and call it's functions
-    connect(connectionString, mapWrapper){
+    connect(connectionString, mapWrapper) {
+        if (this.webSocket != null) { // Clean up the current websocket connection
+            this.webSocket.close();
+            this.webSocket = null;
+        }
+
         this.webSocket = new WebSocket(connectionString);
 
         this.webSocket.onopen = this.onOpen.bind(this);
@@ -97,28 +102,16 @@ export class SocketHandler {
 
     onError(event) {
         // TODO: Alert the user?
-    }
 
-    onClose(event) {
-        // from http://stackoverflow.com/a/28396165
-        let reason;
-        // See http://tools.ietf.org/html/rfc6455#section-7.4.1
-        if (event.code >= 1000 && event.code <= 1015) {
-            console.warn(event.code);
-            reason = window.Translator.t(`errors.socket.${event.code}`, event);
-        } else {
-            reason = window.Translator.t(`errors.socket.other`, event);
-        }
-
-        //$("#socket_error").text(reason);
-        // console.error("Socket error: " + reason);
         new Alerter({
             title: window.Translator.t("errors.socket-error"),
             status: "error",
-            autoclose: false,
-            text: `${reason}`
+            autoclose: true,
+            text: window.Translator.t("errors.getting-config.message", "There was an error with your websocket connection.")
         });
+    }
 
+    onClose(event) {
         let conn = document.getElementById("connection");
 
         conn.classList.remove("bg-success", "bg-warning");
