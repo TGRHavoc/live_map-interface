@@ -10,12 +10,14 @@ permalink: /livemap-interface
 [![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+
 <p align="center">
-  <img alt="LiveMap" src="./images/LiveMap%20logo.svg" width="300" />
+    <img src="https://raw.githubusercontent.com/TGRHavoc/live_map-interface/develop/docs/images/LiveMap%20logo.svg?raw=true" alt="Logo" width="300" />
 </p>
-<p align="center">
-  <img alt="LiveMap" src="./images/0c19843d5026e94c83623b294406d2cf6de64f072cd15f6f9afe65b2ffcd5db8.gif" />
-</p>
+
+| ![LiveMap GIF](./images/0c19843d5026e94c83623b294406d2cf6de64f072cd15f6f9afe65b2ffcd5db8.gif) |
+| :-------------------------------------------------------------------------------------------: |
+
 
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
 
