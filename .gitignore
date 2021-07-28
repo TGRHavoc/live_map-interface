@@ -18,3 +18,5 @@ yarn-error.log
 .env
 blips.json
 TODO
+
+coverage/
