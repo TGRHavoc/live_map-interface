@@ -15,10 +15,6 @@ permalink: /livemap-interface
     <img src="https://raw.githubusercontent.com/TGRHavoc/live_map-interface/develop/docs/images/LiveMap%20logo.svg?raw=true" alt="Logo" width="300" />
 </p>
 
-| ![LiveMap GIF](./images/0c19843d5026e94c83623b294406d2cf6de64f072cd15f6f9afe65b2ffcd5db8.gif) |
-| :-------------------------------------------------------------------------------------------: |
-
-
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
 
 - [Prerequisites](#prerequisites)
@@ -62,6 +58,10 @@ This should be enough to get the interface up and running on your website. If yo
 | ![Player Information](./images/a7369dd2c6a1d9e31db91cf8822373ad89d310aea6953f85cf952d02c2bcff9f.png) |
 | :--------------------------------------------------------------------------------------------------: |
 |                                     Player information (example)                                     |
+
+| ![GIF of interface](./images/0c19843d5026e94c83623b294406d2cf6de64f072cd15f6f9afe65b2ffcd5db8.gif) |
+| :------------------------------------------------------------------------------------------------: |
+|                                        GIF of the interface                                        |
 
 ## Frequently Asked Questions ❓ 
 
