@@ -14,7 +14,7 @@ permalink: /livemap-interface
   <img alt="LiveMap" src="./images/LiveMap%20logo.svg" width="300" />
 </p>
 <p align="center">
-  <img alt="LiveMap" src="./images/d0d5d365dd98f837327849811cd115a06e7b46b94f2a5c17ca1675835f92.gif" />
+  <img alt="LiveMap" src="./images/0c19843d5026e94c83623b294406d2cf6de64f072cd15f6f9afe65b2ffcd5db8.gif" />
 </p>
 
 This is the Web Interface for the FiveM addon [live_map](https://github.com/TGRHavoc/live_map).
@@ -40,13 +40,13 @@ This should be enough to get the interface up and running on your website. If yo
 
 ## Screenshots 🖼️
 
-| ![Main Interface](./images/8ede69f9d1c4c251c47e6c299a0febf1065143a615114cf89540c29bc6ff.png) | ![Control Modal](./images/0a51852e1458f2b04479fe04f0581d491fcd4ed958e4b0ece6b48568c6a1.png) |
-| :------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: |
-|                                   Main Interface (Desktop)                                   |                                   Control Modal (Desktop)                                   |
+| ![Main Interface](./images/4f9f772cf2c04f1ada6be1d56dccb56155d6607cb0dc7bf2e526a6f43bf7128b.png) | ![Control Modal](./images/b4e0ced36d3ffcdd61f08fa3eb442c5a01d23699a330fd58207a95c3842a20de.png) |
+| :----------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: |
+|                                     Main Interface (Desktop)                                     |                                     Control Modal (Desktop)                                     |
 
-| ![Blip control modal](./images/4ba160e9bdbac9aa21490d80303d2515787a0ebe36742ab1241d87968851.png) | ![Select Language](./images/3f0a38c5a10c427ab9c9c725a9304803b4972dbb672d9029fc3a173a0d2c.png) |
-| :----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------: |
-|                                   Blip control modal (Desktop)                                   |                                   Language Select (Desktop)                                   |
+| ![Blip control modal](./images/0e2595e1746eddc1e694a32653fa0ddd1d0eadde33cdc3e22be5e708f059f898.png) | ![Select Language](./images/583c0e9ed7c51aad2d394775cdee98ed83b3637eb92bca89af8d14422ec84db4.png) |
+| :--------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: |
+|                                     Blip control modal (Desktop)                                     |                                     Language Select (Desktop)                                     |
 
 
 | ![Main Interface - Mobile](./images/1b74c6a78fda6509d07d328ce58d890f1b955122b68b6f05080b6532e97ffe7f.png) | ![Control Modal - Mobile](./images/cbc7f7b8ac5ca1b0e7690d642a6229830fa36ee16683cd0f63f32e1bffd230d4.png) |
@@ -57,9 +57,9 @@ This should be enough to get the interface up and running on your website. If yo
 | :-----------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
 |                                          Blip control modal (Mobile)                                          |                                          Language Select (Mobile)                                          |
 
-| ![Player Information](./images/f904cd6071d1b0b9a4e03959fdf4bc6a32a5c1f8613e463f54e6c31f8c13.png) |
-| :----------------------------------------------------------------------------------------------: |
-|                                   Player information (example)                                   |
+| ![Player Information](./images/a7369dd2c6a1d9e31db91cf8822373ad89d310aea6953f85cf952d02c2bcff9f.png) |
+| :--------------------------------------------------------------------------------------------------: |
+|                                     Player information (example)                                     |
 
 ## Frequently Asked Questions ❓ 
 
