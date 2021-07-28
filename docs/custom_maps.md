@@ -26,7 +26,7 @@ If not, then you can extract them from GTA using [OpenIV](https://openiv.com/).
 The default path for the minimap files is `GTA V\x64b.rpf\data\cdimages\scaleform_generic.rpf\`.
 I recommend that you extract the `minimap_sea` files if they are available as they're generally higher quality.
 
-![Extracting](./images/4c64fa0b4eb2ffff4e266dbcc7c0f2240ffd41772e55402c542a7b60b7bd.png)
+![Extracting](./images/be9ec7dfc81bd265a3a44d20a98133b05df9a14a8d644409e40528a7debce5b8.png)
 
 I recommend you extract the files into the [images/tiles](https://github.com/TGRHavoc/live_map-interface/tree/master/images/tiles) directory.
 If not, make sure to copy the Python scripts to the same directory as your YTD files.
@@ -63,7 +63,7 @@ Done
 
 This should give you some PNG files!
 
-![PNG Files](./images/47afdb1dabbf243e377de65e43b5ed110fd6ee4d972f88ec25381a5915fb.png)
+![PNG Files](./images/b47eab9039fe5df729ee8caba868f4de61df991c55fc06c83cc083897d97b140.png)
 
 Put these into their own folder.
 
