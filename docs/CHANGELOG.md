@@ -6,6 +6,24 @@ parent: LiveMap Interface
 ---
 # Changelog
 
+### [4.1.5](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.4...v4.1.5) (2021-08-03)
+
+
+### Documentation
+
+* compress livemap gif ([ebabb75](https://github.com/TGRHavoc/live_map-interface/commit/ebabb759a95c0b0324e3ae1e87cd683491c4d217))
+* **custom_maps:** fix images ([1bd12b3](https://github.com/TGRHavoc/live_map-interface/commit/1bd12b3a34b4e5e0fabb1497417d0714a61104b2))
+* move GIF to screenshots section ([1627896](https://github.com/TGRHavoc/live_map-interface/commit/1627896f1aeb073555826ee5848e9371a005fa42))
+* **readme:** add images to readme ([f7415d2](https://github.com/TGRHavoc/live_map-interface/commit/f7415d297d2813f3d455a970711d308bcbb8c89d))
+* **readme:** add screenshots ([163459f](https://github.com/TGRHavoc/live_map-interface/commit/163459fde6e8a11da3236e4c5a6d4442b0680c73))
+* **readme:** fix images not loading on docs website ([9e7de35](https://github.com/TGRHavoc/live_map-interface/commit/9e7de35104070124e52d6af48bc5eeedc54f13ea))
+* **readme:** increase contributors per line to 5 ([5336c6f](https://github.com/TGRHavoc/live_map-interface/commit/5336c6fc390da67ba3df5a54c7809a1bdad2caab))
+* rename images to sha256 hash ([e88c6e7](https://github.com/TGRHavoc/live_map-interface/commit/e88c6e76c6d8d2bc762504358e80605ce4c2a4a4))
+
+
+* bump dependencies ([3b24932](https://github.com/TGRHavoc/live_map-interface/commit/3b24932bcb2c6cfe13f4980d0b43fe197319e022))
+* remove utils folder ([3e2c6b5](https://github.com/TGRHavoc/live_map-interface/commit/3e2c6b5bb6202d99a41d63f23a35afde5e0778a4))
+
 ### [4.1.4](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.3...v4.1.4) (2021-07-14)
 
 
