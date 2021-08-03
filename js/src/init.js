@@ -46,8 +46,8 @@ export class Initializer {
 
             new Alerter({
                 status: "error",
-                title: lang.t("errors.getting-config.title"),
-                text: lang.t("errors.getting-config.message", { error: error })
+                title: lang.t("errors.getting-blips.title"),
+                text: lang.t("errors.getting-blips.message", { error: error })
             });
             return false;
         }
