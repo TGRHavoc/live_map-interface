@@ -6,6 +6,14 @@ parent: LiveMap Interface
 ---
 # Changelog
 
+### [4.1.6](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.5...v4.1.6) (2021-08-23)
+
+
+* add build script to package.json ([91dd244](https://github.com/TGRHavoc/live_map-interface/commit/91dd244fae920488d6d43066ee194e189a2dedfc))
+* ignore .cache directory ([e799700](https://github.com/TGRHavoc/live_map-interface/commit/e799700853552448c2ea108038e13a2240b8d379))
+* move exports to own line ([8049856](https://github.com/TGRHavoc/live_map-interface/commit/80498562552749bb2aeeff224537f810393983da))
+* remove sourcemap from markercluster file ([1dd5fb5](https://github.com/TGRHavoc/live_map-interface/commit/1dd5fb5ad929465c2019cb54d652f71609af4a04))
+
 ### [4.1.5](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.4...v4.1.5) (2021-08-03)
 
 
