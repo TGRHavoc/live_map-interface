@@ -3,7 +3,7 @@
     "scripts": {
         "build": "gulp",
         "doc": "jsdoc2md > docs/api.md",
-        "release": "gulp && standard-version && git push --follow-tags origin develop && conventional-github-releaser"
+        "release": "standard-version && git push --follow-tags origin develop && conventional-github-releaser"
     },
     "jshintConfig": {
         "esversion": "2015",
