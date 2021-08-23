@@ -2688,4 +2688,3 @@
     exports.MarkerCluster = MarkerCluster;
 
 })));
-//# sourceMappingURL=leaflet.markercluster-src.js.map
