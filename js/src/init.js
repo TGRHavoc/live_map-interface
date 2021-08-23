@@ -1,15 +1,11 @@
 import { Config } from "./config.js";
-import { Translator } from "./translator.js";
 import { Markers } from "./markers.js";
-import { SocketHandler } from "./socket.js";
 import { MapWrapper } from "./map.js";
 import { Alerter } from "./alerter.js";
-import { VersionCheck } from "./version-check.js";
-import { Controls } from "./controls.js";
 
 // This file should initialize the map and set everything up for it to work.
 
-export class Initializer {
+class Initializer {
 
     static page(config) {
         let serverMenu = document.getElementById("serverMenu");
@@ -80,70 +76,4 @@ export class Initializer {
     }
 }
 
-// Modules should be deferred so, DOM should be loaded already when we get here..
-
-(async () => {
-    window.Alerter = Alerter;
-
-    let translator = window.Translator = new Translator();
-
-    let config = null;
-
-    try {
-        await translator.getLanguageFromFile();
-
-        config = await Config.getConfigFileFromRemote();
-
-    } catch (ex) {
-        console.error("Couldn't load LiveMap");
-        console.error(ex);
-        return;
-    }
-
-    window.VersionCheck = new VersionCheck();
-
-    for (const serverName in config.servers) {
-        // Make sure all servers inherit defaults if they need
-        let o = Object.assign({}, config.defaults, config.servers[serverName]);
-        Config.staticConfig.servers[serverName] = o;
-    }
-
-
-    const socketHandler = window.socketHandler = new SocketHandler();
-    const mapWrapper = window.mapWrapper = new MapWrapper(socketHandler);
-
-    Initializer.page(config);
-    mapWrapper.changeServer(Object.keys(Config.staticConfig.servers)[0]); // Show the stuff for the first server in the config.
-})();
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     window.Translator = new Translator();
-
-//     window.Translator.getLanguageFromFile(() => {
-
-//         Config.getConfigFileFromRemote(function(success){
-
-//             if (!success){ // We can't do anything
-//                 console.error("Cannot load map as we can't load config.json");
-//                 return;
-//             }
-
-//             const config = Config.getConfig();
-//             for (const serverName in config.servers) {
-//                 // Make sure all servers inherit defaults if they need
-//                 var o = Object.assign({}, config.defaults, config.servers[serverName]);
-//                 Config.staticConfig.servers[serverName] = o;
-//             }
-
-//             const markers = window.markers = new Markers(config); // initMarkers
-
-//             const socketHandler = window.socketHandler = new SocketHandler();
-//             const mapWrapper = window.mapWrapper = new MapWrapper(socketHandler); // mapInit
-
-//             // todo: Initialize controls/page
-//             Initializer.page(config);
-
-//             mapWrapper.changeServer(Object.keys(Config.staticConfig.servers)[0]); // Show the stuff for the first server in the config.
-//         });
-//     });
-// });
+export { Initializer };

@@ -1,8 +1,8 @@
 import { Config } from "./config.js";
 
 // This file needs to be loaded first
-export class Utils {
-    constructor(){}
+class Utils {
+    constructor() { }
 
     static isNumeric(n) {
         return !isNaN(parseFloat(n)) && isFinite(n)
@@ -26,16 +26,16 @@ export class Utils {
         };
     }
 
-    static getMapBounds(layer){
+    static getMapBounds(layer) {
         const h = layer.options.tileSize * 3,
             w = layer.options.tileSize * 2,
             southWest = window.MapL.unproject([0, h], 0),
-             northEast = window.MapL.unproject([w, 0], 0);
+            northEast = window.MapL.unproject([w, 0], 0);
 
         return new L.LatLngBounds(southWest, northEast);
     }
 
-    static convertToMapLeaflet(currentLayer, x, y){
+    static convertToMapLeaflet(currentLayer, x, y) {
         let t = this.convertToMap(currentLayer, x, y);
         return t;
     }
@@ -58,7 +58,7 @@ export class Utils {
      * @param {number} coords.z
      * @memberof Utils
      */
-    static getPositionHtml(coords){
+    static getPositionHtml(coords) {
         let lang = window.Translator;
         return `<div class="row info-body-row"><strong>${lang.t("map.position")}:</strong>&nbsp;X ${coords.x.toFixed(2)} Y ${coords.y.toFixed(2)} Z ${coords.z.toFixed(2)}</div>`
     }
@@ -72,8 +72,8 @@ export class Utils {
      * @param {number} z
      * @memberof Utils
      */
-    static getPositionHtmlWith(x, y, z){
-        return Utils.getPositionHtml({x, y, z});
+    static getPositionHtmlWith(x, y, z) {
+        return Utils.getPositionHtml({ x, y, z });
     }
 
     /**
@@ -85,11 +85,11 @@ export class Utils {
      * @return {string}
      * @memberof Utils
      */
-    static getHtmlForInformation(key, value){
+    static getHtmlForInformation(key, value) {
         return `<div class="row info-body-row"><strong>${key}:</strong>&nbsp;${value}</div>`
     }
 
-    static getInfoHtmlForMarkers(name, extraHtml){
+    static getInfoHtmlForMarkers(name, extraHtml) {
         return `<div class="info-window"><div class="info-header-box"><div class="info-header">${name}</div></div><div class="clear border"></div><div id="info-body">${extraHtml}</div></div>`
     }
 
@@ -122,7 +122,7 @@ export class Utils {
         return (str1 < str2) ? -1 : (str1 > str2) ? 1 : 0;
     }
 
-    static getFilterProps(plr){
+    static getFilterProps(plr) {
         let props = [];
         for (let key in plr) {
             //Config.log("found key: "+ key);
@@ -147,14 +147,12 @@ export class Utils {
      * @param {String} needle A string representing the option you are looking for
      * @param {Object} haystack A Select object
     */
-    static optionExists ( needle, haystack ){
+    static optionExists(needle, haystack) {
         var optionExists = false,
             optionsLength = haystack.length;
 
-        while ( optionsLength-- )
-        {
-            if ( haystack.options[ optionsLength ].value === needle )
-            {
+        while (optionsLength--) {
+            if (haystack.options[optionsLength].value === needle) {
                 optionExists = true;
                 break;
             }
@@ -193,14 +191,14 @@ Utils.game_2_y = -300.0 - 340.00;
 // p4:  400, 3800 (bottom rigt)         1024,1024
 
 
-export class JsonStrip {
-    constructor(){
+class JsonStrip {
+    constructor() {
         this.singleComment = 1;
         this.multiComment = 2;
     }
 
     static stripWithoutWhitespace() { return ''; }
-    static stripWithWhitespace (str, start, end) { return str.slice(start, end).replace(/\S/g, ' '); }
+    static stripWithWhitespace(str, start, end) { return str.slice(start, end).replace(/\S/g, ' '); }
 
     static stripJsonOfComments(str, opts) {
         opts = opts || {};
@@ -261,3 +259,4 @@ export class JsonStrip {
     }
 }
 
+export { Utils, JsonStrip };

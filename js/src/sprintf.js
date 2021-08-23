@@ -16,12 +16,12 @@ var re = {
     sign: /^[+-]/
 }
 
-export function sprintf(key) {
+function sprintf(key) {
     // `arguments` is not an array, but should be fine for this call
     return sprintf_format(sprintf_parse(key), arguments)
 }
 
-export function vsprintf(fmt, argv) {
+function vsprintf(fmt, argv) {
     return sprintf.apply(null, [fmt].concat(argv || []))
 }
 
@@ -37,7 +37,7 @@ function sprintf_format(parse_tree, argv) {
                 arg = argv[cursor]
                 for (k = 0; k < ph.keys.length; k++) {
                     if (arg == undefined) {
-                        throw new Error(sprintf('[sprintf] Cannot access property "%s" of undefined value "%s"', ph.keys[k], ph.keys[k-1]))
+                        throw new Error(sprintf('[sprintf] Cannot access property "%s" of undefined value "%s"', ph.keys[k], ph.keys[k - 1]))
                     }
                     arg = arg[ph.keys[k]]
                 }
@@ -182,14 +182,14 @@ function sprintf_parse(fmt) {
             parse_tree.push(
                 {
                     placeholder: match[0],
-                    param_no:    match[1],
-                    keys:        match[2],
-                    sign:        match[3],
-                    pad_char:    match[4],
-                    align:       match[5],
-                    width:       match[6],
-                    precision:   match[7],
-                    type:        match[8]
+                    param_no: match[1],
+                    keys: match[2],
+                    sign: match[3],
+                    pad_char: match[4],
+                    align: match[5],
+                    width: match[6],
+                    precision: match[7],
+                    type: match[8]
                 }
             )
         }
@@ -200,3 +200,5 @@ function sprintf_parse(fmt) {
     }
     return sprintf_cache[fmt] = parse_tree
 }
+
+export { vsprintf, sprintf };

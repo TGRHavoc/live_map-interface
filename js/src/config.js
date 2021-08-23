@@ -1,7 +1,7 @@
-import {JsonStrip} from "./utils.js";
-import {Alerter} from "./alerter.js";
+import { JsonStrip } from "./utils.js";
+import { Alerter } from "./alerter.js";
 
-export class Config {
+class Config {
     constructor() { }
 
     static getConfig() {
@@ -14,8 +14,8 @@ export class Config {
     }
 
     // TODO: Move into own class? Config doesn't seem like a good fit here.
-    static log(message, ...params){
-        if(Config.staticConfig.debug){
+    static log(message, ...params) {
+        if (Config.staticConfig.debug) {
             params.unshift(message);
             console.log.apply(this, params);
         }
@@ -24,7 +24,7 @@ export class Config {
     static async getConfigFileFromRemote() {
         const lang = window.Translator;
 
-        try{
+        try {
             let config = await fetch("config.json");
 
             let configData = await config.text();
@@ -36,12 +36,12 @@ export class Config {
 
             return Promise.resolve(configParsed);
 
-        }catch(ex){
+        } catch (ex) {
             console.error(ex);
             new Alerter({
                 status: "error",
                 title: lang.t("errors.getting-config.title"),
-                text: lang.t("errors.getting-config.message", {error: ex})
+                text: lang.t("errors.getting-config.message", { error: ex })
             });
             return Promise.reject(ex);
         }
@@ -61,3 +61,6 @@ Config.defaultConfig = {
     servers: []
 };
 Config.staticConfig = {};
+
+
+export { Config };

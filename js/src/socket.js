@@ -7,7 +7,7 @@ import { Utils } from "./utils.js";
 //TODO: Document the player and blip objects
 // TODO: Document the array of player objects
 
-export class SocketHandler {
+class SocketHandler {
     /**
      * Creates an instance of SocketHandler.
      * @memberof SocketHandler
@@ -107,7 +107,7 @@ export class SocketHandler {
             title: window.Translator.t("errors.socket-error"),
             status: "error",
             autoclose: true,
-            text: window.Translator.t("errors.getting-config.message", "There was an error with your websocket connection.")
+            text: window.Translator.t("errors.getting-config.message", { error: { message: "There was an error with your websocket connection." } })
         });
     }
 
@@ -127,3 +127,5 @@ export class SocketHandler {
 //     window.CanFilterOn = [];
 //     $("#filterOn").innerHtml = "<option></option>";
 // }, 60000);
+
+export { SocketHandler };

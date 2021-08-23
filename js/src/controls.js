@@ -1,16 +1,16 @@
 import { MapWrapper } from "./map.js";
-import {types} from "./markers.js";
-import {Config} from "./config.js";
-import {Initializer} from "./init.js";
+import { types } from "./markers.js";
+import { Config } from "./config.js";
+import { Initializer } from "./init.js";
 
-export class Controls {
+class Controls {
 
     /**
      * Creates an instance of Controls.
      * @param {MapWrapper} mapWrapper
      * @memberof Controls
      */
-    constructor(mapWrapper){
+    constructor(mapWrapper) {
         this.mapWrapper = mapWrapper;
 
         this.blipControlToggleAll = true;
@@ -18,7 +18,7 @@ export class Controls {
         this.initControls();
     }
 
-    initControls(){
+    initControls() {
         document.getElementById("showBlips").onclick = this.showBlips_onClick.bind(this);
         document.getElementById("toggleAllBlips").onclick = this.toggleAllBlips_onClick.bind(this);
         document.getElementById("reconnect").onclick = this.reconnect_onClick.bind(this);
@@ -27,7 +27,7 @@ export class Controls {
         this.mapWrapper.PlayerMarkers.on("cluckerclick", this.playerMarker_clusterClick.bind(this));
 
         document.getElementById("playerSelect").onchange = this.playerSelect_onChange.bind(this);
-        document.getElementById("filterOn").onchange =this.filterOn_onChange.bind(this);
+        document.getElementById("filterOn").onchange = this.filterOn_onChange.bind(this);
         document.getElementById("refreshBlips").onclick = this.refreshBlips_onClick.bind(this);
 
     }
@@ -37,10 +37,10 @@ export class Controls {
      * @param {Markers} markers
      * @memberof Controls
      */
-    generateBlipControls(markers){
+    generateBlipControls(markers) {
         let container = document.getElementById("blipControlContainer");
 
-        for(var blipName in types){
+        for (var blipName in types) {
             let a = document.createElement("a");
             a.setAttribute("data-blip-number", markers.nameToId[blipName]);
             a.id = `blip_${blipName}_link`;
@@ -57,7 +57,7 @@ export class Controls {
 
         var allButtons = document.getElementsByClassName("blip-button-a");
 
-        for (let ele of allButtons){
+        for (let ele of allButtons) {
             ele.onclick = this.blipButtonClicked.bind(this, ele);
         }
 
@@ -65,7 +65,7 @@ export class Controls {
         this.mapWrapper.toggleBlips();
     }
 
-    blipButtonClicked(ele){
+    blipButtonClicked(ele) {
         let blipId = ele.getAttribute("data-blip-number");
         // Toggle blip
         if (this.mapWrapper.disabledBlips.includes(blipId)) {
@@ -83,7 +83,7 @@ export class Controls {
         this.mapWrapper.toggleBlips();
     }
 
-    showBlips_onClick(event){
+    showBlips_onClick(event) {
         const lang = window.Translator;
 
         event.preventDefault();
@@ -102,23 +102,23 @@ export class Controls {
         ele.innerText = lang.t(`generic.${onOff}`);
     }
 
-    toggleAllBlips_onClick(event){
+    toggleAllBlips_onClick(event) {
 
         this.blipControlToggleAll = !this.blipControlToggleAll;
 
 
         let allButtons = document.getElementsByClassName("blip-button-a");
 
-        for (let ele of allButtons){
+        for (let ele of allButtons) {
             let blipId = ele.getAttribute("data-blip-number");
 
-            if (this.blipControlToggleAll){
+            if (this.blipControlToggleAll) {
                 // Showing them
                 this.mapWrapper.disabledBlips.splice(this.mapWrapper.disabledBlips.indexOf(blipId), 1);
                 ele.classList.remove("blip-disabled");
                 ele.classList.add("blip-enabled");
 
-            }else{
+            } else {
                 //Hiding them
                 this.mapWrapper.disabledBlips.push(blipId);
                 ele.classList.remove("blip-enabled");
@@ -132,7 +132,7 @@ export class Controls {
 
     }
 
-    playerMarker_clusterClick(a){
+    playerMarker_clusterClick(a) {
         const Map = this.mapWrapper.Map;
 
         var html = L.DomUtil.create("ul");
@@ -154,7 +154,7 @@ export class Controls {
         Map.openPopup(html, a.layer.getLatLng());
     }
 
-    playerInsideCluster_onClick(e){
+    playerInsideCluster_onClick(e) {
         var t = e.target;
         var attribute = t.getAttribute("data-identifier");
         var m = this.mapWrapper.PopupStore[this.mapWrapper.localCache[attribute].marker]; // Get the marker using the localcache.
@@ -163,7 +163,7 @@ export class Controls {
         Map.openPopup(m); // Open the user's popup
     }
 
-    reconnect_onClick(e){
+    reconnect_onClick(e) {
 
         e.preventDefault();
 
@@ -177,28 +177,28 @@ export class Controls {
 
 
 
-        if(this.mapWrapper.socketHandler.webSocket != undefined || this.mapWrapper.socketHandler.webSocket != null){
+        if (this.mapWrapper.socketHandler.webSocket != undefined || this.mapWrapper.socketHandler.webSocket != null) {
             this.mapWrapper.socketHandler.webSocket.close();
         }
 
         this.mapWrapper.socketHandler.connect(this.mapWrapper.connectedTo.getSocketUrl());
     }
 
-    serverMenu_onClick(e){
+    serverMenu_onClick(e) {
         let target = e.target;
         this.mapWrapper.changeServer(target.innerText);
     }
 
-    playerMarker_onClick(mw, e){
+    playerMarker_onClick(mw, e) {
         mw.Map.closePopup(mw.Map._popup);
         mw.PopupStore[e.target.options.id].setLatLng(e.latlng);
         mw.Map.openPopup(mw.PopupStore[e.target.options.id]);
     }
 
-    playerSelect_onChange(e){
+    playerSelect_onChange(e) {
         let value = e.target.value;
 
-        if (value == ""){ // No longer want to track
+        if (value == "") { // No longer want to track
             this.mapWrapper.trackPlayer = null;
             e.target.classList.add("text-danger");
             return;
@@ -209,9 +209,9 @@ export class Controls {
         this.mapWrapper.trackPlayer = value;
     }
 
-    filterOn_onChange(e){
+    filterOn_onChange(e) {
         const value = e.target.value;
-        if (value == ""){
+        if (value == "") {
             this.mapWrapper.Filter = undefined;
             e.target.classList.add("text-danger");
             //document.getElementById("filterOn").classList.remove("text-danger");
@@ -224,10 +224,13 @@ export class Controls {
         };
     }
 
-    refreshBlips_onClick(e){
+    refreshBlips_onClick(e) {
         e.preventDefault();
 
         this.mapWrapper.clearAllMarkers();
         Initializer.blips(this.mapWrapper.connectedTo.getBlipUrl(), this.mapWrapper.markers, this.mapWrapper);
     }
 }
+
+
+export { Controls };

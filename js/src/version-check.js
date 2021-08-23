@@ -1,8 +1,8 @@
-import {Alerter} from "./alerter.js";
+import { Alerter } from "./alerter.js";
 
-export class VersionCheck {
+class VersionCheck {
 
-    constructor(){
+    constructor() {
         this.versionFile = "version.json";
         this.currentVersion = "0.0.0";
         this.remoteVersion = "4.0.0";
@@ -13,7 +13,7 @@ export class VersionCheck {
         this.doUpdate();
     }
 
-    updateInterface(){
+    updateInterface() {
         document.getElementById("livemapVersion").textContent = this.currentVersion;
     }
 
@@ -78,9 +78,9 @@ export class VersionCheck {
         return 0;
     }
 
-    async getCurrentVersion(){
+    async getCurrentVersion() {
         const lang = window.Translator;
-        try{
+        try {
             let response = await fetch(this.versionFile);
 
             let data = await response.json();
@@ -88,10 +88,10 @@ export class VersionCheck {
 
             return Promise.resolve(data.interface);
 
-        }catch(error){
+        } catch (error) {
             new Alerter({
                 status: "error",
-                text: lang.t("errors.version-check.current.message", {error:error}),
+                text: lang.t("errors.version-check.current.message", { error: error }),
                 title: lang.t("errors.version-check.current.title")
             });
 
@@ -99,18 +99,18 @@ export class VersionCheck {
         }
     }
 
-    async getRemoteVersion(){
+    async getRemoteVersion() {
         const lang = window.Translator;
-        try{
+        try {
             let response = await fetch(this.remoteVersionUrl);
             let data = await response.json();
 
             this.remoteVersion = data.interface;
             return Promise.resolve(data.interface);
-        }catch(err){
+        } catch (err) {
             new Alerter({
                 status: "error",
-                text: lang.t("errors.version-check.remote.message", {error:error}),
+                text: lang.t("errors.version-check.remote.message", { error: error }),
                 title: lang.t("errors.version-check.remote.title")
             });
 
@@ -118,24 +118,24 @@ export class VersionCheck {
         }
     }
 
-    async doUpdate(){
+    async doUpdate() {
         const lang = window.Translator;
 
-        try{
+        try {
             await this.getCurrentVersion();
             this.updateInterface();
 
             await this.getRemoteVersion();
-        }catch(err){
+        } catch (err) {
             console.error(err);
         }
-        
-        if (this.compareVersions(this.currentVersion, this.remoteVersion) <= 0){
+
+        if (this.compareVersions(this.currentVersion, this.remoteVersion) <= 0) {
             new Alerter({
                 title: lang.t("updates.available.title"),
                 text: lang.t("updates.available.message", this)
             });
-        }else{
+        } else {
             //console.log("Up to date or, a higher version");
             new Alerter({
                 status: "success",
@@ -148,6 +148,8 @@ export class VersionCheck {
 
     }
 }
+
+export { VersionCheck };
 
 // window.VersionCheck = new VersionCheck();
 

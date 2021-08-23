@@ -2,7 +2,7 @@ import { Alerter } from "./alerter.js";
 import { Config } from "./config.js";
 import { vsprintf } from "./sprintf.js";
 
-export class Translator {
+class Translator {
 
     constructor() {
         this._lang = this.getLanguage();
@@ -164,3 +164,5 @@ The HTML element is:
         }
     }
 }
+
+export { Translator };

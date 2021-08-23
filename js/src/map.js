@@ -1,26 +1,26 @@
 /// <reference path="./socket.js" />
 
-import {Config} from "./config.js";
-import {Utils} from "./utils.js";
-import {Initializer} from "./init.js";
-import {Alerter} from "./alerter.js";
-import {MarkerObject, Coordinates} from "./objects.js";
+import { Config } from "./config.js";
+import { Utils } from "./utils.js";
+import { Initializer } from "./init.js";
+import { Alerter } from "./alerter.js";
+import { MarkerObject, Coordinates } from "./objects.js";
 import { Markers } from "./markers.js";
 import { Controls } from "./controls.js";
 
 
 L.Control.CustomLayer = L.Control.Layers.extend({
-    _checkDisabledLayers: function () {}
+    _checkDisabledLayers: function () { }
 });
 
-export class MapWrapper {
+class MapWrapper {
 
     /**
      * Creates an instance of MapWrapper.
      * @param {SocketHandler} socketHandler
      * @memberof MapWrapper
      */
-    constructor(socketHandler){
+    constructor(socketHandler) {
         this.MarkerStore = [];
         this.PopupStore = {}; // { MarkerId: Popup }
         this.CurrentLayer = undefined;
@@ -37,7 +37,7 @@ export class MapWrapper {
         this.Filter = undefined; // For filtering players
         this.CanFilterOn = []; // What can the user filter?
 
-        this.blips= [];
+        this.blips = [];
         this.showBlips = true;
         this.disabledBlips = [];
         this.blipCount = 0;
@@ -52,11 +52,11 @@ export class MapWrapper {
         this.markers = window.markers = new Markers(Config.getConfig(), this.controls);
     }
 
-    createBlip(blip, markerTypes){
+    createBlip(blip, markerTypes) {
         Config.log("Creating blip", blip);
-        if (!blip.hasOwnProperty("pos")){
+        if (!blip.hasOwnProperty("pos")) {
             // BACKWARDS COMPATABILITY!!
-            blip.pos = { x: blip.x, y: blip.y, z: blip.z};
+            blip.pos = { x: blip.x, y: blip.y, z: blip.z };
 
             //Delete the old shit.. It's nicly wrapped in the pos object now
             delete blip.x;
@@ -66,7 +66,7 @@ export class MapWrapper {
 
         var obj = new MarkerObject(blip.name, new Coordinates(blip.pos.x, blip.pos.y, blip.pos.z), markerTypes[blip.type], blip.description, "", "");
 
-        if (this.blips[blip.type] == null){
+        if (this.blips[blip.type] == null) {
             this.blips[blip.type] = [];
         }
 
@@ -76,7 +76,7 @@ export class MapWrapper {
         this.blipCount++;
     }
 
-    toggleBlips(){
+    toggleBlips() {
         for (var spriteId in this.blips) {
             var blipArray = this.blips[spriteId];
             Config.log("Disabled (" + spriteId + ")? " + this.disabledBlips.includes(spriteId));
@@ -97,21 +97,21 @@ export class MapWrapper {
             blipArray.forEach(blip => {
                 //console.log(blip);
                 var marker = this.MarkerStore[blip.markerId];
-                if (this.showBlips){
+                if (this.showBlips) {
                     marker.addTo(this.Map);
-                }else{
+                } else {
                     marker.remove();
                 }
             });
         }
     }
 
-    changeServer(nameOfServer){
+    changeServer(nameOfServer) {
         Config.log("Changing connected server to: " + nameOfServer);
         if (!(nameOfServer in Config.staticConfig.servers)) {
             new Alerter({
                 title: window.Translator.t("errors.server-config.title"),
-                text: window.Translator.t("errors.server-config.message", {nameOfServer})
+                text: window.Translator.t("errors.server-config.message", { nameOfServer })
             });
             return;
         }
@@ -151,36 +151,36 @@ export class MapWrapper {
         this.Filter = undefined;
 
         const _ = this;
-        setTimeout( function () {
+        setTimeout(function () {
             Initializer.blips(_.connectedTo.getBlipUrl(), window.markers, _);
 
             _.socketHandler.connect(_.connectedTo.getSocketUrl(), _);
         }, 50);
     }
 
-    mapInit(elementID){
+    mapInit(elementID) {
         // Create the different layers
         const config = Config.getConfig();
         let tileLayers = {};
         let maps = config.maps;
         maps.forEach(map => {
             Config.log(map);
-            if (map.tileSize){ map.tileSize = 1024; } // Force 1024 down/up scale
+            if (map.tileSize) { map.tileSize = 1024; } // Force 1024 down/up scale
 
             tileLayers[map.name] = L.tileLayer(map.url,
                 Object.assign(
-                { minZoom: -2, maxZoom: 2, tileSize: 1024, maxNativeZoom: 0, minNativeZoom: 0, tileDirectory: config.tileDirectory },
-                map)
+                    { minZoom: -2, maxZoom: 2, tileSize: 1024, maxNativeZoom: 0, minNativeZoom: 0, tileDirectory: config.tileDirectory },
+                    map)
             );
             Config.log(tileLayers[map.name]);
         });
 
         this.CurrentLayer = tileLayers[Object.keys(tileLayers)[0]];
 
-        this.Map =  window.MapL = L.map(elementID, {
+        this.Map = window.MapL = L.map(elementID, {
             crs: L.CRS.Simple,
             layers: [this.CurrentLayer]
-        }).setView([0,0], 0);
+        }).setView([0, 0], 0);
 
         let mapBounds = Utils.getMapBounds(this.CurrentLayer);
         this.Map.setMaxBounds(mapBounds.pad(1)); // Give the user some "wiggle room" before the map snaps back into bounds
@@ -210,7 +210,7 @@ export class MapWrapper {
         let html = Utils.getPositionHtml(objectRef.position);
         //let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + objectRef.position.x.toFixed(2) + "} Y {" + objectRef.position.y.toFixed(2) + "} Z {" + objectRef.position.z.toFixed(2) + "}</div>";
 
-        if (objectRef.description != ""){
+        if (objectRef.description != "") {
             //html += '<div class="row info-body-row"><strong>Description:</strong>&nbsp;' + objectRef.description + "</div>";
             html += Utils.getHtmlForInformation(lang.t("map.description"), objectRef.description);
         }
@@ -221,11 +221,11 @@ export class MapWrapper {
         let image = L.icon(markerType);
 
         let where = this.Map;
-        if(objectRef.data && objectRef.data.isPlayer && Config.getConfig().groupPlayers){
+        if (objectRef.data && objectRef.data.isPlayer && Config.getConfig().groupPlayers) {
             // Add to the cluster layer
             where = this.PlayerMarkers;
         }
-        if(where == undefined){
+        if (where == undefined) {
             console.warn("For some reason window.MapL or window.PlayerMarkers is undefined");
             console.warn("Cannot add the blip: " + objectRef);
             where = this.createClusterLayer();
@@ -244,7 +244,7 @@ export class MapWrapper {
         return this.MarkerStore.length;
     }
 
-    createClusterLayer(){
+    createClusterLayer() {
         this.PlayerMarkers = L.markerClusterGroup({ // Re-make it fresh
             maxClusterRadius: 20,
             spiderfyOnMaxZoom: false,
@@ -273,10 +273,10 @@ export class MapWrapper {
         this.MarkerStore.length = 0;
 
         // Re-do player markers
-        for(let id in this.socketHandler.localCache){
+        for (let id in this.socketHandler.localCache) {
             this.localCache[id].marker = null;
         }
-        if(this.Map != undefined){
+        if (this.Map != undefined) {
             this.Map.removeLayer(this.PlayerMarkers); // Remove the cluster layer
             this.PlayerMarkers = undefined;
 
@@ -301,18 +301,18 @@ export class MapWrapper {
         }
     }
 
-    getBlipMarker(blip){
-        if(this.blips[blip.type] == null){
+    getBlipMarker(blip) {
+        if (this.blips[blip.type] == null) {
             return -1;
         }
 
         var blipArrayForType = this.blips[blip.type];
 
-        for(var b in blipArrayForType){
+        for (var b in blipArrayForType) {
             var blp = blipArrayForType[b];
 
-            if (blp.pos.x == blip.pos.x && blp.pos.y == blip.pos.y && blp.pos.z == blip.pos.z){
-                return {index: b, blip: blp};
+            if (blp.pos.x == blip.pos.x && blp.pos.y == blip.pos.y && blp.pos.z == blip.pos.z) {
+                return { index: b, blip: blp };
             }
         }
 
@@ -320,7 +320,7 @@ export class MapWrapper {
         return -1;
     }
 
-    doesBlipExist(blip){
+    doesBlipExist(blip) {
         return this.getBlipMarker(blip) != -1;
     }
 
@@ -423,14 +423,14 @@ export class MapWrapper {
 
     playerLeft(playerName) {
         if (this.localPlayerCache[playerName] !== undefined &&
-                (this.localPlayerCache[playerName].marker != null || this.localPlayerCache[playerName].marker != undefined)) {
+            (this.localPlayerCache[playerName].marker != null || this.localPlayerCache[playerName].marker != undefined)) {
             //clearMarker(localPlayerCache[playerName].marker);
             this.clearMarker(this.localPlayerCache[playerName].marker);
             delete this.localPlayerCache[playerName];
         }
 
         let playerSelect = document.querySelector(`#playerSelect option[value='${playerName}']`);
-        if (playerSelect){
+        if (playerSelect) {
             playerSelect.remove();
         }
 
@@ -571,3 +571,6 @@ export class MapWrapper {
     }
 
 }
+
+
+export { MapWrapper }
