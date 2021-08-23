@@ -20,3 +20,4 @@ blips.json
 TODO
 
 coverage/
+.cache/
