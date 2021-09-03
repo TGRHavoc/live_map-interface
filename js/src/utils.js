@@ -1,4 +1,3 @@
-import { Config } from "./config.js";
 
 // This file needs to be loaded first
 class Utils {
@@ -98,7 +97,7 @@ class Utils {
         let html = Utils.getPositionHtml(plr.pos);
 
         for (let key in plr) {
-            //Config.log("found key: "+ key);
+            //console.log("found key: "+ key);
             if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
                 continue; // We're already displaying this info
             }
@@ -125,7 +124,7 @@ class Utils {
     static getFilterProps(plr) {
         let props = [];
         for (let key in plr) {
-            //Config.log("found key: "+ key);
+            //console.log("found key: "+ key);
             if (key == "name" || key == "pos" || key == "icon") { // I should probably turn this into a array or something
                 continue; // We're already displaying this info
             }

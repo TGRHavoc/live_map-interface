@@ -37,7 +37,7 @@ class SocketHandler {
     }
 
     onOpen(e) {
-        Config.log("_isConnected: " + this.webSocket.readyState == WebSocket.OPEN);
+        console.log("_isConnected: " + this.webSocket.readyState == WebSocket.OPEN);
         let conn = document.getElementById("connection");
 
         conn.classList.remove("bg-danger", "bg-warning");
@@ -58,8 +58,8 @@ class SocketHandler {
         let m = encodeURIComponent(e.data).match(/%[89ABab]/g);
         let byteSize = e.data.length + (m ? m.length : 0);
 
-        Config.log("recieved message (" + byteSize / 1024 + " kB)");
-        Config.log("data: " + e.data);
+        console.log("recieved message (" + byteSize / 1024 + " kB)");
+        console.log("data: " + e.data);
 
         let data = JSON.parse(e.data);
 
@@ -87,13 +87,13 @@ class SocketHandler {
             // this.updateBlip(data.payload);
 
         } else if (data.type == "playerData") {
-            //Config.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
+            //console.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
             let sortedPlayers = data.payload.sort(Utils.playerNameSorter);
             //this.doPlayerUpdate(sortedPlayers);
             mapWrapper.doPlayerUpdate(sortedPlayers);
 
         } else if (data.type == "playerLeft") {
-            //Config.log("player left:" + data.payload);
+            //console.log("player left:" + data.payload);
             //this.playerLeft(data.payload);
             mapWrapper.playerLeft(data.payload);
         }

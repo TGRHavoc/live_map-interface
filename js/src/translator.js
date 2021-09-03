@@ -1,5 +1,4 @@
 import { Alerter } from "./alerter.js";
-import { Config } from "./config.js";
 import { vsprintf } from "./sprintf.js";
 
 class Translator {
@@ -56,7 +55,7 @@ class Translator {
     }
 
     setLanguage(lang) {
-        Config.log("Switching language to " + lang);
+        console.log("Switching language to " + lang);
 
         if (lang == this._lang) {
             return;
@@ -100,7 +99,7 @@ class Translator {
     }
 
     t(key, ...params) {
-        Config.log(`Translating ${this.getValueFromJSON(key)}:`, params);
+        console.log(`Translating ${this.getValueFromJSON(key)}:`, params);
         return vsprintf(this.getValueFromJSON(key), params);
     }
 

@@ -1,6 +1,5 @@
 import { MapWrapper } from "./map.js";
 import { types } from "./markers.js";
-import { Config } from "./config.js";
 import { Initializer } from "./init.js";
 
 class Controls {
@@ -52,7 +51,7 @@ class Controls {
 
             container.appendChild(a);
 
-            Config.log("Added ahref for " + blipName);
+            console.log("Added ahref for " + blipName);
         }
 
         var allButtons = document.getElementsByClassName("blip-button-a");

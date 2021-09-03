@@ -53,7 +53,7 @@ class MapWrapper {
     }
 
     createBlip(blip, markerTypes) {
-        Config.log("Creating blip", blip);
+        console.log("Creating blip", blip);
         if (!blip.hasOwnProperty("pos")) {
             // BACKWARDS COMPATABILITY!!
             blip.pos = { x: blip.x, y: blip.y, z: blip.z };
@@ -79,7 +79,7 @@ class MapWrapper {
     toggleBlips() {
         for (var spriteId in this.blips) {
             var blipArray = this.blips[spriteId];
-            Config.log("Disabled (" + spriteId + ")? " + this.disabledBlips.includes(spriteId));
+            console.log("Disabled (" + spriteId + ")? " + this.disabledBlips.includes(spriteId));
 
             if (this.disabledBlips.indexOf(spriteId) != -1) {
                 //console.log("Blip " + spriteId + "'s are disabled..");
@@ -107,7 +107,7 @@ class MapWrapper {
     }
 
     changeServer(nameOfServer) {
-        Config.log("Changing connected server to: " + nameOfServer);
+        console.log("Changing connected server to: " + nameOfServer);
         if (!(nameOfServer in Config.staticConfig.servers)) {
             new Alerter({
                 title: window.Translator.t("errors.server-config.title"),
@@ -164,7 +164,7 @@ class MapWrapper {
         let tileLayers = {};
         let maps = config.maps;
         maps.forEach(map => {
-            Config.log(map);
+            console.log(map);
             if (map.tileSize) { map.tileSize = 1024; } // Force 1024 down/up scale
 
             tileLayers[map.name] = L.tileLayer(map.url,
@@ -172,7 +172,7 @@ class MapWrapper {
                     { minZoom: -2, maxZoom: 2, tileSize: 1024, maxNativeZoom: 0, minNativeZoom: 0, tileDirectory: config.tileDirectory },
                     map)
             );
-            Config.log(tileLayers[map.name]);
+            console.log(tileLayers[map.name]);
         });
 
         this.CurrentLayer = tileLayers[Object.keys(tileLayers)[0]];
@@ -197,13 +197,13 @@ class MapWrapper {
         }
 
         objectRef.position = Utils.stringCoordToFloat(objectRef.position);
-        //Config.log(objectRef.position);
+        //console.log(objectRef.position);
         let coord = Utils.convertToMapLeaflet(this.CurrentLayer, objectRef.position.x, objectRef.position.y);
-        //Config.log(coord);
+        //console.log(coord);
         let markerType = objectRef.type;
         const lang = window.Translator;
 
-        //Config.log(JSON.stringify(locationType));
+        //console.log(JSON.stringify(locationType));
 
 
         //TODO: TRANSLATE ENGLISH HERE
@@ -436,20 +436,20 @@ class MapWrapper {
 
         this.playerCount = Object.keys(this.localPlayerCache).length;
 
-        Config.log("Playerleft playercount: " + this.playerCount);
+        console.log("Playerleft playercount: " + this.playerCount);
 
         document.getElementById("playerCount").innerText = this.playerCount;
     }
 
     doPlayerUpdate(players) {
 
-        Config.log(players);
+        console.log(players);
 
         players.forEach(this.doPlayerHtmlUpdates.bind(this));
 
         this.playerCount = Object.keys(this.localPlayerCache).length;
 
-        Config.log("playercount: " + this.playerCount);
+        console.log("playercount: " + this.playerCount);
         document.getElementById("playerCount").textContent = this.playerCount;
     }
 
@@ -519,7 +519,7 @@ class MapWrapper {
             if (plr.icon) {
                 let t = this.markers.MarkerTypes[plr.icon];
 
-                //Config.log("Got icon of :" + plr.icon);
+                //console.log("Got icon of :" + plr.icon);
                 playerMarkerFromStore.setIcon(L.icon(t));
             }
 

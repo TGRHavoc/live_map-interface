@@ -2,7 +2,6 @@ import { Config } from "./config.js";
 import { Markers } from "./markers.js";
 import { MapWrapper } from "./map.js";
 import { Alerter } from "./alerter.js";
-
 // This file should initialize the map and set everything up for it to work.
 
 class Initializer {
@@ -29,7 +28,7 @@ class Initializer {
      * @param {MapWrapper} mapWrapper
      */
     static async blips(url, markers, mapWrapper) {
-        Config.log("Sending request to", url);
+        console.log("Sending request to", url);
         const lang = window.Translator;
         let data = null;
 

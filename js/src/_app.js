@@ -24,6 +24,11 @@ import { Initializer } from "./init.js";
         return;
     }
 
+    if (!config.debug) {
+        console.log("Disabling console.log... Goodbye console!");
+        console.log = function () { }; // If we don't have debugging enabled. Just route all console.log's to an empty function
+    }
+
     window.VersionCheck = new VersionCheck();
 
     for (const serverName in config.servers) {

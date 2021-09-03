@@ -1,6 +1,5 @@
 import { JsonStrip } from "./utils.js";
 import { Alerter } from "./alerter.js";
-
 class Config {
     constructor() { }
 
@@ -13,14 +12,6 @@ class Config {
         return this.staticConfig;
     }
 
-    // TODO: Move into own class? Config doesn't seem like a good fit here.
-    static log(message, ...params) {
-        if (Config.staticConfig.debug) {
-            params.unshift(message);
-            console.log.apply(this, params);
-        }
-    }
-
     static async getConfigFileFromRemote() {
         const lang = window.Translator;
 
@@ -28,7 +19,7 @@ class Config {
             let config = await fetch("config.json");
 
             let configData = await config.text();
-            Config.log("Parsing: ", configData);
+            // console.log("Parsing: ", configData);
 
             let str = JsonStrip.stripJsonOfComments(configData);
             let configParsed = JSON.parse(str);
