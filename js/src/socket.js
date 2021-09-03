@@ -18,7 +18,6 @@ class SocketHandler {
         this.localPlayerCache = {};
     }
 
-    //FIXME: We should pass a reference to mapWrapper here and call it's functions
     connect(connectionString, mapWrapper) {
         if (this.webSocket != null) { // Clean up the current websocket connection
             this.webSocket.close();
@@ -101,8 +100,6 @@ class SocketHandler {
     }
 
     onError(event) {
-        // TODO: Alert the user?
-
         new Alerter({
             title: window.Translator.t("errors.socket-error"),
             status: "error",

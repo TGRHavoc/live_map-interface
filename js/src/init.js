@@ -60,8 +60,6 @@ class Initializer {
                     blip.description = (blip.hasOwnProperty("description") || blip.description != null) ? blip.description : "";
 
                     blip.type = spriteId;
-                    //TODO: Implement
-                    //createBlip(blip);
 
                     mapWrapper.createBlip(blip, markers.MarkerTypes);
 
