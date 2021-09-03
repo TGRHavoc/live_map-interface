@@ -6,6 +6,17 @@ parent: LiveMap Interface
 ---
 # Changelog
 
+### [4.1.7](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.6...v4.1.7) (2021-09-03)
+
+
+### Documentation
+
+* update .all-contributorsrc [skip ci] ([f614b3d](https://github.com/TGRHavoc/live_map-interface/commit/f614b3db950473e945f932116922e9f0df293f55))
+* update docs/README.md [skip ci] ([864fbc3](https://github.com/TGRHavoc/live_map-interface/commit/864fbc30aa80db83d3fb66358e9d6788acd64190))
+
+
+* better console logging ([00db15c](https://github.com/TGRHavoc/live_map-interface/commit/00db15cda9905fc3994ddd4f18fbc35a046d3680))
+
 ### [4.1.6](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.5...v4.1.6) (2021-08-23)
 
 
