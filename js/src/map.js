@@ -117,6 +117,7 @@ class MapWrapper {
         }
 
         this.connectedTo = Config.staticConfig.servers[nameOfServer];
+        this.clearAllMarkers(); // Make sure _all_ markers from previous server has been removed.
 
         this.connectedTo.getBlipUrl = function () {
             // this = the "connectedTo" server
