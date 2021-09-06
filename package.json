@@ -1,6 +1,8 @@
 {
     "version": "4.1.7",
     "scripts": {
+        "test": "jest",
+        "test-seed": "cross-env CHANCE_SEED=2394f985a5e4e93b2e9a3924717b3faae7bfd068 jest",
         "build": "gulp",
         "doc": "jsdoc2md > docs/api.md",
         "release": "standard-version && git push --follow-tags origin develop && conventional-github-releaser"
@@ -18,12 +20,17 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "@babel/runtime-corejs3": "^7.15.3",
-        "@babel/core": "^7.15.0",
+        "@babel/core": "^7.15.5",
+        "@babel/node": "^7.15.4",
         "@babel/plugin-transform-runtime": "^7.15.0",
+        "@babel/preset-env": "^7.15.4",
         "@babel/runtime": "^7.15.3",
+        "@babel/runtime-corejs3": "^7.15.3",
+        "@types/jest": "^27.0.1",
         "all-contributors-cli": "^6.20.0",
+        "chance": "^1.1.8",
         "conventional-github-releaser": "^3.1.5",
+        "cross-env": "^7.0.3",
         "gulp": "^4.0.2",
         "gulp-clean-css": "^4.3.0",
         "gulp-cli": "^2.3.0",
@@ -33,6 +40,7 @@
         "gulp-sass": "^4.1.0",
         "gulp-strip-css-comments": "^2.0.0",
         "gulp-uglify": "^3.0.2",
+        "jest": "^27.1.0",
         "jsdoc-to-markdown": "^7.0.1",
         "jshint": "^2.12.0",
         "parcel-bundler": "^1.12.5",
