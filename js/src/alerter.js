@@ -18,6 +18,8 @@
  * @property {string} position=bottom-right     - The position of the alert. Combine x and y position. 'left', 'right', 'top', 'bottom', 'x-center', 'y-center' or use only 'center' to center both x and y.
  */
 
+import Notify from "./simple-notify.js";
+
 /**
  * The main class for Alerts.
  */
@@ -27,7 +29,7 @@ class Alerter {
      * @param {AlerterOptions | string} data The options to use to create Alerts or the text of an alert.
      * @constructor
      */
-    constructor(data){
+    constructor(data) {
 
         this.DEFAULT_OPTIONS = {
             status: "warning",
@@ -48,10 +50,11 @@ class Alerter {
         };
 
         if (data == undefined || data == null) {
-            console.error("Data needs to be set");
-            return;
+            //console.error("Data needs to be set");
+            throw new Error("Please pass some data. It should be a string (message) or an Alert Object (see docs)");
         }
         var myOptionTemp;
+
         if (typeof (data) == "string") {
             myOptionTemp = { text: data };
         }
@@ -77,4 +80,4 @@ new Alerter({title: "error test", text: "<a href='#'>Link!</a> Some more text!",
 new Alerter({title: "error test", text: "<a href='#'>Link!</a> Some more text!", type: 3, status: "error"});
 */
 
-export {Alerter};
+export { Alerter };
