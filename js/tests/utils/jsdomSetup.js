@@ -1,4 +1,6 @@
-const DOCUMENT_BODY = `<!DOCTYPE html>
+import "@testing-library/jest-dom";
+
+export const DOCUMENT_BODY = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -265,4 +267,7 @@ const DOCUMENT_BODY = `<!DOCTYPE html>
 </html>
 `;
 
-document.body.innerHTML = DOCUMENT_BODY;
+// Reset the HTML before each test
+beforeEach(() => {
+    document.body.innerHTML = DOCUMENT_BODY;
+})
