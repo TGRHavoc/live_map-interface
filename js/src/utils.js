@@ -1,3 +1,4 @@
+import { Config } from "./config.js";
 
 // This file needs to be loaded first
 class Utils {
@@ -5,9 +6,6 @@ class Utils {
 
     static isNumeric(n) {
         return !isNaN(parseFloat(n)) && isFinite(n)
-    }
-    static normalize(value, min, max) {
-        return Math.abs((value - min) / (max - min));
     }
 
     static convertToMap(CurrentLayer, x, y) {
