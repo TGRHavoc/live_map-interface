@@ -6,6 +6,12 @@ parent: LiveMap Interface
 ---
 # Changelog
 
+### [4.1.8](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.7...v4.1.8) (2021-09-06)
+
+
+* remove old todo comments ([7c2398d](https://github.com/TGRHavoc/live_map-interface/commit/7c2398d598b85d90f0c27b2f5c6c31457f5d1eb4))
+* **tests:** add todo ([013e287](https://github.com/TGRHavoc/live_map-interface/commit/013e2876ad7911ae804711dbdf039eb1c2f64056))
+
 ### [4.1.7](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.6...v4.1.7) (2021-09-03)
 
 
