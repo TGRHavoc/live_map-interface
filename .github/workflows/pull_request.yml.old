@@ -1,7 +1,7 @@
 name: Node.js CI PullRequest
 on:
     pull_request:
-        branches: [$default-branch]
+    push:
 jobs:
     build-test:
         name: "Build & Test: ${{matrix.node-version}}"
