@@ -5,7 +5,7 @@ const gulp = require("gulp"),
     cleanCss = require("gulp-clean-css"),
     cleanCssComments = require("gulp-strip-css-comments"),
     uglify = require("gulp-uglify"),
-    sass = require("gulp-sass");
+    sass = require("gulp-sass")(require("sass"));
 
 const child = require("child_process");
 
