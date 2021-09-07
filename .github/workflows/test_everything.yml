@@ -49,14 +49,9 @@ jobs:
               name: Install Dependencies
             - run: yarn test
               name: Run tests
+            - name: Jest Annotations & Coverage
+              uses: mattallty/jest-github-action@v1.0.3
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              test-command: "yarn test"
 
-    coverage-report:
-        name: Coverage Report
-        needs: build-test-everything
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - uses: artiomtr/jest-coverage-report-action@v2.0-rc.1
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  package-manager: yarn
