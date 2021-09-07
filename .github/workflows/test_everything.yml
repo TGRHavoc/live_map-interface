@@ -15,7 +15,7 @@ jobs:
               id: skip_ci_step
               with:
                   NO_FAIL: true
-    build-test:
+    build-test-everything:
         needs: check_skip_ci
         if: needs.check_skip_ci.outputs.run_next == 'true'
         name: Build & Test
@@ -49,7 +49,13 @@ jobs:
               name: Install Dependencies
             - run: yarn test
               name: Run tests
+            - uses: artiomtr/jest-coverage-report-action@v2.0-rc.1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  package-manager: yarn
+                  skip-step: all
+                  coverage-file: ./coverage/coverage-final.json
             # - name: Make github release
             #   run: yarn release
             #   env:
-            #       CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{github.token}}
+            #       CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}

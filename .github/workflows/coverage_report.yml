@@ -1,7 +1,6 @@
-name: Deploy to Github
+name: Coverage Report
 on:
-    push:
-        branches: [master] # Only want to "deploy" if we push to master branch.
+    pull_request:
 jobs:
     check_skip_ci:
         name: Skip CI
@@ -14,21 +13,21 @@ jobs:
               id: skip_ci_step
               with:
                   NO_FAIL: true
-    build-test:
+    coverage-report:
         needs: check_skip_ci
         if: needs.check_skip_ci.outputs.run_next == 'true'
-        name: Build & Test
+        name: Coverage Report
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-            - name: Use Node.js
+            - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v2
               with:
-                  node-version: 16.x # Always use the latest version?
+                  node-version: "16.x"
             - name: Set up Python
               uses: actions/setup-python@v2
               with:
-                  python-version: "3.x"
+                  python-version: "3.x" # Version range or exact version of a Python version to use, using SemVer's version range syntax
             - name: Install YARN
               run: npm install -g yarn
             - name: Get yarn cache directory path
@@ -42,8 +41,7 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-yarn-
             - run: yarn install
-              name: Install Dependencies
-            - name: Make github release
-              run: yarn release
-              env:
-                  CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+            - uses: artiomtr/jest-coverage-report-action@v2.0-rc.1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  package-manager: yarn
