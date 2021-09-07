@@ -49,12 +49,14 @@ jobs:
               name: Install Dependencies
             - run: yarn test
               name: Run tests
-            - if: github.event == 'pull_request'
-              uses: artiomtr/jest-coverage-report-action@v2.0-rc.1
+
+    coverage-report:
+        name: Coverage Report
+        needs: build-test-everything
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: artiomtr/jest-coverage-report-action@v2.0-rc.1
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   package-manager: yarn
-            # - name: Make github release
-            #   run: yarn release
-            #   env:
-            #       CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
