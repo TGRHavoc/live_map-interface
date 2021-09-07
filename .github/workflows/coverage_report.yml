@@ -1,6 +1,5 @@
 name: Coverage Report
-on:
-    pull_request:
+on: pull_request
 jobs:
     check_skip_ci:
         name: Skip CI
