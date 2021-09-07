@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Test interface
 on:
     push:
     pull_request:
@@ -15,15 +15,14 @@ jobs:
               id: skip_ci_step
               with:
                   NO_FAIL: true
-
-    build-test:
+    build-test-everything:
         needs: check_skip_ci
-        if: needs.check_skip_ci.outputs.run_next == true
-        name: "Build & Test: ${{matrix.node-version}}"
+        if: needs.check_skip_ci.outputs.run_next == 'true'
+        name: Build & Test
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node-version: [16.x] #14.x
+                node-version: [14.x, 15.x, 16.x]
         steps:
             - uses: actions/checkout@v2
             - name: Use Node.js ${{ matrix.node-version }}
@@ -50,7 +49,14 @@ jobs:
               name: Install Dependencies
             - run: yarn test
               name: Run tests
-            # - name: Make github release
-            #   run: yarn release
-            #   env:
-            #       CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{github.token}}
+
+    coverage-report:
+        name: Coverage Report
+        needs: build-test-everything
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: artiomtr/jest-coverage-report-action@v2.0-rc.1
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  package-manager: yarn
