@@ -15,11 +15,10 @@ jobs:
               id: skip_ci_step
               with:
                   NO_FAIL: true
-
     build-test:
         needs: check_skip_ci
-        if: needs.check_skip_ci.outputs.run_next == true
-        name: "Build & Test: ${{matrix.node-version}}"
+        if: needs.check_skip_ci.outputs.run_next == 'true'
+        name: Build & Test
         runs-on: ubuntu-latest
         strategy:
             matrix:
