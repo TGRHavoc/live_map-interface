@@ -1,7 +1,7 @@
 name: Node.js CI
 on:
     push:
-        branches: [$default-branch]
+    pull_request:
 jobs:
     # This action should be a job before you run your tests.
     check_skip_ci:
@@ -49,7 +49,7 @@ jobs:
               name: Install Dependencies
             - run: yarn test
               name: Run tests
-            - name: Make github release
-              run: yarn release
-              env:
-                  CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{github.token}}
+            # - name: Make github release
+            #   run: yarn release
+            #   env:
+            #       CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{github.token}}
