@@ -2,8 +2,8 @@ name: Node.js CI
 on:
     push:
     pull_request:
+
 jobs:
-    # This action should be a job before you run your tests.
     check_skip_ci:
         name: Skip CI
         runs-on: ubuntu-latest
@@ -15,9 +15,10 @@ jobs:
               id: skip_ci_step
               with:
                   NO_FAIL: true
+
     build-test:
-        needs: skip_ci_step
-        if: needs.check_skip_ci.outputs.run_next == "true"
+        needs: check_skip_ci
+        if: needs.check_skip_ci.outputs.run_next == true
         name: "Build & Test: ${{matrix.node-version}}"
         runs-on: ubuntu-latest
         strategy:
