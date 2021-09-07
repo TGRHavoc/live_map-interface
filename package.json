@@ -18,8 +18,7 @@
             "console"
         ]
     },
-    "dependencies": {},
-    "devDependencies": {
+    "dependencies": {
         "@babel/core": "^7.15.5",
         "@babel/node": "^7.15.4",
         "@babel/plugin-transform-runtime": "^7.15.0",
@@ -28,9 +27,7 @@
         "@babel/runtime-corejs3": "^7.15.3",
         "@testing-library/jest-dom": "^5.14.1",
         "@types/jest": "^27.0.1",
-        "all-contributors-cli": "^6.20.0",
         "chance": "^1.1.8",
-        "conventional-github-releaser": "^3.1.5",
         "cross-env": "^7.0.3",
         "gulp": "^4.0.2",
         "gulp-clean-css": "^4.3.0",
@@ -38,13 +35,18 @@
         "gulp-concat": "^2.6.1",
         "gulp-minify": "^3.1.0",
         "gulp-replace": "^1.1.2",
-        "gulp-sass": "^4.1.0",
+        "gulp-sass": "^5.0.0",
         "gulp-strip-css-comments": "^2.0.0",
         "gulp-uglify": "^3.0.2",
         "jest": "^27.1.0",
+        "parcel": "^2.0.0-rc.0",
+        "sass": "^1.39.0"
+    },
+    "devDependencies": {
+        "all-contributors-cli": "^6.20.0",
+        "conventional-github-releaser": "^3.1.5",
         "jsdoc-to-markdown": "^7.0.1",
         "jshint": "^2.12.0",
-        "parcel-bundler": "^1.12.5",
         "standard-version": "^9.3.1"
     }
 }
