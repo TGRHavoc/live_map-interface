@@ -1,20 +1,9 @@
 name: Coverage Report
-on: pull_request
+on:
+    pull_request:
+    workflow_dispatch:
 jobs:
-    check_skip_ci:
-        name: Skip CI
-        runs-on: ubuntu-latest
-        outputs:
-            run_next: ${{ steps.skip_ci_step.outputs.run_next }}
-        steps:
-            - name: Set output to skip CI
-              uses: OpenAstronomy/action-skip-ci@main
-              id: skip_ci_step
-              with:
-                  NO_FAIL: true
     coverage-report:
-        needs: check_skip_ci
-        if: needs.check_skip_ci.outputs.run_next == 'true'
         name: Coverage Report
         runs-on: ubuntu-latest
         steps:
@@ -39,7 +28,6 @@ jobs:
                   key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
                   restore-keys: |
                       ${{ runner.os }}-yarn-
-            - run: yarn install
             - uses: artiomtr/jest-coverage-report-action@v2.0-rc.1
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
