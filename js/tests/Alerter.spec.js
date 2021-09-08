@@ -53,6 +53,21 @@ describe("properties are set", () => {
     // }
 });
 
+function findChildElementWithClassName(parent, className) {
+    let foundChild = false;
+    let ourElement = undefined;
+
+    for (let i = 0; i < parent.children.length; i++) {
+        let ourChild = parent.children[i];
+        if (ourChild.className == className) {
+            foundChild = true;
+            ourElement = ourChild;
+        }
+    }
+
+    return [foundChild, ourElement];
+}
+
 describe("alerts added to dom", () => {
 
     document.body.innerHTML = DOCUMENT_BODY;
@@ -85,11 +100,54 @@ describe("alerts added to dom", () => {
     });
 
     describe("notification", () => {
+        const childEle = notifContainer.children[0];
+
         it("should have classes", () => {
-            const childEle = notifContainer.children[0];
             expect(childEle).toHaveClass(
                 "notify", `notify--type-${props.type}`
             );
+        });
+
+        it("should show icon if set", () => {
+            let [foundIcon, iconEle] = findChildElementWithClassName(childEle, "notify__icon");
+
+            expect(foundIcon).toBe(props.showIcon);
+            if (props.showIcon) {
+                expect(iconEle).toBeTruthy();
+            } else {
+                expect(iconEle).toBeUndefined();
+            }
+        });
+        it("should show close icon if set", () => {
+            let [foundIcon, iconEle] = findChildElementWithClassName(childEle, "notify__close");
+
+            expect(foundIcon).toBe(props.showCloseButton);
+            if (props.showCloseButton) {
+                expect(iconEle).toBeTruthy();
+            } else {
+                expect(iconEle).toBeUndefined();
+            }
+        });
+
+        describe("should have content", () => {
+
+            let [foundEle, ele] = findChildElementWithClassName(childEle, "notify-content");
+
+            expect(foundEle).toBe(true);
+            expect(ele).toBeTruthy();
+            expect(ele.childElementCount).toBe(2);
+
+            it("should have a title", () => {
+                let [foundTitle, title] = findChildElementWithClassName(ele, "notify__title");
+                expect(foundTitle).toBe(true);
+                expect(title.textContent).toBe(props.title);
+            });
+
+            it("should have a message", () => {
+                let [foundTitle, title] = findChildElementWithClassName(ele, "notify__text");
+                expect(foundTitle).toBe(true);
+                expect(title.textContent).toBe(props.text);
+            });
         });
     });
 });
