@@ -18,6 +18,10 @@ class Config {
         try {
             let config = await fetch("config.json");
 
+            if (!config.ok) {
+                throw new Error(config.statusText);
+            }
+
             let configData = await config.text();
             // console.log("Parsing: ", configData);
 
