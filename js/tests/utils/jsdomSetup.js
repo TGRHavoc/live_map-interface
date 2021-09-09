@@ -1,4 +1,7 @@
 import "@testing-library/jest-dom";
+import { enableFetchMocks } from "jest-fetch-mock";
+
+enableFetchMocks();
 
 export const DOCUMENT_BODY = `<!DOCTYPE html>
 <html lang="en">

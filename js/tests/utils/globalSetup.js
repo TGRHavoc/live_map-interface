@@ -1,5 +1,6 @@
 import { getSeed } from "./Chance";
 
+
 module.exports = async () => {
     const seed = getSeed();
     // eslint-disable-next-line
