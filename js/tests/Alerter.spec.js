@@ -1,5 +1,5 @@
 import { Alerter } from "../src/alerter";
-import { chance, getChance } from "./utils/Chance";
+import { chance } from "./utils/Chance";
 import { DOCUMENT_BODY } from "./utils/jsdomSetup";
 import "./utils/IntersectObs";
 
