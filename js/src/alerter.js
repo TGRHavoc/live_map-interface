@@ -62,7 +62,7 @@ class Alerter {
             myOptionTemp = data;
         }
 
-        this.options = Object.assign(this.DEFAULT_OPTIONS, myOptionTemp);
+        this.options = Object.assign({}, this.DEFAULT_OPTIONS, myOptionTemp);
 
         this.notify = new Notify(this.options);
     }
