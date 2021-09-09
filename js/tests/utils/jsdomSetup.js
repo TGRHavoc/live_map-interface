@@ -273,4 +273,18 @@ export const DOCUMENT_BODY = `<!DOCTYPE html>
 // Reset the HTML before each test
 beforeEach(() => {
     document.body.innerHTML = DOCUMENT_BODY;
-})
+});
+
+console.error = jest.fn();
+console.warn = jest.fn();
+
+beforeAll(() => {
+    console.error.mockReset();
+    console.warn.mockReset();
+    // console.log = jest.fn();
+});
+
+afterAll(() => {
+    console.error.mockRestore();
+    console.warn.mockRestore();
+});

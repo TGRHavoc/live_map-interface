@@ -36,6 +36,12 @@ const DEFAULT_CONFIG = {
     servers: []
 };
 
+afterAll(() => {
+});
+
+beforeAll(() => {
+    window.Translator = { t: jest.fn() };
+});
 
 beforeEach(() => {
     fetchMock.resetMocks();
@@ -134,19 +140,7 @@ describe("getConfigFileFromRemote function", () => {
 
 });
 
-
 describe("getConfig", () => {
-
-    const originalWarn = console.warn;
-
-    afterAll(() => {
-        console.warn = originalWarn;
-    });
-
-    beforeAll(() => {
-        console.warn = jest.fn();
-    });
-
     it("should call out and get config", async () => {
 
         const resp = TEST_CONFIG();
