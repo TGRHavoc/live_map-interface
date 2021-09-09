@@ -5,7 +5,7 @@
 
 module.exports = {
     // All imported modules in your tests should be mocked automatically
-    // automock: false,
+    automock: false,
 
     // Stop running tests after `n` failures
     // bail: 0,
@@ -31,6 +31,9 @@ module.exports = {
     // coveragePathIgnorePatterns: [
     //   "\\\\node_modules\\\\"
     // ],
+    coveragePathIgnorePatterns: [
+        "js/src/_app.js"
+    ],
 
     // Indicates which provider should be used to instrument code for coverage
     coverageProvider: "babel",
