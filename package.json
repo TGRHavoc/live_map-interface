@@ -39,6 +39,7 @@
         "gulp-strip-css-comments": "^2.0.0",
         "gulp-uglify": "^3.0.2",
         "jest": "^27.1.0",
+        "jest-fetch-mock": "^3.0.3",
         "parcel": "^2.0.0-rc.0",
         "sass": "^1.39.0"
     },
