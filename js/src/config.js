@@ -27,9 +27,9 @@ class Config {
 
             let str = JsonStrip.stripJsonOfComments(configData);
             let configParsed = JSON.parse(str);
-            Config.staticConfig = Object.assign(Config.defaultConfig, configParsed);
+            Config.staticConfig = Object.assign({}, Config.defaultConfig, configParsed);
 
-            return Promise.resolve(configParsed);
+            return Promise.resolve(Config.staticConfig);
 
         } catch (ex) {
             console.error(ex);
