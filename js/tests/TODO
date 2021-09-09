@@ -1,17 +1,17 @@
 
 Alerter:
-    ☐ Error if not "data" passed to alert
-    ☐ Alert should be shown if we pass a string. It'll be the message with default props
-    ☐ Test all properties passed to the alerter
-Config:
+    ✔ Error if not "data" passed to alert @done(21-09-08 12:09)
+    ✔ Alert should be shown if we pass a string. It'll be the message with default props @done(21-09-08 12:09)
+    ✔ Test all properties passed to the alerter @done(21-09-08 12:09)
+☐ Config:
     Test the `getConfigFileFromRemote` function:
-         ☐ Should return an error if it cannot fetch "config.json"
-         ☐ Returns a JSON object if it can
-         ☐ JSON should be returned even if it has comments
-         ☐ `Config.staticConfig` should be set after config fetched
-         ☐ `Config.defaultConfig` should be used
-         ☐ Any properties in config.json should override `Config.defaultConfig`
-    ☐ `getConfig` should return `Config.staticConfig`. If it's empty, it should call `getConfigFileFromRemote`... Maybe shouldn't test this?
+         ✔ Should return an error if it cannot fetch "config.json" @done(21-09-08 13:22)
+         ✔ Returns a JSON object if it can @done(21-09-08 14:01)
+         ✔ JSON should be returned even if it has comments @done(21-09-08 14:00)
+         ✔ `Config.staticConfig` should be set after config fetched @done(21-09-08 14:36)
+         ✔ `Config.defaultConfig` should be used @done(21-09-09 10:16)
+         ✔ Any properties in config.json should override `Config.defaultConfig` @done(21-09-09 10:16)
+    ✔ `getConfig` should return `Config.staticConfig`. If it's empty, it should call `getConfigFileFromRemote`... Maybe shouldn't test this? @done(21-09-09 11:06)
 Controls:
     ☐ onClick handlers should be registered when `initControls` called
     generateBlipControls:
