@@ -32,12 +32,14 @@ class Config {
             return Promise.resolve(Config.staticConfig);
 
         } catch (ex) {
-            console.error(ex);
-            new Alerter({
-                status: "error",
-                title: lang.t("errors.getting-config.title"),
-                text: lang.t("errors.getting-config.message", { error: ex })
-            });
+            if (lang) {
+                console.error(ex);
+                new Alerter({
+                    status: "error",
+                    title: lang.t("errors.getting-config.title"),
+                    text: lang.t("errors.getting-config.message", { error: ex })
+                });
+            }
             return Promise.reject(ex);
         }
     }
