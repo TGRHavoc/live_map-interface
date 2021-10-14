@@ -20,3 +20,5 @@ blips.json
 
 coverage/
 .cache/
+.parcel-cache/
+blips2.json
