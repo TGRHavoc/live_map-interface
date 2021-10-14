@@ -18,6 +18,15 @@ class Translator {
             _.manifest = j;
 
             _.putLanguagesIntoNavbar(j);
+
+            if (!_.manifest[_._lang]) { // The user's language isn't in the manifest... Just fall back to English
+                _._lang = "en";
+            }
+
+            //this.setLanguage(this._lang);
+            localStorage.setItem("lang", _._lang);
+            this.toggleLangTag();
+
         }).catch(err => {
             new Alerter({
                 status: "error",
@@ -25,14 +34,6 @@ class Translator {
                 text: err.message
             });
         });
-
-        if (!this.manifest[this._lang]) { // The user's language isn't in the manifest... Just fall back to English
-            this._lang = "en";
-        }
-
-        //this.setLanguage(this._lang);
-        localStorage.setItem("lang", this._lang);
-        this.toggleLangTag();
     }
 
     putLanguagesIntoNavbar(json) {
