@@ -8,6 +8,7 @@ import { Initializer } from "./init.js";
 
 (async () => {
     window.Alerter = Alerter;
+    window.Config = Config;
 
     let translator = window.Translator = new Translator();
 
@@ -24,10 +25,7 @@ import { Initializer } from "./init.js";
         return;
     }
 
-    if (!config.debug) {
-        console.log("Disabling console.log... Goodbye console!");
-        console.log = function () { }; // If we don't have debugging enabled. Just route all console.log's to an empty function
-    }
+    Initializer.console(config.debug);
 
     window.VersionCheck = new VersionCheck();
 
@@ -43,4 +41,13 @@ import { Initializer } from "./init.js";
 
     Initializer.page(config);
     mapWrapper.changeServer(Object.keys(Config.staticConfig.servers)[0]); // Show the stuff for the first server in the config.
+
+    // Do any query string stuff here...
+    Initializer.hashHandler();
+
+
+    window.onhashchange = (e)=>{
+        Initializer.hashHandler();
+    }
+
 })();

@@ -2,6 +2,7 @@ import { Config } from "./config.js";
 import { Markers } from "./markers.js";
 import { MapWrapper } from "./map.js";
 import { Alerter } from "./alerter.js";
+import {HashHandler} from "./hash_handler.js";
 // This file should initialize the map and set everything up for it to work.
 
 class Initializer {
@@ -12,12 +13,24 @@ class Initializer {
             let li = document.createElement("li");
             let link = document.createElement("a");
             link.classList.add("dropdown-item");
-            link.href = "#";
+            // link.onclick = (e)=> e.preventDefault();
             link.innerText = serverName;
 
             li.appendChild(link);
             serverMenu.appendChild(li);
             //$("#serverMenu").append("<a class='dropdown-item serverMenuItem' href='#'>" + serverName + "</a>");
+        }
+    }
+
+    static console(debug){
+        if(!debug){
+            console.log("Disabling console.log... Goodbye console!");
+            window.oldConsoleLog = console.log;
+            console.log = function () { }; // If we don't have debugging enabled. Just route all console.log's to an empty function
+        }else{
+            if(window.oldConsoleLog){
+                console.log = window.oldConsoleLog;
+            }
         }
     }
 
@@ -70,6 +83,11 @@ class Initializer {
         document.getElementById("blipCount").innerText = mapWrapper.blipCount;
         mapWrapper.toggleBlips();
 
+    }
+
+
+    static hashHandler(){
+        window.HashHandler = new HashHandler();
     }
 }
 
