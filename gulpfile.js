@@ -5,7 +5,7 @@ const gulp = require("gulp"),
     cleanCss = require("gulp-clean-css"),
     cleanCssComments = require("gulp-strip-css-comments"),
     uglify = require("gulp-uglify"),
-    sass = require("gulp-sass");
+    sass = require("gulp-sass")(require("sass"));
 
 const child = require("child_process");
 
@@ -71,7 +71,7 @@ function pack_css() {
 
 function preprocess_sass() {
     return gulp.src(["style/scss/src/main.scss"])
-        .pipe(sass())
+        .pipe(sass().on('error', sass.logError))
         .pipe(concat("style.css"))
         .pipe(gulp.dest("style/src/"));
 }
