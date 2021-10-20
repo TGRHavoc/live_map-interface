@@ -1,10 +1,3 @@
----
-layout: default
-title: Contributing
-nav_order: 998
-parent: LiveMap Interface
----
-
 # Contributing to LiveMap Interface <!-- omit in toc --> 
 
 First off, thanks for taking the time to contribute! ❤️ 

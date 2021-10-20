@@ -1,5 +1,5 @@
 {
-    "header": "---\nlayout: default\ntitle: Changelog\nnav_order: 9999\nparent: LiveMap Interface\n---\n# Changelog\n",
+    "header": "# Changelog\n",
     "infile": "docs/CHANGELOG.md",
     "releaseCommitMessageFormat": "chore(release): v{{currentTag}}",
     "scripts": {

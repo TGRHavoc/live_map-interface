@@ -1,9 +1,3 @@
----
-layout: default
-title: Changelog
-nav_order: 9999
-parent: LiveMap Interface
----
 # Changelog
 
 ### [4.1.8](https://github.com/TGRHavoc/live_map-interface/compare/v4.1.7...v4.1.8) (2021-09-06)

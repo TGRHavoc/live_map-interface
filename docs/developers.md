@@ -1,11 +1,3 @@
----
-layout: default
-title: Development
-nav_order: 2
-has_children: true
-parent: LiveMap Interface
----
-
 # Developer Information <!-- omit in toc -->
 
 If you're looking to customize the interface for your community or, want to improve it for all then this should help you get started.

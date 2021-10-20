@@ -1,11 +1,3 @@
----
-layout: default
-title: Configuration
-nav_order: 1
-parent: LiveMap Interface
-has_children: true
----
-
 # Configuration <!-- omit in toc -->
 
 - [config.json](#configjson)

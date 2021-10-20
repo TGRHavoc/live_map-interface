@@ -1,10 +1,3 @@
----
-layout: default
-title: Custom Maps
-nav_order: 1
-parent: Development
-grand_parent: LiveMap Interface
----
 # Custom Images <!-- omit in toc -->
 
 It's possible to have custom map images in LiveMap.

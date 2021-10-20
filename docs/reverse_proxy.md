@@ -1,11 +1,3 @@
----
-layout: default
-title: Reverse Proxy
-nav_order: 1
-parent: Configuration
-grand_parent: LiveMap Interface
----
-{% raw %}
 # Reverse Proxy <!-- omit in toc -->
 
 If you want to set up **secure** website for your LiveMap interface, you will need to use a reverse proxy.
@@ -160,5 +152,3 @@ Note: You may need to install [URL Rewrite](http://www.iis.net/downloads/microso
 
 If your webserver isn't listed here them, unfortunately your best bet is to research how to set up a reverse proxy on your webserver.
 After you have got yours working and, want to help other's with the same webserver, why don't you [edit this page on Github](https://github.com/TGRHavoc/live_map-interface/edit/develop/docs/reverse_proxy.md) with the information needed?
-
-{% endraw %}
