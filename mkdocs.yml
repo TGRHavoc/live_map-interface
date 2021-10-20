@@ -1,0 +1,14 @@
+site_name: livemap_interface
+
+nav:
+  - "README.md"
+  - Configuration:
+    - "config.md"
+    - Reverse Proxy: "reverse_proxy.md"
+    - Custom Maps: "custom_maps.md"
+  - Contributing:
+    - "contributing.md"
+    - Developers: "developers.md"
+  - FAQ: "FAQ.md"
+  - Changelog: "CHANGELOG.md"
+  - License: "LICENSE.md"
