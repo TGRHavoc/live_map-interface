@@ -40,8 +40,8 @@ You need to use the server's public IP in the config.json file for it to work fo
 ## Unable to Display Livemap when using HTTPS
 
 1. It's not possible for the resource to make a secure connection to FiveM. Simply, uninstall the resource. 
-2. If you do, then lookup on Google for "set up reverse proxy in <webserver>". 
-3. Substitute with the webservers name. And to get the websocket running securely as well, just change the query to "set up websocket revserse proxy in <webserver>".
+2. If you do, then lookup on Google for "set up reverse proxy in {{webserver}}". 
+3. Substitute with the webservers name. And to get the websocket running securely as well, just change the query to "set up websocket revserse proxy in {{webserver}}".
 
 ## Error with Socket Connection
 

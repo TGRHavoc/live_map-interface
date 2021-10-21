@@ -1,10 +1,10 @@
 # Configuration <!-- omit in toc -->
 
 - [config.json](#configjson)
-    - [defaults object](#defaults-object)
-  - [reverse proxy object](#reverse-proxy-object)
-  - [server object](#server-object)
-  - [map object](#map-object)
+        - [defaults object](#defaults-object)
+    - [reverse proxy object](#reverse-proxy-object)
+    - [server object](#server-object)
+    - [map object](#map-object)
 - [config.html](#confightml)
 
 ## config.json
@@ -76,4 +76,6 @@ If you're more of a visual person and, don't want to write a bunch of JSON to se
 To get to this, just navigate to `utils/config.html` in your browser.
 This will give you a basic interface which, you can use to quickly configure the interface.
 
-<small>**Please note: You cannot add maps via this page. You will need to do this manually.**</small>
+!!! note
+    
+    You cannot add maps via this page. You will need to do this manually.
