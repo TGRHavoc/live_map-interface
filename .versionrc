@@ -20,7 +20,8 @@
     "types": [
         {
             "type": "translation",
-            "section": "Translations"
+            "section": "Translations",
+            "hidden": false
         },
         {
             "type": "chore",
