@@ -1,4 +1,4 @@
-import { Alerter } from "./alerter.js";
+import { Alerter } from "./alerter";
 
 class VersionCheck {
 

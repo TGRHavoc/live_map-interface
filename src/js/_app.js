@@ -1,11 +1,12 @@
 import "../sass/main.scss";
 
-import { Config } from "./config.js";
-import { Translator } from "./translator.js";
-import { SocketHandler } from "./socket.js";
-import { MapWrapper } from "./map.js";
-import { VersionCheck } from "./version-check.js";
-import { Initializer } from "./init.js";
+import { Config } from "./config";
+import { Translator } from "./translator";
+import { SocketHandler } from "./socket";
+import { MapWrapper } from "./map";
+import { VersionCheck } from "./version-check";
+import { Initializer } from "./init";
+import {Alerter} from "./alerter";
 
 async function init() {
 

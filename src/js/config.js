@@ -1,5 +1,5 @@
-import { JsonStrip } from "./utils.js";
-import { Alerter } from "./alerter.js";
+import { JsonStrip } from "./utils";
+import { Alerter } from "./alerter";
 class Config {
     constructor() { }
 

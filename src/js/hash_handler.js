@@ -1,5 +1,5 @@
-import { Initializer } from "./init.js";
-import { Config } from "./config.js";
+import { Initializer } from "./init";
+import { Config } from "./config";
 
 class HashHandler {
 

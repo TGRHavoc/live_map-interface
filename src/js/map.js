@@ -1,12 +1,12 @@
 /// <reference path="./socket.js" />
 
-import { Config } from "./config.js";
-import { Utils } from "./utils.js";
-import { Initializer } from "./init.js";
-import { Alerter } from "./alerter.js";
-import { MarkerObject, Coordinates } from "./objects.js";
-import { Markers } from "./markers.js";
-import { Controls } from "./controls.js";
+import { Config } from "./config";
+import { Utils } from "./utils";
+import { Initializer } from "./init";
+import { Alerter } from "./alerter";
+import { MarkerObject, Coordinates } from "./objects";
+import { Markers } from "./markers";
+import { Controls } from "./controls";
 
 import * as L from "leaflet";
 import "leaflet.markercluster";

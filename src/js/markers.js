@@ -1,5 +1,3 @@
-import { Config } from "./config.js";
-import { Controls } from "./controls.js";
 
 // divide by 2 since we want to make icons 32x32 images
 const customImageWidth = 64 / 2; // 64 =  sheetWidth / 16 (amount of images)

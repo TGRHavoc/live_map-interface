@@ -1,8 +1,6 @@
-import { Config } from "./config.js";
-import { Alerter } from "./alerter.js";
-import { MapWrapper } from "./map.js";
-import { Markers } from "./markers.js";
-import { Utils } from "./utils.js";
+import { Config } from "./config";
+import { Alerter } from "./alerter";
+import { Utils } from "./utils";
 
 //TODO: Document the player and blip objects
 // TODO: Document the array of player objects

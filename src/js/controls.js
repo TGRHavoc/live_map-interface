@@ -1,6 +1,7 @@
-import { MapWrapper } from "./map.js";
-import { types } from "./markers.js";
-import { Initializer } from "./init.js";
+import { types } from "./markers";
+import { Initializer } from "./init";
+
+import * as L from "leaflet";
 
 class Controls {
 

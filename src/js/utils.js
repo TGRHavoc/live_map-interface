@@ -1,4 +1,4 @@
-import { Config } from "./config.js";
+import { Config } from "./config";
 
 // This file needs to be loaded first
 class Utils {

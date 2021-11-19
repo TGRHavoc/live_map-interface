@@ -1,8 +1,6 @@
-import { Config } from "./config.js";
-import { Markers } from "./markers.js";
-import { MapWrapper } from "./map.js";
-import { Alerter } from "./alerter.js";
-import {HashHandler} from "./hash_handler.js";
+import Notify from "simple-notify";
+
+import {HashHandler} from "./hash_handler";
 // This file should initialize the map and set everything up for it to work.
 
 class Initializer {
@@ -52,7 +50,7 @@ class Initializer {
         } catch (error) {
             console.error("Getting blips: ", error);
 
-            new Alerter({
+            new Notify({
                 status: "error",
                 title: lang.t("errors.getting-blips.title"),
                 text: lang.t("errors.getting-blips.message", { error: error })

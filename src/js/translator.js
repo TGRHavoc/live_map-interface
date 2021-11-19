@@ -1,5 +1,5 @@
-import { Alerter } from "./alerter.js";
-import { vsprintf } from "./sprintf.js";
+import { Alerter } from "./alerter";
+import { vsprintf } from "./sprintf";
 
 class Translator {
 
