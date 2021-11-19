@@ -4,7 +4,7 @@
     "releaseCommitMessageFormat": "chore(release): v{{currentTag}}",
     "scripts": {
         "prerelease": "yarn build",
-        "precommit": "git add -A dist/ style/src/"
+        "precommit": "git add -A dist/"
     },
     "bumpFiles": [
         {
