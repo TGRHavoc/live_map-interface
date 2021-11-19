@@ -19,7 +19,7 @@ class HashHandler {
             clean: (allValues) => allValues[0].length !== 0 ? decodeURI(allValues[0]) : Object.keys(Config.staticConfig.servers)[0],
             handle: (serverName) => window.mapWrapper.changeServer(serverName)
         }
-    }
+    };
 
     constructor() {
         let hashString = window.location.hash;

@@ -48,8 +48,8 @@ class Translator {
             li.setAttribute("data-translation-language", key);
 
             li.onclick = function () {
-                window.Translator.setLanguage(this.getAttribute("data-translation-language"))
-            }
+                window.Translator.setLanguage(this.getAttribute("data-translation-language"));
+            };
 
             languageList.appendChild(li);
         }
@@ -96,7 +96,7 @@ class Translator {
     }
 
     getValueFromJSON(key) {
-        return key.split('.').reduce((obj, i) => (obj ? obj[i] : null), this.translations);
+        return key.split(".").reduce((obj, i) => (obj ? obj[i] : null), this.translations);
     }
 
     t(key, ...params) {
@@ -115,13 +115,13 @@ class Translator {
             return;
         }
 
-        const keys = element.getAttribute('data-i18n').split(/\s/g);
-        let attributes = element.getAttribute('data-i18n-attr');
+        const keys = element.getAttribute("data-i18n").split(/\s/g);
+        let attributes = element.getAttribute("data-i18n-attr");
 
         if (attributes && keys.length != attributes.split(/\s/g).length) {
             console.warn(`The attributes "data-i18n" and "data-i18n-attr" must contain the same number of keys.
-Values in \`data-i18n\`:      (${keys.length}) \`${keys.join(' ')}\`
-Values in \`data-i18n-attr\`: (${attributes.length}) \`${attributes.join(' ')}\`
+Values in \`data-i18n\`:      (${keys.length}) \`${keys.join(" ")}\`
+Values in \`data-i18n-attr\`: (${attributes.length}) \`${attributes.join(" ")}\`
 The HTML element is:
     ${element.outerHTML}`);
         }

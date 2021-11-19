@@ -5,7 +5,7 @@ class Utils {
     constructor() { }
 
     static isNumeric(n) {
-        return !isNaN(parseFloat(n)) && isFinite(n)
+        return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
     static convertToMap(CurrentLayer, x, y) {
@@ -57,7 +57,7 @@ class Utils {
      */
     static getPositionHtml(coords) {
         let lang = window.Translator;
-        return `<div class="row info-body-row"><strong>${lang.t("map.position")}:</strong>&nbsp;X ${coords.x.toFixed(2)} Y ${coords.y.toFixed(2)} Z ${coords.z.toFixed(2)}</div>`
+        return `<div class="row info-body-row"><strong>${lang.t("map.position")}:</strong>&nbsp;X ${coords.x.toFixed(2)} Y ${coords.y.toFixed(2)} Z ${coords.z.toFixed(2)}</div>`;
     }
 
     /**
@@ -83,11 +83,11 @@ class Utils {
      * @memberof Utils
      */
     static getHtmlForInformation(key, value) {
-        return `<div class="row info-body-row"><strong>${key}:</strong>&nbsp;${value}</div>`
+        return `<div class="row info-body-row"><strong>${key}:</strong>&nbsp;${value}</div>`;
     }
 
     static getInfoHtmlForMarkers(name, extraHtml) {
-        return `<div class="info-window"><div class="info-header-box"><div class="info-header">${name}</div></div><div class="clear border"></div><div id="info-body">${extraHtml}</div></div>`
+        return `<div class="info-window"><div class="info-header-box"><div class="info-header">${name}</div></div><div class="clear border"></div><div id="info-body">${extraHtml}</div></div>`;
     }
 
     static getPlayerInfoHtml(plr) {
@@ -194,8 +194,8 @@ class JsonStrip {
         this.multiComment = 2;
     }
 
-    static stripWithoutWhitespace() { return ''; }
-    static stripWithWhitespace(str, start, end) { return str.slice(start, end).replace(/\S/g, ' '); }
+    static stripWithoutWhitespace() { return ""; }
+    static stripWithWhitespace(str, start, end) { return str.slice(start, end).replace(/\S/g, " "); }
 
     static stripJsonOfComments(str, opts) {
         opts = opts || {};
@@ -205,14 +205,14 @@ class JsonStrip {
         let insideString = false;
         let insideComment = false;
         let offset = 0;
-        let ret = '';
+        let ret = "";
 
         for (let i = 0; i < str.length; i++) {
             const currentChar = str[i];
             const nextChar = str[i + 1];
 
-            if (!insideComment && currentChar === '"') {
-                const escaped = str[i - 1] === '\\' && str[i - 2] !== '\\';
+            if (!insideComment && currentChar === "\"") {
+                const escaped = str[i - 1] === "\\" && str[i - 2] !== "\\";
                 if (!escaped) {
                     insideString = !insideString;
                 }
@@ -222,28 +222,28 @@ class JsonStrip {
                 continue;
             }
 
-            if (!insideComment && currentChar + nextChar === '//') {
+            if (!insideComment && currentChar + nextChar === "//") {
                 ret += str.slice(offset, i);
                 offset = i;
                 insideComment = this.singleComment;
                 i++;
-            } else if (insideComment === this.singleComment && currentChar + nextChar === '\r\n') {
+            } else if (insideComment === this.singleComment && currentChar + nextChar === "\r\n") {
                 i++;
                 insideComment = false;
                 ret += strip(str, offset, i);
                 offset = i;
                 continue;
-            } else if (insideComment === this.singleComment && currentChar === '\n') {
+            } else if (insideComment === this.singleComment && currentChar === "\n") {
                 insideComment = false;
                 ret += strip(str, offset, i);
                 offset = i;
-            } else if (!insideComment && currentChar + nextChar === '/*') {
+            } else if (!insideComment && currentChar + nextChar === "/*") {
                 ret += str.slice(offset, i);
                 offset = i;
                 insideComment = this.multiComment;
                 i++;
                 continue;
-            } else if (insideComment === this.multiComment && currentChar + nextChar === '*/') {
+            } else if (insideComment === this.multiComment && currentChar + nextChar === "*/") {
                 i++;
                 insideComment = false;
                 ret += strip(str, offset, i + 1);

@@ -33,9 +33,9 @@ class Alerter {
 
         this.DEFAULT_OPTIONS = {
             status: "warning",
-            title: 'Warning!',
-            text: 'This is a warning',
-            effect: 'fade',
+            title: "Warning!",
+            text: "This is a warning",
+            effect: "fade",
             speed: 500,
             customClass: null,
             customIcon: null,
@@ -46,7 +46,7 @@ class Alerter {
             gap: 10,
             distance: 20,
             type: 2,
-            position: 'bottom right'
+            position: "bottom right"
         };
 
         if (data == undefined || data == null) {

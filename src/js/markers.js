@@ -197,7 +197,7 @@ class Markers {
         this.MarkerTypes = {
             0: {
                 name: "Blank Icon",
-                iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=',
+                iconUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=",
                 iconSize: [0, 0],
                 popupAnchor: [0, 0],
                 iconAnchor: [0, 0]
@@ -243,24 +243,24 @@ class Markers {
         for (var blipName in types) {
             var blip = types[blipName];
 
-            if (typeof (blip.id) != 'undefined') {
+            if (typeof (blip.id) != "undefined") {
                 currentId = blip.id;
             } else {
                 currentId++;
             }
 
-            if (typeof (blip.x) != 'undefined') {
+            if (typeof (blip.x) != "undefined") {
                 currentX = blip.x;
             } else {
                 currentX++;
             }
 
-            if (typeof (blip.y) != 'undefined') {
+            if (typeof (blip.y) != "undefined") {
                 currentY = blip.y;
             }
 
             this.MarkerTypes[currentId] = {
-                name: blipName.replace(/([A-Z0-9])/g, ' $1').trim(),
+                name: blipName.replace(/([A-Z0-9])/g, " $1").trim(),
                 className: `blip blip-${blipName}`,
                 iconUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=",
                 iconSize: [customImageWidth, customImageHeight],

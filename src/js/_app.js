@@ -4,7 +4,6 @@ import { Config } from "./config.js";
 import { Translator } from "./translator.js";
 import { SocketHandler } from "./socket.js";
 import { MapWrapper } from "./map.js";
-import { Alerter } from "./alerter.js";
 import { VersionCheck } from "./version-check.js";
 import { Initializer } from "./init.js";
 
@@ -48,9 +47,9 @@ async function init() {
     Initializer.hashHandler();
 
 
-    window.onhashchange = (e)=>{
+    window.onhashchange = () => {
         Initializer.hashHandler();
-    }
+    };
 
 }
 

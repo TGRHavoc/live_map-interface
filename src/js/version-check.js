@@ -22,9 +22,9 @@ class VersionCheck {
     }
 
     split(v) {
-        var c = v.replace(/^v/, '').replace(/\+.*$/, '');
-        var patchIndex = this.indexOrEnd(c, '-');
-        var arr = c.substring(0, patchIndex).split('.');
+        var c = v.replace(/^v/, "").replace(/\+.*$/, "");
+        var patchIndex = this.indexOrEnd(c, "-");
+        var arr = c.substring(0, patchIndex).split(".");
         arr.push(c.substring(patchIndex + 1));
         return arr;
     }
@@ -34,11 +34,11 @@ class VersionCheck {
     }
 
     validate(version) {
-        if (typeof version !== 'string') {
-            throw new TypeError('Invalid argument expected string');
+        if (typeof version !== "string") {
+            throw new TypeError("Invalid argument expected string");
         }
         if (!this.semver.test(version)) {
-            throw new Error('Invalid argument not valid semver (\'' + version + '\' received)');
+            throw new Error("Invalid argument not valid semver ('" + version + "' received)");
         }
     }
 
@@ -61,12 +61,12 @@ class VersionCheck {
         var sp2 = s2[s2.length - 1];
 
         if (sp1 && sp2) {
-            var p1 = sp1.split('.').map(this.tryParse);
-            var p2 = sp2.split('.').map(this.tryParse);
+            var p1 = sp1.split(".").map(this.tryParse);
+            var p2 = sp2.split(".").map(this.tryParse);
 
             for (i = 0; i < Math.max(p1.length, p2.length); i++) {
-                if (p1[i] === undefined || typeof p2[i] === 'string' && typeof p1[i] === 'number') return -1;
-                if (p2[i] === undefined || typeof p1[i] === 'string' && typeof p2[i] === 'number') return 1;
+                if (p1[i] === undefined || typeof p2[i] === "string" && typeof p1[i] === "number") return -1;
+                if (p2[i] === undefined || typeof p1[i] === "string" && typeof p2[i] === "number") return 1;
 
                 if (p1[i] > p2[i]) return 1;
                 if (p2[i] > p1[i]) return -1;
