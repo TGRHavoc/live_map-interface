@@ -1,18 +1,32 @@
 import { JsonStrip } from "./utils";
 import { Alerter } from "./alerter";
-class Config {
-    constructor() { }
 
-    static getConfig() {
+const Config = {
+    defaultConfig : {
+        debug: false,
+        tileDirectory: "images/tiles",
+        iconDirectory: "images/icons",
+        showIdentifiers: false,
+        groupPlayers: true,
+        defaults: {
+            ip: "127.0.0.1",
+            socketPort: "30121"
+        },
+        servers: []
+    },
+
+    staticConfig: {},
+
+    getConfig: () => {
         if (JSON.stringify(this.staticConfig) === "{}") {
             this.getConfigFileFromRemote();
             console.warn("config didn't exist... try getting it again");
         }
 
         return this.staticConfig;
-    }
+    },
 
-    static async getConfigFileFromRemote() {
+    getConfigFileFromRemote: async ()=>{
         const lang = window.Translator;
 
         try {
@@ -37,21 +51,7 @@ class Config {
             return Promise.reject(ex);
         }
     }
+
 }
-
-Config.defaultConfig = {
-    debug: false,
-    tileDirectory: "images/tiles",
-    iconDirectory: "images/icons",
-    showIdentifiers: false,
-    groupPlayers: true,
-    defaults: {
-        ip: "127.0.0.1",
-        socketPort: "30121"
-    },
-    servers: []
-};
-Config.staticConfig = {};
-
 
 export { Config };

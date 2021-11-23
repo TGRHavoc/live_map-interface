@@ -1,31 +1,30 @@
 import { Alerter } from "./alerter";
 import { vsprintf } from "./sprintf";
 
-class Translator {
+const Translator = {
 
-    constructor() {
-        this._lang = this.getLanguage();
-        this.translations = {};
-        this.manifest = {};
+    _lang ="en",
+    translations: {},
+    manifest: {},
+    _elements: document.querySelectorAll("[data-i18n]"),
 
-        this._elements = document.querySelectorAll("[data-i18n]");
 
-        // Get the current manifest
-        const _ = this;
+    init: () => {
+        Translator._lang = Translator.getLanguage();
 
         fetch("translations/manifest.json").then(async resp => {
             let j = await resp.json();
-            _.manifest = j;
+            Translator.manifest = j;
 
-            _.putLanguagesIntoNavbar(j);
+            Translator.putLanguagesIntoNavbar(j);
 
-            if (!_.manifest[_._lang]) { // The user's language isn't in the manifest... Just fall back to English
-                _._lang = "en";
+            if (!Translator.manifest[Translator._lang]) { // The user's language isn't in the manifest... Just fall back to English
+                Translator._lang = "en";
             }
 
-            //this.setLanguage(this._lang);
-            localStorage.setItem("lang", _._lang);
-            this.toggleLangTag();
+            //Translator.setLanguage(Translator._lang);
+            localStorage.setItem("lang", Translator._lang);
+            Translator.toggleLangTag();
 
         }).catch(err => {
             new Alerter({
@@ -34,7 +33,25 @@ class Translator {
                 text: err.message
             });
         });
-    }
+    },
+
+    translatePage: ()=> {
+        Translator._elements.forEach((element) => {
+            Translator.replace(element);
+        });
+    },
+
+    getLanguage: () => {
+        let inStorage = localStorage.getItem("lang");
+
+        if (inStorage) {
+            return inStorage;
+        } else {
+            var lang = navigator.languages ? navigator.languages[0] : navigator.language;
+
+            return lang.substr(0, 2);
+        }
+    },
 
     putLanguagesIntoNavbar(json) {
         let languageList = document.getElementById("availableLanguages");
@@ -48,40 +65,40 @@ class Translator {
             li.setAttribute("data-translation-language", key);
 
             li.onclick = function () {
-                window.Translator.setLanguage(this.getAttribute("data-translation-language"));
+                window.Translator.setLanguage(Translator.getAttribute("data-translation-language"));
             };
 
             languageList.appendChild(li);
         }
-    }
+    },
 
-    setLanguage(lang) {
+    setLanguage: (lang) => {
         console.log("Switching language to " + lang);
 
-        if (lang == this._lang) {
+        if (lang == Translator._lang) {
             return;
         }
 
-        this._lang = lang;
-        localStorage.setItem("lang", this._lang);
-        this.toggleLangTag();
+        Translator._lang = lang;
+        localStorage.setItem("lang", Translator._lang);
+        Translator.toggleLangTag();
 
-        this.getLanguageFromFile();
-    }
+        Translator.getLanguageFromFile();
+    },
 
-    toggleLangTag() {
-        if (document.documentElement.lang !== this._lang) {
-            document.documentElement.lang = this._lang;
+    toggleLangTag: () => {
+        if (document.documentElement.lang !== Translator._lang) {
+            document.documentElement.lang = Translator._lang;
         }
 
-        document.getElementById("currentLang").innerText = this._lang;
-    }
+        document.getElementById("currentLang").innerText = Translator._lang;
+    },
 
-    async getLanguageFromFile() {
+    getLanguageFromFile: async ()=> {
         try {
-            let translations = await fetch(`translations/${this._lang}.json`);
-            this.translations = await translations.json();
-            this.translatePage();
+            let translations = await fetch(`translations/${Translator._lang}.json`);
+            Translator.translations = await translations.json();
+            Translator.translatePage();
 
             return Promise.resolve();
         } catch (ex) {
@@ -93,22 +110,22 @@ class Translator {
 
             return Promise.reject(ex);
         }
-    }
+    },
 
     getValueFromJSON(key) {
-        return key.split(".").reduce((obj, i) => (obj ? obj[i] : null), this.translations);
-    }
+        return key.split(".").reduce((obj, i) => (obj ? obj[i] : null), Translator.translations);
+    },
 
     t(key, ...params) {
-        console.log(`Translating ${this.getValueFromJSON(key)}:`, params);
-        return vsprintf(this.getValueFromJSON(key), params);
-    }
+        console.log(`Translating ${Translator.getValueFromJSON(key)}:`, params);
+        return vsprintf(Translator.getValueFromJSON(key), params);
+    },
 
     /**
      *
      * @param {Element} element
      */
-    replace(element) {
+     replace: (element) => {
         if (!element.getAttribute("data-i18n")) {
             console.error(`Element needs a data-i18n attribute to be translated.
                 ${element}`);
@@ -131,7 +148,7 @@ The HTML element is:
         }
 
         keys.forEach((key, index) => {
-            const text = this.getValueFromJSON(key);
+            const text = Translator.getValueFromJSON(key);
             const attr = attributes ? attributes[index] : "innerText";
 
             if (text) {
@@ -141,28 +158,10 @@ The HTML element is:
                     element.setAttribute(attr, text);
                 }
             } else {
-                console.warn(`No translation found for key "${key}" in language "${this._lang}". Is there a key/value in your translation file?`);
+                console.warn(`No translation found for key "${key}" in language "${Translator._lang}". Is there a key/value in your translation file?`);
             }
         });
-    }
-
-    translatePage() {
-        this._elements.forEach((element) => {
-            this.replace(element);
-        });
-    }
-
-    getLanguage() {
-        let inStorage = localStorage.getItem("lang");
-
-        if (inStorage) {
-            return inStorage;
-        } else {
-            var lang = navigator.languages ? navigator.languages[0] : navigator.language;
-
-            return lang.substr(0, 2);
-        }
-    }
+    },
 }
 
 export { Translator };
