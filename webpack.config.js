@@ -24,6 +24,12 @@ var config = {
         index: "./src/js/_app.js"
     },
     plugins: [
+        // Dev build, for dev server
+        new HtmlWebpackPlugin({
+            template: "./public/index.html",
+            filename: "index.html",
+        }),
+        // Production build
         new HtmlWebpackPlugin({
             title: "Havoc's LiveMap",
             template: "./public/index.html",
@@ -39,9 +45,19 @@ var config = {
     output: {
         filename: "livemap.[fullhash].js",
         path: path.resolve(__dirname, "dist"),
-        publicPath: "dist/",
+        // publicPath: "dist/",
         clean: true
-    }
+    },
+    devServer: {
+        static: [
+            {
+              directory: path.join(__dirname, 'images'),
+              publicPath: "/images"
+            },
+        ],
+        compress: true,
+        port: 9000,
+    },
 };
 
 module.exports = (env, argv) => {
