@@ -5,6 +5,7 @@ import * as Translator from "./translator";
 import * as MapWrapper from "./map";
 import { SocketHandler } from "./socket";
 import * as Initializer from "./init";
+import { doUpdateChecks } from "./version-check";
 
 async function init() {
     let config = null;
@@ -20,6 +21,8 @@ async function init() {
     }
 
     Initializer.initConsole(config.debug);
+
+    doUpdateChecks();
 
     // window.VersionCheck = new VersionCheck();
 
