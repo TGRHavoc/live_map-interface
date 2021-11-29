@@ -26,7 +26,7 @@ async function init() {
     for (const serverName in config.servers) {
         // Make sure all servers inherit defaults if they need
         let o = Object.assign({}, config.defaults, config.servers[serverName]);
-        console.log("added", serverName, JSON.stringify(o));
+
         config.servers[serverName] = o;
         // Config.addServer(serverName, o);
     }

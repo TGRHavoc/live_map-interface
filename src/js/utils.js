@@ -71,7 +71,6 @@ const Utils = {
     },
 
     convertToMapLeaflet: (currentLayer, x, y) => {
-        console.log("convertToMapLeaflet", currentLayer);
         let t = Utils.convertToMap(currentLayer, x, y);
         return t;
     },

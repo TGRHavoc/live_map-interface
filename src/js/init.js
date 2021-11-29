@@ -31,8 +31,6 @@ export const page = (config) => {
 let oldConsoleLog = null;
 
 export const initConsole = (debug) => {
-    console.log("Init console", debug);
-
     if (!debug) {
         console.log("Disabling console.log... Goodbye console!");
         oldConsoleLog = console.log;
@@ -75,24 +73,20 @@ export const blips = async (url) => {
             for (var i in blipArray) {
                 var blip = blipArray[i];
                 var fallbackName =
-                    MarkerTypes[spriteId] !== undefined &&
+                    MarkerTypes[spriteId] &&
                     hasOwnProperty.call(MarkerTypes[spriteId], "name")
                         ? MarkerTypes[spriteId].name
                         : "Unknown Name... Please make sure the sprite exists.";
 
-                blip.name =
-                    hasOwnProperty.call(blip, "name") || blip.name !== null
-                        ? blip.name
-                        : fallbackName;
-                blip.description =
-                    hasOwnProperty.call(blip, "description") ||
-                    blip.description !== null
-                        ? blip.description
-                        : "";
-
+                blip.name = hasOwnProperty.call(blip, "name")
+                    ? blip.name
+                    : fallbackName;
+                blip.description = hasOwnProperty.call(blip, "description")
+                    ? blip.description
+                    : "";
                 blip.type = spriteId;
 
-                MapWrapper.createBlip(blip, MarkerTypes);
+                MapWrapper.createBlip(blip);
             }
         }
     }

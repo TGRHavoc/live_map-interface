@@ -59,7 +59,6 @@ export const init = (_socketHandler) => {
 };
 
 export const createBlip = (blip) => {
-    console.log("Creating blip", blip);
     if (!Object.prototype.hasOwnProperty.call(blip, "pos")) {
         // BACKWARDS COMPATABILITY!!
         blip.pos = { x: blip.x, y: blip.y, z: blip.z };
@@ -122,7 +121,6 @@ export const toggleBlips = () => {
 };
 
 export const changeServer = (nameOfServer) => {
-    console.log("Changing connected server to: " + nameOfServer);
     if (!(nameOfServer in config.servers)) {
         new Alerter({
             title: t("errors.server-config.title"),
@@ -134,11 +132,9 @@ export const changeServer = (nameOfServer) => {
     }
 
     connectedTo = config.servers[nameOfServer];
-    console.log(connectedTo);
     // clearAllMarkers(); // Make sure _all_ markers from previous server has been removed.
 
     connectedTo.getBlipUrl = function () {
-        console.log("getBlipUrl", JSON.stringify(this));
         // this = the "connectedTo" server
         if (this.reverseProxy && this.reverseProxy.blips) {
             return this.reverseProxy.blips;
@@ -175,7 +171,7 @@ export const changeServer = (nameOfServer) => {
     Filter = undefined;
 
     setTimeout(function () {
-        Initializer.blips(connectedTo.getBlipUrl(), window.markers);
+        Initializer.blips(connectedTo.getBlipUrl());
 
         socketHandler.connect(connectedTo.getSocketUrl());
     }, 50);
@@ -186,7 +182,6 @@ export const mapInit = (elementID) => {
     let tileLayers = {};
     let maps = config.maps;
     maps.forEach((map) => {
-        console.log(map);
         if (map.tileSize) {
             map.tileSize = 1024;
         } // Force 1024 down/up scale
@@ -205,7 +200,6 @@ export const mapInit = (elementID) => {
                 map
             )
         );
-        console.log(tileLayers[map.name]);
     });
 
     CurrentLayer = tileLayers[Object.keys(tileLayers)[0]];
@@ -230,7 +224,6 @@ export const createMarker = (draggable, objectRef, title) => {
     }
 
     objectRef.position = Utils.stringCoordToFloat(objectRef.position);
-    console.log("createMarker", CurrentLayer);
     let coord = Utils.convertToMapLeaflet(
         CurrentLayer,
         objectRef.position.x,
@@ -425,7 +418,6 @@ export const updateBlip = (blipObj) => {
         let marker = MarkerStore[markerId];
 
         if (Object.prototype.hasOwnProperty.call(blipObj, "new_pos")) {
-            console.log("new_pos", CurrentLayer);
             // Blips are supposed to be static so, why this would even be fucking needed it beyond me
             // Still, better to prepare for the inevitability that someone wants this fucking feature
             marker.setLatLng(
@@ -503,7 +495,7 @@ export const playerLeft = (playerName) => {
 };
 
 export const doPlayerUpdate = (players) => {
-    console.log(players);
+    // console.log(players);
 
     players.forEach(doPlayerHtmlUpdates);
 
@@ -570,7 +562,6 @@ export const doPlayerHtmlUpdates = (plr) => {
 
     if (trackPlayer !== null && trackPlayer === plr.identifier) {
         // If we're tracking a player, make sure we center them
-        console.log("tracking player", CurrentLayer);
         Map.panTo(Utils.convertToMap(CurrentLayer, plr.pos.x, plr.pos.y));
     }
 
@@ -586,7 +577,6 @@ export const doPlayerHtmlUpdates = (plr) => {
             playerMarkerFromStore.setIcon(L.icon(t));
         }
 
-        console.log("doPlayerHtml", CurrentLayer);
         // Update the player's location on the map :)
         playerMarkerFromStore.setLatLng(
             Utils.convertToMapLeaflet(CurrentLayer, plr.pos.x, plr.pos.y)
