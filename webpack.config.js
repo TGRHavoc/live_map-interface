@@ -1,10 +1,11 @@
+/* eslint-disable */
+
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 var config = {
     mode: "production",
-    devtool: "source-map",
-
+    devtool: "eval-cheap-module-source-map",
     module: {
         rules: [
             {
@@ -21,7 +22,7 @@ var config = {
         ],
     },
     entry: {
-        index: "./src/js/_app.js"
+        app: "./src/js/_app.js"
     },
     plugins: [
         // Dev build, for dev server
@@ -39,21 +40,33 @@ var config = {
             minify: {
                 collapseWhitespace: true,
                 removeComments: true,
-            }
+            },
         }),
     ],
     output: {
-        filename: "livemap.[fullhash].js",
+        filename: "[name].[fullhash].js",
         path: path.resolve(__dirname, "dist"),
         // publicPath: "dist/",
-        clean: true
+        clean: true,
+    },
+    performance: {
+        maxEntrypointSize: 5242880,
+        maxAssetSize: 5242880
     },
     devServer: {
         static: [
             {
-              directory: path.join(__dirname, 'images'),
-              publicPath: "/images"
+                directory: path.join(__dirname, "images"),
+                publicPath: "/images",
             },
+            {
+                directory: path.join(__dirname, "translations"),
+                publicPath: "/translations",
+            },
+            {
+                directory: path.join(__dirname, "public", "dev"),
+                publicPath: "/",
+            }
         ],
         compress: true,
         port: 9000,
