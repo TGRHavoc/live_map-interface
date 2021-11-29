@@ -3,8 +3,8 @@
     "infile": "docs/CHANGELOG.md",
     "releaseCommitMessageFormat": "chore(release): v{{currentTag}}",
     "scripts": {
-        "prerelease": "yarn gulp",
-        "precommit": "git add -A dist/ style/src/"
+        "prerelease": "yarn build",
+        "precommit": "git add -A dist/ index.html"
     },
     "bumpFiles": [
         {

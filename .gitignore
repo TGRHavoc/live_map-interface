@@ -7,7 +7,7 @@ generate-changes.bat
 .changelog.rc
 
 node_modules/
-config.json
+/config.json
 
 _site/
 obj/
@@ -16,9 +16,8 @@ obj/
 dist/js/
 yarn-error.log
 .env
-blips.json
+/blips.json
 
 coverage/
 .cache/
-.parcel-cache/
-blips2.json
+/blips2.json

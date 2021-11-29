@@ -1,0 +1,28 @@
+{
+    "debug": true,
+    "tileDirectory": "images/tiles",
+    "iconDirectory": "images/icons",
+    "showIdentifiers": false,
+    "groupPlayers": true, // Wether the map should group players together into "clusters" or not.
+    "defaults": { // If a server doesn't have the key-value set, it will fallback to these values
+        "ip": "127.0.0.1", // Make sure this is the PUBLIC IP of the FIVEM server
+        "socketPort": "30121", // Set to the port that you set in the "socket_port" convar (if different to the one in the config)
+        "reverseProxy": {
+            "blips": "blips.json"
+        }
+    },
+    "servers": {
+        "Default server 1": {}
+    },
+    "maps": [
+        {
+            "name": "Normal",
+            "url": "{tileDirectory}/normal/minimap_sea_{y}_{x}.png"
+        },
+        {
+            "name": "Postal",
+            "url": "{tileDirectory}/postal/minimap_sea_{y}_{x}.png",
+            "minZoom": -5 // Since this is 3 times bigger, just remove 3 from the default minZoom
+        }
+    ]
+}

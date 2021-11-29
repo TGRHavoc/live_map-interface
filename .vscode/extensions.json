@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "syler.sass-indented",
+        "dbaeumer.vscode-eslint",
+        "sibiraj-s.vscode-scss-formatter",
+        "wayou.vscode-todo-highlight"
+    ]
+}

@@ -1,44 +1,47 @@
 {
-  "version": "4.1.8",
-  "scripts": {
-    "build": "gulp",
-    "doc": "jsdoc2md > docs/api.md",
-    "release": "standard-version && git push --follow-tags origin develop && conventional-github-releaser",
-    "test": "jest"
-  },
-  "jshintConfig": {
-    "esversion": "2015",
-    "browser": true,
-    "latedef": true,
-    "newcap": true,
-    "undef": true,
-    "predef": [
-      "L",
-      "console"
-    ]
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "^7.15.8",
-    "@babel/plugin-transform-runtime": "^7.15.8",
-    "@babel/runtime": "^7.15.4",
-    "@babel/runtime-corejs3": "^7.15.4",
-    "all-contributors-cli": "^6.20.0",
-    "conventional-github-releaser": "^3.1.5",
-    "gulp": "^4.0.2",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-cli": "^2.3.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-minify": "^3.1.0",
-    "gulp-replace": "^1.1.2",
-    "gulp-sass": "^5.0.0",
-    "gulp-strip-css-comments": "^2.0.0",
-    "gulp-uglify": "^3.0.2",
-    "jest": "^27.1.0",
-    "jsdoc-to-markdown": "^7.1.0",
-    "jshint": "^2.13.1",
-    "parcel-bundler": "^1.12.5",
-    "sass": "^1.43.2",
-    "standard-version": "^9.3.1"
-  }
+    "version": "4.1.8",
+    "scripts": {
+        "build": "webpack build",
+        "dev": "webpack serve",
+        "doc": "jsdoc2md > docs/api.md",
+        "release": "standard-version && git push --follow-tags origin develop && conventional-github-releaser",
+        "test": "jest"
+    },
+    "license": "GPL-3.0",
+    "jshintConfig": {
+        "esversion": "2015",
+        "browser": true,
+        "latedef": true,
+        "newcap": true,
+        "undef": true
+    },
+    "dependencies": {
+        "@popperjs/core": "^2.10.2",
+        "bootstrap": "^5.1.3",
+        "css-loader": "^6.5.1",
+        "html-webpack-plugin": "^5.5.0",
+        "leaflet": "^1.7.1",
+        "leaflet.markercluster": "^1.5.3",
+        "sass": "^1.43.2",
+        "sass-loader": "^12.3.0",
+        "simple-notify": "^0.5.4",
+        "sprintf-js": "^1.1.2",
+        "standard-version": "^9.3.1",
+        "style-loader": "^3.3.1",
+        "webpack": "^5.64.1"
+    },
+    "devDependencies": {
+        "@types/bootstrap": "^5.1.6",
+        "@types/leaflet": "^1.7.6",
+        "all-contributors-cli": "^6.20.0",
+        "conventional-github-releaser": "^3.1.5",
+        "eslint": "^8.2.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "jest": "^27.1.0",
+        "jsdoc-to-markdown": "^7.1.0",
+        "prettier": "^2.4.1",
+        "webpack-cli": "^4.9.1",
+        "webpack-dev-server": "^4.5.0"
+    }
 }

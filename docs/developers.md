@@ -5,8 +5,8 @@ If you're looking to customize the interface for your community or, want to impr
 - [Step 1: Fork & Clone](#step-1-fork--clone)
 - [Step 2: Installing Dependencies](#step-2-installing-dependencies)
 - [Step 3: Edit code](#step-3-edit-code)
-    - [Editing JS files](#editing-js-files)
-    - [Editing SCSS files](#editing-scss-files)
+  - [Editing JS files](#editing-js-files)
+  - [Editing SCSS files](#editing-scss-files)
 - [Step 4: Build!](#step-4-build)
 
 ## Step 1: Fork & Clone
@@ -72,72 +72,64 @@ Some directory names you may come across include:
 
 ### Editing JS files
 
-By default Gulp is configured to file _all_ files ending with `.js` inside `js/src/{first,last}_bundle` and bundle them all together into their corresponding `dist/*.js` file.
-For example, if you wanted to add some code to head of the interface, you would create a new JS file inside `js/src/first_bundle` (or another subdirectory if needed) and just run Gulp.
+Since moving over to Webpack this process has gotten a whole lot easier.
+All you have to do now, is create a JS file for your code, make sure it's included somewhere (`import {YourComponent} from "./yourfile"`) and voila!
 
-If you wanted to create another directory inside `js/src/` for your files then, make sure to add them to gulp.
-For example, if you wanted to create a directory for `some-new-feature` then the modified `gulpfile.js` should included something along the lines of
-```js
-function pack_some_new_feature() {
-    return gulp.src(["js/src/some-new-feature/**/*.js"]) // ALL js files, even ones in subdirectories
-        .pipe(concat("some-new-feature.js")) // The file all this code will be placed into
-        .pipe(minify({ // Minify the code 
-            ext: {
-                min: ".js"
-            },
-            noSource: true
-        }))
-        .pipe(gulp.dest("dist/")); // Output "some-new-feature.js" to the "dist/" folder
-}
+If you want to see your changes in real-time you can run `yarn dev` (or `npm run dev`) to start the webpack development server.
 
-exports.default = gulp.series(
-    gulp.parallel(
-        preprocess_sass,
-        preprocess_bootstrap
-    ),
-    gulp.parallel(pack_js, pack_js_2, pack_css, pack_some_new_feature) // Make sure we run the function we just created
-);
-```
-
-And obviously make sure to include the new JS file in `index.html`!
+Building this into the bundled script file is as easy as `yarn build` (or `npm run build`)!
+This will do some magic and place the files needed to run LiveMap in the `dist/` folder.
 
 
 ### Editing SCSS files
 
-By default Gulp is configured to file _all_ files ending with `.scss` inside `style/scss/src/` and bundle them all together into the `style/src/style.css` file.
-The `style/src/style.css` file is the file that is used inside `debug.html` so, it's recommended to always build your SCSS before viewing the debug page.
-There's a Gulp task set up called `sass:watch` which, will automatically pick up any changes inside `style/scss/src/` and build them to `style.css`.
-You can run this by typing the following:
-```shell
-❯ npx gulp sass:watch
-# or if using yarn
-❯ yarn gulp sass:watch
-yarn run v1.13.0
-$ live_map-interface\node_modules\.bin\gulp sass:watch
-[00:06:05] Using gulpfile live_map-interface\gulpfile.js
-[00:06:05] Starting 'sass:watch'...
-```
+This should be fairly straight forward with webpack as well.
+Create your SCSS file (e.g. `src/sass/myStyle.scss`).
+Make sure it's included in the main scss file (`src/sass/main.scss`) by importing it `@import "./myStyle";`.
+
+You should now be done.
+
+Webpack will transform this into CSS and pop it into the JavaScript bundle, loading the style when the JS is loaded.
+Again, to see your changes in real-time make sure you have the webpack development server running (`yarn dev` or `npm run dev`).
+
+
 
 ## Step 4: Build!
 
 Since you've already installed all the dependencies and what not, this step should be easy.
-Just run Gulp!
+Just run the build script!
 
 ```
-❯ npx gulp
+❯ npm run build
 # or if using yarn
-❯ yarn gulp
-[00:09:16] Using gulpfile live_map-interface\gulpfile.js
-[00:09:16] Starting 'default'...
-[00:09:16] Starting 'preprocess_sass'...
-[00:09:16] Starting 'preprocess_bootstrap'...
-[00:09:16] Finished 'preprocess_sass' after 13 ms
-[00:09:17] Finished 'preprocess_bootstrap' after 734 ms
-[00:09:17] Starting 'pack_js'...
-[00:09:17] Starting 'pack_js_2'...
-[00:09:17] Starting 'pack_css'...
-[00:09:18] Finished 'pack_css' after 915 ms
-[00:09:18] Finished 'pack_js_2' after 1 s
-[00:09:20] Finished 'pack_js' after 3.19 s
-[00:09:20] Finished 'default' after 3.93 s
+❯ yarn build
+ yarn run v1.22.17
+$ webpack build
+assets by status 3.34 KiB [cached] 3 assets
+assets by status 739 KiB [emitted]
+  asset livemap.e39bf3ab164133c7ac48.js 722 KiB [emitted] [immutable] [minimized] [big] (name: index) 2 related assets
+  asset ../index.html 8.46 KiB [emitted] [compared for emit]
+  asset index.html 8.41 KiB [emitted]
+orphan modules 86.4 KiB [orphan] 15 modules
+runtime modules 2.39 KiB 7 modules
+cacheable modules 1.1 MiB (javascript) 3.34 KiB (asset)
+  modules by path ./ 1.1 MiB (javascript) 3.34 KiB (asset)
+    javascript modules 1.1 MiB
+      modules by path ./node_modules/ 559 KiB 14 modules
+      modules by path ./src/ 566 KiB
+        ./src/js/_app.js + 14 modules 87.4 KiB [built] [code generated]
+        ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/sass/main.scss 479 KiB [built] [code generated]
+    asset modules 126 bytes (javascript) 3.34 KiB (asset)
+      ./node_modules/leaflet/dist/images/layers.png 42 bytes (javascript) 696 bytes (asset) [built] [code generated]
+      ./node_modules/leaflet/dist/images/layers-2x.png 42 bytes (javascript) 1.23 KiB (asset) [built] [code generated]
+      ./node_modules/leaflet/dist/images/marker-icon.png 42 bytes (javascript) 1.43 KiB (asset) [built] [code generated]
+  modules by path data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/ 4.39 KiB 16 modules
+
+WARNING in webpack performance recommendations: 
+You can limit the size of your bundles by using import() or require.ensure to lazy load some parts of your application.
+For more info visit https://webpack.js.org/guides/code-splitting/
+
+webpack 5.64.1 compiled with 14 warnings in 7914 ms
+Done in 8.90s.
+
 ```

@@ -15,5 +15,13 @@
         "spiderfy",
         "sprintf",
         "vsprintf"
-    ]
+    ],
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "json"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+    },
 }
