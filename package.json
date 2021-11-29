@@ -1,8 +1,8 @@
 {
   "version": "4.1.8",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack watch",
+    "build": "webpack build",
+    "dev": "webpack serve",
     "doc": "jsdoc2md > docs/api.md",
     "release": "standard-version && git push --follow-tags origin develop && conventional-github-releaser",
     "test": "jest"
@@ -25,12 +25,15 @@
     "conventional-github-releaser": "^3.1.5",
     "css-loader": "^6.5.1",
     "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.1.0",
     "jsdoc-to-markdown": "^7.1.0",
     "jshint": "^2.13.1",
     "leaflet": "^1.7.1",
     "leaflet.markercluster": "^1.5.3",
+    "prettier": "^2.4.1",
     "sass": "^1.43.2",
     "sass-loader": "^12.3.0",
     "simple-notify": "^0.5.4",
