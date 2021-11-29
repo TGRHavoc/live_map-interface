@@ -1,3 +1,9 @@
+import { Map } from "./map";
+
+import { t } from "./translator";
+import { config } from "./config";
+
+import * as L from "leaflet";
 
 const Utils = {
     // :thinking: This seems to improve the accuracy. I think what the problem is, if that the images I'm using doesn't correlate 1:1 to the map I'm using as a reference
@@ -35,8 +41,8 @@ const Utils = {
         const h = CurrentLayer.options.tileSize * 3,
             w = CurrentLayer.options.tileSize * 2;
 
-        const latLng1 = window.MapL.unproject([0, 0], 0);
-        const latLng2 = window.MapL.unproject(
+        const latLng1 = Map.unproject([0, 0], 0);
+        const latLng2 = Map.unproject(
             [w / 2, h - CurrentLayer.options.tileSize],
             0
         );
@@ -58,13 +64,14 @@ const Utils = {
     getMapBounds: (layer) => {
         const h = layer.options.tileSize * 3,
             w = layer.options.tileSize * 2,
-            southWest = window.MapL.unproject([0, h], 0),
-            northEast = window.MapL.unproject([w, 0], 0);
+            southWest = Map.unproject([0, h], 0),
+            northEast = Map.unproject([w, 0], 0);
 
         return new L.LatLngBounds(southWest, northEast);
     },
 
     convertToMapLeaflet: (currentLayer, x, y) => {
+        console.log("convertToMapLeaflet", currentLayer);
         let t = Utils.convertToMap(currentLayer, x, y);
         return t;
     },
@@ -75,6 +82,123 @@ const Utils = {
             y: parseFloat(coord.y),
             z: parseFloat(coord.z),
         };
+    },
+
+    /**
+     *
+     *
+     * @static
+     * @param {Object} coords
+     * @param {number} coords.x
+     * @param {number} coords.y
+     * @param {number} coords.z
+     * @memberof Utils
+     */
+    getPositionHtml: (coords) => {
+        return `<div class="row info-body-row"><strong>${t(
+            "map.position"
+        )}:</strong>&nbsp;X ${coords.x.toFixed(2)} Y ${coords.y.toFixed(
+            2
+        )} Z ${coords.z.toFixed(2)}</div>`;
+    },
+
+    /**
+     *
+     *
+     * @static
+     * @param {number} x
+     * @param {number} y
+     * @param {number} z
+     * @memberof Utils
+     */
+    getPositionHtmlWith: (x, y, z) => {
+        return Utils.getPositionHtml({ x, y, z });
+    },
+
+    /**
+     *
+     *
+     * @static
+     * @param {string} key
+     * @param {any} value
+     * @return {string}
+     * @memberof Utils
+     */
+    getHtmlForInformation: (key, value) => {
+        return `<div class="row info-body-row"><strong>${key}:</strong>&nbsp;${value}</div>`;
+    },
+
+    getInfoHtmlForMarkers: (name, extraHtml) => {
+        return `<div class="info-window"><div class="info-header-box"><div class="info-header">${name}</div></div><div class="clear border"></div><div id="info-body">${extraHtml}</div></div>`;
+    },
+
+    getPlayerInfoHtml: (plr) => {
+        //let html = '<div class="row info-body-row"><strong>Position:</strong>&nbsp;X {' + plr.pos.x.toFixed(0) + "} Y {" + plr.pos.y.toFixed(0) + "} Z {" + plr.pos.z.toFixed(0) + "}</div>";
+        let html = Utils.getPositionHtml(plr.pos);
+
+        for (let key in plr) {
+            //console.log("found key: "+ key);
+            if (key === "name" || key === "pos" || key === "icon") {
+                // I should probably turn this into a array or something
+                continue; // We're already displaying this info
+            }
+
+            if (key !== "identifier") {
+                html += Utils.getHtmlForInformation(key, plr[key]);
+                ///html += '<div class="row info-body-row"><strong>' + key + ':</strong>&nbsp;' + plr[key] + '</div>';
+            } else if (config.showIdentifiers && key === "identifier") {
+                html += Utils.getHtmlForInformation(key, plr[key]);
+            } else {
+                continue;
+            }
+        }
+        return html;
+    },
+
+    playerNameSorter: (plr1, plr2) => {
+        let str1 = plr1.name;
+        let str2 = plr2.name;
+
+        return str1 < str2 ? -1 : str1 > str2 ? 1 : 0;
+    },
+
+    getFilterProps: (plr) => {
+        let props = [];
+        for (let key in plr) {
+            //console.log("found key: "+ key);
+            if (key === "name" || key === "pos" || key === "icon") {
+                // I should probably turn this into a array or something
+                continue; // We're already displaying this info
+            }
+
+            if (key !== "identifier") {
+                props.push(key);
+            } else if (config.showIdentifiers && key === "identifier") {
+                props.push(key);
+            } else {
+                continue;
+            }
+        }
+
+        return props;
+    },
+
+    /**
+     * Return if a particular option exists in a <select> object
+     * @param {String} needle A string representing the option you are looking for
+     * @param {Object} haystack A Select object
+     */
+    optionExists: (needle, haystack) => {
+        var optionExists = false,
+            optionsLength = haystack.length;
+
+        while (optionsLength--) {
+            if (haystack.options[optionsLength].value === needle) {
+                optionExists = true;
+                break;
+            }
+        }
+        return optionExists;
     },
 };
 

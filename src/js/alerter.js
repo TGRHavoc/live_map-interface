@@ -24,13 +24,11 @@ import Notify from "simple-notify";
  * The main class for Alerts.
  */
 class Alerter {
-
     /**
      * @param {AlerterOptions | string} data The options to use to create Alerts or the text of an alert.
      * @constructor
      */
-    constructor(data){
-
+    constructor(data) {
         this.DEFAULT_OPTIONS = {
             status: "warning",
             title: "Warning!",
@@ -46,18 +44,17 @@ class Alerter {
             gap: 10,
             distance: 20,
             type: 2,
-            position: "bottom right"
+            position: "bottom right",
         };
 
-        if (data == undefined || data == null) {
+        if (data === undefined || data === null) {
             console.error("Data needs to be set");
             return;
         }
         var myOptionTemp;
-        if (typeof (data) == "string") {
+        if (typeof data === "string") {
             myOptionTemp = { text: data };
-        }
-        else {
+        } else {
             myOptionTemp = data;
         }
 
@@ -79,4 +76,6 @@ new Alerter({title: "error test", text: "<a href='#'>Link!</a> Some more text!",
 new Alerter({title: "error test", text: "<a href='#'>Link!</a> Some more text!", type: 3, status: "error"});
 */
 
-export {Alerter};
+export { Alerter };
+
+export default Alerter;

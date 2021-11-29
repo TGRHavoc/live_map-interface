@@ -1,242 +1,235 @@
-import { types } from "./markers";
-import { Initializer } from "./init";
+import { types, nameToId } from "./markers";
+import { blips as initializeBlips } from "./init";
+
+import t from "./translator";
+
+// eslint-disable-next-line no-unused-vars
+import * as MapWrapper from "./map";
+// eslint-disable-next-line no-unused-vars
+import { Markers } from "./markers";
 
 import * as L from "leaflet";
 
-class Controls {
+export let blipControlToggleAll = true;
 
-    /**
-     * Creates an instance of Controls.
-     * @param {MapWrapper} mapWrapper
-     * @memberof Controls
-     */
-    constructor(mapWrapper) {
-        console.log("Created new controls");
-        this.mapWrapper = mapWrapper;
+/**
+ * Initialises the instance of Controls
+ */
+export const init = () => {
+    initControls();
+};
 
-        this.blipControlToggleAll = true;
+export const generateBlipControls = () => {
+    let container = document.getElementById("blipControlContainer");
 
-        this.initControls();
+    for (var blipName in types) {
+        let a = document.createElement("a");
+        a.setAttribute("data-blip-number", nameToId[blipName]);
+        a.id = `blip_${blipName}_link`;
+        a.classList.add("blip-button-a", "d-inline-block", "blip-enabled");
+        let span = document.createElement("span");
+        span.classList.add("blip", `blip-${blipName}`);
+
+        a.appendChild(span);
+
+        container.appendChild(a);
+
+        console.log("Added ahref for " + blipName);
     }
 
-    initControls() {
+    var allButtons = document.getElementsByClassName("blip-button-a");
 
-        // let modals = document.querySelectorAll("[data-bs-toggle='modal']");
-        // console.log("modals", modals);
-        // modals.forEach(modalNode => new Modal(modalNode));
-
-        document.getElementById("showBlips").onclick = this.showBlips_onClick.bind(this);
-        document.getElementById("toggleAllBlips").onclick = this.toggleAllBlips_onClick.bind(this);
-        document.getElementById("reconnect").onclick = this.reconnect_onClick.bind(this);
-        document.getElementById("serverMenu").onclick = this.serverMenu_onClick.bind(this);
-
-        this.mapWrapper.PlayerMarkers.on("cluckerclick", this.playerMarker_clusterClick.bind(this));
-
-        document.getElementById("playerSelect").onchange = this.playerSelect_onChange.bind(this);
-        document.getElementById("filterOn").onchange = this.filterOn_onChange.bind(this);
-        document.getElementById("refreshBlips").onclick = this.refreshBlips_onClick.bind(this);
-
+    for (let ele of allButtons) {
+        ele.onclick = blipButtonClicked;
     }
 
-    /**
-     *
-     * @param {Markers} markers
-     * @memberof Controls
-     */
-    generateBlipControls(markers) {
-        let container = document.getElementById("blipControlContainer");
+    MapWrapper.clearAllMarkers();
+    MapWrapper.toggleBlips();
+};
 
-        for (var blipName in types) {
-            let a = document.createElement("a");
-            a.setAttribute("data-blip-number", markers.nameToId[blipName]);
-            a.id = `blip_${blipName}_link`;
-            a.classList.add("blip-button-a", "d-inline-block", "blip-enabled");
-            let span = document.createElement("span");
-            span.classList.add("blip", `blip-${blipName}`);
+const initControls = () => {
+    // let modals = document.querySelectorAll("[data-bs-toggle='modal']");
+    // console.log("modals", modals);
+    // modals.forEach(modalNode => new Modal(modalNode));
 
-            a.appendChild(span);
+    document.getElementById("showBlips").onclick = showBlips_onClick;
+    document.getElementById("toggleAllBlips").onclick = toggleAllBlips_onClick;
+    document.getElementById("reconnect").onclick = reconnect_onClick;
+    document.getElementById("serverMenu").onclick = serverMenu_onClick;
 
-            container.appendChild(a);
+    MapWrapper.PlayerMarkers.on("cluckerclick", playerMarker_clusterClick);
 
-            console.log("Added ahref for " + blipName);
-        }
+    document.getElementById("playerSelect").onchange = playerSelect_onChange;
+    document.getElementById("filterOn").onchange = filterOn_onChange;
+    document.getElementById("refreshBlips").onclick = refreshBlips_onClick;
+};
 
-        var allButtons = document.getElementsByClassName("blip-button-a");
-
-        for (let ele of allButtons) {
-            ele.onclick = this.blipButtonClicked.bind(this, ele);
-        }
-
-        this.mapWrapper.clearAllMarkers();
-        this.mapWrapper.toggleBlips();
+const blipButtonClicked = (ele) => {
+    let blipId = ele.getAttribute("data-blip-number");
+    // Toggle blip
+    if (MapWrapper.disabledBlips.includes(blipId)) {
+        // Already disabled, enable it
+        MapWrapper.disabledBlips.splice(
+            MapWrapper.disabledBlips.indexOf(blipId),
+            1
+        );
+        ele.classList.remove("blip-disabled");
+        ele.classList.add("blip-enabled");
+    } else {
+        // Enabled, disable it
+        MapWrapper.disabledBlips.push(blipId);
+        ele.classList.remove("blip-enabled");
+        ele.classList.add("blip-disabled");
     }
 
-    blipButtonClicked(ele) {
+    MapWrapper.toggleBlips();
+};
+
+const showBlips_onClick = (event) => {
+    event.preventDefault();
+
+    MapWrapper.setShowBlips(!MapWrapper.showBlips);
+
+    //webSocket.send("getBlips");
+    MapWrapper.toggleBlips();
+
+    let ele = document.getElementById("blipsEnabled");
+    ele.classList.remove("bg-success", "bg-danger");
+
+    ele.classList.add(MapWrapper.showBlips ? "bg-success" : "bg-danger");
+
+    let onOff = MapWrapper.showBlips ? "on" : "off";
+    ele.innerText = t(`generic.${onOff}`);
+};
+
+const toggleAllBlips_onClick = () => {
+    blipControlToggleAll = !blipControlToggleAll;
+
+    let allButtons = document.getElementsByClassName("blip-button-a");
+
+    for (let ele of allButtons) {
         let blipId = ele.getAttribute("data-blip-number");
-        // Toggle blip
-        if (this.mapWrapper.disabledBlips.includes(blipId)) {
-            // Already disabled, enable it
-            this.mapWrapper.disabledBlips.splice(this.mapWrapper.disabledBlips.indexOf(blipId), 1);
+
+        if (blipControlToggleAll) {
+            // Showing them
+            MapWrapper.disabledBlips.splice(
+                MapWrapper.disabledBlips.indexOf(blipId),
+                1
+            );
             ele.classList.remove("blip-disabled");
             ele.classList.add("blip-enabled");
         } else {
-            // Enabled, disable it
-            this.mapWrapper.disabledBlips.push(blipId);
+            //Hiding them
+            MapWrapper.disabledBlips.push(blipId);
             ele.classList.remove("blip-enabled");
             ele.classList.add("blip-disabled");
         }
-
-        this.mapWrapper.toggleBlips();
     }
 
-    showBlips_onClick(event) {
-        const lang = window.Translator;
+    // Now we can refresh the markers
+    MapWrapper.toggleBlips();
+};
 
-        event.preventDefault();
+const playerMarker_clusterClick = (a) => {
+    const Map = MapWrapper.Map;
 
-        this.mapWrapper.showBlips = !this.mapWrapper.showBlips;
+    var html = L.DomUtil.create("ul");
+    var markers = a.layer.getAllChildMarkers();
+    for (var i = 0; i < markers.length; i++) {
+        var marker = markers[i].options;
 
-        //webSocket.send("getBlips");
-        this.mapWrapper.toggleBlips();
+        var name = marker.title;
+        var child = L.DomUtil.create("li", "clusteredPlayerMarker");
+        child.setAttribute("data-identifier", marker.player.identifier);
+        child.appendChild(document.createTextNode(name));
 
-        let ele = document.getElementById("blipsEnabled");
-        ele.classList.remove("bg-success", "bg-danger");
-
-        ele.classList.add(this.mapWrapper.showBlips ? "bg-success" : "bg-danger");
-
-        let onOff = this.mapWrapper.showBlips ? "on" : "off";
-        ele.innerText = lang.t(`generic.${onOff}`);
+        html.appendChild(child);
     }
 
-    toggleAllBlips_onClick(event) {
+    // If they click on a username
+    L.DomEvent.on(html, "click", playerInsideCluster_onClick);
 
-        this.blipControlToggleAll = !this.blipControlToggleAll;
+    Map.openPopup(html, a.layer.getLatLng());
+};
 
+const reconnect_onClick = (e) => {
+    e.preventDefault();
 
-        let allButtons = document.getElementsByClassName("blip-button-a");
+    let connectionEle = document.getElementById("connection");
 
-        for (let ele of allButtons) {
-            let blipId = ele.getAttribute("data-blip-number");
+    connectionEle.classList.remove("bg-success", "bg-danger");
 
-            if (this.blipControlToggleAll) {
-                // Showing them
-                this.mapWrapper.disabledBlips.splice(this.mapWrapper.disabledBlips.indexOf(blipId), 1);
-                ele.classList.remove("blip-disabled");
-                ele.classList.add("blip-enabled");
+    connectionEle.classList.add("bg-warning");
+    connectionEle.innerText = t("generic.reconnecting");
 
-            } else {
-                //Hiding them
-                this.mapWrapper.disabledBlips.push(blipId);
-                ele.classList.remove("blip-enabled");
-                ele.classList.add("blip-disabled");
-
-            }
-        }
-
-        // Now we can refresh the markers
-        this.mapWrapper.toggleBlips();
-
+    if (
+        MapWrapper.socketHandler.webSocket !== undefined ||
+        MapWrapper.socketHandler.webSocket !== null
+    ) {
+        MapWrapper.socketHandler.webSocket.close();
     }
 
-    playerMarker_clusterClick(a) {
-        const Map = this.mapWrapper.Map;
+    MapWrapper.socketHandler.connect(MapWrapper.connectedTo.getSocketUrl());
+};
 
-        var html = L.DomUtil.create("ul");
-        var markers = a.layer.getAllChildMarkers();
-        for (var i = 0; i < markers.length; i++) {
-            var marker = markers[i].options;
+const serverMenu_onClick = (e) => {
+    let target = e.target;
+    MapWrapper.changeServer(target.innerText);
+};
 
-            var name = marker.title;
-            var child = L.DomUtil.create("li", "clusteredPlayerMarker");
-            child.setAttribute("data-identifier", marker.player.identifier);
-            child.appendChild(document.createTextNode(name));
+export const playerMarker_onClick = (e) => {
+    const Map = MapWrapper.Map;
 
-            html.appendChild(child);
-        }
+    Map.closePopup();
+    MapWrapper.PopupStore[e.target.options.id].setLatLng(e.latlng);
+    Map.openPopup(MapWrapper.PopupStore[e.target.options.id]);
+};
 
-        // If they click on a username
-        L.DomEvent.on(html, "click", this.playerInsideCluster_onClick.bind(this));
+const playerInsideCluster_onClick = (e) => {
+    const Map = MapWrapper.Map;
 
-        Map.openPopup(html, a.layer.getLatLng());
+    var t = e.target;
+    var attribute = t.getAttribute("data-identifier");
+    var m =
+        MapWrapper.PopupStore[MapWrapper.localPlayerCache[attribute].marker]; // Get the marker using the localcache.
+
+    Map.closePopup(); //Close the currently open popup
+    Map.openPopup(m); // Open the user's popup
+};
+
+const playerSelect_onChange = (e) => {
+    let value = e.target.value;
+
+    if (value === "") {
+        // No longer want to track
+        MapWrapper.setTrackPlayer(null);
+        e.target.classList.add("text-danger");
+        return;
     }
 
-    playerInsideCluster_onClick(e) {
-        var t = e.target;
-        var attribute = t.getAttribute("data-identifier");
-        var m = this.mapWrapper.PopupStore[this.mapWrapper.localCache[attribute].marker]; // Get the marker using the localcache.
+    e.target.classList.remove("text-danger");
+    MapWrapper.Map.setZoom(3);
+    MapWrapper.setTrackPlayer(value);
+};
 
-        Map.closePopup(Map._popup); //Close the currently open popup
-        Map.openPopup(m); // Open the user's popup
+const filterOn_onChange = (e) => {
+    const value = e.target.value;
+    if (value === "") {
+        MapWrapper.setFilter(undefined);
+        e.target.classList.add("text-danger");
+        //document.getElementById("filterOn").classList.remove("text-danger");
+        return;
     }
 
-    reconnect_onClick(e) {
+    e.target.classList.remove("text-danger");
+    MapWrapper.setFilter({
+        on: value,
+    });
+};
 
-        e.preventDefault();
+const refreshBlips_onClick = (e) => {
+    e.preventDefault();
 
-        const lang = window.Translator;
-        let connectionEle = document.getElementById("connection");
-
-        connectionEle.classList.remove("bg-success", "bg-danger");
-
-        connectionEle.classList.add("bg-warning");
-        connectionEle.innerText = lang.t("generic.reconnecting");
-
-
-
-        if (this.mapWrapper.socketHandler.webSocket != undefined || this.mapWrapper.socketHandler.webSocket != null) {
-            this.mapWrapper.socketHandler.webSocket.close();
-        }
-
-        this.mapWrapper.socketHandler.connect(this.mapWrapper.connectedTo.getSocketUrl());
-    }
-
-    serverMenu_onClick(e) {
-        let target = e.target;
-        this.mapWrapper.changeServer(target.innerText);
-    }
-
-    playerMarker_onClick(mw, e) {
-        mw.Map.closePopup(mw.Map._popup);
-        mw.PopupStore[e.target.options.id].setLatLng(e.latlng);
-        mw.Map.openPopup(mw.PopupStore[e.target.options.id]);
-    }
-
-    playerSelect_onChange(e) {
-        let value = e.target.value;
-
-        if (value == "") { // No longer want to track
-            this.mapWrapper.trackPlayer = null;
-            e.target.classList.add("text-danger");
-            return;
-        }
-
-        e.target.classList.remove("text-danger");
-        this.mapWrapper.Map.setZoom(3);
-        this.mapWrapper.trackPlayer = value;
-    }
-
-    filterOn_onChange(e) {
-        const value = e.target.value;
-        if (value == "") {
-            this.mapWrapper.Filter = undefined;
-            e.target.classList.add("text-danger");
-            //document.getElementById("filterOn").classList.remove("text-danger");
-            return;
-        }
-
-        e.target.classList.remove("text-danger");
-        this.mapWrapper.Filter = {
-            on: value
-        };
-    }
-
-    refreshBlips_onClick(e) {
-        e.preventDefault();
-
-        this.mapWrapper.clearAllMarkers();
-        Initializer.blips(this.mapWrapper.connectedTo.getBlipUrl(), this.mapWrapper.markers, this.mapWrapper);
-    }
-}
-
-
-export { Controls };
+    MapWrapper.clearAllMarkers();
+    initializeBlips(MapWrapper.connectedTo.getBlipUrl());
+};
