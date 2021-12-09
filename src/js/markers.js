@@ -181,6 +181,10 @@ export const types = {
     Crosshair2: {},
     DollarSignSquared: { id: 434 },
     FlameIcon: { id: 436, x: 15 },
+
+    DiamondCasino: { id: 679, x: 3, y: 25 },
+    LSCarMeet: { id: 777, x: 4, y: 29 },
+    LSCarMeetGarage: { id: 779, x: 2, y: 29 },
 };
 
 export let nameToId = {};
@@ -218,7 +222,7 @@ export const initMarkers = () => {
 
     blipCss = `.blip {
         background: url("${config.iconDirectory}/blips_texturesheet.png");
-        background-size: ${1024 / 2}px ${1024 / 2}px;
+        background-size: ${1024 / 2}px ${2000 / 2}px;
         display: inline-block;
         width: ${customImageWidth}px;
         height: ${customImageHeight}px;
