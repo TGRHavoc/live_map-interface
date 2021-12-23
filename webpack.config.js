@@ -23,7 +23,9 @@ var config = {
         ],
     },
     entry: {
-        vendors: ["leaflet", "leaflet.markercluster", "bootstrap"],
+        vendors: {
+            import: ["leaflet", "leaflet.markercluster", "@popperjs/core", "bootstrap"],
+        },
 
         style: "./src/sass/main.scss",
         app: {
