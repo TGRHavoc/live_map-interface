@@ -44,9 +44,12 @@ class Translator {
 
         for (let key in json) {
             const li = document.createElement("li");
-            li.classList.add("dropdown-item");
-            li.innerText = `${key} - ${json[key]}`;
-            li.setAttribute("data-translation-language", key);
+            const link = document.createElement("a");
+
+            link.classList.add("dropdown-item");
+            link.innerText = `${key} - ${json[key]}`;
+            link.href = "#";
+            link.setAttribute("data-translation-language", key);
 
             li.onclick = function (e) {
                 this.setLanguage(
@@ -54,6 +57,7 @@ class Translator {
                 );
             }.bind(this);
 
+            li.appendChild(link);
             languageList.appendChild(li);
         }
     }
