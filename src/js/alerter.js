@@ -47,7 +47,7 @@ class Alerter {
             position: "bottom right",
         };
 
-        if (data === undefined || data === null) {
+        if (data == undefined || data == null) {
             console.error("Data needs to be set");
             return;
         }
@@ -77,5 +77,3 @@ new Alerter({title: "error test", text: "<a href='#'>Link!</a> Some more text!",
 */
 
 export { Alerter };
-
-export default Alerter;

@@ -16,5 +16,4 @@ class MarkerObject {
     }
 }
 
-
 export { Coordinates, MarkerObject };

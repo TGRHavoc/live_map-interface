@@ -1,13 +1,12 @@
-import { config } from "./config";
-
-import { generateBlipControls } from "./controls";
+import { Config } from "./config.js";
+import { Controls } from "./controls.js";
 
 // divide by 2 since we want to make icons 32x32 images
 const customImageWidth = 64 / 2; // 64 =  sheetWidth / 16 (amount of images)
 const customImageHeight = 64 / 2; // 64 = sheetHeight / 16 (amount of images)
 
 // FUCK ME, GTA HAS A LOT OF FUCKING BLIPS
-export const types = {
+const types = {
     Standard: { id: 1, x: 0, y: 0 },
     Jet: { id: 16 },
     Lift: { id: 36 },
@@ -187,103 +186,118 @@ export const types = {
     LSCarMeetGarage: { id: 779, x: 2, y: 29 },
 };
 
-export let nameToId = {};
+class Markers {
+    /**
+     * Creates an instance of Markers.
+     * @param {Config} config
+     * @param {Controls} controls
+     * @memberof Markers
+     */
+    constructor(config, controls) {
+        this.nameToId = {};
+        this.config = config;
 
-export let MarkerTypes = {};
-
-let blipCss = "";
-
-export const initMarkers = () => {
-    MarkerTypes = {
-        0: {
-            name: "Blank Icon",
-            iconUrl:
-                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=",
-            iconSize: [0, 0],
-            popupAnchor: [0, 0],
-            iconAnchor: [0, 0],
-        },
-        999: {
-            name: "Debug Icon",
-            iconUrl: config.iconDirectory + "/debug.png",
-            iconSize: [23, 32],
-            popupAnchor: [0, 0],
-            iconAnchor: [11.5, 0], // Bottom middle
-        },
-        // Apparently players have an icon of "6" so, might as well make normal that
-        6: {
-            name: "Player",
-            iconUrl: config.iconDirectory + "/normal.png",
-            iconSize: [22, 32],
-            popupAnchor: [0, 0],
-            iconAnchor: [11, 0],
-        },
-    };
-
-    blipCss = `.blip {
-        background: url("${config.iconDirectory}/blips_texturesheet.png");
-        background-size: ${1024 / 2}px ${2000 / 2}px;
-        display: inline-block;
-        width: ${customImageWidth}px;
-        height: ${customImageHeight}px;
-    }`;
-
-    generateBlipShit();
-};
-
-const generateBlipShit = () => {
-    var currentX = 0,
-        currentY = 0,
-        currentId = 0;
-    const linePadding = 0;
-
-    for (var blipName in types) {
-        var blip = types[blipName];
-
-        if (typeof blip.id !== "undefined") {
-            currentId = blip.id;
-        } else {
-            currentId++;
-        }
-
-        if (typeof blip.x !== "undefined") {
-            currentX = blip.x;
-        } else {
-            currentX++;
-        }
-
-        if (typeof blip.y !== "undefined") {
-            currentY = blip.y;
-        }
-
-        MarkerTypes[currentId] = {
-            name: blipName.replace(/([A-Z0-9])/g, " $1").trim(),
-            className: `blip blip-${blipName}`,
-            iconUrl:
-                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=",
-            iconSize: [customImageWidth, customImageHeight],
-            iconAnchor: [customImageWidth / 2, 0],
-            popupAnchor: [0, 0],
-
-            //scaledSize: [ 1024/2,1024/2 ],
-            //origin: [ customImageWidth * currentX , customImageHeight * currentY ],
+        this.MarkerTypes = {
+            0: {
+                name: "Blank Icon",
+                iconUrl:
+                    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=",
+                iconSize: [0, 0],
+                popupAnchor: [0, 0],
+                iconAnchor: [0, 0],
+            },
+            999: {
+                name: "Debug Icon",
+                iconUrl: config.iconDirectory + "/debug.png",
+                iconSize: [23, 32],
+                popupAnchor: [0, 0],
+                iconAnchor: [11.5, 0], // Bottom middle
+            },
+            // Apparently players have an icon of "6" so, might as well make normal that
+            6: {
+                name: "Player",
+                iconUrl: config.iconDirectory + "/normal.png",
+                iconSize: [22, 32],
+                popupAnchor: [0, 0],
+                iconAnchor: [11, 0],
+            },
         };
+      
+        this.blipCss = `.blip {
+            background: url("${config.iconDirectory}/blips_texturesheet.png");
+            background-size: ${1024 / 2}px ${1024 / 2}px;
+            display: inline-block;
+            width: ${customImageWidth}px;
+            height: ${customImageHeight}px;
+        }`;
 
-        nameToId[blipName] = currentId;
-
-        // CSS GENERATOR FOR BLIP ICONS IN HTML
-        // Just add the class "blip blip-<NAME>" to the element for blip icons
-        // e.g. <span class="blip blip-Standard"> for a Standard blip
-        var left = currentX * customImageWidth + linePadding; // 0 = padding between images
-        var top = currentY * customImageHeight + linePadding; // 0 = padding
-
-        // For styling spans and shit
-        blipCss += `.blip-${blipName} { background-position: -${left}px -${top}px }\n`;
+        this.generateBlipShit(controls);
     }
 
-    let style = document.createElement("style");
-    style.innerHTML = blipCss;
-    document.getElementsByTagName("head")[0].appendChild(style);
+    /**
+     *
+     *
+     * @param {Controls} controls
+     * @memberof Markers
+     */
+    generateBlipShit(controls) {
+        var currentX = 0,
+            currentY = 0,
+            currentId = 0;
+        const linePadding = 0;
 
-    setTimeout(() => generateBlipControls(), 50);
-};
+        for (var blipName in types) {
+            var blip = types[blipName];
+
+            if (typeof blip.id !== "undefined") {
+                currentId = blip.id;
+            } else {
+                currentId++;
+            }
+
+            if (typeof blip.x !== "undefined") {
+                currentX = blip.x;
+            } else {
+                currentX++;
+            }
+
+            if (typeof blip.y !== "undefined") {
+                currentY = blip.y;
+            }
+
+            this.MarkerTypes[currentId] = {
+                name: blipName.replace(/([A-Z0-9])/g, " $1").trim(),
+                className: `blip blip-${blipName}`,
+                iconUrl:
+                    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAFElEQVR4XgXAAQ0AAABAMP1L30IDCPwC/o5WcS4AAAAASUVORK5CYII=",
+                iconSize: [customImageWidth, customImageHeight],
+                iconAnchor: [customImageWidth / 2, 0],
+                popupAnchor: [0, 0],
+
+                //scaledSize: [ 1024/2,1024/2 ],
+                //origin: [ customImageWidth * currentX , customImageHeight * currentY ],
+            };
+
+            this.nameToId[blipName] = currentId;
+
+            // CSS GENERATOR FOR BLIP ICONS IN HTML
+            // Just add the class "blip blip-<NAME>" to the element for blip icons
+            // e.g. <span class="blip blip-Standard"> for a Standard blip
+            var left = currentX * customImageWidth + linePadding; // 0 = padding between images
+            var top = currentY * customImageHeight + linePadding; // 0 = padding
+
+            // For styling spans and shit
+            this.blipCss += `.blip-${blipName} { background-position: -${left}px -${top}px }\n`;
+        }
+
+        let style = document.createElement("style");
+        style.innerHTML = this.blipCss;
+        document.getElementsByTagName("head")[0].appendChild(style);
+
+        const _ = this;
+        setTimeout(() => controls.generateBlipControls(_), 50);
+    }
+}
+///setTimeout(generateBlipShit, 50);
+
+export { types, Markers };

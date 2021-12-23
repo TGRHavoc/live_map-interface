@@ -1,52 +1,44 @@
-import "../sass/main.scss";
+import { Config } from "./config.js";
+import { Translator } from "./translator.js";
+import { SocketHandler } from "./socket.js";
+import { MapWrapper } from "./map.js";
+import { Alerter } from "./alerter.js";
+import { VersionCheck } from "./version-check.js";
+import { Initializer } from "./init.js";
 
-import * as Config from "./config";
-import * as Translator from "./translator";
-import * as MapWrapper from "./map";
-import { SocketHandler } from "./socket";
-import * as Initializer from "./init";
-import { doUpdateChecks } from "./version-check";
+(async () => {
+    window.Alerter = Alerter;
 
-async function init() {
+    // let translator = new Translator();
+
     let config = null;
 
     try {
-        await Translator.init();
         await Translator.getLanguageFromFile();
 
         config = await Config.getConfigFileFromRemote();
     } catch (ex) {
         console.error("Couldn't load LiveMap");
         console.error(ex);
+        return;
     }
 
-    Initializer.initConsole(config.debug);
+    if (!config.debug) {
+        console.log("Disabling console.log... Goodbye console!");
+        console.log = function () {}; // If we don't have debugging enabled. Just route all console.log's to an empty function
+    }
 
-    doUpdateChecks();
-
-    // window.VersionCheck = new VersionCheck();
+    window.VersionCheck = new VersionCheck();
 
     for (const serverName in config.servers) {
         // Make sure all servers inherit defaults if they need
         let o = Object.assign({}, config.defaults, config.servers[serverName]);
-
-        config.servers[serverName] = o;
-        // Config.addServer(serverName, o);
+        Config.staticConfig.servers[serverName] = o;
     }
 
-    const socketHandler = new SocketHandler();
-    // const mapWrapper = new MapWrapper(socketHandler);
-    MapWrapper.init(socketHandler);
+    const socketHandler = (window.socketHandler = new SocketHandler());
+    const mapWrapper = (window.mapWrapper = new MapWrapper(socketHandler));
 
     Initializer.page(config);
-    MapWrapper.changeServer(Object.keys(config.servers)[0]); // Show the stuff for the first server in the config.
-
-    // Do any query string stuff here...
-    Initializer.hashHandler();
-
-    window.onhashchange = () => {
-        Initializer.hashHandler();
-    };
-}
-
-init();
+    mapWrapper.changeServer(Object.keys(Config.staticConfig.servers)[0]); // Show the stuff for the first server in the config.
+})();

@@ -2,10 +2,11 @@
 
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 
 var config = {
     mode: "production",
-    devtool: "eval-cheap-module-source-map",
+    devtool: "source-map",
     module: {
         rules: [
             {
@@ -22,9 +23,23 @@ var config = {
         ],
     },
     entry: {
-        app: "./src/js/_app.js"
+        vendors: {
+            import: ["leaflet", "leaflet.markercluster", "@popperjs/core", "bootstrap"],
+        },
+
+        style: "./src/sass/main.scss",
+        app: {
+            dependOn: "vendors",
+            import: "./src/js/_app.js",
+        }
+    },
+    optimization: {
+        runtimeChunk: "single"
     },
     plugins: [
+        new webpack.ProvidePlugin({
+            L: "leaflet",
+        }),
         // Dev build, for dev server
         new HtmlWebpackPlugin({
             template: "./public/index.html",

@@ -1,9 +1,50 @@
-import { JsonStrip } from "./utils";
-import { Alerter } from "./alerter";
+import { JsonStrip } from "./utils.js";
+import { Alerter } from "./alerter.js";
 
-import { t } from "./translator";
+import { Translator } from "./translator";
 
-const defaultConfig = {
+class Config {
+    constructor() {}
+
+    static getConfig() {
+        if (JSON.stringify(this.staticConfig) === "{}") {
+            this.getConfigFileFromRemote();
+            console.warn("config didn't exist... try getting it again");
+        }
+
+        return this.staticConfig;
+    }
+
+    static async getConfigFileFromRemote() {
+        const lang = Translator;
+
+        try {
+            let config = await fetch("config.json");
+
+            let configData = await config.text();
+            // console.log("Parsing: ", configData);
+
+            let str = JsonStrip.stripJsonOfComments(configData);
+            let configParsed = JSON.parse(str);
+            Config.staticConfig = Object.assign(
+                Config.defaultConfig,
+                configParsed
+            );
+
+            return Promise.resolve(configParsed);
+        } catch (ex) {
+            console.error(ex);
+            new Alerter({
+                status: "error",
+                title: lang.t("errors.getting-config.title"),
+                text: lang.t("errors.getting-config.message", { error: ex }),
+            });
+            return Promise.reject(ex);
+        }
+    }
+}
+
+Config.defaultConfig = {
     debug: false,
     tileDirectory: "images/tiles",
     iconDirectory: "images/icons",
@@ -15,43 +56,6 @@ const defaultConfig = {
     },
     servers: [],
 };
+Config.staticConfig = {};
 
-export let config = {};
-
-export const getConfig = async () => {
-    if (JSON.stringify(config) === "{}") {
-        await getConfigFileFromRemote();
-        console.warn("config didn't exist... try getting it again");
-    }
-
-    return config;
-};
-
-export const getConfigFileFromRemote = async () => {
-    try {
-        let resp = await fetch("config.json");
-
-        let configData = await resp.text();
-        // console.log("Parsing: ", configData);
-
-        let str = JsonStrip.stripJsonOfComments(configData);
-        let configParsed = JSON.parse(str);
-        config = Object.assign({}, defaultConfig, configParsed);
-
-        return Promise.resolve(configParsed);
-    } catch (ex) {
-        console.error(ex);
-        new Alerter({
-            status: "error",
-            title: t("errors.getting-config.title"),
-            text: t("errors.getting-config.message", {
-                error: ex,
-            }),
-        });
-        return Promise.reject(ex);
-    }
-};
-
-export const addServer = (serverName, conf) => (config[serverName] = conf);
-
-export default config;
+export { Config };

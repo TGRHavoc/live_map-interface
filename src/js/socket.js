@@ -1,6 +1,10 @@
-import { t } from "./translator";
-import { Alerter } from "./alerter";
-import { Utils } from "./utils";
+import { Config } from "./config.js";
+import { Alerter } from "./alerter.js";
+import { MapWrapper } from "./map.js";
+import { Markers } from "./markers.js";
+import { Utils } from "./utils.js";
+
+import { Translator } from "./translator";
 
 //TODO: Document the player and blip objects
 // TODO: Document the array of player objects
@@ -11,12 +15,14 @@ class SocketHandler {
      * @memberof SocketHandler
      */
     constructor() {
+        this.config = Config.getConfig();
         this.webSocket = null;
         this.localPlayerCache = {};
     }
 
+    //FIXME: We should pass a reference to mapWrapper here and call it's functions
     connect(connectionString, mapWrapper) {
-        if (this.webSocket !== null) {
+        if (this.webSocket != null) {
             // Clean up the current websocket connection
             this.webSocket.close();
             this.webSocket = null;
@@ -33,15 +39,15 @@ class SocketHandler {
         this.webSocket.onclose = this.onClose.bind(this);
     }
 
-    onOpen() {
+    onOpen(e) {
         console.log(
-            "_isConnected: " + this.webSocket.readyState === WebSocket.OPEN
+            "_isConnected: " + this.webSocket.readyState == WebSocket.OPEN
         );
         let conn = document.getElementById("connection");
 
         conn.classList.remove("bg-danger", "bg-warning");
         conn.classList.add("bg-success");
-        conn.textContent = window.Translator.t("generic.connected");
+        conn.textContent = Translator.t("generic.connected");
 
         //document.getElementById("socket_error").textContent = "";
     }
@@ -63,12 +69,12 @@ class SocketHandler {
         let data = JSON.parse(e.data);
 
         if (
-            data.type === "addBlip" ||
-            data.type === "updateBlip" ||
-            data.type === "removeBlip"
+            data.type == "addBlip" ||
+            data.type == "updateBlip" ||
+            data.type == "removeBlip"
         ) {
             // BACKWARDS COMPATABILITY!!
-            if (!Object.prototype.hasOwnProperty.call(data.payload, "pos")) {
+            if (!data.payload.hasOwnProperty("pos")) {
                 data.payload.pos = {
                     x: data.payload.x,
                     y: data.payload.y,
@@ -81,33 +87,35 @@ class SocketHandler {
             }
         }
 
-        if (data.type === "addBlip") {
+        if (data.type == "addBlip") {
             mapWrapper.addBlip(data.payload);
             // this.addBlip(data.payload);
-        } else if (data.type === "removeBlip") {
+        } else if (data.type == "removeBlip") {
             mapWrapper.removeBlip(data.payload);
             // this.removeBlip(data.payload);
-        } else if (data.type === "updateBlip") {
+        } else if (data.type == "updateBlip") {
             mapWrapper.updateBlip(data.payload);
             // this.updateBlip(data.payload);
-        } else if (data.type === "playerData") {
+        } else if (data.type == "playerData") {
             //console.log("updating players(" + typeof(data.payload) + "): " + JSON.stringify(data.payload));
             let sortedPlayers = data.payload.sort(Utils.playerNameSorter);
             //this.doPlayerUpdate(sortedPlayers);
             mapWrapper.doPlayerUpdate(sortedPlayers);
-        } else if (data.type === "playerLeft") {
+        } else if (data.type == "playerLeft") {
             //console.log("player left:" + data.payload);
             //this.playerLeft(data.payload);
             mapWrapper.playerLeft(data.payload);
         }
     }
 
-    onError() {
+    onError(event) {
+        // TODO: Alert the user?
+
         new Alerter({
-            title: t("errors.socket-error"),
+            title: Translator.t("errors.socket-error"),
             status: "error",
             autoclose: true,
-            text: t("errors.getting-config.message", {
+            text: Translator.t("errors.getting-config.message", {
                 error: {
                     message:
                         "There was an error with your websocket connection.",
@@ -116,12 +124,12 @@ class SocketHandler {
         });
     }
 
-    onClose() {
+    onClose(event) {
         let conn = document.getElementById("connection");
 
         conn.classList.remove("bg-success", "bg-warning");
         conn.classList.add("bg-danger");
-        conn.textContent = t("generic.disconnected");
+        conn.textContent = Translator.t("generic.disconnected");
     }
 }
 

@@ -11,10 +11,6 @@
         rel="icon" type="image/x-icon">
 
     <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-
 </head>
 
 <body>
@@ -57,10 +53,15 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="selectLanguageDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <span data-i18n="navbar.language">Language</span> <span id="currentLang"
-                                    class="badge bg-info">en</span>
+                            <a class="nav-link dropdown-toggle" 
+                                href="#" 
+                                id="selectLanguageDropdown"
+                                role="button"
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false">
+
+                                <span data-i18n="navbar.language">Language</span> 
+                                <span id="currentLang" class="badge bg-info">en</span>
                             </a>
                             <ul id="availableLanguages" class="dropdown-menu" aria-labelledby="selectLanguageDropdown">
                             </ul>
@@ -74,9 +75,9 @@
     <!-- Control modals. Best way I can think of getting the controls to be nice on mobile -->
 
     <!-- Controls modal -->
-    <div class="modal fade show" id="controlsModal" tabindex="-1" aria-labelledby="controlsModalTitle" aria-modal="true"
+    <div class="modal fade" id="controlsModal" tabindex="-1" aria-labelledby="controlsModalTitle" aria-modal="true"
         role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-fullscreen-lg-down modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="controlsModalTitle" data-i18n="controls.title controls.title"
@@ -192,9 +193,10 @@
     <!-- end controls modal -->
 
     <!-- Blip control modal -->
-    <div class="modal fade show" id="blipsControlModal" tabindex="-1" aria-labelledby="blipsControlModalTitle"
+    <div class="modal fade" id="blipsControlModal" tabindex="-1" aria-labelledby="blipsControlModalTitle"
         aria-modal="true" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+        <div class="modal-dialog modal-fullscreen-lg-down modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="blipsControlModalTitle"
@@ -203,6 +205,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" data-i18n="generic.close"
                         data-i18n-attr="aria-label" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
                     <div id="blipFilterDropdown" class="custom-menu col-sm-0 col-xs-0 col-md-12">
                         <div class="list-group border-0 card text-center text-md-left" style="padding: 8px 0;">
