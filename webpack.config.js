@@ -22,7 +22,11 @@ var config = {
         ],
     },
     entry: {
-        app: "./src/js/_app.js"
+        style: "./src/sass/main.scss",
+        app: "./src/js/_app.js",
+    },
+    optimization: {
+        runtimeChunk: "single"
     },
     plugins: [
         // Dev build, for dev server
