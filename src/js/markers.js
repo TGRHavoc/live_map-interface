@@ -1,9 +1,12 @@
-import { Config } from "./config.js";
-import { Controls } from "./controls.js";
+/* eslint-disable prettier/prettier */
+// divide by 2 since we want to make icons 32x32 image
 
-// divide by 2 since we want to make icons 32x32 images
-const customImageWidth = 64 / 2; // 64 =  sheetWidth / 16 (amount of images)
-const customImageHeight = 64 / 2; // 64 = sheetHeight / 16 (amount of images)
+const textureSheetWidth = 1024; // px
+const textureSheetHeight = 2000; // px
+
+// Icons will always be 32x32 pixels in size?
+const customImageWidth = 32;
+const customImageHeight = 32;
 
 // FUCK ME, GTA HAS A LOT OF FUCKING BLIPS
 const types = {
@@ -222,10 +225,10 @@ class Markers {
                 iconAnchor: [11, 0],
             },
         };
-      
+
         this.blipCss = `.blip {
             background: url("${config.iconDirectory}/blips_texturesheet.png");
-            background-size: ${1024 / 2}px ${1024 / 2}px;
+            background-size: ${textureSheetWidth / 2}px ${textureSheetHeight / 2}px;
             display: inline-block;
             width: ${customImageWidth}px;
             height: ${customImageHeight}px;
